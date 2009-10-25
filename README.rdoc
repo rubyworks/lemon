@@ -1,0 +1,35 @@
+= Lemon
+
+== DESCRIPTION
+
+Unit Testing framework that forces the developer into a
+class-method mirror construction of test cases. Arguably
+this promotes the proper technique for unit testing, as it
+helps ensure good test coverage.
+
+== SYNOPSIS
+
+Say our library consists of the class X:
+
+  class X
+    def a; "a"; end
+  end
+
+We write a testcase as follows:
+
+  testcase X do
+    unit :a do
+      returns String
+    end
+  end
+
+The run from the commandline:
+
+  $ utest test/cases/
+
+== COPYRIGHT
+
+(GPL License)
+
+Copyright (c) 2009 Thomas Sawyer
+

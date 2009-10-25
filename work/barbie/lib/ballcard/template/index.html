@@ -1,0 +1,50 @@
+<html>
+
+<head>
+  <title><%= title %> Stats</title>
+  <style>
+    h2{margin: 5px 0;}
+    table{width: 95%;}
+    th{background: #dcc;}
+    td{padding: 5px;}
+    .basic_stats{margin: 0 auto; width: 800px;}
+  </style>
+  <link rel="stylesheet" type="text/css" href="stats.css"/>
+</head>
+
+<body>
+
+<div class="basic_stats">
+
+  <h1><%= title %> -- Basic Code Statistics</h1>
+
+  <table class="counts" border="1">
+    <tr><th colspan="9"><h2>Counts</h2></th></tr>
+    <%= html_rowh % [ "TYPE"  , *head ] %>
+    <%= html_rowd % [ "Source", *prod ] %>
+    <%= html_rowd % [ "Test"  , *test ] %>
+    <%= html_rowd % [ "Total" , *totl ] %>
+  </table>
+
+  <br/>
+
+  <table class="ratios" border="1">
+    <tr><th colspan="6"><h2>Ratios</h2></th></tr>
+    <tr><th>x:1</th><th>Code</th><th>Docs</th><th>Blank</th><th>Test</th><th>Total</th></tr>
+    <%= html_row2 % [ "Code"  , rat[c,c], rat[c,r], rat[c,s], rat[c,t], rat[c,l] ] %>
+    <%= html_row2 % [ "Docs"  , rat[r,c], rat[r,r], rat[r,s], rat[r,t], rat[r,l] ] %>
+    <%= html_row2 % [ "Blank" , rat[s,c], rat[s,r], rat[s,s], rat[s,t], rat[s,l] ] %>
+    <%= html_row2 % [ "Test"  , rat[t,c], rat[t,r], rat[t,s], rat[t,t], rat[t,l] ] %>
+    <%= html_row2 % [ "Total" , rat[l,c], rat[l,r], rat[l,s], rat[l,t], rat[l,l] ] %>
+  </table>
+
+  <br/>
+
+  <div class="date"><%= Time.now.to_s %></div>
+
+</div>
+
+</body>
+
+</html>
+

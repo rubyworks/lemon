@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require 'lemon'
+
+files = ARGV
+
+suite = Test::Suite.new(*files)
+
+runner = Test::Runner.new(suite)
+
+runner.run
+
