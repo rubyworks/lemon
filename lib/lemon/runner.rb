@@ -1,115 +1,64 @@
 require 'ae'
 require 'ae/expect'
+require 'ae/should'
 
-module Test
+require 'lemon/kernel'
 
-  #
-  class Suite
-    attr :testcases
+require 'lemon/suite'
+require 'lemon/case'
+require 'lemon/unit'
 
-    def initialize(*files)
-      @files     = files
-      @testcases = []
-      files.each do |file|
-        load(file)
-      end
-    end
+require 'lemon/reporter'
 
-    def load(file)
-      instance_eval(File.read(file))
-    end
-
-    def testcase(target_class, &block)
-      testcases << Case.new(target_class, &block)
-    end
-
-    def each(&block)
-      @testcases.each(&block)
-    end
-  end
-
-  #
-  class Case
-    attr :testunits
-
-    def initialize(target_class, &block)
-      @target_class = target_class
-      @testunits = []
-      instance_eval(&block)
-    end
-
-    def unit(target_method, &block)
-      @testunits << Unit.new(target_method, &block)
-    end
-
-    def each(&block)
-      @testunits.each(&block)
-    end
-  end
-
-  #
-  class Unit
-    attr :concerns
-
-    def initialize(target_method, &block)
-      @target_method = target_method
-      @concerns = []
-      instance_eval(&block)
-    end
-
-    def concern(description, &block)
-      @concerns << Concern.new(description, &block)
-    end
-
-    def each(&block)
-      @concerns.each(&block)
-    end
-  end
-
-  #
-  class Concern
-    attr :description
-
-    def initialize(description, &block)
-      @description = description
-      @testblock   = block
-    end
-
-    def call
-      @testblock.call
-    end
-  end
+module Lemon
 
   #
   class Runner
+    attr :suite
 
+    attr :successes
+    attr :failures
+    attr :errors
+
+    #
     def initialize(suite)
       @suite    = suite
-      @failures = []
-      @errors   = []
+
+      @successes = []
+      @failures  = []
+      @errors    = []
     end
 
+    #
     def run
+      reporter.report_start(suite)
       @suite.each do |testcase|
         testcase.each do |testunit|
-          testunit.each do |concern|
-            begin
-              concern.call
-            rescue Assertion => err
-              reporter.puts err
-              @failures << err
-            rescue => err
-              reporter.puts err
-              @errors << err
-            end
+          testcase.before_clauses.each do |match, block|
+            block.call(testunit) if match === testunit.test_concern
+          end
+          begin
+            testunit.call
+            reporter.report_success(testunit)
+            successes << testunit
+          rescue Assertion => exception
+            reporter.report_failure(testunit, exception)
+            failures << [testunit, exception]
+          rescue Exception => exception
+            reporter.report_error(testunit, exception)
+            errors << [testunit, exception]
+          end
+          afters = testcase.after_clauses.each do |match, block|
+            block.call(testunit) if match === testunit.test_concern
           end
         end
       end
+      reporter.report_finish(successes, failures, errors)
     end
 
     #
     def reporter
-      $stdout
+      @reporter ||= Reporter.new
     end
 
   end

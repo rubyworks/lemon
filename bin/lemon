@@ -4,9 +4,8 @@ require 'lemon'
 
 files = ARGV
 
-suite = Test::Suite.new(*files)
-
-runner = Test::Runner.new(suite)
+suite  = Lemon::Test::Suite.new(*files)
+runner = Lemon::Runner.new(suite)
 
 runner.run
 
