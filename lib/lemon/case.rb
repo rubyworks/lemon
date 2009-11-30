@@ -45,10 +45,14 @@ module Lemon
         @before_clauses[match] = block #<< Advice.new(match, &block)
       end
 
+      alias_method :before, :Before
+
       #
       def After(match=nil, &block)
         @after_clauses[match] = block #<< Advice.new(match, &block)
       end
+
+      alias_method :after, :After
 
       #
       def each(&block)

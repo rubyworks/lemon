@@ -22,12 +22,12 @@ module Lemon
       end
 
       #
-      def Test(target_class, &block)
+      def TestCase(target_class, &block)
         test_cases << Case.new(self, target_class, &block)
       end
 
       #
-      alias_method :testcase, :Test
+      alias_method :testcase, :TestCase
 
       #
       def each(&block)
