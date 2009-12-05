@@ -1,11 +1,41 @@
 #!/usr/bin/env ruby
 
 require 'lemon'
+require 'lemon/coverage'
+require 'optparse'
+require 'yaml'
 
-files = ARGV
+command = nil
+options = {}
 
-suite  = Lemon::Test::Suite.new(*files)
-runner = Lemon::Runner.new(suite)
+parser = OptionParser.new do |opt|
+  opt.on('--coverage', '--cov', '-c') do
+    command = :coverage
+  end
+  opt.on("-I [PATH]" , 'include in $LOAD_PATH') do |path|
+    options[:include] = path
+  end
+  opt.on("-r [FILES]" , 'scripts to require') do |files|
+    options[:require] = files
+  end
+  opt.on_tail('--help', '-h', 'show this help message') do
+    puts opt
+    exit
+  end
+end
 
-runner.run
+parser.parse!
+
+tests = ARGV
+
+case command
+when :coverage
+  cover  = Lemon::Coverage.new(*options[:require])
+  suite  = Lemon::Test::Suite.new(*tests)
+  puts cover.coverage(suite).to_yaml
+else
+  suite  = Lemon::Test::Suite.new(*tests)
+  runner = Lemon::Runner.new(suite)
+  runner.run
+end
 
