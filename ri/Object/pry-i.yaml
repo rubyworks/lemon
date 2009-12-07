@@ -1,0 +1,14 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Pry allows you to test private and protected methods, via a public-only interface.
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Generally one should avoid testing private and protected method directly, instead relying on tests of public methods to indirectly test them, because private and protected methods are considered implementation details. But sometimes is necessary to test them directly, or if you wish to achieve *absolute coverage*, say in mission critical systems.
+full_name: Object#pry
+is_singleton: false
+name: pry
+params: ()
+visibility: public

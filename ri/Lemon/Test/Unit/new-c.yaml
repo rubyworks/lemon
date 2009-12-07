@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: Lemon::Test::Unit::new
+is_singleton: true
+name: new
+params: (test_case, target_method, target_concern, &test_procedure)
+visibility: public

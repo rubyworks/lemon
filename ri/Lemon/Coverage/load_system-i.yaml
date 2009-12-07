@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: Lemon::Coverage#load_system
+is_singleton: false
+name: load_system
+params: ()
+visibility: public

@@ -1,0 +1,29 @@
+--- !ruby/object:RDoc::RI::ClassDescription 
+attributes: 
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  name: paths
+  rw: R
+class_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: new
+comment: []
+
+constants: []
+
+full_name: Lemon::Coverage
+includes: []
+
+instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: cover
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: coverage
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: load_system
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: snapshot
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: system
+name: Coverage
+superclass: Object

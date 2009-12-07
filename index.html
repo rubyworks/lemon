@@ -1,0 +1,134 @@
+<html>
+<head>
+  <title>Lemon</title>
+  <link href="assets/styles/reset.css" rel="stylesheet" type="text/css"/>
+  <link href="assets/styles/site.css" rel="stylesheet" type="text/css"/>
+  <link href="assets/images/lemon.jpg" rel="shortcut icon"/>
+</head>
+<body>
+
+<div id="nav">
+<div class="page">
+  <!-- <a href="guide/doc.en/index.html">English Manual</a> &nbsp;&middot;&nbsp; -->
+  <a href="rdoc/index.html">API Documents</a> &nbsp;&middot;&nbsp;
+  <a href="http://github.com/proutils/lemon/wiki">Wiki-Wiki</a> &nbsp;&middot;&nbsp;
+  <a href="http://googlegroups/group/proutils">Mailing List</a> &nbsp;&middot;&nbsp;
+  <a href="http://github.com/proutils/lemon">Development</a>
+</div>
+</div>
+
+<div id="header">
+<div class="page">
+  <img src="assets/images/cut-lemon.png" height="200px" align="right"/>
+  <h1><img src="assets/images/title.png"/></h1>
+</div>
+</div>
+
+<div id="main">
+<div class="page">
+
+  <h2>Pucker-Strength Unit Testing</h2>
+
+  <p>Lemon is a Unit Testing framework that forces the developer into a
+  class-to-case method-to-unit mirrored construction of tests.
+  This promotes the very proper technique for unit testing, as it
+  helps ensure test coverage.</p>
+
+ <p>Let's say our library consists of the class <code>X</code> with method <code>#a</code>:<p>
+
+  <pre>
+  class X
+    def a; "a"; end
+  end
+  </pre>
+
+  <p>We write a testcase as follows:</p>
+
+  <pre>
+  testcase X do
+    unit :a do
+      X.new.a.assert.is_a? String
+    end
+  end
+  </pre>
+
+  <p>The run the lemon test from the commandline:</p>
+
+  <pre>
+  $ lemon test/cases/*.rb
+  </pre>
+
+  <p>There are numerous configuration options:</p>
+
+  <pre>
+  USAGE: lemon [options] tests1 [tests2 ...]
+
+  OPTIONS:
+       --prefix                   path prefix of target environment
+       --bindir                   directory for commands
+       --libdir                   directory for libraries
+       --datadir                  directory for shared data
+       --mandir                   directory for man pages
+       --docdir                   Directory for documentation
+       --sysconfdir               directory for system configuration files
+       --localstatedir            directory for local state data
+       --libruby                  directory for ruby libraries
+       --librubyver               directory for standard ruby libraries
+       --librubyverarch           directory for standard ruby extensions
+       --siteruby                 directory for version-independent aux ruby libraries
+       --siterubyver              directory for aux ruby libraries
+       --siterubyverarch          directory for aux ruby binaries
+       --rbdir                    directory for ruby scripts
+       --sodir                    directory for ruby extentions
+       --rubypath                 path to set to #! line
+       --rubyprog                 ruby program used for installation
+       --makeprog                 make program to compile ruby extentions
+       --extconfopt               options to pass-thru to extconf.rb
+       --withoutext               do not compile/install ruby extentions
+       --withoutdoc               do not generate documentation
+       --shebang                  shebang line (#!) editing mode (all,ruby,never)
+       --doctemplate              document template to use (html|xml)
+       --testrunner               Runner to use for testing (auto|console|tk|gtk|gtk2)
+       --installdirs              install location mode (std,site,home :: libruby,site_ruby,$HOME)
+
+  COMMON OPTIONS:
+    -q --quiet                    Silence output
+       --verbose                  Provide verbose output
+    -n --no-write                 Do not write to disk
+  </pre>
+
+
+  <h2>Current Status</h2>
+
+  <p>Lemon is currently under active development, and not quit ready for prime time. Hey, but it's close.</p>
+
+</div>
+</div>
+
+<div id="footer">
+  <script type="text/javascript"><!--
+  google_ad_client = "pub-1126154564663472";
+  /* PROUTILS 09-10-14 728x90 */
+  google_ad_slot = "0711173189";
+  google_ad_width = 728;
+  google_ad_height = 90;
+  //-->
+  </script>
+  <script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+  </script>
+
+  <br/><br/>
+
+  <img src="assets/images/lemons-are-good.jpg" height="200px" align="left" style="margin-bottom: 30px;"/>
+
+  <br/>
+
+  <div class="copyright">
+  Lemon Copyright (c) 2009 Thomas Sawyer <br/><br/>
+  Distributed under the terms of the MIT License
+  </div>
+</dir>
+
+</body>
+</html>

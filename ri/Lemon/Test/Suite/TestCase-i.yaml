@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: 
+- !ruby/object:RDoc::RI::AliasName 
+  name: testcase
+block_params: 
+comment: []
+
+full_name: Lemon::Test::Suite#TestCase
+is_singleton: false
+name: TestCase
+params: (target_class, &block)
+visibility: public

@@ -1,0 +1,56 @@
+--- !ruby/object:RDoc::RI::ClassDescription 
+attributes: 
+- !ruby/object:RDoc::RI::Attribute 
+  comment: []
+
+  name: after_clauses
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: []
+
+  name: before_clauses
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: []
+
+  name: test_class
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: []
+
+  name: test_suite
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: []
+
+  name: test_units
+  rw: R
+class_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: new
+comment: []
+
+constants: []
+
+full_name: Lemon::Test::Case
+includes: []
+
+instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: After
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: Before
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: Unit
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: after
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: before
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: each
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: to_s
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: unit
+name: Case
+superclass: Object

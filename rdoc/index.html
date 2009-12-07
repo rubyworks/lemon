@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Lemon</title>
+
+	<link type="text/css" media="screen" href="rdoc.css" rel="stylesheet" />
+
+	<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body class="indexpage">
+
+	
+	<h1>Lemon</h1>
+
+	
+	<div id="main">
+		
+<ul>
+<li><a href="http://proutils.github.com/lemon">proutils.github.com/lemon</a>
+
+</li>
+<li><a href="http://github.com/proutils/lemon">github.com/proutils/lemon</a>
+
+</li>
+</ul>
+<h2>DESCRIPTION</h2>
+<p>
+Unit Testing framework that forces the developer into a class-method mirror
+construction for test cases. Arguably this promotes the proper technique
+for unit testing, as it helps ensure good test coverage.
+</p>
+<h2>HOW TO USE</h2>
+<p>
+Say our library consists of the class X:
+</p>
+<pre>
+  class X
+    def a; &quot;a&quot;; end
+  end
+</pre>
+<p>
+We write a test case as follows:
+</p>
+<pre>
+  TestCase X do
+    Unit :a =&gt; &quot;returns a string&quot; do
+      x = X.new
+      x.a.assert.is_a? String
+    end
+  end
+</pre>
+<p>
+To run tests use the <tt>lemon</tt> command-line utility.
+</p>
+<pre>
+  $ lemon test/cases/
+</pre>
+<h2>Checking Test Coverage</h2>
+<p>
+NOTE: This feature is not yet implemented!
+</p>
+<pre>
+  $ lemon --check lib/ test/cases/
+</pre>
+<h2>Generating Test Skeletons</h2>
+<p>
+NOTE: This feature is not yet implemented!
+</p>
+<p>
+Because of the one to one correspondance of case-unit to class-method, <a
+href="Lemon.html">Lemon</a> can also generate test scaffolding for
+previously written code. To do this, use the <tt>--generate</tt> option and
+provide the location, or file glob, of the scripts for which to generate
+test scaffolding, and the output location for the test scripts.
+</p>
+<pre>
+  $ lemon --generate lib/ test/cases/
+</pre>
+<p>
+Generating test case scaffodling from code will undoubtedly strike
+test-driven developers as a case of putting the cart before the horse.
+However, it is not unreasonable to argue that high-level, behavior-driven,
+functional testing frameworks, such as Q.E.D. and Cucumber are better
+suited to test-first methodologies. While test-driven development can
+obviously be done with <a href="Lemon.html">Lemon</a>, unit-testing is more
+appropriate for testing specific, critical protions of code, or for
+achieving full test coverage for mission critical applications.
+</p>
+<h2>COPYRIGHT</h2>
+<p>
+(GPL License)
+</p>
+<p>
+Copyright &#169; 2009 Thomas Sawyer
+</p>
+
+	</div>
+	
+
+	
+	
+	<h2>Files</h2>
+	<ul>
+		
+			<li class="file"><a href="COPYING.html">COPYING</a></li>
+		
+			<li class="file"><a href="HISTORY.html">HISTORY</a></li>
+		
+			<li class="file"><a href="README_rdoc.html">README.rdoc</a></li>
+		
+	</ul>
+	
+
+	<h2>Classes/Modules</h2>
+	<ul>
+		
+		<li class="module"><a href="Lemon.html">Lemon</a></li>
+		
+		<li class="class"><a href="Lemon/Coverage.html">Lemon::Coverage</a></li>
+		
+		<li class="class"><a href="Lemon/Reporter.html">Lemon::Reporter</a></li>
+		
+		<li class="class"><a href="Lemon/Runner.html">Lemon::Runner</a></li>
+		
+		<li class="module"><a href="Lemon/Test.html">Lemon::Test</a></li>
+		
+		<li class="class"><a href="Lemon/Test/Case.html">Lemon::Test::Case</a></li>
+		
+		<li class="class"><a href="Lemon/Test/Suite.html">Lemon::Test::Suite</a></li>
+		
+		<li class="class"><a href="Lemon/Test/Unit.html">Lemon::Test::Unit</a></li>
+		
+		<li class="class"><a href="Object.html">Object</a></li>
+		
+	</ul>
+
+	<h2>Methods</h2>
+	<ul>
+		
+			<li><a href="Lemon/Test/Case.html#M000004">::new &mdash; Lemon::Test::Case</a></li>
+		
+			<li><a href="Lemon/Test/Unit.html#M000026">::new &mdash; Lemon::Test::Unit</a></li>
+		
+			<li><a href="Lemon/Coverage.html#M000000">::new &mdash; Lemon::Coverage</a></li>
+		
+			<li><a href="Lemon/Test/Suite.html#M000017">::new &mdash; Lemon::Test::Suite</a></li>
+		
+			<li><a href="Lemon/Runner.html#M000015">::new &mdash; Lemon::Runner</a></li>
+		
+			<li><a href="Lemon/Test/Case.html#M000011">#After &mdash; Lemon::Test::Case</a></li>
+		
+			<li><a href="Lemon/Test/Case.html#M000009">#Before &mdash; Lemon::Test::Case</a></li>
+		
+			<li><a href="Lemon/Test/Suite.html#M000019">#TestCase &mdash; Lemon::Test::Suite</a></li>
+		
+			<li><a href="Lemon/Test/Case.html#M000005">#Unit &mdash; Lemon::Test::Case</a></li>
+		
+			<li><a href="Lemon/Test/Case.html#M000012">#after &mdash; Lemon::Test::Case</a></li>
+		
+			<li><a href="Lemon/Test/Case.html#M000010">#before &mdash; Lemon::Test::Case</a></li>
+		
+			<li><a href="Lemon/Test/Unit.html#M000027">#call &mdash; Lemon::Test::Unit</a></li>
+		
+			<li><a href="Lemon/Coverage.html#M000002">#cover &mdash; Lemon::Coverage</a></li>
+		
+			<li><a href="Lemon/Coverage.html#M000001">#coverage &mdash; Lemon::Coverage</a></li>
+		
+			<li><a href="Lemon/Test/Suite.html#M000022">#each &mdash; Lemon::Test::Suite</a></li>
+		
+			<li><a href="Lemon/Test/Case.html#M000013">#each &mdash; Lemon::Test::Case</a></li>
+		
+			<li><a href="Lemon/Test/Suite.html#M000018">#load &mdash; Lemon::Test::Suite</a></li>
+		
+			<li><a href="Lemon/Coverage.html#M000003">#load_system &mdash; Lemon::Coverage</a></li>
+		
+			<li><a href="Object.html#M000032">#pry &mdash; Object</a></li>
+		
+			<li><a href="Lemon/Reporter.html#M000028">#report_error &mdash; Lemon::Reporter</a></li>
+		
+			<li><a href="Lemon/Reporter.html#M000025">#report_failure &mdash; Lemon::Reporter</a></li>
+		
+			<li><a href="Lemon/Reporter.html#M000029">#report_finish &mdash; Lemon::Reporter</a></li>
+		
+			<li><a href="Lemon/Reporter.html#M000023">#report_start &mdash; Lemon::Reporter</a></li>
+		
+			<li><a href="Lemon/Reporter.html#M000024">#report_success &mdash; Lemon::Reporter</a></li>
+		
+			<li><a href="Lemon/Runner.html#M000021">#reporter &mdash; Lemon::Runner</a></li>
+		
+			<li><a href="Lemon/Runner.html#M000016">#run &mdash; Lemon::Runner</a></li>
+		
+			<li><a href="Lemon/Coverage.html#M000007">#snapshot &mdash; Lemon::Coverage</a></li>
+		
+			<li><a href="Lemon/Coverage.html#M000006">#system &mdash; Lemon::Coverage</a></li>
+		
+			<li><a href="Lemon/Test/Suite.html#M000020">#testcase &mdash; Lemon::Test::Suite</a></li>
+		
+			<li><a href="Lemon/Test/Unit.html#M000030">#to_proc &mdash; Lemon::Test::Unit</a></li>
+		
+			<li><a href="Lemon/Test/Unit.html#M000031">#to_s &mdash; Lemon::Test::Unit</a></li>
+		
+			<li><a href="Lemon/Test/Case.html#M000014">#to_s &mdash; Lemon::Test::Case</a></li>
+		
+			<li><a href="Lemon/Test/Case.html#M000008">#unit &mdash; Lemon::Test::Case</a></li>
+		
+	</ul>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+</body>
+</html>
