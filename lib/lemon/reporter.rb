@@ -36,7 +36,7 @@ module Lemon
       end
 
       total = successes.size + failures.size + errors.size
-      puts "#{successes.size} pass, #{failures.size} failures, #{errors.size} errors"
+      puts "#{total} tests, #{failures.size} failures, #{errors.size} errors"
     end
 
   end

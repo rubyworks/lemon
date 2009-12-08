@@ -9,17 +9,28 @@ module Lemon
       attr :test_cases
 
       #
-      def initialize(*test_files)
-        @test_files = test_files
+      def initialize(*tests)
         @test_cases = []
-        test_files.each do |file|
-          load(File.expand_path(file))
+
+        # directories glob *.rb files
+        tests = tests.flatten.map do |file|
+          if File.directory?(file)
+            Dir[File.join(file, '**', '*.rb')]
+          else
+            file
+          end
+        end.flatten.uniq
+
+        tests.each do |file|
+          #file = File.expand_path(file)
+          instance_eval(File.read(file))
         end
       end
 
-      def load(file)
-        instance_eval(File.read(file))
-      end
+      #
+      #def load(file)
+      #  instance_eval(File.read(file))
+      #end
 
       #
       def TestCase(target_class, &block)

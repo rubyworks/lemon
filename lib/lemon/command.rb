@@ -86,20 +86,21 @@ module Lemon
     #
     def coverage(tests)
       cover  = Lemon::Coverage.new(requires, :public => public_only?)
-      suite  = Lemon::Test::Suite.new(*tests)
+      suite  = Lemon::Test::Suite.new(tests)
       puts cover.coverage(suite).to_yaml
     end
 
     #
     def generate(tests)
       cover  = Lemon::Coverage.new(requires, :public => public_only?)
-      #suite  = Lemon::Test::Suite.new(*tests)
+      #suite  = Lemon::Test::Suite.new(tests)
       puts cover.generate #(suite).to_yaml
     end
 
     #
     def test(tests)
-      suite  = Lemon::Test::Suite.new(*tests)
+      requires.each{ |path| require(path) }
+      suite  = Lemon::Test::Suite.new(tests)
       runner = Lemon::Runner.new(suite)
       runner.run
     end
