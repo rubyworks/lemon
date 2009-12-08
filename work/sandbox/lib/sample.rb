@@ -6,3 +6,8 @@ class X
 
 end
 
+class Y
+
+  def q; "q"; end
+
+end
