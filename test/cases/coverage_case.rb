@@ -14,7 +14,7 @@ testcase Lemon::Coverage do
     #X.new.a.assert =~ /^[a-z]*$/
   end
 
-  unit :system => 'returns a list of classes/modules currently in Ruby proccess' do
+  unit :system => 'returns a list of classes/modules currently in the Ruby proccess' do
     #1.assert == 4
   end
 
