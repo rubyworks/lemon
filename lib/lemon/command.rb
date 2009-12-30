@@ -7,8 +7,10 @@ require 'yaml'
 
 module Lemon
 
+  # Lemon Command-line tool.
   class Command
 
+    # Initialize and run.
     def self.run
       new.run
     end
@@ -83,21 +85,21 @@ module Lemon
       end
     end
 
-    #
+    # Check test coverage.
     def coverage(tests)
       cover  = Lemon::Coverage.new(requires, :public => public_only?)
       suite  = Lemon::Test::Suite.new(tests)
       puts cover.coverage(suite).to_yaml
     end
 
-    #
+    # Generate test skeletons.
     def generate(tests)
       cover  = Lemon::Coverage.new(requires, :public => public_only?)
       #suite  = Lemon::Test::Suite.new(tests)
       puts cover.generate #(suite).to_yaml
     end
 
-    #
+    # Run unit tests.
     def test(tests)
       requires.each{ |path| require(path) }
       suite  = Lemon::Test::Suite.new(tests)

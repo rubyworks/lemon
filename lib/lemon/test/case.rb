@@ -1,0 +1,100 @@
+module Lemon::Test
+
+  require 'lemon/test/concern'
+  require 'lemon/test/unit'
+
+  # Test Case encapsulates a collection of 
+  # unit tests organized into groups of concern.
+  class Case
+
+    # The test suite to which this testcase belongs.
+    attr :suite
+
+    # A testcase +target+ is a class or module.
+    attr :target
+
+    #
+    attr :testunits
+
+    # List of before procedures that apply case-wide.
+    attr :before_clauses
+
+    # List of after procedures that apply case-wide.
+    attr :after_clauses
+
+    # A test case +target+ is a class or module.
+    def initialize(suite, target, &block)
+      @suite          = suite
+      @target         = target
+      @testunits      = []
+      @before_clauses = {}
+      @after_clauses  = {}
+      @concerns       = []
+      instance_eval(&block)
+    end
+
+    # Load a helper script applicable to this test case.
+    def helper(file)
+      instance_eval(File.read(file), file)
+    end
+
+    # NOTE: Due to a limitation in Ruby this does not
+    # provived access to submodules. A hack has been used
+    # to circumvent. See Suite.const_missing.
+    def include(*mods)
+      extend *mods
+    end
+
+    # Define a new test concern for this case.
+    def Concern(*description)
+      concern = Concern.new(self, description)
+      @concerns << concern
+    end
+
+    alias_method :concern, :Concern
+
+    # The last defined concern. Used to assign new unit tests.
+    def current_concern
+      if @concerns.empty?
+        @concerns << Concern.new(self)
+      end
+      @concerns.last
+    end
+
+    # Define a unit test for this case.
+    def Unit(*targets, &block)
+      targets_hash = Hash===targets.last ? targets.pop : {}
+      targets_hash.each do |target_method, target_concern|
+        @testunits << Unit.new(current_concern, target_method, target_concern, &block)
+      end
+      targets.each do |target_method|
+        @testunits << Unit.new(current_concern, target_method, &block)
+      end
+    end
+    alias_method :unit, :Unit
+
+    # Define a before procedure for this case.
+    def Before(match=nil, &block)
+      @before_clauses[match] = block #<< Advice.new(match, &block)
+    end
+    alias_method :before, :Before
+
+    # Define an after procedure for this case.
+    def After(match=nil, &block)
+      @after_clauses[match] = block #<< Advice.new(match, &block)
+    end
+    alias_method :after, :After
+
+    # Iterate over each test concern.
+    def each(&block)
+      @concerns.each(&block)
+    end
+
+    #
+    def to_s
+      target.to_s.sub(/^\#\<.*?\>::/, '')
+    end
+  end
+
+end
+

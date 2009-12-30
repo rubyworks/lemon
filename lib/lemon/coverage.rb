@@ -30,9 +30,9 @@ module Lemon
     # Produce a coverage map.
     def coverage(suite)
       checklist = cover()
-      suite.each do |test_case|
-        test_case.each do |test_unit|
-          checklist[test_case.test_class.name][test_unit.test_method.to_s] = true
+      suite.each do |testcase|
+        testcase.testunits.each do |testunit|
+          checklist[testcase.target.name][testunit.target.to_s] = true
         end
       end
       checklist
