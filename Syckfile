@@ -31,7 +31,7 @@ dnote:
 ridoc:
   service: RIDoc
   include: ~
-  exclude: ~
+  exclude: [Syckfile]
   ignore : ~
   active : true
 

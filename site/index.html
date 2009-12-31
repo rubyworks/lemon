@@ -11,8 +11,8 @@
 <div class="page">
   <!-- <a href="guide/doc.en/index.html">English Manual</a> &nbsp;&middot;&nbsp; -->
   <a href="rdoc/index.html">API Documents</a> &nbsp;&middot;&nbsp;
-  <a href="http://github.com/proutils/lemon/wiki">Wiki-Wiki</a> &nbsp;&middot;&nbsp;
-  <a href="http://googlegroups/group/proutils">Mailing List</a> &nbsp;&middot;&nbsp;
+  <a href="http://wiki.github.com/proutils/lemon">Wiki-Wiki</a> &nbsp;&middot;&nbsp;
+  <a href="http://googlegroups.com/group/proutils">Mailing List</a> &nbsp;&middot;&nbsp;
   <a href="http://github.com/proutils/lemon">Development</a>
 </div>
 </div>
@@ -34,69 +34,54 @@
   This promotes the very proper technique for unit testing, as it
   helps ensure test coverage.</p>
 
- <p>Let's say our library consists of the class <code>X</code> with method <code>#a</code>:<p>
+  <h3>Writing Tests</h3>
+
+ <p>Let's say our library consists of the class <code>HelloWorld</code> with method <code>#to_s</code>:<p>
 
   <pre>
-  class X
-    def a; "a"; end
-  end
-  </pre>
-
-  <p>We write a testcase as follows:</p>
-
-  <pre>
-  testcase X do
-    unit :a do
-      X.new.a.assert.is_a? String
+  class HelloWorld
+    def to_s
+      "Hello, World!"
     end
   end
   </pre>
 
-  <p>The run the lemon test from the commandline:</p>
+  <p>We would write a Lemon test case along the following lines:</p>
+
+  <pre>
+  Case HelloWorld do
+    Concern "String output works as expected."
+
+    Unit :to_s => "returns a string" do
+      HelloWorld.new.to_s.assert.is_a?(String)
+    end
+
+    Unit :to_s => "returns the world famous phrase" do
+      HelloWorld.new.to_s.assert == "Hello, World!"
+    end
+  end
+  </pre>
+
+  <p>Obviously this is silly example, but it is enough to demonstrate
+  the general design of lemon tests.</p>
+
+  <p>Lemon uses the <a href="http://proutils.github.com/ae">Assertive Expressive</a>
+  assertions framework. This is the same verstile framework used by <a href="http://proutils.github.com/qed">Q.E.D.</a></p>
+
+  <h3>Running Tests</h3>
+
+  <p>The <tt>lemon</tt> command-tool allows your to run tests:</p>
 
   <pre>
   $ lemon test/cases/*.rb
   </pre>
 
-  <p>There are numerous configuration options:</p>
+  <p>By default the <tt>lemon</tt> command outputs the traditional dot-progress format. The <tt>--verbose</tt>
+  or <tt>-v</tt> option provides additional information about each unit test and concern
+  as they are executed.</p>
 
-  <pre>
-  USAGE: lemon [options] tests1 [tests2 ...]
-
-  OPTIONS:
-       --prefix                   path prefix of target environment
-       --bindir                   directory for commands
-       --libdir                   directory for libraries
-       --datadir                  directory for shared data
-       --mandir                   directory for man pages
-       --docdir                   Directory for documentation
-       --sysconfdir               directory for system configuration files
-       --localstatedir            directory for local state data
-       --libruby                  directory for ruby libraries
-       --librubyver               directory for standard ruby libraries
-       --librubyverarch           directory for standard ruby extensions
-       --siteruby                 directory for version-independent aux ruby libraries
-       --siterubyver              directory for aux ruby libraries
-       --siterubyverarch          directory for aux ruby binaries
-       --rbdir                    directory for ruby scripts
-       --sodir                    directory for ruby extentions
-       --rubypath                 path to set to #! line
-       --rubyprog                 ruby program used for installation
-       --makeprog                 make program to compile ruby extentions
-       --extconfopt               options to pass-thru to extconf.rb
-       --withoutext               do not compile/install ruby extentions
-       --withoutdoc               do not generate documentation
-       --shebang                  shebang line (#!) editing mode (all,ruby,never)
-       --doctemplate              document template to use (html|xml)
-       --testrunner               Runner to use for testing (auto|console|tk|gtk|gtk2)
-       --installdirs              install location mode (std,site,home :: libruby,site_ruby,$HOME)
-
-  COMMON OPTIONS:
-    -q --quiet                    Silence output
-       --verbose                  Provide verbose output
-    -n --no-write                 Do not write to disk
-  </pre>
-
+  <p>While still expiremental features, the <tt>lemon</tt> command can also be used to
+  check test coverage or generate test skeletons from pre-existing code.</p>
 
   <h2>Current Status</h2>
 
@@ -118,15 +103,15 @@
   src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   </script>
 
-  <br/><br/>
+  <br/><br/><br/>
 
-  <img src="assets/images/lemons-are-good.jpg" height="200px" align="left" style="margin-bottom: 30px;"/>
-
-  <br/>
+  <img src="assets/images/lemons-are-good.jpg" height="200px" align="left" style="margin: 0 30px 30px 0;"/>
 
   <div class="copyright">
-  Lemon Copyright (c) 2009 Thomas Sawyer <br/><br/>
-  Distributed under the terms of the MIT License
+    <p><b>Lemon</b>, Copyright &copy; 2009 Thomas Sawyer</p>
+    <a href="http://www.gnu.org/licenses/lgpl-3.0-standalone.html">
+      <img src="assets/images/lgplv3-147x51.png" align="left" style="margin: 0 0 20px 20px;" />
+    </a>
   </div>
 </dir>
 
