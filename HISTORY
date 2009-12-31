@@ -1,6 +1,13 @@
 = RELEASE HISTORY
 
-== 1.0 / 2009-11-30
+== 0.5 / 2009-12-31
+
+This is the initial public release of Lemon. Lemon is
+still under development and should be considered betaware,
+but it's API is stable and the system usable enough to 
+warrant a release.
+
+Changes:
 
 * Happy First Release Day!
 
