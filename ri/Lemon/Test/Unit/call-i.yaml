@@ -2,8 +2,9 @@
 aliases: []
 
 block_params: 
-comment: []
-
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: This method has the other end of the BIG FAT HACK. See Suite#const_missing.
 full_name: Lemon::Test::Unit#call
 is_singleton: false
 name: call

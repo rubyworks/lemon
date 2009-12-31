@@ -2,8 +2,9 @@
 aliases: []
 
 block_params: 
-comment: []
-
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: System to be covered. This takes a sanpshot of the system and then removes the conical snapshot.
 full_name: Lemon::Coverage#system
 is_singleton: false
 name: system

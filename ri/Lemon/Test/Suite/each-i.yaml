@@ -2,8 +2,9 @@
 aliases: []
 
 block_params: 
-comment: []
-
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Iterate through this suite's test cases.
 full_name: Lemon::Test::Suite#each
 is_singleton: false
 name: each

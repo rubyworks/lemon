@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Class: Lemon::Reporter</title>
+
+  
+    <link rel="SHORTCUT ICON" href="../../assets/icon/class.png">
+  
+
+  <link type="text/css" rel="stylesheet" href="../../assets/rdoc.css" media="screen" />
+  <link type="text/css" rel="stylesheet" href="../../assets/highlight/styles/github.css" title="GitHub" />
+
+  <script type="text/javascript" charset="utf-8" src="../../assets/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/highlight/highlight.pack.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/quicksearch.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/main.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready( function() {
+      hookHighlightSyntax();
+	    hookSourceViews();
+	    hookDebuggingToggle();
+	    hookQuickSearch();
+	    highlightLocationTarget();
+
+	    $('ul.link-list a').bind("click", highlightClickTarget);
+    });
+  </script>
+</head>
+<body class="class">
+<div id="main">
+
+  <div class="head">
+    <h1>
+      
+        <img src="../../assets/icon/class.png" align="absmiddle">&nbsp;
+      
+      <a href="../../index.html">Lemon</a>&nbsp;
+      <a href="/">Lemon::Reporter</a>
+    </h1>
+  </div>
+
+  <div id="metadata">
+    <div id="project-metadata">
+
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li class="file"><a href="../../files/lib/lemon/reporter_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/lemon/reporter.rb">lib/lemon/reporter.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
+      <!-- TODO: generalize this for all SCMs -->
+
+      
+    </div>
+
+    <div id="class-metadata">
+
+      <!-- Parent Class -->
+      
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        <ul>
+          
+          <!-- why was this class="link" ? -->
+          <li class="class"><a href="../Object.html">Object</a></li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Namespace Contents -->
+      
+
+      <!-- Method Quickref -->
+      
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+            
+            <li class="singleton">
+              <a href="#M000075">::factory</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000077">#report_concern</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000080">#report_error</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000079">#report_failure</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000081">#report_finish</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000076">#report_start</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000078">#report_success</a>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Included Modules -->
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Information</h3>
+        <ul>
+        
+          <li class="file"><a href="../../files/HISTORY.html">HISTORY</a></li>
+        
+          <li class="file"><a href="../../files/Syckfile.html">Syckfile</a></li>
+        
+          <li class="file"><a href="../../files/COPYING.html">COPYING</a></li>
+        
+          <li class="file"><a href="../../files/README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../../files/COPYING_LESSER.html">COPYING.LESSER</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../../assets/icon/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <!-- classpage.html : classes -->
+        <ul class="link-list">
+        
+          <li class="module"><a href="../../classes/Lemon.html">Lemon</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Command.html">Lemon::Command</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Coverage.html">Lemon::Coverage</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Reporter.html">Lemon::Reporter</a></li>
+        
+          <li class="module"><a href="../../classes/Lemon/Reporters.html">Lemon::Reporters</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Reporters/DotProgress.html">Lemon::Reporters::DotProgress</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Reporters/Verbose.html">Lemon::Reporters::Verbose</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Runner.html">Lemon::Runner</a></li>
+        
+          <li class="module"><a href="../../classes/Lemon/Test.html">Lemon::Test</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Test/Case.html">Lemon::Test::Case</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Test/Concern.html">Lemon::Test::Concern</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Test/Suite.html">Lemon::Test::Suite</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Test/Unit.html">Lemon::Test::Unit</a></li>
+        
+          <li class="class"><a href="../../classes/Object.html">Object</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+    </div>
+
+    <div id="validator-badges">
+      
+      <div style="float: right; margin-right: 5px;">
+        <a href="http://validator.w3.org/check/referer"><img src="../../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
+      </div>
+      Generated with <a href="http://github.com/proutils/webri">WebRI Redfish</a> 1.1
+      <br/><br/>
+    </div>
+  </div>
+
+  <div id="documentation">
+
+    <div id="description">
+      
+        <h1>Reporter</h1>
+      
+
+      <p>
+Generic <a href="Reporter.html">Reporter</a>
+</p>
+
+    </div>
+
+    <!-- Constants -->
+    
+
+    <!-- Attributes -->
+    
+
+    <!-- Methods -->
+    
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="factory-method" class="method-detail ">
+        <a name="M000075"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">factory</span><span
+            class="method-args">(format)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="factory-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 7</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">factory</span>(<span class="ruby-identifier">format</span>)
+      <span class="ruby-identifier">format</span> = <span class="ruby-identifier">format</span>.<span class="ruby-identifier">to_sym</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">format</span>
+      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">format</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:verbose</span>
+        <span class="ruby-constant">Reporters</span><span class="ruby-operator">::</span><span class="ruby-constant">Verbose</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-constant">Reporters</span><span class="ruby-operator">::</span><span class="ruby-constant">DotProgress</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+    <div id="public-instance-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="report-concern-method" class="method-detail ">
+        <a name="M000077"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_concern</span><span
+            class="method-args">(concern)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-concern-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 20</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_concern</span>(<span class="ruby-identifier">concern</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-error-method" class="method-detail ">
+        <a name="M000080"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_error</span><span
+            class="method-args">(testunit, exception)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-error-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 32</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_error</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
+      <span class="ruby-comment cmt">#puts exception</span>
+      <span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;E&quot;</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-failure-method" class="method-detail ">
+        <a name="M000079"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_failure</span><span
+            class="method-args">(testunit, exception)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-failure-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 27</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_failure</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
+      <span class="ruby-comment cmt">#puts exception</span>
+      <span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;F&quot;</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-finish-method" class="method-detail ">
+        <a name="M000081"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_finish</span><span
+            class="method-args">(successes, failures, errors)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-finish-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 37</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_finish</span>(<span class="ruby-identifier">successes</span>, <span class="ruby-identifier">failures</span>, <span class="ruby-identifier">errors</span>)
+      <span class="ruby-identifier">puts</span>; <span class="ruby-identifier">puts</span>
+
+      <span class="ruby-identifier">failures</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;    #{testunit}&quot;</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;    #{exception}&quot;</span>
+        <span class="ruby-identifier">puts</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;    #{testunit}&quot;</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;    #{exception}&quot;</span>
+        <span class="ruby-identifier">puts</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">total</span> = <span class="ruby-identifier">successes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">failures</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">size</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{total} tests, #{failures.size} failures, #{errors.size} errors&quot;</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-start-method" class="method-detail ">
+        <a name="M000076"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_start</span><span
+            class="method-args">(suite)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-start-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 17</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_start</span>(<span class="ruby-identifier">suite</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-success-method" class="method-detail ">
+        <a name="M000078"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_success</span><span
+            class="method-args">(testunit)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-success-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 23</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_success</span>(<span class="ruby-identifier">testunit</span>)
+      <span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;.&quot;</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+
+  </div>
+
+
+  <div id="rdoc-debugging-section-dump" class="debugging-section">
+  
+    <p>Disabled; run with --debug to generate this.</p>
+  
+  </div>
+
+</main>
+</body>
+</html>
+

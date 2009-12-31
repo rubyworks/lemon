@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: "Alias for #Before"
+full_name: Lemon::Test::Suite#before
+is_singleton: false
+name: before
+params: (match=nil, &block)
+visibility: public

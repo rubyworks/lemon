@@ -4,7 +4,7 @@ aliases: []
 block_params: 
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
-  body: "Alias for #TestCase"
+  body: "Alias for #Case"
 full_name: Lemon::Test::Suite#testcase
 is_singleton: false
 name: testcase

@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Assign a unit test to this concern.
+full_name: Lemon::Test::Concern#assign
+is_singleton: false
+name: assign
+params: (testunit)
+visibility: public

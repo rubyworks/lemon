@@ -7,5 +7,5 @@ comment: []
 full_name: Lemon::Test::Suite::new
 is_singleton: true
 name: new
-params: (*test_files)
+params: (*tests)
 visibility: public

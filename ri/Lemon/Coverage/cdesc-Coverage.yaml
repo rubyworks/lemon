@@ -2,6 +2,14 @@
 attributes: 
 - !ruby/object:RDoc::RI::Attribute 
   comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Conical snapshot of system (before loading libraries to be covered).
+  name: conical
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Paths of ruby scripts to be covered.
   name: paths
   rw: R
 class_methods: 
@@ -20,7 +28,11 @@ instance_methods:
 - !ruby/object:RDoc::RI::MethodSummary 
   name: coverage
 - !ruby/object:RDoc::RI::MethodSummary 
+  name: generate
+- !ruby/object:RDoc::RI::MethodSummary 
   name: load_system
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: public_only?
 - !ruby/object:RDoc::RI::MethodSummary 
   name: snapshot
 - !ruby/object:RDoc::RI::MethodSummary 

@@ -3,10 +3,11 @@ aliases:
 - !ruby/object:RDoc::RI::AliasName 
   name: unit
 block_params: 
-comment: []
-
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Define a unit test for this case.
 full_name: Lemon::Test::Case#Unit
 is_singleton: false
 name: Unit
-params: (targets, &block)
+params: (*targets, &block)
 visibility: public

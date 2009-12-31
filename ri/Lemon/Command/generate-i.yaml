@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Generate test skeletons.
+full_name: Lemon::Command#generate
+is_singleton: false
+name: generate
+params: (tests)
+visibility: public

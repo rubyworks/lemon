@@ -1,8 +1,9 @@
 --- !ruby/object:RDoc::RI::ClassDescription 
 attributes: []
 
-class_methods: []
-
+class_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: factory
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
   body: Generic Reporter
@@ -16,6 +17,8 @@ full_name: Lemon::Reporter
 includes: []
 
 instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: report_concern
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_error
 - !ruby/object:RDoc::RI::MethodSummary 

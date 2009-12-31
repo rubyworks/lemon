@@ -1,0 +1,15 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: 
+- !ruby/object:RDoc::RI::AliasName 
+  name: TestCase
+- !ruby/object:RDoc::RI::AliasName 
+  name: testcase
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Define a test case belonging to this suite.
+full_name: Lemon::Test::Suite#Case
+is_singleton: false
+name: Case
+params: (target_class, &block)
+visibility: public

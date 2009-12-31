@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: Lemon::Command#public_only?
+is_singleton: false
+name: public_only?
+params: ()
+visibility: public

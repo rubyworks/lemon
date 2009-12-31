@@ -17,6 +17,10 @@ h2 {
  font-size: 36pt;
 }
 
+h3 {
+  color: orange;
+}
+
 #content {
   width: 720px;
   margin: 0 auto;

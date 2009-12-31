@@ -2,8 +2,9 @@
 aliases: []
 
 block_params: 
-comment: []
-
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Produce a coverage map.
 full_name: Lemon::Coverage#coverage
 is_singleton: false
 name: coverage

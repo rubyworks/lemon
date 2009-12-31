@@ -1,0 +1,13 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: 
+- !ruby/object:RDoc::RI::AliasName 
+  name: concern
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Define a new test concern for this case.
+full_name: Lemon::Test::Case#Concern
+is_singleton: false
+name: Concern
+params: (*description)
+visibility: public

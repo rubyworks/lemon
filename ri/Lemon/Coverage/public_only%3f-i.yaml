@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Over use public methods for coverage.
+full_name: Lemon::Coverage#public_only?
+is_singleton: false
+name: public_only?
+params: ()
+visibility: public

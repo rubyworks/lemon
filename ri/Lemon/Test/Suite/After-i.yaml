@@ -1,0 +1,13 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: 
+- !ruby/object:RDoc::RI::AliasName 
+  name: after
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Define a post-test procedure to apply suite-wide.
+full_name: Lemon::Test::Suite#After
+is_singleton: false
+name: After
+params: (match=nil, &block)
+visibility: public

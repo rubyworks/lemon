@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Check test coverage.
+full_name: Lemon::Command#coverage
+is_singleton: false
+name: coverage
+params: (tests)
+visibility: public

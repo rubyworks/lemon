@@ -9,7 +9,6 @@ h2 { margin-top: 30px; }
  pre { background: white; -moz-border-radius: 10px; color: #559900; font-weight: bold; }
 code { color: green; }
 
-
 #nav { padding: 20px 50px 20px 0; text-align: center; background: #f7d901; color: pink; }
 #nav a { font-size: 90%; }
 
@@ -18,8 +17,11 @@ code { color: green; }
 
 #main { background: #f7d901; color: white; border-bottom: 2px solid yellow; padding: 10px 0 30px 0; }
 #main h2 { color: #225500; }
+#main h3 { color: brown; }
+#main a { font-size: 95%; text-decoration: underline; }
 
 #footer { padding: 20px; text-align: center; margin: 0 auto; width: 800px; }
-#footer .copyright { color: #222; padding-top: 40px; font-weight: bold; font-size: 90%; line-height: 150%; }
+#footer .copyright { padding-top: 0; }
+#footer .copyright p { color: #222; font-weight: normal; font-size: 80%; line-height: 150%; }
 
 .page { width: 800px; margin: 0 auto; }

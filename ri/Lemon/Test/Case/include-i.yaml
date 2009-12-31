@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: "NOTE: Due to a limitation in Ruby this does not provived access to submodules. A hack has been used to circumvent. See Suite.const_missing."
+full_name: Lemon::Test::Case#include
+is_singleton: false
+name: include
+params: (*mods)
+visibility: public

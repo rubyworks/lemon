@@ -2,18 +2,32 @@
 attributes: 
 - !ruby/object:RDoc::RI::Attribute 
   comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Record of errors.
   name: errors
   rw: R
 - !ruby/object:RDoc::RI::Attribute 
   comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Record of failed tests.
   name: failures
   rw: R
 - !ruby/object:RDoc::RI::Attribute 
   comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Report format.
+  name: format
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Record of successful tests.
   name: successes
   rw: R
 - !ruby/object:RDoc::RI::Attribute 
   comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Test suite to run.
   name: suite
   rw: R
 class_methods: 
@@ -31,5 +45,11 @@ instance_methods:
   name: reporter
 - !ruby/object:RDoc::RI::MethodSummary 
   name: run
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: run_concern_procedures
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: run_postest_procedures
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: run_pretest_procedures
 name: Runner
 superclass: Object

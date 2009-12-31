@@ -1,0 +1,870 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Class: Lemon::Test::Suite</title>
+
+  
+    <link rel="SHORTCUT ICON" href="../../../assets/icon/class.png">
+  
+
+  <link type="text/css" rel="stylesheet" href="../../../assets/rdoc.css" media="screen" />
+  <link type="text/css" rel="stylesheet" href="../../../assets/highlight/styles/github.css" title="GitHub" />
+
+  <script type="text/javascript" charset="utf-8" src="../../../assets/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../../assets/highlight/highlight.pack.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../../assets/quicksearch.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../../assets/main.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready( function() {
+      hookHighlightSyntax();
+	    hookSourceViews();
+	    hookDebuggingToggle();
+	    hookQuickSearch();
+	    highlightLocationTarget();
+
+	    $('ul.link-list a').bind("click", highlightClickTarget);
+    });
+  </script>
+</head>
+<body class="class">
+<div id="main">
+
+  <div class="head">
+    <h1>
+      
+        <img src="../../../assets/icon/class.png" align="absmiddle">&nbsp;
+      
+      <a href="../../../index.html">Lemon</a>&nbsp;
+      <a href="/">Lemon::Test::Suite</a>
+    </h1>
+  </div>
+
+  <div id="metadata">
+    <div id="project-metadata">
+
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li class="file"><a href="../../../files/lib/lemon/test/suite_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/lemon/test/suite.rb">lib/lemon/test/suite.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
+      <!-- TODO: generalize this for all SCMs -->
+
+      
+    </div>
+
+    <div id="class-metadata">
+
+      <!-- Parent Class -->
+      
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        <ul>
+          
+          <!-- why was this class="link" ? -->
+          <li class="class"><a href="../../Object.html">Object</a></li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Namespace Contents -->
+      
+
+      <!-- Method Quickref -->
+      
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+            
+            <li class="singleton">
+              <a href="#M000027">::const_missing</a>
+            </li>
+          
+            
+            <li class="singleton">
+              <a href="#M000008">::new</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000023">#After</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000021">#Before</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000018">#Case</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000019">#TestCase</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000025">#When</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000024">#after</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000022">#before</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000026">#each</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000015">#helper</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000017">#include</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000028">#test_stack</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000020">#testcase</a>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Included Modules -->
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Information</h3>
+        <ul>
+        
+          <li class="file"><a href="../../../files/HISTORY.html">HISTORY</a></li>
+        
+          <li class="file"><a href="../../../files/Syckfile.html">Syckfile</a></li>
+        
+          <li class="file"><a href="../../../files/COPYING.html">COPYING</a></li>
+        
+          <li class="file"><a href="../../../files/README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../../../files/COPYING_LESSER.html">COPYING.LESSER</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../../../assets/icon/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <!-- classpage.html : classes -->
+        <ul class="link-list">
+        
+          <li class="module"><a href="../../../classes/Lemon.html">Lemon</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Command.html">Lemon::Command</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Coverage.html">Lemon::Coverage</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Reporter.html">Lemon::Reporter</a></li>
+        
+          <li class="module"><a href="../../../classes/Lemon/Reporters.html">Lemon::Reporters</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Reporters/DotProgress.html">Lemon::Reporters::DotProgress</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Reporters/Verbose.html">Lemon::Reporters::Verbose</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Runner.html">Lemon::Runner</a></li>
+        
+          <li class="module"><a href="../../../classes/Lemon/Test.html">Lemon::Test</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Test/Case.html">Lemon::Test::Case</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Test/Concern.html">Lemon::Test::Concern</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Test/Suite.html">Lemon::Test::Suite</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Test/Unit.html">Lemon::Test::Unit</a></li>
+        
+          <li class="class"><a href="../../../classes/Object.html">Object</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+    </div>
+
+    <div id="validator-badges">
+      
+      <div style="float: right; margin-right: 5px;">
+        <a href="http://validator.w3.org/check/referer"><img src="../../../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
+      </div>
+      Generated with <a href="http://github.com/proutils/webri">WebRI Redfish</a> 1.1
+      <br/><br/>
+    </div>
+  </div>
+
+  <div id="documentation">
+
+    <div id="description">
+      
+        <h1>Suite</h1>
+      
+
+      <p>
+<a href="../Test.html">Test</a> Suites encapsulate a set of test cases.
+</p>
+
+    </div>
+
+    <!-- Constants -->
+    
+
+    <!-- Attributes -->
+    
+    <div id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="testcases-attribute-method" class="method-detail">
+        <a name="testcases"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">testcases</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+<a href="../Test.html">Test</a> cases in this suite.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="when-clauses-attribute-method" class="method-detail">
+        <a name="when_clauses"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">when_clauses</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+List of concern procedures that apply suite-wide.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="before-clauses-attribute-method" class="method-detail">
+        <a name="before_clauses"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">before_clauses</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+List of pre-test procedures that apply suite-wide.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="after-clauses-attribute-method" class="method-detail">
+        <a name="after_clauses"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">after_clauses</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+List of post-test procedures that apply suite-wide.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="when-clauses-attribute-method" class="method-detail">
+        <a name="when_clauses"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">when_clauses</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+List of concern procedures that apply suite-wide.
+</p>
+        
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- Methods -->
+    
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="const-missing-method" class="method-detail ">
+        <a name="M000027"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">const_missing</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+FIXME: This is a BIG FAT HACK! For the life of me I cannot find a way to
+resolve module constants included in the test cases. Becuase of closure,
+the constant lookup goes through here, and not the <a
+href="Suite.html#M000018">Case</a> singleton class. So to work around
+wemust note each test before it is run, and reroute the missing constants.
+</p>
+<p>
+This sucks and it is not thread safe. If anyone know how to fix, please let
+me know. See <a href="Unit.html#M000034">Unit#call</a> for the other end of
+this hack.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="const-missing-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 113</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">const_missing</span>(<span class="ruby-identifier">name</span>)
+      (<span class="ruby-keyword kw">class</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@@test_stack</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">testcase</span>; <span class="ruby-keyword kw">self</span>; <span class="ruby-keyword kw">end</span>).<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">name</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="new-method" class="method-detail ">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">new</span><span
+            class="method-args">(*tests)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="new-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 26</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">tests</span>)
+      <span class="ruby-ivar">@testcases</span>      = []
+      <span class="ruby-ivar">@before_clauses</span> = {}
+      <span class="ruby-ivar">@after_clauses</span>  = {}
+      <span class="ruby-ivar">@when_clauses</span>   = {}
+
+      <span class="ruby-comment cmt"># directories glob *.rb files</span>
+      <span class="ruby-identifier">tests</span> = <span class="ruby-identifier">tests</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">file</span>)
+          <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">file</span>, <span class="ruby-value str">'**'</span>, <span class="ruby-value str">'*.rb'</span>)]
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">file</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
+
+      <span class="ruby-ivar">@test_files</span> = <span class="ruby-identifier">tests</span>
+
+      <span class="ruby-identifier">tests</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+        <span class="ruby-comment cmt">#file = File.expand_path(file)</span>
+        <span class="ruby-identifier">instance_eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>), <span class="ruby-identifier">file</span>)
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+    <div id="public-instance-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="-fter-method" class="method-detail ">
+        <a name="M000023"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">After</span><span
+            class="method-args">(match=nil, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Define a post-test procedure to apply suite-wide.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="-fter-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 88</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">After</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-ivar">@after_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="Suite.html#M000024">after</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="-efore-method" class="method-detail ">
+        <a name="M000021"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Before</span><span
+            class="method-args">(match=nil, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Define a pre-test procedure to apply suite-wide.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="-efore-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 81</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Before</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-ivar">@before_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="Suite.html#M000022">before</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="-ase-method" class="method-detail ">
+        <a name="M000018"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Case</span><span
+            class="method-args">(target_class, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Define a test case belonging to this suite.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="-ase-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 70</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Case</span>(<span class="ruby-identifier">target_class</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-identifier">testcases</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Case</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">target_class</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="Suite.html#M000019">TestCase</a>, <a href="Suite.html#M000020">testcase</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="-est-ase-method" class="method-detail method-alias">
+        <a name="M000019"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">TestCase</span><span
+            class="method-args">(target_class, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Alias for <a href="Suite.html#M000018">Case</a>
+</p>
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="-hen-method" class="method-detail ">
+        <a name="M000025"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">When</span><span
+            class="method-args">(match=nil, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Define a concern procedure to apply suite-wide.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="-hen-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 95</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">When</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-ivar">@when_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="after-method" class="method-detail method-alias">
+        <a name="M000024"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">after</span><span
+            class="method-args">(match=nil, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Alias for <a href="Suite.html#M000023">After</a>
+</p>
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="before-method" class="method-detail method-alias">
+        <a name="M000022"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">before</span><span
+            class="method-args">(match=nil, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Alias for <a href="Suite.html#M000021">Before</a>
+</p>
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="each-method" class="method-detail ">
+        <a name="M000026"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">each</span><span
+            class="method-args">(&block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Iterate through this suite&#8217;s test cases.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="each-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 100</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-ivar">@testcases</span>.<span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="helper-method" class="method-detail ">
+        <a name="M000015"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">helper</span><span
+            class="method-args">(file)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Load a helper. This method must be used when loading local suite support.
+The usual require or load can only be used for extenal support libraries
+(such as a test mock framework). This is so because suite code is not
+evaluated at the toplevel.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="helper-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 53</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">helper</span>(<span class="ruby-identifier">file</span>)
+      <span class="ruby-identifier">instance_eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>), <span class="ruby-identifier">file</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="include-method" class="method-detail ">
+        <a name="M000017"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">include</span><span
+            class="method-args">(*mods)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Includes at the suite level are routed to the toplevel.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="include-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 63</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">include</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">mods</span>)
+      <span class="ruby-constant">TOPLEVEL_BINDING</span>.<span class="ruby-identifier">eval</span>(<span class="ruby-value str">'self'</span>).<span class="ruby-identifier">instance_eval</span> <span class="ruby-keyword kw">do</span>
+        <span class="ruby-identifier">include</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">mods</span>)
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="test-stack-method" class="method-detail ">
+        <a name="M000028"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">test_stack</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Get current running test. Used for the BIG FAT HACK.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="test-stack-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 118</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_stack</span>
+      <span class="ruby-ivar">@@test_stack</span> <span class="ruby-operator">||=</span> []
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="testcase-method" class="method-detail method-alias">
+        <a name="M000020"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">testcase</span><span
+            class="method-args">(target_class, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Alias for <a href="Suite.html#M000018">Case</a>
+</p>
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+
+  </div>
+
+
+  <div id="rdoc-debugging-section-dump" class="debugging-section">
+  
+    <p>Disabled; run with --debug to generate this.</p>
+  
+  </div>
+
+</main>
+</body>
+</html>
+

@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: Lemon::Reporters::DotProgress::factory
+is_singleton: true
+name: factory
+params: (format)
+visibility: public

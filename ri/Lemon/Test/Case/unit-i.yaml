@@ -8,5 +8,5 @@ comment:
 full_name: Lemon::Test::Case#unit
 is_singleton: false
 name: unit
-params: (targets, &block)
+params: (*targets, &block)
 visibility: public

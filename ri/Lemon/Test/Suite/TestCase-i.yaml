@@ -1,10 +1,10 @@
 --- !ruby/object:RDoc::RI::MethodDescription 
-aliases: 
-- !ruby/object:RDoc::RI::AliasName 
-  name: testcase
-block_params: 
-comment: []
+aliases: []
 
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: "Alias for #Case"
 full_name: Lemon::Test::Suite#TestCase
 is_singleton: false
 name: TestCase

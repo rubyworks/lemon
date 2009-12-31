@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Class: Lemon::Test::Unit</title>
+
+  
+    <link rel="SHORTCUT ICON" href="../../../assets/icon/class.png">
+  
+
+  <link type="text/css" rel="stylesheet" href="../../../assets/rdoc.css" media="screen" />
+  <link type="text/css" rel="stylesheet" href="../../../assets/highlight/styles/github.css" title="GitHub" />
+
+  <script type="text/javascript" charset="utf-8" src="../../../assets/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../../assets/highlight/highlight.pack.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../../assets/quicksearch.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../../assets/main.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready( function() {
+      hookHighlightSyntax();
+	    hookSourceViews();
+	    hookDebuggingToggle();
+	    hookQuickSearch();
+	    highlightLocationTarget();
+
+	    $('ul.link-list a').bind("click", highlightClickTarget);
+    });
+  </script>
+</head>
+<body class="class">
+<div id="main">
+
+  <div class="head">
+    <h1>
+      
+        <img src="../../../assets/icon/class.png" align="absmiddle">&nbsp;
+      
+      <a href="../../../index.html">Lemon</a>&nbsp;
+      <a href="/">Lemon::Test::Unit</a>
+    </h1>
+  </div>
+
+  <div id="metadata">
+    <div id="project-metadata">
+
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li class="file"><a href="../../../files/lib/lemon/test/unit_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/lemon/test/unit.rb">lib/lemon/test/unit.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
+      <!-- TODO: generalize this for all SCMs -->
+
+      
+    </div>
+
+    <div id="class-metadata">
+
+      <!-- Parent Class -->
+      
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        <ul>
+          
+          <!-- why was this class="link" ? -->
+          <li class="class"><a href="../../Object.html">Object</a></li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Namespace Contents -->
+      
+
+      <!-- Method Quickref -->
+      
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+            
+            <li class="singleton">
+              <a href="#M000033">::new</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000034">#call</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000036">#suite</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000037">#to_s</a>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Included Modules -->
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Information</h3>
+        <ul>
+        
+          <li class="file"><a href="../../../files/HISTORY.html">HISTORY</a></li>
+        
+          <li class="file"><a href="../../../files/Syckfile.html">Syckfile</a></li>
+        
+          <li class="file"><a href="../../../files/COPYING.html">COPYING</a></li>
+        
+          <li class="file"><a href="../../../files/README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../../../files/COPYING_LESSER.html">COPYING.LESSER</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../../../assets/icon/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <!-- classpage.html : classes -->
+        <ul class="link-list">
+        
+          <li class="module"><a href="../../../classes/Lemon.html">Lemon</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Command.html">Lemon::Command</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Coverage.html">Lemon::Coverage</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Reporter.html">Lemon::Reporter</a></li>
+        
+          <li class="module"><a href="../../../classes/Lemon/Reporters.html">Lemon::Reporters</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Reporters/DotProgress.html">Lemon::Reporters::DotProgress</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Reporters/Verbose.html">Lemon::Reporters::Verbose</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Runner.html">Lemon::Runner</a></li>
+        
+          <li class="module"><a href="../../../classes/Lemon/Test.html">Lemon::Test</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Test/Case.html">Lemon::Test::Case</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Test/Concern.html">Lemon::Test::Concern</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Test/Suite.html">Lemon::Test::Suite</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Test/Unit.html">Lemon::Test::Unit</a></li>
+        
+          <li class="class"><a href="../../../classes/Object.html">Object</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+    </div>
+
+    <div id="validator-badges">
+      
+      <div style="float: right; margin-right: 5px;">
+        <a href="http://validator.w3.org/check/referer"><img src="../../../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
+      </div>
+      Generated with <a href="http://github.com/proutils/webri">WebRI Redfish</a> 1.1
+      <br/><br/>
+    </div>
+  </div>
+
+  <div id="documentation">
+
+    <div id="description">
+      
+        <h1>Unit</h1>
+      
+
+      
+    </div>
+
+    <!-- Constants -->
+    
+
+    <!-- Attributes -->
+    
+    <div id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="testcase-attribute-method" class="method-detail">
+        <a name="testcase"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">testcase</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+The test case to which this unit test belongs.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="concern-attribute-method" class="method-detail">
+        <a name="concern"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">concern</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+The concern which this test helps ensure.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="target-attribute-method" class="method-detail">
+        <a name="target"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">target</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+A test unit <tt>target</tt> is a method.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="aspect-attribute-method" class="method-detail">
+        <a name="aspect"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">aspect</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+The aspect of the concern this test fulfills.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="procedure-attribute-method" class="method-detail">
+        <a name="procedure"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">procedure</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+<a href="../Test.html">Test</a> procedure, in which test assertions should
+be made.
+</p>
+        
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- Methods -->
+    
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="new-method" class="method-detail ">
+        <a name="M000033"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">new</span><span
+            class="method-args">(concern, target, aspect=nil, &procedure)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+New unit test.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="new-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/unit.rb, line 22</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">concern</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">aspect</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">procedure</span>)
+      <span class="ruby-identifier">concern</span>.<span class="ruby-identifier">assign</span>(<span class="ruby-keyword kw">self</span>)
+
+      <span class="ruby-ivar">@concern</span>   = <span class="ruby-identifier">concern</span>
+      <span class="ruby-ivar">@testcase</span>  = <span class="ruby-identifier">concern</span>.<span class="ruby-identifier">testcase</span>
+
+      <span class="ruby-ivar">@target</span>    = <span class="ruby-identifier">target</span>
+      <span class="ruby-ivar">@aspect</span>    = <span class="ruby-identifier">aspect</span>
+      <span class="ruby-ivar">@procedure</span> = <span class="ruby-identifier">procedure</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+    <div id="public-instance-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="call-method" class="method-detail ">
+        <a name="M000034"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">call</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+This method has the other end of the BIG FAT HACK. See <a
+href="Suite.html#M000027">Suite#const_missing</a>.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="call-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/unit.rb, line 34</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call</span>
+      <span class="ruby-identifier">suite</span>.<span class="ruby-identifier">test_stack</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>  <span class="ruby-comment cmt"># hack</span>
+      <span class="ruby-identifier">procedure</span>.<span class="ruby-identifier">call</span>
+    <span class="ruby-keyword kw">ensure</span>
+      <span class="ruby-identifier">suite</span>.<span class="ruby-identifier">test_stack</span>.<span class="ruby-identifier">pop</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="suite-method" class="method-detail ">
+        <a name="M000036"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">suite</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+The suite to which this unit test belongs.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="suite-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/unit.rb, line 42</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">suite</span>
+      <span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">suite</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="to-s-method" class="method-detail ">
+        <a name="M000037"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">to_s</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="to-s-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/unit.rb, line 47</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+      <span class="ruby-node">&quot;#{testcase}##{target} #{aspect}&quot;</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+
+  </div>
+
+
+  <div id="rdoc-debugging-section-dump" class="debugging-section">
+  
+    <p>Disabled; run with --debug to generate this.</p>
+  
+  </div>
+
+</main>
+</body>
+</html>
+

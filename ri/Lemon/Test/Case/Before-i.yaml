@@ -3,8 +3,9 @@ aliases:
 - !ruby/object:RDoc::RI::AliasName 
   name: before
 block_params: 
-comment: []
-
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Define a before procedure for this case.
 full_name: Lemon::Test::Case#Before
 is_singleton: false
 name: Before

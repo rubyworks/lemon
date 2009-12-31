@@ -1,15 +1,45 @@
 --- !ruby/object:RDoc::RI::ClassDescription 
 attributes: 
 - !ruby/object:RDoc::RI::Attribute 
-  comment: []
-
-  name: test_cases
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: List of post-test procedures that apply suite-wide.
+  name: after_clauses
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: List of pre-test procedures that apply suite-wide.
+  name: before_clauses
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Test cases in this suite.
+  name: testcases
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: List of concern procedures that apply suite-wide.
+  name: when_clauses
   rw: R
 class_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
+  name: const_missing
+- !ruby/object:RDoc::RI::MethodSummary 
   name: new
-comment: []
-
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Test Suites encapsulate a set of test cases.
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Test Suites encapsulate a set of test cases.
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Test Suites encapsulate a set of test cases.
 constants: []
 
 full_name: Lemon::Test::Suite
@@ -17,12 +47,28 @@ includes: []
 
 instance_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
+  name: After
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: Before
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: Case
+- !ruby/object:RDoc::RI::MethodSummary 
   name: TestCase
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: When
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: after
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: before
 - !ruby/object:RDoc::RI::MethodSummary 
   name: each
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: load
+  name: helper
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: include
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: test_stack
 - !ruby/object:RDoc::RI::MethodSummary 
   name: testcase
 name: Suite
-superclass: Module
+superclass: Object

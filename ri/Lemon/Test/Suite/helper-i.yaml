@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: "Load a helper. This method must be used when loading local suite support. The usual #require or #load can only be used for extenal support libraries (such as a test mock framework). This is so because suite code is not evaluated at the toplevel."
+full_name: Lemon::Test::Suite#helper
+is_singleton: false
+name: helper
+params: (file)
+visibility: public
