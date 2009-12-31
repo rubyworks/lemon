@@ -22,14 +22,18 @@ module Lemon::Test
     # List of after procedures that apply case-wide.
     attr :after_clauses
 
+    # List of concern procedures that apply case-wide.
+    attr :when_clauses
+
     # A test case +target+ is a class or module.
     def initialize(suite, target, &block)
       @suite          = suite
       @target         = target
       @testunits      = []
+      @concerns       = []
       @before_clauses = {}
       @after_clauses  = {}
-      @concerns       = []
+      @when_clauses   = {}
       instance_eval(&block)
     end
 
@@ -61,6 +65,11 @@ module Lemon::Test
       @concerns.last
     end
 
+    # Iterate over each test concern.
+    def each(&block)
+      @concerns.each(&block)
+    end
+
     # Define a unit test for this case.
     def Unit(*targets, &block)
       targets_hash = Hash===targets.last ? targets.pop : {}
@@ -85,9 +94,9 @@ module Lemon::Test
     end
     alias_method :after, :After
 
-    # Iterate over each test concern.
-    def each(&block)
-      @concerns.each(&block)
+    # Define a concern procedure to apply case-wide.
+    def When(match=nil, &block)
+      @when_clauses[match] = block #<< Advice.new(match, &block)
     end
 
     #

@@ -1,37 +1,36 @@
 module Lemon
+module Reporters
+
+  require 'lemon/reporter'
 
   # Generic Reporter
-  class Reporter
+  class Verbose < Reporter
 
     #
-    def self.factory(format)
-      format = format.to_sym if format
-      case format
-      when :verbose
-        Reporters::Verbose.new
-      else
-        Reporters::DotProgress.new
-      end
-    end
-
     def report_start(suite)
     end
 
+    #
     def report_concern(concern)
+      puts
+      puts concern.description
     end
 
+    #
     def report_success(testunit)
-      print "."
+      puts "* [PASS] #{testunit}"
     end
 
+    #
     def report_failure(testunit, exception)
+      puts "* [FAIL] #{testunit.target}"
       #puts exception
-      print "F"
     end
 
+    #
     def report_error(testunit, exception)
+      puts "* [ERROR] #{testunit.target}"
       #puts exception
-      print "E"
     end
 
     def report_finish(successes, failures, errors)
@@ -56,3 +55,5 @@ module Lemon
   end
 
 end
+end
+

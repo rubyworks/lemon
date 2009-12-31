@@ -40,7 +40,7 @@ module Lemon
 
     # Coverage template.
     def cover
-      cover = {}
+      cover = Hash.new{|h,k|h[k]={}}
       system.each do |base|
         next if base.is_a?(Lemon::Test::Suite)
         cover[base.name] = {}

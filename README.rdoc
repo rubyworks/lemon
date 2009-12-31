@@ -6,10 +6,16 @@
 
 == DESCRIPTION
 
-Unit Testing framework that forces the developer into a
-class-method mirror construction for test cases. Arguably
-this promotes the proper technique for unit testing, as it
-helps ensure good test coverage.
+Lemon is a Unit Testing Framework that enforces a testcase 
+construction mirroring the class or module and method design
+of the target system. Arguably this promotes the proper
+technique for unit testing, since it helps ensure good test
+coverage.
+
+The difference between unit testing and functional testing, and
+all other forms of testing for that matter, lies in where the
+*concern* lies. The concern of unit testing are the concerns
+of unit tests.
 
 
 == HOW TO USE
@@ -20,10 +26,23 @@ Say our library consists of the class X:
     def a; "a"; end
   end
 
-We write a test case as follows:
+The simplist test case would be written as follows:
 
   TestCase X do
-    Unit :a => "returns a string" do
+    Unit :a => "method #a does something expected" do
+      x = X.new
+      x.a.assert.is_a? String
+    end
+  end
+
+As tests grow, we need to organize them into concerns. For this
+Lemon provides the #Concern method.
+
+  TestCase X do
+    Concern "Description of a concern that the following unit",
+            "tests address."
+
+    Unit :a => "method #a does something expected" do
       x = X.new
       x.a.assert.is_a? String
     end
@@ -31,14 +50,20 @@ We write a test case as follows:
 
 To run tests use the +lemon+ command-line utility.
 
-  $ lemon test/cases/
+  $ lemon test/cases/name_case.rb
+
+Normal output is typical <i>dot-progress</i>. For verbose output, use the <tt>--verbose</tt>
+or <tt>-v</tt> option.
+
+  $ lemon -v test/cases/name_case.rb
 
 
 == Checking Test Coverage
 
-NOTE: This feature is not yet implemented!
+Lemon can check test coverage by loading your target system and 
+comparing it to your tests.
 
-  $ lemon --check lib/ test/cases/
+  $ lemon --coverage -Ilib -rmyapp test/cases/
 
 
 == Generating Test Skeletons
@@ -47,18 +72,19 @@ NOTE: This feature is not yet implemented!
 
 Because of the one to one correspondance of case-unit to class-method, Lemon can
 also generate test scaffolding for previously written code. To do this, use the
-<tt>--generate</tt> option and provide the location, or file glob, of the
+<tt>--generate</tt> option and provide the lib location, or files, of the
 scripts for which to generate test scaffolding, and the output location for
 the test scripts.
 
-  $ lemon --generate lib/ test/cases/
+  $ lemon --generate -rlib/ test/cases/
 
 Generating test case scaffodling from code will undoubtedly strike test-driven developers
 as a case of putting the cart before the horse. However, it is not unreasonable to argue
 that high-level, behavior-driven, functional testing frameworks, such as Q.E.D. and
 Cucumber are better suited to test-first methodologies. While test-driven development
 can obviously be done with Lemon, unit-testing is more appropriate for testing specific,
-critical protions of code, or for achieving full test coverage for mission critical applications.
+critical protions of code, or for achieving full test coverage for mission critical
+applications.
 
 
 == COPYRIGHT

@@ -16,32 +16,45 @@ module Lemon
     end
 
     attr_accessor :command
+    attr_accessor :format
     attr_accessor :requires
     attr_accessor :includes
     attr_accessor :public_only
 
+    # New Command instance.
     def initialize
+      @format   = nil
       @requires = []
       @includes = []
       @public_only = false
     end
 
+    # Instance of OptionParser.
     def parser
       @parser ||= OptionParser.new do |opt|
-        opt.on('--coverage', '-c') do
+        opt.on('--verbose', '-v', "select verbose report format") do |type|
+          self.format = :verbose
+        end
+        #opt.on('--format', '-f [TYPE]', "select alternate report format") do |type|
+        #  self.format = type
+        #end
+        opt.on('--coverage', '-c', 'produce a coverage report') do
           self.command = :coverage
         end
-        opt.on('--generate', '-g') do
+        opt.on('--generate', '-g', 'generate test skeletons') do
           self.command = :generate
         end
-        opt.on('--public', '-p', "only include public methods") do
+        opt.on('--public', '-p', "only include public methods (for -c and -g)") do
           self.public_only = true
         end
         opt.on("-I [PATH]" , 'include in $LOAD_PATH') do |path|
           self.includes = path
         end
-        opt.on("-r [FILES]" , 'scripts to require') do |files|
+        opt.on("-r [FILES]" , 'library files to require') do |files|
           self.requires = files
+        end
+        opt.on("--debug" , 'turn on debugging mode') do
+          $DEBUG = true
         end
         opt.on_tail('--help', '-h', 'show this help message') do
           puts opt
@@ -103,7 +116,7 @@ module Lemon
     def test(tests)
       requires.each{ |path| require(path) }
       suite  = Lemon::Test::Suite.new(tests)
-      runner = Lemon::Runner.new(suite)
+      runner = Lemon::Runner.new(suite, format)
       runner.run
     end
 

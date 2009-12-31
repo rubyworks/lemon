@@ -1,16 +1,18 @@
 module Lemon
+module Reporters
+
+  require 'lemon/reporter'
 
   # Generic Reporter
-  class Reporter
+  class DotProgress < Reporter
 
     #
     def self.factory(format)
-      format = format.to_sym if format
-      case format
+      case format.to_sym
       when :verbose
-        Reporters::Verbose.new
+        VerboseReporter.new
       else
-        Reporters::DotProgress.new
+        new
       end
     end
 
@@ -56,3 +58,5 @@ module Lemon
   end
 
 end
+end
+

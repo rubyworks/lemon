@@ -10,17 +10,24 @@ module Test
     # Test cases in this suite.
     attr :testcases
 
-    # List of before procedures that apply suite-wide.
+    # List of concern procedures that apply suite-wide.
+    attr :when_clauses
+
+    # List of pre-test procedures that apply suite-wide.
     attr :before_clauses
 
-    # List of after procedures that apply suite-wide.
+    # List of post-test procedures that apply suite-wide.
     attr :after_clauses
+
+    # List of concern procedures that apply suite-wide.
+    attr :when_clauses
 
     #
     def initialize(*tests)
       @testcases      = []
-      @before_clauses = []
-      @after_clauses  = []
+      @before_clauses = {}
+      @after_clauses  = {}
+      @when_clauses   = {}
 
       # directories glob *.rb files
       tests = tests.flatten.map do |file|
@@ -67,19 +74,24 @@ module Test
     #
     alias_method :testcase, :Case
 
-    # Define a before-procedure to apply suite-wide.
+    # Define a pre-test procedure to apply suite-wide.
     def Before(match=nil, &block)
       @before_clauses[match] = block #<< Advice.new(match, &block)
     end
 
     alias_method :before, :Before
 
-    # Define an after-procedure to apply suite-wide.
+    # Define a post-test procedure to apply suite-wide.
     def After(match=nil, &block)
       @after_clauses[match] = block #<< Advice.new(match, &block)
     end
 
     alias_method :after, :After
+
+    # Define a concern procedure to apply suite-wide.
+    def When(match=nil, &block)
+      @when_clauses[match] = block #<< Advice.new(match, &block)
+    end
 
     # Iterate through this suite's test cases.
     def each(&block)
