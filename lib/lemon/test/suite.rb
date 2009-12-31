@@ -72,6 +72,9 @@ module Test
     end
 
     #
+    alias_method :TestCase, :Case
+
+    #
     alias_method :testcase, :Case
 
     # Define a pre-test procedure to apply suite-wide.
