@@ -3,6 +3,7 @@ module Commands
 
   # Lemon Coverage Command-line tool.
   class Coverage < Command
+    require 'yaml'
     require 'lemon/coverage'
 
     def self.options

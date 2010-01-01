@@ -1,30 +1,31 @@
-#!/usr/bin/env ruby
-
-require 'lemon'
-#require 'lemon/coverage'
 require 'optparse'
-require 'yaml'
+
+#require 'lemon'
+#require 'yaml'
 
 module Lemon
 
-  # Lemon Command-line tool.
+  # Lemon Command-line tool base class.
   class Command
 
+    # Used to map command-line options to command classes.
+    # This must be overridden in subclasses, and return an
+    # array of of options, e.g. [ '-g', '--generate'].
     def self.options
       raise "not implemented"
     end
 
-    #
+    # Stores a list of command classes.
     def self.commands
       @commands ||= []
     end
 
-    #
+    # When this class is inherited, it is registered to the commands list.
     def self.inherited(command_class)
       commands << command_class
     end
 
-    # Initialize and run.
+    # Factory method to initialize and run choosen sub-command.
     def self.run
       cmd = commands.find do |command_class|
         [command_class.options].flatten.find do |opt|
@@ -33,39 +34,6 @@ module Lemon
       end
       cmd ? cmd.run : Commands::Test.run
     end
- 
-    #    Commands::Coverage.run
-    #  elsif ARGV.delete("-g") || ARGV.delete("--generate")
-    #    Commands::Generate.run
-    #  else
-    #    Commands::Test.run
-    #  end
-    #end
-
-=begin
-    # Check test coverage.
-    def coverage(tests)
-      cover  = Lemon::Coverage.new(requires, namespaces, :public => public_only?)
-      suite  = Lemon::Test::Suite.new(tests)
-      puts cover.coverage(suite).to_yaml
-    end
-
-    # Generate test skeletons.
-    def generate(files)
-      requires.each{ |path| require(path) }
-      cover  = Lemon::Coverage.new(files, namespaces, :public => public_only?)
-      #suite  = Lemon::Test::Suite.new(tests)
-      puts cover.generate #(suite).to_yaml
-    end
-
-    # Run unit tests.
-    def test(tests)
-      requires.each{ |path| require(path) }
-      suite  = Lemon::Test::Suite.new(tests)
-      runner = Lemon::Runner.new(suite, format)
-      runner.run
-    end
-=end
 
   end
 

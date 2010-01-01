@@ -3,6 +3,7 @@ module Commands
 
   # Lemon Test Command-line tool.
   class Test < Command
+    require 'lemon/runner'
 
     def self.options
       []
