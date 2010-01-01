@@ -9,15 +9,20 @@ module Lemon
     # Conical snapshot of system (before loading libraries to be covered).
     attr :conical
 
+    #
+    attr :namespaces
+
     # New Coverage object.
     #
-    #   Coverage.new('lib/', :public => true)
+    #   Coverage.new('lib/', :MyApp, :public => true)
     #
-    def initialize(paths, options={})
-      @public = options[:public]
+    def initialize(paths, namespaces=nil, options={})
+      @namespaces = namespaces || []
 
       @paths   = paths
       @conical = snapshot
+
+      @public  = options[:public]
 
       load_system
     end
@@ -73,9 +78,18 @@ module Lemon
     end
 
     # System to be covered. This takes a sanpshot of the system
-    # and then removes the conical snapshot.
+    # and then removes the conical snapshot, and then filters out
+    # the namespace.
+    #
+    # TODO: Perhaps get rid of the conical subtraction and require a namespace?
     def system
-      snapshot - conical
+      if namespaces.empty?
+        snapshot - conical
+      else
+        snapshot.select do |m|
+          namespaces.any?{ |n| m.name.start_with?(n) }
+        end
+      end
     end
 
     # Produces a list of all existent Modules and Classes.
@@ -90,21 +104,23 @@ module Lemon
       sys
     end
 
-    # TODO: option to do only do what hasn't been covered thus far
-    def generate(opts={})
+    # TODO: combine with coverage to provided option to do only do what hasn't been covered thus far.
+    # TODO: support output directory
+
+    def generate(output=nil)
       code = []
       system.each do |base|
         next if base.is_a?(Lemon::Test::Suite)
-        code << "testcase #{base}"
+        code << "TestCase #{base} do"
         base.public_instance_methods(false).each do |meth|
-          code << "\n  unit :#{meth} => '' do\n    pending\n  end"
+          code << "\n  Unit :#{meth} => '' do\n    pending\n  end"
         end
         unless public_only?
           base.private_instance_methods(false).each do |meth|
-            code << "\n  unit :#{meth} => '' do\n    pending\n  end"
+            code << "\n  Unit :#{meth} => '' do\n    pending\n  end"
           end
           base.protected_instance_methods(false).each do |meth|
-            code << "\n  unit :#{meth} => '' do\n    pending\n  end"
+            code << "\n  Unit :#{meth} => '' do\n    pending\n  end"
           end
         end
         code << "\nend\n"
