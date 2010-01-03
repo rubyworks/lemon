@@ -6,16 +6,6 @@ module Reporters
   # Generic Reporter
   class DotProgress < Reporter
 
-    #
-    def self.factory(format)
-      case format.to_sym
-      when :verbose
-        VerboseReporter.new
-      else
-        new
-      end
-    end
-
     def report_start(suite)
     end
 
@@ -27,32 +17,50 @@ module Reporters
     end
 
     def report_failure(testunit, exception)
-      #puts exception
       print "F"
     end
 
     def report_error(testunit, exception)
-      #puts exception
       print "E"
     end
 
-    def report_finish(successes, failures, errors)
+    def report_pending(testunit, exception)
+      print "P"
+    end
+
+    def report_finish #(successes, failures, errors, pendings)
       puts; puts
 
-      failures.each do |testunit, exception|
-        puts "    #{testunit}"
-        puts "    #{exception}"
+      unless failures.empty?
+        puts "FAILURES:\n\n"
+        failures.each do |testunit, exception|
+          puts "    #{testunit}"
+          puts "    #{exception}"
+          puts "    #{exception.backtrace[0]}"
+          puts
+        end
+      end
+
+      unless errors.empty?
+        puts "ERRORS:\n\n"
+        errors.each do |testunit, exception|
+          puts "    #{testunit}"
+          puts "    #{exception}"
+          puts "    #{exception.backtrace[0]}"
+          puts
+        end
+      end
+
+      unless pendings.empty?
+        puts "PENDING:\n\n"
+        pendings.each do |testunit, exception|
+          puts "    #{testunit}"
+        end
         puts
       end
 
-      errors.each do |testunit, exception|
-        puts "    #{testunit}"
-        puts "    #{exception}"
-        puts
-      end
-
-      total = successes.size + failures.size + errors.size
-      puts "#{total} tests, #{failures.size} failures, #{errors.size} errors"
+      total = successes.size + failures.size + errors.size + pendings.size
+      puts "#{total} tests, #{successes.size} pass, #{failures.size} failures, #{errors.size} errors, #{pendings.size} pending"
     end
 
   end

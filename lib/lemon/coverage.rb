@@ -3,8 +3,10 @@ module Lemon
   #
   class Coverage
 
-    # Paths of ruby scripts to be covered.
-    attr :paths
+    # Paths of lemon tests and/or ruby scripts to be compared and covered.
+    # This can include directories too, in which case all .rb scripts below
+    # then directory will be included.
+    attr :files
 
     # Conical snapshot of system (before loading libraries to be covered).
     attr :conical
@@ -16,15 +18,16 @@ module Lemon
     #
     #   Coverage.new('lib/', :MyApp, :public => true)
     #
-    def initialize(paths, namespaces=nil, options={})
+    def initialize(files, namespaces=nil, options={})
       @namespaces = namespaces || []
 
-      @paths   = paths
+      @files   = files
       @conical = snapshot
 
       @public  = options[:public]
 
-      load_system
+      # this must come after concial snapshot
+      @suite   = Test::Suite.new(files)
     end
 
     # Over use public methods for coverage.
@@ -65,17 +68,17 @@ module Lemon
     end
 
     # Iterate over +paths+ and use #load to bring in all +.rb+ scripts.
-    def load_system
-      files = []
-      paths.map do |path|
-        if File.directory?(path)
-          files.concat(Dir[File.join(path, '**', '*.rb')])
-        else
-          files.concat(Dir[path])
-        end
-      end
-      files.each{ |file| load(file) }
-    end
+    #def load_system
+    #  files = []
+    #  paths.map do |path|
+    #    if File.directory?(path)
+    #      files.concat(Dir[File.join(path, '**', '*.rb')])
+    #    else
+    #      files.concat(Dir[path])
+    #    end
+    #  end
+    #  files.each{ |file| load(file) }
+    #end
 
     # System to be covered. This takes a sanpshot of the system
     # and then removes the conical snapshot, and then filters out

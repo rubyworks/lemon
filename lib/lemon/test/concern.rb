@@ -16,7 +16,7 @@ module Lemon::Test
     attr :testunits
 
     # New concern.
-    def initialize(testcase, description)
+    def initialize(testcase, *description)
       @testcase    = testcase
       @description = description.join("\n")
       @testunits   = []

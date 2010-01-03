@@ -100,10 +100,18 @@ module Lemon::Test
     end
 
     #
+    def pending
+      raise PendingAssertion
+    end
+
+    #
     def to_s
       target.to_s.sub(/^\#\<.*?\>::/, '')
     end
   end
 
+end
+
+class PendingAssertion < Assertion
 end
 

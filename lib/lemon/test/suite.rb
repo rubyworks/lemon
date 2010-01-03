@@ -2,6 +2,7 @@ module Lemon
 module Test
 
   require 'lemon/test/case'
+  require 'lemon/dsl'
 
   # Test Suites encapsulate a set of test cases.
   #
@@ -19,18 +20,22 @@ module Test
     # List of post-test procedures that apply suite-wide.
     attr :after_clauses
 
-    # List of concern procedures that apply suite-wide.
-    attr :when_clauses
-
     #
-    def initialize(*tests)
+    def initialize(*files)
       @testcases      = []
       @before_clauses = {}
       @after_clauses  = {}
       @when_clauses   = {}
 
+      loadfiles(*files)
+    end
+
+    #
+    def loadfiles(*files)
+      Lemon.suite = self
+
       # directories glob *.rb files
-      tests = tests.flatten.map do |file|
+      files = files.flatten.map do |file|
         if File.directory?(file)
           Dir[File.join(file, '**', '*.rb')]
         else
@@ -38,12 +43,13 @@ module Test
         end
       end.flatten.uniq
 
-      @test_files = tests
-
-      tests.each do |file|
+      files.each do |file|
         #file = File.expand_path(file)
-        instance_eval(File.read(file), file)
+        #instance_eval(File.read(file), file)
+        load(file)
       end
+
+      return Lemon.suite
     end
 
     # Load a helper. This method must be used when loading local
@@ -101,6 +107,7 @@ module Test
       @testcases.each(&block)
     end
 
+
     # FIXME: This is a BIG FAT HACK! For the life of me I cannot find
     # a way to resolve module constants included in the test cases.
     # Becuase of closure, the constant lookup goes through here, and not
@@ -111,7 +118,20 @@ module Test
     # please let me know. See Unit#call for the other end of this hack.
 
     def self.const_missing(name)
-      (class << @@test_stack.last.testcase; self; end).const_get(name)
+      if unit = test_stack.last
+        begin
+          (class << unit.testcase; self; end).const_get(name)
+        #rescue
+        #  super(name)
+        end
+      else
+        super(name)
+      end
+    end
+
+    # Get current running test. Used for the BIG FAT HACK.
+    def self.test_stack
+      @@test_stack ||= []
     end
 
     # Get current running test. Used for the BIG FAT HACK.

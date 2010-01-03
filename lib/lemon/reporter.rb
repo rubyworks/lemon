@@ -1,19 +1,27 @@
 module Lemon
 
-  # Generic Reporter
+  # = Reporter Base Class
   class Reporter
 
     #
-    def self.factory(format)
+    def self.factory(format, runner)
       format = format.to_sym if format
       case format
       when :verbose
-        Reporters::Verbose.new
+        Reporters::Verbose.new(runner)
       else
-        Reporters::DotProgress.new
+        Reporters::DotProgress.new(runner)
       end
     end
 
+    def initialize(runner)
+      @runner = runner
+    end
+
+    #
+    attr :runner
+
+    #
     def report_start(suite)
     end
 
@@ -21,37 +29,23 @@ module Lemon
     end
 
     def report_success(testunit)
-      print "."
     end
 
     def report_failure(testunit, exception)
-      #puts exception
-      print "F"
     end
 
     def report_error(testunit, exception)
-      #puts exception
-      print "E"
     end
 
-    def report_finish(successes, failures, errors)
-      puts; puts
-
-      failures.each do |testunit, exception|
-        puts "    #{testunit}"
-        puts "    #{exception}"
-        puts
-      end
-
-      errors.each do |testunit, exception|
-        puts "    #{testunit}"
-        puts "    #{exception}"
-        puts
-      end
-
-      total = successes.size + failures.size + errors.size
-      puts "#{total} tests, #{failures.size} failures, #{errors.size} errors"
+    def report_finish
     end
+
+    private
+
+    def successes ; runner.successes ; end
+    def failures  ; runner.failures  ; end
+    def errors    ; runner.errors    ; end
+    def pendings  ; runner.pendings  ; end
 
   end
 

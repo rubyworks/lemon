@@ -14,6 +14,9 @@ module Lemon
     # Test suite to run.
     attr :suite
 
+    # Report format.
+    attr :format
+
     # Record of successful tests.
     attr :successes
 
@@ -23,8 +26,8 @@ module Lemon
     # Record of errors.
     attr :errors
 
-    # Report format.
-    attr :format
+    # Record of pending tests.
+    attr :pendings
 
     # New Runner.
     def initialize(suite, format)
@@ -33,6 +36,7 @@ module Lemon
       @successes = []
       @failures  = []
       @errors    = []
+      @pendings  = []
     end
 
     # Run tests.
@@ -48,6 +52,9 @@ module Lemon
               testunit.call
               reporter.report_success(testunit)
               successes << testunit
+            rescue PendingAssertion => exception
+              reporter.report_pending(testunit, exception)
+              pendings << [testunit, exception]
             rescue Assertion => exception
               reporter.report_failure(testunit, exception)
               failures << [testunit, exception]
@@ -59,12 +66,12 @@ module Lemon
           end
         end
       end
-      reporter.report_finish(successes, failures, errors)
+      reporter.report_finish #(successes, failures, errors, pendings)
     end
 
     # All output is handled by a reporter.
     def reporter
-      @reporter ||= Reporter.factory(format)
+      @reporter ||= Reporter.factory(format, self)
     end
 
     private

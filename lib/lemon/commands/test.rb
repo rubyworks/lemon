@@ -68,15 +68,15 @@ module Commands
     def run
       parser.parse!
 
+      files = ARGV.dup
+
       includes.each do |path|
         $LOAD_PATHS.unshift(path)
       end
 
-      tests = ARGV.dup
-
       requires.each{ |path| require(path) }
 
-      suite  = Lemon::Test::Suite.new(tests)
+      suite  = Lemon::Test::Suite.new(*files)
       runner = Lemon::Runner.new(suite, format)
       runner.run
     end

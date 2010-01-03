@@ -88,7 +88,7 @@ module Commands
     def run
       parser.parse!
 
-      files = ARGV.dup
+      test_files = ARGV.dup
 
       includes.each do |path|
         $LOAD_PATHS.unshift(path)
@@ -96,8 +96,8 @@ module Commands
 
       requires.each{ |path| require(path) }
 
-      cover  = Lemon::Coverage.new(files, namespaces, :public=>public_only?)
-      #suite  = Lemon::Test::Suite.new(tests)
+      cover  = Lemon::Coverage.new([], namespaces, :public=>public_only?)
+      suite  = Lemon::Test::Suite.load(*test_files)
       puts cover.generate(output) #(suite).to_yaml
     end
 
