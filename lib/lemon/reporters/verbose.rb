@@ -18,27 +18,33 @@ module Reporters
 
     #
     def report_success(testunit)
-      puts "[PASS] #{testunit.target} #{testunit.aspect}"
+      puts "* #{testunit}"
     end
 
     #
     def report_failure(testunit, exception)
-      puts "[FAIL] #{testunit.target} #{testunit.aspect}"
-      puts "       #{exception}"
-      puts "       #{exception.backtrace[0]}"
+      puts "* #{testunit}"
+      puts
+      puts "        FAIL #{exception.backtrace[0]}"
+      puts "        #{exception}"
+      puts
     end
 
     #
     def report_error(testunit, exception)
-      puts "[ERROR] #{testunit.target} #{testunit.aspect}"
+      puts "* #{testunit}"
+      puts
+      puts "        ERROR #{exception.backtrace[0]}"
       puts "        #{exception}"
-      puts "        #{exception.backtrace[0]}"
+      puts
     end
 
     #
     def report_pending(testunit, exception)
-      puts "[SKIP] #{testunit.target} #{testunit.aspect}"
-      puts "       #{exception.backtrace[0]}"
+      puts "* #{testunit}"
+      puts
+      puts "        PENDING #{exception.backtrace[1]}"
+      puts
     end
 
     #
