@@ -6,7 +6,7 @@ module M
   end
 end
 
-Case(Lemon::Test::Case) do
+TestCase(Lemon::Test::Case) do
 
   Concern "Modules included in a test case are accessible by the unit tests."
 

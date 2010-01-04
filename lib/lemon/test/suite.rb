@@ -81,21 +81,21 @@ module Test
     alias_method :TestCase, :Case
 
     #
-    alias_method :testcase, :Case
+    #alias_method :testcase, :Case
 
     # Define a pre-test procedure to apply suite-wide.
     def Before(match=nil, &block)
       @before_clauses[match] = block #<< Advice.new(match, &block)
     end
 
-    alias_method :before, :Before
+    #alias_method :before, :Before
 
     # Define a post-test procedure to apply suite-wide.
     def After(match=nil, &block)
       @after_clauses[match] = block #<< Advice.new(match, &block)
     end
 
-    alias_method :after, :After
+    #alias_method :after, :After
 
     # Define a concern procedure to apply suite-wide.
     def When(match=nil, &block)
@@ -105,38 +105,6 @@ module Test
     # Iterate through this suite's test cases.
     def each(&block)
       @testcases.each(&block)
-    end
-
-
-    # FIXME: This is a BIG FAT HACK! For the life of me I cannot find
-    # a way to resolve module constants included in the test cases.
-    # Becuase of closure, the constant lookup goes through here, and not
-    # the Case singleton class. So to work around wemust note each test
-    # before it is run, and reroute the missing constants.
-    #
-    # This sucks and it is not thread safe. If anyone know how to fix,
-    # please let me know. See Unit#call for the other end of this hack.
-
-    def self.const_missing(name)
-      if unit = test_stack.last
-        begin
-          (class << unit.testcase; self; end).const_get(name)
-        #rescue
-        #  super(name)
-        end
-      else
-        super(name)
-      end
-    end
-
-    # Get current running test. Used for the BIG FAT HACK.
-    def self.test_stack
-      @@test_stack ||= []
-    end
-
-    # Get current running test. Used for the BIG FAT HACK.
-    def test_stack
-      @@test_stack ||= []
     end
 
   end
