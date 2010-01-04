@@ -3,7 +3,7 @@ body { padding: 0; margin: 0; }
 
 p { text-align: justify; margin: 20px 0; }
 
-a { text-decoration: none; font-size: 10pt; color: tan;  font-weight: bold; }
+a { text-decoration: none; font-size: 10pt; color: tan; }
 a:hover { text-decoration: underline; }
 
 h1 { font-size: 100px; margin: 20px; }

@@ -29,14 +29,15 @@
 
   <h2>Pucker-Strength Unit Testing</h2>
 
-  <p>Lemon is a Unit Testing framework that forces the developer into a
-  class-to-case method-to-unit mirrored construction of tests.
-  This promotes the very proper technique for unit testing, as it
-  helps ensure test coverage.</p>
+  <p>Lemon is a unit testing framework which enforces highly formal
+  case-to-class and unit-to-method test construction.
+  This strict approach is arguably the most proper technique for unit
+  testing because it helps promote good test coverage.</p>
 
   <h3>Writing Tests</h3>
 
- <p>Let's say our library consists of the class <code>HelloWorld</code> with method <code>#to_s</code>:<p>
+  <p>Let's say we have a library that consists of the class <code>HelloWorld</code>
+  with method <code>#to_s</code>:<p>
 
   <pre>
   class HelloWorld
@@ -62,15 +63,18 @@
   end
   </pre>
 
-  <p>Obviously this is silly example, but it is enough to demonstrate
-  the general design of lemon tests.</p>
+  <p>Obviously this an overly simplistic example, but it demonstrates well enough the overall design of Lemon
+  tests. Notice that the #Case method references a class (this can also be a module) and the units each
+  refer to a method of the class.</p>
 
   <p>Lemon uses the <a href="http://proutils.github.com/ae">Assertive Expressive</a>
-  assertions framework. This is the same verstile framework used by <a href="http://proutils.github.com/qed">Q.E.D.</a></p>
+  assertions framework. This is the same verstile framework used by <a href="http://proutils.github.com/qed">Q.E.D.</a>.
+  By default Lemon test support the standard #assert and #expect assertion methods. If you wish to use subjunctive
+  terms, either #should or #must, you can load these via a helper script (eg. <code>require 'ae/should'</code>).</p>
 
   <h3>Running Tests</h3>
 
-  <p>The <tt>lemon</tt> command-tool allows your to run tests:</p>
+  <p>The <tt>lemon</tt> command-line tool is used to run tests. Simply provide the name of the test files as arguments:</p>
 
   <pre>
   $ lemon test/cases/*.rb
@@ -80,13 +84,36 @@
   or <tt>-v</tt> option provides additional information about each unit test and concern
   as they are executed.</p>
 
-  <p>While still expiremental features, the <tt>lemon</tt> command can also be used to
-  check test coverage or generate test skeletons from pre-existing code.</p>
+  <h3>Test Coverage</h3>
 
-  <h2>Current Status</h2>
+  <p>The <tt>lemon</tt> command can also be used to check test coverage. For this use the <tt>--coverage</tt>
+  or <tt>-c</tt> option.</p>
 
-  <p>Lemon is currently under active development, and not quit ready for prime time. Hey, but it's close.</p>
+  <pre>
+  $ lemon -c test/cases/*.rb
+  </pre>
 
+  <p>To enusre only the code you are interested in is checked, you can either use <tt>-r</tt> to pre-require
+  support libraries you wish not to include in the output. Or more conveniently, supply specific namespaces
+  to include via the <tt>--namespace</tt> or <tt>-n</tt> option.
+
+  <pre>
+  $ lemon -c -n HelloWorld test/cases/*.rb
+  </pre>
+
+  <p>For more information on Lemon and how to use it please see the Lemon <a href="http://wiki.github.com/proutils/lemon">Wiki</a>.</p>
+
+  <h2>Development</h2>
+
+  <p>Lemon is a ProUtils project. Development is hosted on GitHub at:</p>
+
+  <pre>
+  <a href="http://github.com/proutils/lemon">http://github.com/proutils/lemon</a>
+  </pre>
+
+  <h3>License</h3>
+
+  <p>Lemon is an open-source project licensed under the terms of <b>Lesser General Public License</b>.</p>
 </div>
 </div>
 
@@ -105,13 +132,13 @@
 
   <br/><br/><br/>
 
-  <img src="assets/images/lemons-are-good.jpg" height="200px" align="left" style="margin: 0 30px 30px 0;"/>
+  <img src="assets/images/lemons-are-good.jpg" height="200px" align="top" style="margin: 0 30px 30px 0;"/>
+  <a href="http://www.gnu.org/licenses/lgpl-3.0-standalone.html">
+    <img src="assets/images/lgplv3-147x51.png" align="right" style="margin: 0 0 20px 20px;" />
+  </a>
 
   <div class="copyright">
     <p><b>Lemon</b>, Copyright &copy; 2009 Thomas Sawyer</p>
-    <a href="http://www.gnu.org/licenses/lgpl-3.0-standalone.html">
-      <img src="assets/images/lgplv3-147x51.png" align="left" style="margin: 0 0 20px 20px;" />
-    </a>
   </div>
 </dir>
 
