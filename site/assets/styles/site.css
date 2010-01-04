@@ -6,8 +6,9 @@ a:hover { text-decoration: underline; }
 h1 { font-size: 100px; margin: 20px 0; color: #f7d901; }
 h2 { margin-top: 30px; }
 
- pre { background: white; -moz-border-radius: 10px; color: #229900; font-weight: bold; }
-code { color: #229900; }
+ pre { background: white; -moz-border-radius: 10px; color: #262; font-weight: bold; }
+code { color: #262; font-weight: bold; }
+  tt { color: #262; font-weight: bold; }
 
 #nav { padding: 20px 50px 20px 0; text-align: center; background: url(../images/skin.jpg) #f7e931; color: pink; }
 #nav a { font-size: 90%; }
