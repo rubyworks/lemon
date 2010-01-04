@@ -87,8 +87,33 @@
         <ul class="link-list">
           
             
+            <li class="singleton">
+              <a href="#M000071">::const_missing</a>
+            </li>
+          
+            
             <li class="method">
-              <a href="#M000074">#pry</a>
+              <a href="#M000067">#After</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000064">#Before</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000070">#Case</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000068">#When</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000110">#pry</a>
             </li>
           
         </ul>
@@ -140,6 +165,14 @@
         
           <li class="class"><a href="../classes/Lemon/Command.html">Lemon::Command</a></li>
         
+          <li class="module"><a href="../classes/Lemon/Commands.html">Lemon::Commands</a></li>
+        
+          <li class="class"><a href="../classes/Lemon/Commands/Coverage.html">Lemon::Commands::Coverage</a></li>
+        
+          <li class="class"><a href="../classes/Lemon/Commands/Generate.html">Lemon::Commands::Generate</a></li>
+        
+          <li class="class"><a href="../classes/Lemon/Commands/Test.html">Lemon::Commands::Test</a></li>
+        
           <li class="class"><a href="../classes/Lemon/Coverage.html">Lemon::Coverage</a></li>
         
           <li class="class"><a href="../classes/Lemon/Reporter.html">Lemon::Reporter</a></li>
@@ -163,6 +196,8 @@
           <li class="class"><a href="../classes/Lemon/Test/Unit.html">Lemon::Test::Unit</a></li>
         
           <li class="class"><a href="../classes/Object.html">Object</a></li>
+        
+          <li class="class"><a href="../classes/PendingAssertion.html">PendingAssertion</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -197,12 +232,196 @@
 
     <!-- Methods -->
     
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="const-missing-method" class="method-detail ">
+        <a name="M000071"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">const_missing</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+FIXME: This is a BIG FAT HACK! For the life of me I cannot find a way to
+resolve module constants included in the test cases. Becuase of closure,
+the constant lookup goes through here, and not the <a
+href="Object.html#M000070">Case</a> singleton class. So to work around we
+must note each test before it is run, and reroute the missing constants.
+</p>
+<p>
+This sucks and it is not thread safe. If anyone know how to fix, please let
+me know. See Unit#call for the other end of this hack.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="const-missing-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/dsl.rb, line 43</span>
+<span class="ruby-keyword kw">def</span> <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_missing</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">unit</span> = <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">test_stack</span>.<span class="ruby-identifier">last</span>
+    <span class="ruby-keyword kw">begin</span>
+      (<span class="ruby-keyword kw">class</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">unit</span>.<span class="ruby-identifier">testcase</span>; <span class="ruby-keyword kw">self</span>; <span class="ruby-keyword kw">end</span>).<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">name</span>)
+    <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">NameError</span>
+      <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">name</span>)
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">else</span>
+    <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-keyword kw">end</span>
+<span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
     <div id="public-instance-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="-fter-method" class="method-detail ">
+        <a name="M000067"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">After</span><span
+            class="method-args">(match=nil, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="-fter-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/dsl.rb, line 18</span>
+<span class="ruby-keyword kw">def</span> <span class="ruby-constant">After</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">suite</span>.<span class="ruby-constant">After</span>(<span class="ruby-identifier">match</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="-efore-method" class="method-detail ">
+        <a name="M000064"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Before</span><span
+            class="method-args">(match=nil, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="-efore-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/dsl.rb, line 13</span>
+<span class="ruby-keyword kw">def</span> <span class="ruby-constant">Before</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">suite</span>.<span class="ruby-constant">Before</span>(<span class="ruby-identifier">match</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="-ase-method" class="method-detail ">
+        <a name="M000070"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Case</span><span
+            class="method-args">(target_class, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="-ase-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/dsl.rb, line 28</span>
+<span class="ruby-keyword kw">def</span> <span class="ruby-constant">Case</span>(<span class="ruby-identifier">target_class</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">suite</span>.<span class="ruby-constant">Case</span>(<span class="ruby-identifier">target_class</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="-hen-method" class="method-detail ">
+        <a name="M000068"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">When</span><span
+            class="method-args">(match=nil, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="-hen-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/dsl.rb, line 23</span>
+<span class="ruby-keyword kw">def</span> <span class="ruby-constant">When</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">suite</span>.<span class="ruby-constant">When</span>(<span class="ruby-identifier">match</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
       <div id="pry-method" class="method-detail ">
-        <a name="M000074"></a>
+        <a name="M000110"></a>
 
         <div class="method-heading">
         

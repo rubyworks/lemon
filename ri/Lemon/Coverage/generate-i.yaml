@@ -4,9 +4,9 @@ aliases: []
 block_params: 
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
-  body: "TODO: option to do only do what hasn't been covered thus far"
+  body: "TODO: combine with coverage to provided option to do only do what hasn't been covered thus far. TODO: support output directory"
 full_name: Lemon::Coverage#generate
 is_singleton: false
 name: generate
-params: (opts={})
+params: (output=nil)
 visibility: public

@@ -10,10 +10,6 @@ comment:
   width: 
 - !ruby/struct:RDoc::Markup::Flow::P 
   body: Generic Reporter
-- !ruby/struct:RDoc::Markup::Flow::RULE 
-  width: 
-- !ruby/struct:RDoc::Markup::Flow::P 
-  body: Generic Reporter
 constants: []
 
 full_name: Lemon::Reporters::Verbose
@@ -28,6 +24,8 @@ instance_methods:
   name: report_failure
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_finish
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: report_pending
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_start
 - !ruby/object:RDoc::RI::MethodSummary 

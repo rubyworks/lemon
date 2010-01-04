@@ -1,0 +1,37 @@
+--- !ruby/object:RDoc::RI::ClassDescription 
+attributes: 
+- !ruby/object:RDoc::RI::Attribute 
+  comment: []
+
+  name: format
+  rw: RW
+class_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: new
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: options
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: run
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Lemon Test Command-line tool.
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Lemon Test Command-line tool.
+constants: []
+
+full_name: Lemon::Commands::Test
+includes: []
+
+instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: includes
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: parser
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: requires
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: run
+name: Test
+superclass: Command

@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Get or set librarires to pre-require.
+full_name: Lemon::Commands::Generate#requires
+is_singleton: false
+name: requires
+params: (*paths)
+visibility: public

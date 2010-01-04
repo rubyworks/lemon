@@ -6,9 +6,9 @@ comment:
 - !ruby/struct:RDoc::Markup::Flow::P 
   body: New Coverage object.
 - !ruby/struct:RDoc::Markup::Flow::VERB 
-  body: "  Coverage.new('lib/', :public =&gt; true)\n"
+  body: "  Coverage.new('lib/', :MyApp, :public =&gt; true)\n"
 full_name: Lemon::Coverage::new
 is_singleton: true
 name: new
-params: (paths, options={})
+params: (files, namespaces=nil, options={})
 visibility: public

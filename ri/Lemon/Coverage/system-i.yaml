@@ -4,7 +4,9 @@ aliases: []
 block_params: 
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
-  body: System to be covered. This takes a sanpshot of the system and then removes the conical snapshot.
+  body: System to be covered. This takes a sanpshot of the system and then removes the conical snapshot, and then filters out the namespace.
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: "TODO: Perhaps get rid of the conical subtraction and require a namespace?"
 full_name: Lemon::Coverage#system
 is_singleton: false
 name: system

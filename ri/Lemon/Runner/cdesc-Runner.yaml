@@ -21,6 +21,12 @@ attributes:
 - !ruby/object:RDoc::RI::Attribute 
   comment: 
   - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Record of pending tests.
+  name: pendings
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
     body: Record of successful tests.
   name: successes
   rw: R

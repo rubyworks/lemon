@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Get or set paths to include in $LOAD_PATH.
+full_name: Lemon::Commands::Test#includes
+is_singleton: false
+name: includes
+params: (*paths)
+visibility: public

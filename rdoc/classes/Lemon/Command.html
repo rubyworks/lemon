@@ -91,52 +91,22 @@
           
             
             <li class="singleton">
-              <a href="#M000044">::new</a>
+              <a href="#M000039">::commands</a>
             </li>
           
             
             <li class="singleton">
-              <a href="#M000042">::run</a>
+              <a href="#M000040">::inherited</a>
             </li>
           
             
-            <li class="method">
-              <a href="#M000052">#coverage</a>
+            <li class="singleton">
+              <a href="#M000038">::options</a>
             </li>
           
             
-            <li class="method">
-              <a href="#M000053">#generate</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000050">#includes=</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000047">#parser</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000048">#public_only?</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000049">#requires=</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000051">#run</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000054">#test</a>
+            <li class="singleton">
+              <a href="#M000041">::run</a>
             </li>
           
         </ul>
@@ -188,6 +158,14 @@
         
           <li class="class"><a href="../../classes/Lemon/Command.html">Lemon::Command</a></li>
         
+          <li class="module"><a href="../../classes/Lemon/Commands.html">Lemon::Commands</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Commands/Coverage.html">Lemon::Commands::Coverage</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Commands/Generate.html">Lemon::Commands::Generate</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Commands/Test.html">Lemon::Commands::Test</a></li>
+        
           <li class="class"><a href="../../classes/Lemon/Coverage.html">Lemon::Coverage</a></li>
         
           <li class="class"><a href="../../classes/Lemon/Reporter.html">Lemon::Reporter</a></li>
@@ -212,6 +190,8 @@
         
           <li class="class"><a href="../../classes/Object.html">Object</a></li>
         
+          <li class="class"><a href="../../classes/PendingAssertion.html">PendingAssertion</a></li>
+        
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
       </div>
@@ -235,7 +215,7 @@
       
 
       <p>
-<a href="../Lemon.html">Lemon</a> Command-line tool.
+<a href="../Lemon.html">Lemon</a> Command-line tool base class.
 </p>
 
     </div>
@@ -245,97 +225,6 @@
 
     <!-- Attributes -->
     
-    <div id="attribute-method-details" class="method-section section">
-      <h3 class="section-header">Attributes</h3>
-
-      
-      <div id="command-attribute-method" class="method-detail">
-        <a name="command"></a>
-        
-        <a name="command="></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">command</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p class="missing-docs">(Not documented)</p>
-        
-        </div>
-      </div>
-      
-      <div id="format-attribute-method" class="method-detail">
-        <a name="format"></a>
-        
-        <a name="format="></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">format</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p class="missing-docs">(Not documented)</p>
-        
-        </div>
-      </div>
-      
-      <div id="requires-attribute-method" class="method-detail">
-        <a name="requires"></a>
-        
-        <a name="requires="></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">requires</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p class="missing-docs">(Not documented)</p>
-        
-        </div>
-      </div>
-      
-      <div id="includes-attribute-method" class="method-detail">
-        <a name="includes"></a>
-        
-        <a name="includes="></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">includes</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p class="missing-docs">(Not documented)</p>
-        
-        </div>
-      </div>
-      
-      <div id="public-only-attribute-method" class="method-detail">
-        <a name="public_only"></a>
-        
-        <a name="public_only="></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">public_only</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p class="missing-docs">(Not documented)</p>
-        
-        </div>
-      </div>
-      
-    </div>
-    
 
     <!-- Methods -->
     
@@ -343,12 +232,12 @@
       <h3 class="section-header">Public Class Methods</h3>
 
     
-      <div id="new-method" class="method-detail ">
-        <a name="M000044"></a>
+      <div id="commands-method" class="method-detail ">
+        <a name="M000039"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">new</span><span
+          <span class="method-name">commands</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         
@@ -357,20 +246,17 @@
         <div class="method-description">
           
           <p>
-New <a href="Command.html">Command</a> instance.
+Stores a list of command classes.
 </p>
           
 
           
           <div class="method-source-code"
-            id="new-source">
+            id="commands-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/command.rb, line 25</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
-      <span class="ruby-ivar">@format</span>   = <span class="ruby-keyword kw">nil</span>
-      <span class="ruby-ivar">@requires</span> = []
-      <span class="ruby-ivar">@includes</span> = []
-      <span class="ruby-ivar">@public_only</span> = <span class="ruby-keyword kw">false</span>
+<span class="ruby-comment cmt"># File lib/lemon/command.rb, line 19</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">commands</span>
+      <span class="ruby-ivar">@commands</span> <span class="ruby-operator">||=</span> []
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -380,12 +266,46 @@ New <a href="Command.html">Command</a> instance.
       </div>
 
     
-      <div id="run-method" class="method-detail ">
-        <a name="M000042"></a>
+      <div id="inherited-method" class="method-detail ">
+        <a name="M000040"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">run</span><span
+          <span class="method-name">inherited</span><span
+            class="method-args">(command_class)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+When this class is inherited, it is registered to the commands list.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="inherited-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/command.rb, line 24</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">command_class</span>)
+      <span class="ruby-identifier">commands</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">command_class</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="options-method" class="method-detail ">
+        <a name="M000038"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">options</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         
@@ -394,254 +314,19 @@ New <a href="Command.html">Command</a> instance.
         <div class="method-description">
           
           <p>
-Initialize and run.
+Used to map command-line options to command classes. This must be
+overridden in subclasses, and return an array of of options, e.g. [
+&#8217;-g&#8217;, &#8217;&#8212;generate&#8217;].
 </p>
           
 
           
           <div class="method-source-code"
-            id="run-source">
+            id="options-source">
 <pre>
 <span class="ruby-comment cmt"># File lib/lemon/command.rb, line 14</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">run</span>
-      <span class="ruby-identifier">new</span>.<span class="ruby-identifier">run</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-    </div>
-  
-    <div id="public-instance-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
-
-    
-      <div id="coverage-method" class="method-detail ">
-        <a name="M000052"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">coverage</span><span
-            class="method-args">(tests)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Check test coverage.
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="coverage-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/lemon/command.rb, line 102</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">coverage</span>(<span class="ruby-identifier">tests</span>)
-      <span class="ruby-identifier">cover</span>  = <span class="ruby-constant">Lemon</span><span class="ruby-operator">::</span><span class="ruby-constant">Coverage</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">requires</span>, <span class="ruby-identifier">:public</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">public_only?</span>)
-      <span class="ruby-identifier">suite</span>  = <span class="ruby-constant">Lemon</span><span class="ruby-operator">::</span><span class="ruby-constant">Test</span><span class="ruby-operator">::</span><span class="ruby-constant">Suite</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">tests</span>)
-      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">cover</span>.<span class="ruby-identifier">coverage</span>(<span class="ruby-identifier">suite</span>).<span class="ruby-identifier">to_yaml</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="generate-method" class="method-detail ">
-        <a name="M000053"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">generate</span><span
-            class="method-args">(tests)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Generate test skeletons.
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="generate-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/lemon/command.rb, line 109</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate</span>(<span class="ruby-identifier">tests</span>)
-      <span class="ruby-identifier">cover</span>  = <span class="ruby-constant">Lemon</span><span class="ruby-operator">::</span><span class="ruby-constant">Coverage</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">requires</span>, <span class="ruby-identifier">:public</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">public_only?</span>)
-      <span class="ruby-comment cmt">#suite  = Lemon::Test::Suite.new(tests)</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">cover</span>.<span class="ruby-identifier">generate</span> <span class="ruby-comment cmt">#(suite).to_yaml</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="includes--method" class="method-detail ">
-        <a name="M000050"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">includes=</span><span
-            class="method-args">(paths)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="includes--source">
-<pre>
-<span class="ruby-comment cmt"># File lib/lemon/command.rb, line 77</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">includes=</span>(<span class="ruby-identifier">paths</span>)
-      <span class="ruby-ivar">@includes</span> = <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/[:;]/</span>)
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="parser-method" class="method-detail ">
-        <a name="M000047"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">parser</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Instance of OptionParser.
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="parser-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/lemon/command.rb, line 33</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parser</span>
-      <span class="ruby-ivar">@parser</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">opt</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--verbose'</span>, <span class="ruby-value str">'-v'</span>, <span class="ruby-value str">&quot;select verbose report format&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">type</span><span class="ruby-operator">|</span>
-          <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">format</span> = <span class="ruby-identifier">:verbose</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-comment cmt">#opt.on('--format', '-f [TYPE]', &quot;select alternate report format&quot;) do |type|</span>
-        <span class="ruby-comment cmt">#  self.format = type</span>
-        <span class="ruby-comment cmt">#end</span>
-        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--coverage'</span>, <span class="ruby-value str">'-c'</span>, <span class="ruby-value str">'produce a coverage report'</span>) <span class="ruby-keyword kw">do</span>
-          <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">command</span> = <span class="ruby-identifier">:coverage</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--generate'</span>, <span class="ruby-value str">'-g'</span>, <span class="ruby-value str">'generate test skeletons'</span>) <span class="ruby-keyword kw">do</span>
-          <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">command</span> = <span class="ruby-identifier">:generate</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--public'</span>, <span class="ruby-value str">'-p'</span>, <span class="ruby-value str">&quot;only include public methods (for -c and -g)&quot;</span>) <span class="ruby-keyword kw">do</span>
-          <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">public_only</span> = <span class="ruby-keyword kw">true</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">&quot;-I [PATH]&quot;</span> , <span class="ruby-value str">'include in $LOAD_PATH'</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
-          <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">includes</span> = <span class="ruby-identifier">path</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">&quot;-r [FILES]&quot;</span> , <span class="ruby-value str">'library files to require'</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">files</span><span class="ruby-operator">|</span>
-          <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">requires</span> = <span class="ruby-identifier">files</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">&quot;--debug&quot;</span> , <span class="ruby-value str">'turn on debugging mode'</span>) <span class="ruby-keyword kw">do</span>
-          <span class="ruby-identifier">$DEBUG</span> = <span class="ruby-keyword kw">true</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-value str">'--help'</span>, <span class="ruby-value str">'-h'</span>, <span class="ruby-value str">'show this help message'</span>) <span class="ruby-keyword kw">do</span>
-          <span class="ruby-identifier">puts</span> <span class="ruby-identifier">opt</span>
-          <span class="ruby-identifier">exit</span>
-        <span class="ruby-keyword kw">end</span>
-      <span class="ruby-keyword kw">end</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="public-only--method" class="method-detail ">
-        <a name="M000048"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">public_only?</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="public-only--source">
-<pre>
-<span class="ruby-comment cmt"># File lib/lemon/command.rb, line 67</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">public_only?</span>
-      <span class="ruby-ivar">@public_only</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="requires--method" class="method-detail ">
-        <a name="M000049"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">requires=</span><span
-            class="method-args">(paths)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="requires--source">
-<pre>
-<span class="ruby-comment cmt"># File lib/lemon/command.rb, line 72</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">requires=</span>(<span class="ruby-identifier">paths</span>)
-      <span class="ruby-ivar">@requires</span> = <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/[:;]/</span>)
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">options</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;not implemented&quot;</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -652,7 +337,7 @@ Instance of OptionParser.
 
     
       <div id="run-method" class="method-detail ">
-        <a name="M000051"></a>
+        <a name="M000041"></a>
 
         <div class="method-heading">
         
@@ -664,68 +349,23 @@ Instance of OptionParser.
 
         <div class="method-description">
           
-          
+          <p>
+Factory method to initialize and run choosen sub-command.
+</p>
           
 
           
           <div class="method-source-code"
             id="run-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/command.rb, line 82</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>
-      <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">parse!</span>
-
-      <span class="ruby-identifier">includes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">$LOAD_PATHS</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">path</span>)
+<span class="ruby-comment cmt"># File lib/lemon/command.rb, line 29</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">run</span>
+      <span class="ruby-identifier">cmd</span> = <span class="ruby-identifier">commands</span>.<span class="ruby-identifier">find</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">command_class</span><span class="ruby-operator">|</span>
+        [<span class="ruby-identifier">command_class</span>.<span class="ruby-identifier">options</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">find</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">opt</span><span class="ruby-operator">|</span>
+          <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">opt</span>)
+        <span class="ruby-keyword kw">end</span>
       <span class="ruby-keyword kw">end</span>
-
-      <span class="ruby-identifier">tests</span> = <span class="ruby-constant">ARGV</span>
-
-      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">command</span>
-      <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:coverage</span>
-        <span class="ruby-identifier">coverage</span>(<span class="ruby-identifier">tests</span>)
-      <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:generate</span>
-        <span class="ruby-identifier">generate</span>(<span class="ruby-identifier">tests</span>)
-      <span class="ruby-keyword kw">else</span>
-        <span class="ruby-identifier">test</span>(<span class="ruby-identifier">tests</span>)
-      <span class="ruby-keyword kw">end</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="test-method" class="method-detail ">
-        <a name="M000054"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">test</span><span
-            class="method-args">(tests)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Run unit tests.
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="test-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/lemon/command.rb, line 116</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test</span>(<span class="ruby-identifier">tests</span>)
-      <span class="ruby-identifier">requires</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> <span class="ruby-identifier">require</span>(<span class="ruby-identifier">path</span>) }
-      <span class="ruby-identifier">suite</span>  = <span class="ruby-constant">Lemon</span><span class="ruby-operator">::</span><span class="ruby-constant">Test</span><span class="ruby-operator">::</span><span class="ruby-constant">Suite</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">tests</span>)
-      <span class="ruby-identifier">runner</span> = <span class="ruby-constant">Lemon</span><span class="ruby-operator">::</span><span class="ruby-constant">Runner</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">suite</span>, <span class="ruby-identifier">format</span>)
-      <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">run</span>
+      <span class="ruby-identifier">cmd</span> <span class="ruby-value">? </span><span class="ruby-identifier">cmd</span>.<span class="ruby-identifier">run</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Commands</span><span class="ruby-operator">::</span><span class="ruby-constant">Test</span>.<span class="ruby-identifier">run</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           

@@ -1,14 +1,9 @@
 --- !ruby/object:RDoc::RI::ClassDescription 
 attributes: []
 
-class_methods: 
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: factory
+class_methods: []
+
 comment: 
-- !ruby/struct:RDoc::Markup::Flow::P 
-  body: Generic Reporter
-- !ruby/struct:RDoc::Markup::Flow::RULE 
-  width: 
 - !ruby/struct:RDoc::Markup::Flow::P 
   body: Generic Reporter
 - !ruby/struct:RDoc::Markup::Flow::RULE 
@@ -29,6 +24,8 @@ instance_methods:
   name: report_failure
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_finish
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: report_pending
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_start
 - !ruby/object:RDoc::RI::MethodSummary 

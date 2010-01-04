@@ -2,7 +2,8 @@
 aliases: []
 
 block_params: 
-comment: 
+comment: []
+
 full_name: Lemon::Reporter#report_start
 is_singleton: false
 name: report_start

@@ -91,42 +91,37 @@
           
             
             <li class="singleton">
-              <a href="#M000035">::new</a>
+              <a href="#M000034">::new</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000040">#cover</a>
+              <a href="#M000037">#cover</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000039">#coverage</a>
+              <a href="#M000036">#coverage</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000046">#generate</a>
+              <a href="#M000044">#generate</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000041">#load_system</a>
+              <a href="#M000035">#public_only?</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000038">#public_only?</a>
+              <a href="#M000043">#snapshot</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000045">#snapshot</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000043">#system</a>
+              <a href="#M000042">#system</a>
             </li>
           
         </ul>
@@ -178,6 +173,14 @@
         
           <li class="class"><a href="../../classes/Lemon/Command.html">Lemon::Command</a></li>
         
+          <li class="module"><a href="../../classes/Lemon/Commands.html">Lemon::Commands</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Commands/Coverage.html">Lemon::Commands::Coverage</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Commands/Generate.html">Lemon::Commands::Generate</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Commands/Test.html">Lemon::Commands::Test</a></li>
+        
           <li class="class"><a href="../../classes/Lemon/Coverage.html">Lemon::Coverage</a></li>
         
           <li class="class"><a href="../../classes/Lemon/Reporter.html">Lemon::Reporter</a></li>
@@ -201,6 +204,8 @@
           <li class="class"><a href="../../classes/Lemon/Test/Unit.html">Lemon::Test::Unit</a></li>
         
           <li class="class"><a href="../../classes/Object.html">Object</a></li>
+        
+          <li class="class"><a href="../../classes/PendingAssertion.html">PendingAssertion</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -236,18 +241,20 @@
       <h3 class="section-header">Attributes</h3>
 
       
-      <div id="paths-attribute-method" class="method-detail">
-        <a name="paths"></a>
+      <div id="files-attribute-method" class="method-detail">
+        <a name="files"></a>
         
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">paths</span><span
+          <span class="method-name">files</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
         <div class="method-description">
         
         <p>
-Paths of ruby scripts to be covered.
+Paths of lemon tests and/or ruby scripts to be compared and covered. This
+can include directories too, in which case all .rb scripts below then
+directory will be included.
 </p>
         
         </div>
@@ -270,6 +277,21 @@ Conical snapshot of system (before loading libraries to be covered).
         </div>
       </div>
       
+      <div id="namespaces-attribute-method" class="method-detail">
+        <a name="namespaces"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">namespaces</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
     </div>
     
 
@@ -280,12 +302,12 @@ Conical snapshot of system (before loading libraries to be covered).
 
     
       <div id="new-method" class="method-detail ">
-        <a name="M000035"></a>
+        <a name="M000034"></a>
 
         <div class="method-heading">
         
           <span class="method-name">new</span><span
-            class="method-args">(paths, options={})</span>
+            class="method-args">(files, namespaces=nil, options={})</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
@@ -296,7 +318,7 @@ Conical snapshot of system (before loading libraries to be covered).
 New <a href="Coverage.html">Coverage</a> object.
 </p>
 <pre>
-  Coverage.new('lib/', :public =&gt; true)
+  Coverage.new('lib/', :MyApp, :public =&gt; true)
 </pre>
           
 
@@ -304,14 +326,17 @@ New <a href="Coverage.html">Coverage</a> object.
           <div class="method-source-code"
             id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 16</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">paths</span>, <span class="ruby-identifier">options</span>={})
-      <span class="ruby-ivar">@public</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:public</span>]
+<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 21</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">files</span>, <span class="ruby-identifier">namespaces</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">options</span>={})
+      <span class="ruby-ivar">@namespaces</span> = <span class="ruby-identifier">namespaces</span> <span class="ruby-operator">||</span> []
 
-      <span class="ruby-ivar">@paths</span>   = <span class="ruby-identifier">paths</span>
+      <span class="ruby-ivar">@files</span>   = <span class="ruby-identifier">files</span>
       <span class="ruby-ivar">@conical</span> = <span class="ruby-identifier">snapshot</span>
 
-      <span class="ruby-identifier">load_system</span>
+      <span class="ruby-ivar">@public</span>  = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:public</span>]
+
+      <span class="ruby-comment cmt"># this must come after concial snapshot</span>
+      <span class="ruby-ivar">@suite</span>   = <span class="ruby-constant">Test</span><span class="ruby-operator">::</span><span class="ruby-constant">Suite</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">files</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -328,7 +353,7 @@ New <a href="Coverage.html">Coverage</a> object.
 
     
       <div id="cover-method" class="method-detail ">
-        <a name="M000040"></a>
+        <a name="M000037"></a>
 
         <div class="method-heading">
         
@@ -349,7 +374,7 @@ New <a href="Coverage.html">Coverage</a> object.
           <div class="method-source-code"
             id="cover-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 42</span>
+<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 50</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cover</span>
       <span class="ruby-identifier">cover</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">h</span>,<span class="ruby-identifier">k</span><span class="ruby-operator">|</span><span class="ruby-identifier">h</span>[<span class="ruby-identifier">k</span>]={}}
       <span class="ruby-identifier">system</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">base</span><span class="ruby-operator">|</span>
@@ -378,7 +403,7 @@ New <a href="Coverage.html">Coverage</a> object.
 
     
       <div id="coverage-method" class="method-detail ">
-        <a name="M000039"></a>
+        <a name="M000036"></a>
 
         <div class="method-heading">
         
@@ -399,7 +424,7 @@ Produce a coverage map.
           <div class="method-source-code"
             id="coverage-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 31</span>
+<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 39</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">coverage</span>(<span class="ruby-identifier">suite</span>)
       <span class="ruby-identifier">checklist</span> = <span class="ruby-identifier">cover</span>()
       <span class="ruby-identifier">suite</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">testcase</span><span class="ruby-operator">|</span>
@@ -418,12 +443,12 @@ Produce a coverage map.
 
     
       <div id="generate-method" class="method-detail ">
-        <a name="M000046"></a>
+        <a name="M000044"></a>
 
         <div class="method-heading">
         
           <span class="method-name">generate</span><span
-            class="method-args">(opts={})</span>
+            class="method-args">(output=nil)</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
@@ -431,7 +456,8 @@ Produce a coverage map.
         <div class="method-description">
           
           <p>
-TODO: option to do only do what hasn&#8217;t been covered thus far
+TODO: combine with coverage to provided option to do only do what
+hasn&#8217;t been covered thus far. TODO: support output directory
 </p>
           
 
@@ -439,21 +465,21 @@ TODO: option to do only do what hasn&#8217;t been covered thus far
           <div class="method-source-code"
             id="generate-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 94</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate</span>(<span class="ruby-identifier">opts</span>={})
+<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 113</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate</span>(<span class="ruby-identifier">output</span>=<span class="ruby-keyword kw">nil</span>)
       <span class="ruby-identifier">code</span> = []
       <span class="ruby-identifier">system</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">base</span><span class="ruby-operator">|</span>
         <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">base</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Lemon</span><span class="ruby-operator">::</span><span class="ruby-constant">Test</span><span class="ruby-operator">::</span><span class="ruby-constant">Suite</span>)
-        <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;testcase #{base}&quot;</span>
+        <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;TestCase #{base} do&quot;</span>
         <span class="ruby-identifier">base</span>.<span class="ruby-identifier">public_instance_methods</span>(<span class="ruby-keyword kw">false</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">meth</span><span class="ruby-operator">|</span>
-          <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;\n  unit :#{meth} =&gt; '' do\n    pending\n  end&quot;</span>
+          <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;\n  Unit :#{meth} =&gt; '' do\n    pending\n  end&quot;</span>
         <span class="ruby-keyword kw">end</span>
         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">public_only?</span>
           <span class="ruby-identifier">base</span>.<span class="ruby-identifier">private_instance_methods</span>(<span class="ruby-keyword kw">false</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">meth</span><span class="ruby-operator">|</span>
-            <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;\n  unit :#{meth} =&gt; '' do\n    pending\n  end&quot;</span>
+            <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;\n  Unit :#{meth} =&gt; '' do\n    pending\n  end&quot;</span>
           <span class="ruby-keyword kw">end</span>
           <span class="ruby-identifier">base</span>.<span class="ruby-identifier">protected_instance_methods</span>(<span class="ruby-keyword kw">false</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">meth</span><span class="ruby-operator">|</span>
-            <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;\n  unit :#{meth} =&gt; '' do\n    pending\n  end&quot;</span>
+            <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;\n  Unit :#{meth} =&gt; '' do\n    pending\n  end&quot;</span>
           <span class="ruby-keyword kw">end</span>
         <span class="ruby-keyword kw">end</span>
         <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\nend\n&quot;</span>
@@ -468,51 +494,8 @@ TODO: option to do only do what hasn&#8217;t been covered thus far
       </div>
 
     
-      <div id="load-system-method" class="method-detail ">
-        <a name="M000041"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">load_system</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Iterate over <tt>paths</tt> and use load to bring in all <tt>.rb</tt>
-scripts.
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="load-system-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 63</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_system</span>
-      <span class="ruby-identifier">files</span> = []
-      <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
-        <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">path</span>)
-          <span class="ruby-identifier">files</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-value str">'**'</span>, <span class="ruby-value str">'*.rb'</span>)])
-        <span class="ruby-keyword kw">else</span>
-          <span class="ruby-identifier">files</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-constant">Dir</span>[<span class="ruby-identifier">path</span>])
-        <span class="ruby-keyword kw">end</span>
-      <span class="ruby-keyword kw">end</span>
-      <span class="ruby-identifier">files</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span> <span class="ruby-identifier">load</span>(<span class="ruby-identifier">file</span>) }
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
       <div id="public-only--method" class="method-detail ">
-        <a name="M000038"></a>
+        <a name="M000035"></a>
 
         <div class="method-heading">
         
@@ -533,7 +516,7 @@ Over use public methods for coverage.
           <div class="method-source-code"
             id="public-only--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 26</span>
+<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 34</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">public_only?</span>
       <span class="ruby-ivar">@public</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -546,7 +529,7 @@ Over use public methods for coverage.
 
     
       <div id="snapshot-method" class="method-detail ">
-        <a name="M000045"></a>
+        <a name="M000043"></a>
 
         <div class="method-heading">
         
@@ -567,7 +550,7 @@ Produces a list of all existent Modules and Classes.
           <div class="method-source-code"
             id="snapshot-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 82</span>
+<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 99</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">snapshot</span>
       <span class="ruby-identifier">sys</span> = []
       <span class="ruby-comment cmt">#ObjectSpace.each_object(Class) do |c|</span>
@@ -587,7 +570,7 @@ Produces a list of all existent Modules and Classes.
 
     
       <div id="system-method" class="method-detail ">
-        <a name="M000043"></a>
+        <a name="M000042"></a>
 
         <div class="method-heading">
         
@@ -601,7 +584,10 @@ Produces a list of all existent Modules and Classes.
           
           <p>
 System to be covered. This takes a sanpshot of the system and then removes
-the conical snapshot.
+the conical snapshot, and then filters out the namespace.
+</p>
+<p>
+TODO: Perhaps get rid of the conical subtraction and require a namespace?
 </p>
           
 
@@ -609,9 +595,15 @@ the conical snapshot.
           <div class="method-source-code"
             id="system-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 77</span>
+<span class="ruby-comment cmt"># File lib/lemon/coverage.rb, line 88</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">system</span>
-      <span class="ruby-identifier">snapshot</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">conical</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">namespaces</span>.<span class="ruby-identifier">empty?</span>
+        <span class="ruby-identifier">snapshot</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">conical</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">snapshot</span>.<span class="ruby-identifier">select</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">namespaces</span>.<span class="ruby-identifier">any?</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">start_with?</span>(<span class="ruby-identifier">n</span>) }
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           

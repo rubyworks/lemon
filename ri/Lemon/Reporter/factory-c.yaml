@@ -7,5 +7,5 @@ comment: []
 full_name: Lemon::Reporter::factory
 is_singleton: true
 name: factory
-params: (format)
+params: (format, runner)
 visibility: public

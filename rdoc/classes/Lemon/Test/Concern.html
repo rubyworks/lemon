@@ -91,22 +91,22 @@
           
             
             <li class="singleton">
-              <a href="#M000029">::new</a>
+              <a href="#M000026">::new</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000030">#assign</a>
+              <a href="#M000027">#assign</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000031">#each</a>
+              <a href="#M000028">#each</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000032">#to_s</a>
+              <a href="#M000029">#to_s</a>
             </li>
           
         </ul>
@@ -158,6 +158,14 @@
         
           <li class="class"><a href="../../../classes/Lemon/Command.html">Lemon::Command</a></li>
         
+          <li class="module"><a href="../../../classes/Lemon/Commands.html">Lemon::Commands</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Commands/Coverage.html">Lemon::Commands::Coverage</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Commands/Generate.html">Lemon::Commands::Generate</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Commands/Test.html">Lemon::Commands::Test</a></li>
+        
           <li class="class"><a href="../../../classes/Lemon/Coverage.html">Lemon::Coverage</a></li>
         
           <li class="class"><a href="../../../classes/Lemon/Reporter.html">Lemon::Reporter</a></li>
@@ -181,6 +189,8 @@
           <li class="class"><a href="../../../classes/Lemon/Test/Unit.html">Lemon::Test::Unit</a></li>
         
           <li class="class"><a href="../../../classes/Object.html">Object</a></li>
+        
+          <li class="class"><a href="../../../classes/PendingAssertion.html">PendingAssertion</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -281,12 +291,12 @@ The description of this concern. Make this as detailed as you wish.
 
     
       <div id="new-method" class="method-detail ">
-        <a name="M000029"></a>
+        <a name="M000026"></a>
 
         <div class="method-heading">
         
           <span class="method-name">new</span><span
-            class="method-args">(testcase, description)</span>
+            class="method-args">(testcase, *description)</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
@@ -303,7 +313,7 @@ New concern.
             id="new-source">
 <pre>
 <span class="ruby-comment cmt"># File lib/lemon/test/concern.rb, line 19</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">testcase</span>, <span class="ruby-identifier">description</span>)
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">testcase</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">description</span>)
       <span class="ruby-ivar">@testcase</span>    = <span class="ruby-identifier">testcase</span>
       <span class="ruby-ivar">@description</span> = <span class="ruby-identifier">description</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
       <span class="ruby-ivar">@testunits</span>   = []
@@ -323,7 +333,7 @@ New concern.
 
     
       <div id="assign-method" class="method-detail ">
-        <a name="M000030"></a>
+        <a name="M000027"></a>
 
         <div class="method-heading">
         
@@ -358,7 +368,7 @@ Assign a unit test to this concern.
 
     
       <div id="each-method" class="method-detail ">
-        <a name="M000031"></a>
+        <a name="M000028"></a>
 
         <div class="method-heading">
         
@@ -392,7 +402,7 @@ Iterate through each test unit.
 
     
       <div id="to-s-method" class="method-detail ">
-        <a name="M000032"></a>
+        <a name="M000029"></a>
 
         <div class="method-heading">
         

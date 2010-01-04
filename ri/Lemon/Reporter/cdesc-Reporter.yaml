@@ -1,22 +1,31 @@
 --- !ruby/object:RDoc::RI::ClassDescription 
-attributes: []
+attributes: 
+- !ruby/object:RDoc::RI::Attribute 
+  comment: []
 
+  name: runner
+  rw: R
 class_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
   name: factory
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: new
 comment: 
-- !ruby/struct:RDoc::Markup::Flow::P 
-  body: Generic Reporter
-- !ruby/struct:RDoc::Markup::Flow::RULE 
-  width: 
-- !ruby/struct:RDoc::Markup::Flow::P 
-  body: Generic Reporter
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: Reporter Base Class
 constants: []
 
 full_name: Lemon::Reporter
 includes: []
 
 instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: errors
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: failures
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: pendings
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_concern
 - !ruby/object:RDoc::RI::MethodSummary 
@@ -29,5 +38,7 @@ instance_methods:
   name: report_start
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_success
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: successes
 name: Reporter
 superclass: Object

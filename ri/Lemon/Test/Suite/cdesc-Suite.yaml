@@ -26,14 +26,8 @@ attributes:
   rw: R
 class_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: const_missing
-- !ruby/object:RDoc::RI::MethodSummary 
   name: new
 comment: 
-- !ruby/struct:RDoc::Markup::Flow::P 
-  body: Test Suites encapsulate a set of test cases.
-- !ruby/struct:RDoc::Markup::Flow::RULE 
-  width: 
 - !ruby/struct:RDoc::Markup::Flow::P 
   body: Test Suites encapsulate a set of test cases.
 - !ruby/struct:RDoc::Markup::Flow::RULE 
@@ -57,18 +51,12 @@ instance_methods:
 - !ruby/object:RDoc::RI::MethodSummary 
   name: When
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: after
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: before
-- !ruby/object:RDoc::RI::MethodSummary 
   name: each
 - !ruby/object:RDoc::RI::MethodSummary 
   name: helper
 - !ruby/object:RDoc::RI::MethodSummary 
   name: include
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: test_stack
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: testcase
+  name: loadfiles
 name: Suite
 superclass: Object

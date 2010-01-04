@@ -91,32 +91,32 @@
           
             
             <li class="singleton">
-              <a href="#M000055">::new</a>
+              <a href="#M000045">::new</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000058">#reporter</a>
+              <a href="#M000052">#reporter</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000056">#run</a>
+              <a href="#M000046">#run</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000059">#run_concern_procedures</a>
+              <a href="#M000053">#run_concern_procedures</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000067">#run_postest_procedures</a>
+              <a href="#M000057">#run_postest_procedures</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000066">#run_pretest_procedures</a>
+              <a href="#M000056">#run_pretest_procedures</a>
             </li>
           
         </ul>
@@ -168,6 +168,14 @@
         
           <li class="class"><a href="../../classes/Lemon/Command.html">Lemon::Command</a></li>
         
+          <li class="module"><a href="../../classes/Lemon/Commands.html">Lemon::Commands</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Commands/Coverage.html">Lemon::Commands::Coverage</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Commands/Generate.html">Lemon::Commands::Generate</a></li>
+        
+          <li class="class"><a href="../../classes/Lemon/Commands/Test.html">Lemon::Commands::Test</a></li>
+        
           <li class="class"><a href="../../classes/Lemon/Coverage.html">Lemon::Coverage</a></li>
         
           <li class="class"><a href="../../classes/Lemon/Reporter.html">Lemon::Reporter</a></li>
@@ -191,6 +199,8 @@
           <li class="class"><a href="../../classes/Lemon/Test/Unit.html">Lemon::Test::Unit</a></li>
         
           <li class="class"><a href="../../classes/Object.html">Object</a></li>
+        
+          <li class="class"><a href="../../classes/PendingAssertion.html">PendingAssertion</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -238,6 +248,23 @@
         
         <p>
 <a href="Test.html">Test</a> suite to run.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="format-attribute-method" class="method-detail">
+        <a name="format"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">format</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+Report format.
 </p>
         
         </div>
@@ -294,18 +321,18 @@ Record of errors.
         </div>
       </div>
       
-      <div id="format-attribute-method" class="method-detail">
-        <a name="format"></a>
+      <div id="pendings-attribute-method" class="method-detail">
+        <a name="pendings"></a>
         
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">format</span><span
+          <span class="method-name">pendings</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
         <div class="method-description">
         
         <p>
-Report format.
+Record of pending tests.
 </p>
         
         </div>
@@ -321,7 +348,7 @@ Report format.
 
     
       <div id="new-method" class="method-detail ">
-        <a name="M000055"></a>
+        <a name="M000045"></a>
 
         <div class="method-heading">
         
@@ -342,13 +369,14 @@ New <a href="Runner.html">Runner</a>.
           <div class="method-source-code"
             id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 30</span>
+<span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 33</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">suite</span>, <span class="ruby-identifier">format</span>)
       <span class="ruby-ivar">@suite</span>     = <span class="ruby-identifier">suite</span>
       <span class="ruby-ivar">@format</span>    = <span class="ruby-identifier">format</span>
       <span class="ruby-ivar">@successes</span> = []
       <span class="ruby-ivar">@failures</span>  = []
       <span class="ruby-ivar">@errors</span>    = []
+      <span class="ruby-ivar">@pendings</span>  = []
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -365,7 +393,7 @@ New <a href="Runner.html">Runner</a>.
 
     
       <div id="reporter-method" class="method-detail ">
-        <a name="M000058"></a>
+        <a name="M000052"></a>
 
         <div class="method-heading">
         
@@ -386,9 +414,9 @@ All output is handled by a reporter.
           <div class="method-source-code"
             id="reporter-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 66</span>
+<span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 73</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reporter</span>
-      <span class="ruby-ivar">@reporter</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Reporter</span>.<span class="ruby-identifier">factory</span>(<span class="ruby-identifier">format</span>)
+      <span class="ruby-ivar">@reporter</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Reporter</span>.<span class="ruby-identifier">factory</span>(<span class="ruby-identifier">format</span>, <span class="ruby-keyword kw">self</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -399,7 +427,7 @@ All output is handled by a reporter.
 
     
       <div id="run-method" class="method-detail ">
-        <a name="M000056"></a>
+        <a name="M000046"></a>
 
         <div class="method-heading">
         
@@ -420,7 +448,7 @@ Run tests.
           <div class="method-source-code"
             id="run-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 39</span>
+<span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 43</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>
       <span class="ruby-identifier">reporter</span>.<span class="ruby-identifier">report_start</span>(<span class="ruby-identifier">suite</span>)
       <span class="ruby-identifier">suite</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">testcase</span><span class="ruby-operator">|</span>
@@ -433,6 +461,9 @@ Run tests.
               <span class="ruby-identifier">testunit</span>.<span class="ruby-identifier">call</span>
               <span class="ruby-identifier">reporter</span>.<span class="ruby-identifier">report_success</span>(<span class="ruby-identifier">testunit</span>)
               <span class="ruby-identifier">successes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">testunit</span>
+            <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">PendingAssertion</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">exception</span>
+              <span class="ruby-identifier">reporter</span>.<span class="ruby-identifier">report_pending</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
+              <span class="ruby-identifier">pendings</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>]
             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Assertion</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">exception</span>
               <span class="ruby-identifier">reporter</span>.<span class="ruby-identifier">report_failure</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
               <span class="ruby-identifier">failures</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>]
@@ -444,7 +475,7 @@ Run tests.
           <span class="ruby-keyword kw">end</span>
         <span class="ruby-keyword kw">end</span>
       <span class="ruby-keyword kw">end</span>
-      <span class="ruby-identifier">reporter</span>.<span class="ruby-identifier">report_finish</span>(<span class="ruby-identifier">successes</span>, <span class="ruby-identifier">failures</span>, <span class="ruby-identifier">errors</span>)
+      <span class="ruby-identifier">reporter</span>.<span class="ruby-identifier">report_finish</span> <span class="ruby-comment cmt">#(successes, failures, errors, pendings)</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -461,7 +492,7 @@ Run tests.
 
     
       <div id="run-concern-procedures-method" class="method-detail ">
-        <a name="M000059"></a>
+        <a name="M000053"></a>
 
         <div class="method-heading">
         
@@ -480,7 +511,7 @@ Run tests.
           <div class="method-source-code"
             id="run-concern-procedures-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 73</span>
+<span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 80</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_concern_procedures</span>(<span class="ruby-identifier">concern</span>, <span class="ruby-identifier">suite</span>, <span class="ruby-identifier">testcase</span>)
       <span class="ruby-identifier">suite</span>.<span class="ruby-identifier">when_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">match</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">concern</span>.<span class="ruby-identifier">to_s</span>
@@ -502,7 +533,7 @@ Run tests.
 
     
       <div id="run-postest-procedures-method" class="method-detail ">
-        <a name="M000067"></a>
+        <a name="M000057"></a>
 
         <div class="method-heading">
         
@@ -521,7 +552,7 @@ Run tests.
           <div class="method-source-code"
             id="run-postest-procedures-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 101</span>
+<span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 108</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_postest_procedures</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">suite</span>, <span class="ruby-identifier">testcase</span>)
       <span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">after_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">match</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">testunit</span>.<span class="ruby-identifier">aspect</span>
@@ -543,7 +574,7 @@ Run tests.
 
     
       <div id="run-pretest-procedures-method" class="method-detail ">
-        <a name="M000066"></a>
+        <a name="M000056"></a>
 
         <div class="method-heading">
         
@@ -562,7 +593,7 @@ Run tests.
           <div class="method-source-code"
             id="run-pretest-procedures-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 87</span>
+<span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 94</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_pretest_procedures</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">suite</span>, <span class="ruby-identifier">testcase</span>)
       <span class="ruby-identifier">suite</span>.<span class="ruby-identifier">before_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">match</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">testunit</span>.<span class="ruby-identifier">aspect</span>

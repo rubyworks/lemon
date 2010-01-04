@@ -9,8 +9,13 @@ attributes:
 - !ruby/object:RDoc::RI::Attribute 
   comment: 
   - !ruby/struct:RDoc::Markup::Flow::P 
-    body: Paths of ruby scripts to be covered.
-  name: paths
+    body: Paths of lemon tests and/or ruby scripts to be compared and covered. This can include directories too, in which case all .rb scripts below then directory will be included.
+  name: files
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: []
+
+  name: namespaces
   rw: R
 class_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
@@ -29,8 +34,6 @@ instance_methods:
   name: coverage
 - !ruby/object:RDoc::RI::MethodSummary 
   name: generate
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: load_system
 - !ruby/object:RDoc::RI::MethodSummary 
   name: public_only?
 - !ruby/object:RDoc::RI::MethodSummary 

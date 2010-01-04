@@ -90,32 +90,37 @@
           
             
             <li class="method">
-              <a href="#M000069">#report_concern</a>
+              <a href="#M000059">#report_concern</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000072">#report_error</a>
+              <a href="#M000065">#report_error</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000071">#report_failure</a>
+              <a href="#M000061">#report_failure</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000073">#report_finish</a>
+              <a href="#M000069">#report_finish</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000068">#report_start</a>
+              <a href="#M000066">#report_pending</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000070">#report_success</a>
+              <a href="#M000058">#report_start</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000060">#report_success</a>
             </li>
           
         </ul>
@@ -167,6 +172,14 @@
         
           <li class="class"><a href="../../../classes/Lemon/Command.html">Lemon::Command</a></li>
         
+          <li class="module"><a href="../../../classes/Lemon/Commands.html">Lemon::Commands</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Commands/Coverage.html">Lemon::Commands::Coverage</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Commands/Generate.html">Lemon::Commands::Generate</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Commands/Test.html">Lemon::Commands::Test</a></li>
+        
           <li class="class"><a href="../../../classes/Lemon/Coverage.html">Lemon::Coverage</a></li>
         
           <li class="class"><a href="../../../classes/Lemon/Reporter.html">Lemon::Reporter</a></li>
@@ -190,6 +203,8 @@
           <li class="class"><a href="../../../classes/Lemon/Test/Unit.html">Lemon::Test::Unit</a></li>
         
           <li class="class"><a href="../../../classes/Object.html">Object</a></li>
+        
+          <li class="class"><a href="../../../classes/PendingAssertion.html">PendingAssertion</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -232,7 +247,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 
     
       <div id="report-concern-method" class="method-detail ">
-        <a name="M000069"></a>
+        <a name="M000059"></a>
 
         <div class="method-heading">
         
@@ -254,7 +269,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 <span class="ruby-comment cmt"># File lib/lemon/reporters/verbose.rb, line 14</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_concern</span>(<span class="ruby-identifier">concern</span>)
       <span class="ruby-identifier">puts</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">concern</span>.<span class="ruby-identifier">description</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{concern.description}\n\n&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">concern</span>.<span class="ruby-identifier">description</span>.<span class="ruby-identifier">empty?</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -265,7 +280,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 
     
       <div id="report-error-method" class="method-detail ">
-        <a name="M000072"></a>
+        <a name="M000065"></a>
 
         <div class="method-heading">
         
@@ -284,10 +299,13 @@ Generic <a href="../Reporter.html">Reporter</a>
           <div class="method-source-code"
             id="report-error-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporters/verbose.rb, line 31</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporters/verbose.rb, line 34</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_error</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
-      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;* [ERROR] #{testunit.target}&quot;</span>
-      <span class="ruby-comment cmt">#puts exception</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;* #{testunit}&quot;</span>
+      <span class="ruby-identifier">puts</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;        ERROR #{exception.backtrace[0]}&quot;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;        #{exception}&quot;</span>
+      <span class="ruby-identifier">puts</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -298,7 +316,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 
     
       <div id="report-failure-method" class="method-detail ">
-        <a name="M000071"></a>
+        <a name="M000061"></a>
 
         <div class="method-heading">
         
@@ -319,8 +337,11 @@ Generic <a href="../Reporter.html">Reporter</a>
 <pre>
 <span class="ruby-comment cmt"># File lib/lemon/reporters/verbose.rb, line 25</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_failure</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
-      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;* [FAIL] #{testunit.target}&quot;</span>
-      <span class="ruby-comment cmt">#puts exception</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;* #{testunit}&quot;</span>
+      <span class="ruby-identifier">puts</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;        FAIL #{exception.backtrace[0]}&quot;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;        #{exception}&quot;</span>
+      <span class="ruby-identifier">puts</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -331,43 +352,68 @@ Generic <a href="../Reporter.html">Reporter</a>
 
     
       <div id="report-finish-method" class="method-detail ">
-        <a name="M000073"></a>
+        <a name="M000069"></a>
 
         <div class="method-heading">
         
           <span class="method-name">report_finish</span><span
-            class="method-args">(successes, failures, errors)</span>
+            class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
 
         <div class="method-description">
           
-          <p class="missing-docs">(Not documented)</p>
+          
           
 
           
           <div class="method-source-code"
             id="report-finish-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporters/verbose.rb, line 36</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_finish</span>(<span class="ruby-identifier">successes</span>, <span class="ruby-identifier">failures</span>, <span class="ruby-identifier">errors</span>)
-      <span class="ruby-identifier">puts</span>; <span class="ruby-identifier">puts</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporters/verbose.rb, line 51</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_finish</span>
+      <span class="ruby-identifier">puts</span>
 
-      <span class="ruby-identifier">failures</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;    #{testunit}&quot;</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;    #{exception}&quot;</span>
-        <span class="ruby-identifier">puts</span>
-      <span class="ruby-keyword kw">end</span>
+??
 
-      <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;    #{testunit}&quot;</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;    #{exception}&quot;</span>
-        <span class="ruby-identifier">puts</span>
-      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">total</span> = <span class="ruby-identifier">successes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">failures</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">pendings</span>.<span class="ruby-identifier">size</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{total} tests, #{successes.size} pass, #{failures.size} failures, #{errors.size} errors, #{pendings.size} pending&quot;</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
 
-      <span class="ruby-identifier">total</span> = <span class="ruby-identifier">successes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">failures</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">size</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{total} tests, #{failures.size} failures, #{errors.size} errors&quot;</span>
+        
+      </div>
+
+    
+      <div id="report-pending-method" class="method-detail ">
+        <a name="M000066"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_pending</span><span
+            class="method-args">(testunit, exception)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="report-pending-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/reporters/verbose.rb, line 43</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_pending</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;* #{testunit}&quot;</span>
+      <span class="ruby-identifier">puts</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;        PENDING #{exception.backtrace[1]}&quot;</span>
+      <span class="ruby-identifier">puts</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -378,7 +424,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 
     
       <div id="report-start-method" class="method-detail ">
-        <a name="M000068"></a>
+        <a name="M000058"></a>
 
         <div class="method-heading">
         
@@ -409,7 +455,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 
     
       <div id="report-success-method" class="method-detail ">
-        <a name="M000070"></a>
+        <a name="M000060"></a>
 
         <div class="method-heading">
         
@@ -430,7 +476,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 <pre>
 <span class="ruby-comment cmt"># File lib/lemon/reporters/verbose.rb, line 20</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_success</span>(<span class="ruby-identifier">testunit</span>)
-      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;* [PASS] #{testunit}&quot;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;* #{testunit}&quot;</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           

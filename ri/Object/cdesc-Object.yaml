@@ -1,8 +1,9 @@
 --- !ruby/object:RDoc::RI::ClassDescription 
 attributes: []
 
-class_methods: []
-
+class_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: const_missing
 comment: 
 constants: []
 
@@ -10,6 +11,14 @@ full_name: Object
 includes: []
 
 instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: After
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: Before
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: Case
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: When
 - !ruby/object:RDoc::RI::MethodSummary 
   name: pry
 name: Object

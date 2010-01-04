@@ -91,12 +91,7 @@
           
             
             <li class="singleton">
-              <a href="#M000027">::const_missing</a>
-            </li>
-          
-            
-            <li class="singleton">
-              <a href="#M000008">::new</a>
+              <a href="#M000006">::new</a>
             </li>
           
             
@@ -106,57 +101,42 @@
           
             
             <li class="method">
-              <a href="#M000021">#Before</a>
+              <a href="#M000022">#Before</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000018">#Case</a>
+              <a href="#M000019">#Case</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000019">#TestCase</a>
+              <a href="#M000021">#TestCase</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000025">#When</a>
+              <a href="#M000024">#When</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000024">#after</a>
+              <a href="#M000025">#each</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000022">#before</a>
+              <a href="#M000014">#helper</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000026">#each</a>
+              <a href="#M000015">#include</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000015">#helper</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000017">#include</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000028">#test_stack</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000020">#testcase</a>
+              <a href="#M000009">#loadfiles</a>
             </li>
           
         </ul>
@@ -208,6 +188,14 @@
         
           <li class="class"><a href="../../../classes/Lemon/Command.html">Lemon::Command</a></li>
         
+          <li class="module"><a href="../../../classes/Lemon/Commands.html">Lemon::Commands</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Commands/Coverage.html">Lemon::Commands::Coverage</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Commands/Generate.html">Lemon::Commands::Generate</a></li>
+        
+          <li class="class"><a href="../../../classes/Lemon/Commands/Test.html">Lemon::Commands::Test</a></li>
+        
           <li class="class"><a href="../../../classes/Lemon/Coverage.html">Lemon::Coverage</a></li>
         
           <li class="class"><a href="../../../classes/Lemon/Reporter.html">Lemon::Reporter</a></li>
@@ -231,6 +219,8 @@
           <li class="class"><a href="../../../classes/Lemon/Test/Unit.html">Lemon::Test::Unit</a></li>
         
           <li class="class"><a href="../../../classes/Object.html">Object</a></li>
+        
+          <li class="class"><a href="../../../classes/PendingAssertion.html">PendingAssertion</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -337,23 +327,6 @@ List of post-test procedures that apply suite-wide.
         </div>
       </div>
       
-      <div id="when-clauses-attribute-method" class="method-detail">
-        <a name="when_clauses"></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">when_clauses</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>
-List of concern procedures that apply suite-wide.
-</p>
-        
-        </div>
-      </div>
-      
     </div>
     
 
@@ -363,56 +336,13 @@ List of concern procedures that apply suite-wide.
       <h3 class="section-header">Public Class Methods</h3>
 
     
-      <div id="const-missing-method" class="method-detail ">
-        <a name="M000027"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">const_missing</span><span
-            class="method-args">(name)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-FIXME: This is a BIG FAT HACK! For the life of me I cannot find a way to
-resolve module constants included in the test cases. Becuase of closure,
-the constant lookup goes through here, and not the <a
-href="Suite.html#M000018">Case</a> singleton class. So to work around
-wemust note each test before it is run, and reroute the missing constants.
-</p>
-<p>
-This sucks and it is not thread safe. If anyone know how to fix, please let
-me know. See <a href="Unit.html#M000034">Unit#call</a> for the other end of
-this hack.
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="const-missing-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 113</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">const_missing</span>(<span class="ruby-identifier">name</span>)
-      (<span class="ruby-keyword kw">class</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@@test_stack</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">testcase</span>; <span class="ruby-keyword kw">self</span>; <span class="ruby-keyword kw">end</span>).<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">name</span>)
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
       <div id="new-method" class="method-detail ">
-        <a name="M000008"></a>
+        <a name="M000006"></a>
 
         <div class="method-heading">
         
           <span class="method-name">new</span><span
-            class="method-args">(*tests)</span>
+            class="method-args">(*files)</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
@@ -426,28 +356,14 @@ this hack.
           <div class="method-source-code"
             id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 26</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">tests</span>)
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 24</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">files</span>)
       <span class="ruby-ivar">@testcases</span>      = []
       <span class="ruby-ivar">@before_clauses</span> = {}
       <span class="ruby-ivar">@after_clauses</span>  = {}
       <span class="ruby-ivar">@when_clauses</span>   = {}
 
-      <span class="ruby-comment cmt"># directories glob *.rb files</span>
-      <span class="ruby-identifier">tests</span> = <span class="ruby-identifier">tests</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
-        <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">file</span>)
-          <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">file</span>, <span class="ruby-value str">'**'</span>, <span class="ruby-value str">'*.rb'</span>)]
-        <span class="ruby-keyword kw">else</span>
-          <span class="ruby-identifier">file</span>
-        <span class="ruby-keyword kw">end</span>
-      <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
-
-      <span class="ruby-ivar">@test_files</span> = <span class="ruby-identifier">tests</span>
-
-      <span class="ruby-identifier">tests</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
-        <span class="ruby-comment cmt">#file = File.expand_path(file)</span>
-        <span class="ruby-identifier">instance_eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>), <span class="ruby-identifier">file</span>)
-      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">loadfiles</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">files</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -485,7 +401,7 @@ Define a post-test procedure to apply suite-wide.
           <div class="method-source-code"
             id="-fter-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 88</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 94</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">After</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-ivar">@after_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -494,15 +410,11 @@ Define a post-test procedure to apply suite-wide.
         </div>
 
         
-        <div class="aliases">
-          Also aliased as: <a href="Suite.html#M000024">after</a>
-        </div>
-        
       </div>
 
     
       <div id="-efore-method" class="method-detail ">
-        <a name="M000021"></a>
+        <a name="M000022"></a>
 
         <div class="method-heading">
         
@@ -523,7 +435,7 @@ Define a pre-test procedure to apply suite-wide.
           <div class="method-source-code"
             id="-efore-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 81</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 87</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Before</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-ivar">@before_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -532,15 +444,11 @@ Define a pre-test procedure to apply suite-wide.
         </div>
 
         
-        <div class="aliases">
-          Also aliased as: <a href="Suite.html#M000022">before</a>
-        </div>
-        
       </div>
 
     
       <div id="-ase-method" class="method-detail ">
-        <a name="M000018"></a>
+        <a name="M000019"></a>
 
         <div class="method-heading">
         
@@ -561,7 +469,7 @@ Define a test case belonging to this suite.
           <div class="method-source-code"
             id="-ase-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 70</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 76</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Case</span>(<span class="ruby-identifier">target_class</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-identifier">testcases</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Case</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">target_class</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
     <span class="ruby-keyword kw">end</span></pre>
@@ -571,14 +479,14 @@ Define a test case belonging to this suite.
 
         
         <div class="aliases">
-          Also aliased as: <a href="Suite.html#M000019">TestCase</a>, <a href="Suite.html#M000020">testcase</a>
+          Also aliased as: <a href="Suite.html#M000021">TestCase</a>
         </div>
         
       </div>
 
     
       <div id="-est-ase-method" class="method-detail method-alias">
-        <a name="M000019"></a>
+        <a name="M000021"></a>
 
         <div class="method-heading">
         
@@ -591,7 +499,7 @@ Define a test case belonging to this suite.
         <div class="method-description">
           
           <p>
-Alias for <a href="Suite.html#M000018">Case</a>
+Alias for <a href="Suite.html#M000019">Case</a>
 </p>
           
 
@@ -603,7 +511,7 @@ Alias for <a href="Suite.html#M000018">Case</a>
 
     
       <div id="-hen-method" class="method-detail ">
-        <a name="M000025"></a>
+        <a name="M000024"></a>
 
         <div class="method-heading">
         
@@ -624,7 +532,7 @@ Define a concern procedure to apply suite-wide.
           <div class="method-source-code"
             id="-hen-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 95</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 101</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">When</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-ivar">@when_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -636,58 +544,8 @@ Define a concern procedure to apply suite-wide.
       </div>
 
     
-      <div id="after-method" class="method-detail method-alias">
-        <a name="M000024"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">after</span><span
-            class="method-args">(match=nil, &block)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Alias for <a href="Suite.html#M000023">After</a>
-</p>
-          
-
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="before-method" class="method-detail method-alias">
-        <a name="M000022"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">before</span><span
-            class="method-args">(match=nil, &block)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Alias for <a href="Suite.html#M000021">Before</a>
-</p>
-          
-
-          
-        </div>
-
-        
-      </div>
-
-    
       <div id="each-method" class="method-detail ">
-        <a name="M000026"></a>
+        <a name="M000025"></a>
 
         <div class="method-heading">
         
@@ -708,7 +566,7 @@ Iterate through this suite&#8217;s test cases.
           <div class="method-source-code"
             id="each-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 100</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 106</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-ivar">@testcases</span>.<span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
     <span class="ruby-keyword kw">end</span></pre>
@@ -721,7 +579,7 @@ Iterate through this suite&#8217;s test cases.
 
     
       <div id="helper-method" class="method-detail ">
-        <a name="M000015"></a>
+        <a name="M000014"></a>
 
         <div class="method-heading">
         
@@ -745,7 +603,7 @@ evaluated at the toplevel.
           <div class="method-source-code"
             id="helper-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 53</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 59</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">helper</span>(<span class="ruby-identifier">file</span>)
       <span class="ruby-identifier">instance_eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>), <span class="ruby-identifier">file</span>)
     <span class="ruby-keyword kw">end</span></pre>
@@ -758,7 +616,7 @@ evaluated at the toplevel.
 
     
       <div id="include-method" class="method-detail ">
-        <a name="M000017"></a>
+        <a name="M000015"></a>
 
         <div class="method-heading">
         
@@ -779,7 +637,7 @@ Includes at the suite level are routed to the toplevel.
           <div class="method-source-code"
             id="include-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 63</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 69</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">include</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">mods</span>)
       <span class="ruby-constant">TOPLEVEL_BINDING</span>.<span class="ruby-identifier">eval</span>(<span class="ruby-value str">'self'</span>).<span class="ruby-identifier">instance_eval</span> <span class="ruby-keyword kw">do</span>
         <span class="ruby-identifier">include</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">mods</span>)
@@ -793,58 +651,48 @@ Includes at the suite level are routed to the toplevel.
       </div>
 
     
-      <div id="test-stack-method" class="method-detail ">
-        <a name="M000028"></a>
+      <div id="loadfiles-method" class="method-detail ">
+        <a name="M000009"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">test_stack</span><span
-            class="method-args">()</span>
+          <span class="method-name">loadfiles</span><span
+            class="method-args">(*files)</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
 
         <div class="method-description">
           
-          <p>
-Get current running test. Used for the BIG FAT HACK.
-</p>
+          
           
 
           
           <div class="method-source-code"
-            id="test-stack-source">
+            id="loadfiles-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 118</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_stack</span>
-      <span class="ruby-ivar">@@test_stack</span> <span class="ruby-operator">||=</span> []
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 34</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">loadfiles</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">files</span>)
+      <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">suite</span> = <span class="ruby-keyword kw">self</span>
+
+      <span class="ruby-comment cmt"># directories glob *.rb files</span>
+      <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">file</span>)
+          <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">file</span>, <span class="ruby-value str">'**'</span>, <span class="ruby-value str">'*.rb'</span>)]
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">file</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
+
+      <span class="ruby-identifier">files</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+        <span class="ruby-comment cmt">#file = File.expand_path(file)</span>
+        <span class="ruby-comment cmt">#instance_eval(File.read(file), file)</span>
+        <span class="ruby-identifier">load</span>(<span class="ruby-identifier">file</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">suite</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="testcase-method" class="method-detail method-alias">
-        <a name="M000020"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">testcase</span><span
-            class="method-args">(target_class, &block)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Alias for <a href="Suite.html#M000018">Case</a>
-</p>
-          
-
           
         </div>
 

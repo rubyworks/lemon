@@ -28,10 +28,6 @@ comment:
   width: 
 - !ruby/struct:RDoc::Markup::Flow::P 
   body: Test Concerns are used to organize unit tests in groups, so as to address specific quality assurance objectives.
-- !ruby/struct:RDoc::Markup::Flow::RULE 
-  width: 
-- !ruby/struct:RDoc::Markup::Flow::P 
-  body: Test Concerns are used to organize unit tests in groups, so as to address specific quality assurance objectives.
 constants: []
 
 full_name: Lemon::Test::Concern

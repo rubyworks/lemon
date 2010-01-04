@@ -4,7 +4,7 @@ aliases: []
 block_params: 
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
-  body: Initialize and run.
+  body: Factory method to initialize and run choosen sub-command.
 full_name: Lemon::Command::run
 is_singleton: true
 name: run

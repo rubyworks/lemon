@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: Object#Case
+is_singleton: false
+name: Case
+params: (target_class, &block)
+visibility: public
