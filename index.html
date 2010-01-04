@@ -50,7 +50,7 @@
   <p>We would write a Lemon test case along the following lines:</p>
 
   <pre>
-  Case HelloWorld do
+  TestCase HelloWorld do
     Concern "String output works as expected."
 
     Unit :to_s => "returns a string" do
@@ -64,13 +64,14 @@
   </pre>
 
   <p>Obviously this an overly simplistic example, but it demonstrates well enough the overall design of Lemon
-  tests. Notice that the #Case method references a class (this can also be a module) and the units each
+  tests. Notice that the <code>#TestCase</code> method references a class (this can also be a module) and the units each
   refer to a method of the class.</p>
 
   <p>Lemon uses the <a href="http://proutils.github.com/ae">Assertive Expressive</a>
   assertions framework. This is the same verstile framework used by <a href="http://proutils.github.com/qed">Q.E.D.</a>.
-  By default Lemon test support the standard #assert and #expect assertion methods. If you wish to use subjunctive
-  terms, either #should or #must, you can load these via a helper script (eg. <code>require 'ae/should'</code>).</p>
+  By default Lemon test support the standard <code>#assert</code> and <code>#expect</code> assertion methods.
+  If you wish to use subjunctive terms, either <code>#should</code> or <code>#must</code>, you can load these
+  via a helper script (eg. <code>require 'ae/should'</code>).</p>
 
   <h3>Running Tests</h3>
 
