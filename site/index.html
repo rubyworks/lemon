@@ -5,8 +5,14 @@
   <link href="assets/styles/class.css" rel="stylesheet" type="text/css"/>
   <link href="assets/styles/site.css" rel="stylesheet" type="text/css"/>
   <link href="assets/images/lemon.jpg" rel="shortcut icon"/>
+
+  <!-- syntax highlighing -->
+  <script src="http://proutils.github.com/assets/includes/shjs/sh_main.min.js"></script>
+  <script src="http://proutils.github.com/assets/includes/shjs/lang/sh_ruby.min.js"></script>
+  <script src="http://proutils.github.com/assets/includes/shjs/lang/sh_sh.min.js"></script>
+  <link href="http://proutils.github.com/assets/includes/shjs/css/sh_acid.min.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body onload="sh_highlightDocument();">
 
 <div id="nav">
 <div class="page">
@@ -40,7 +46,7 @@
   <p>Let's say we have a library that consists of the class <code>HelloWorld</code>
   with method <code>#to_s</code>:<p>
 
-  <pre>
+  <pre class="sh_ruby">
   class HelloWorld
     def to_s
       "Hello, World!"
@@ -50,7 +56,7 @@
 
   <p>We would write a Lemon test case along the following lines:</p>
 
-  <pre>
+  <pre class="sh_ruby">
   TestCase HelloWorld do
     Concern "String output works as expected."
 
@@ -78,7 +84,7 @@
 
   <p>The <tt>lemon</tt> command-line tool is used to run tests. Simply provide the name of the test files as arguments:</p>
 
-  <pre>
+  <pre class="sh_sh">
   $ lemon test/cases/*.rb
   </pre>
 
@@ -91,7 +97,7 @@
   <p>The <tt>lemon</tt> command can also be used to check test coverage. For this use the <tt>--coverage</tt>
   or <tt>-c</tt> option.</p>
 
-  <pre>
+  <pre class="sh_sh">
   $ lemon -c test/cases/*.rb
   </pre>
 
@@ -99,7 +105,7 @@
   support libraries you wish not to include in the output. Or more conveniently, supply specific namespaces
   to include via the <tt>--namespace</tt> or <tt>-n</tt> option.
 
-  <pre>
+  <pre class="sh_sh">
   $ lemon -c -n HelloWorld test/cases/*.rb
   </pre>
 
