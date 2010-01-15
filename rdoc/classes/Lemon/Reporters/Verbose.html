@@ -105,7 +105,7 @@
           
             
             <li class="method">
-              <a href="#M000065">#report_finish</a>
+              <a href="#M000067">#report_finish</a>
             </li>
           
             
@@ -188,6 +188,8 @@
         
           <li class="class"><a href="../../../classes/Lemon/Reporters/DotProgress.html">Lemon::Reporters::DotProgress</a></li>
         
+          <li class="class"><a href="../../../classes/Lemon/Reporters/Outline.html">Lemon::Reporters::Outline</a></li>
+        
           <li class="class"><a href="../../../classes/Lemon/Reporters/Verbose.html">Lemon::Reporters::Verbose</a></li>
         
           <li class="class"><a href="../../../classes/Lemon/Runner.html">Lemon::Runner</a></li>
@@ -204,7 +206,7 @@
         
           <li class="class"><a href="../../../classes/Object.html">Object</a></li>
         
-          <li class="class"><a href="../../../classes/PendingAssertion.html">PendingAssertion</a></li>
+          <li class="class"><a href="../../../classes/Pending.html">Pending</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -229,7 +231,7 @@
       
 
       <p>
-Generic <a href="../Reporter.html">Reporter</a>
+<a href="Verbose.html">Verbose</a> <a href="../Reporter.html">Reporter</a>
 </p>
 
     </div>
@@ -301,7 +303,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 <pre>
 <span class="ruby-comment cmt"># File lib/lemon/reporters/verbose.rb, line 34</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_error</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
-      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;* #{testunit}&quot;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">red</span>(<span class="ruby-node">&quot;* #{testunit} (ERROR)&quot;</span>)
       <span class="ruby-identifier">puts</span>
       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;        ERROR #{exception.backtrace[0]}&quot;</span>
       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;        #{exception}&quot;</span>
@@ -337,7 +339,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 <pre>
 <span class="ruby-comment cmt"># File lib/lemon/reporters/verbose.rb, line 25</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_failure</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
-      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;* #{testunit}&quot;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">red</span>(<span class="ruby-node">&quot;* #{testunit} (FAILURE)&quot;</span>)
       <span class="ruby-identifier">puts</span>
       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;        FAIL #{exception.backtrace[0]}&quot;</span>
       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;        #{exception}&quot;</span>
@@ -352,7 +354,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 
     
       <div id="report-finish-method" class="method-detail ">
-        <a name="M000065"></a>
+        <a name="M000067"></a>
 
         <div class="method-heading">
         
@@ -375,7 +377,33 @@ Generic <a href="../Reporter.html">Reporter</a>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_finish</span>
       <span class="ruby-identifier">puts</span>
 
-??
+      <span class="ruby-comment cmt">#unless failures.empty?</span>
+      <span class="ruby-comment cmt">#  puts &quot;FAILURES:\n\n&quot;</span>
+      <span class="ruby-comment cmt">#  failures.each do |testunit, exception|</span>
+      <span class="ruby-comment cmt">#    puts &quot;    #{testunit}&quot;</span>
+      <span class="ruby-comment cmt">#    puts &quot;    #{exception}&quot;</span>
+      <span class="ruby-comment cmt">#    puts &quot;    #{exception.backtrace[0]}&quot;</span>
+      <span class="ruby-comment cmt">#    puts</span>
+      <span class="ruby-comment cmt">#  end</span>
+      <span class="ruby-comment cmt">#end</span>
+
+      <span class="ruby-comment cmt">#unless errors.empty?</span>
+      <span class="ruby-comment cmt">#  puts &quot;ERRORS:\n\n&quot;</span>
+      <span class="ruby-comment cmt">#  errors.each do |testunit, exception|</span>
+      <span class="ruby-comment cmt">#    puts &quot;    #{testunit}&quot;</span>
+      <span class="ruby-comment cmt">#    puts &quot;    #{exception}&quot;</span>
+      <span class="ruby-comment cmt">#    puts &quot;    #{exception.backtrace[0]}&quot;</span>
+      <span class="ruby-comment cmt">#    puts</span>
+      <span class="ruby-comment cmt">#  end</span>
+      <span class="ruby-comment cmt">#end</span>
+
+      <span class="ruby-comment cmt">#unless pendings.empty?</span>
+      <span class="ruby-comment cmt">#  puts &quot;PENDING:\n\n&quot;</span>
+      <span class="ruby-comment cmt">#  pendings.each do |testunit, exception|</span>
+      <span class="ruby-comment cmt">#    puts &quot;    #{testunit}&quot;</span>
+      <span class="ruby-comment cmt">#  end</span>
+      <span class="ruby-comment cmt">#  puts</span>
+      <span class="ruby-comment cmt">#end</span>
 
       <span class="ruby-identifier">total</span> = <span class="ruby-identifier">successes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">failures</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">pendings</span>.<span class="ruby-identifier">size</span>
       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{total} tests, #{successes.size} pass, #{failures.size} failures, #{errors.size} errors, #{pendings.size} pending&quot;</span>
@@ -410,10 +438,10 @@ Generic <a href="../Reporter.html">Reporter</a>
 <pre>
 <span class="ruby-comment cmt"># File lib/lemon/reporters/verbose.rb, line 43</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_pending</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
-      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;* #{testunit}&quot;</span>
-      <span class="ruby-identifier">puts</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;        PENDING #{exception.backtrace[1]}&quot;</span>
-      <span class="ruby-identifier">puts</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">yellow</span>(<span class="ruby-node">&quot;* #{testunit} (PENDING)&quot;</span>)
+      <span class="ruby-comment cmt">#puts</span>
+      <span class="ruby-comment cmt">#puts &quot;        PENDING #{exception.backtrace[1]}&quot;</span>
+      <span class="ruby-comment cmt">#puts</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -476,7 +504,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 <pre>
 <span class="ruby-comment cmt"># File lib/lemon/reporters/verbose.rb, line 20</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_success</span>(<span class="ruby-identifier">testunit</span>)
-      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;* #{testunit}&quot;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">green</span>(<span class="ruby-node">&quot;* #{testunit}&quot;</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           

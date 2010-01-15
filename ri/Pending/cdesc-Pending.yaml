@@ -1,15 +1,16 @@
 --- !ruby/object:RDoc::RI::ClassDescription 
 attributes: []
 
-class_methods: []
-
+class_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: to_proc
 comment: 
 constants: []
 
-full_name: PendingAssertion
+full_name: Pending
 includes: []
 
 instance_methods: []
 
-name: PendingAssertion
+name: Pending
 superclass: Assertion

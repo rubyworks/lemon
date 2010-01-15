@@ -126,17 +126,17 @@
           
             
             <li class="method">
-              <a href="#M000013">#helper</a>
+              <a href="#M000017">#helper</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000017">#include</a>
+              <a href="#M000018">#include</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000009">#loadfiles</a>
+              <a href="#M000010">#loadfiles</a>
             </li>
           
         </ul>
@@ -204,6 +204,8 @@
         
           <li class="class"><a href="../../../classes/Lemon/Reporters/DotProgress.html">Lemon::Reporters::DotProgress</a></li>
         
+          <li class="class"><a href="../../../classes/Lemon/Reporters/Outline.html">Lemon::Reporters::Outline</a></li>
+        
           <li class="class"><a href="../../../classes/Lemon/Reporters/Verbose.html">Lemon::Reporters::Verbose</a></li>
         
           <li class="class"><a href="../../../classes/Lemon/Runner.html">Lemon::Runner</a></li>
@@ -220,7 +222,7 @@
         
           <li class="class"><a href="../../../classes/Object.html">Object</a></li>
         
-          <li class="class"><a href="../../../classes/PendingAssertion.html">PendingAssertion</a></li>
+          <li class="class"><a href="../../../classes/Pending.html">Pending</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -401,7 +403,7 @@ Define a post-test procedure to apply suite-wide.
           <div class="method-source-code"
             id="-fter-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 94</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 95</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">After</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-ivar">@after_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -435,7 +437,7 @@ Define a pre-test procedure to apply suite-wide.
           <div class="method-source-code"
             id="-efore-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 87</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 88</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Before</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-ivar">@before_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -471,6 +473,7 @@ Define a test case belonging to this suite.
 <pre>
 <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 76</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Case</span>(<span class="ruby-identifier">target_class</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;lemon: case target must be a class or module&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">Module</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">target_class</span>
       <span class="ruby-identifier">testcases</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Case</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">target_class</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
@@ -532,7 +535,7 @@ Define a concern procedure to apply suite-wide.
           <div class="method-source-code"
             id="-hen-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 101</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 102</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">When</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-ivar">@when_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -566,7 +569,7 @@ Iterate through this suite&#8217;s test cases.
           <div class="method-source-code"
             id="each-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 106</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 107</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-ivar">@testcases</span>.<span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
     <span class="ruby-keyword kw">end</span></pre>
@@ -579,7 +582,7 @@ Iterate through this suite&#8217;s test cases.
 
     
       <div id="helper-method" class="method-detail ">
-        <a name="M000013"></a>
+        <a name="M000017"></a>
 
         <div class="method-heading">
         
@@ -616,7 +619,7 @@ evaluated at the toplevel.
 
     
       <div id="include-method" class="method-detail ">
-        <a name="M000017"></a>
+        <a name="M000018"></a>
 
         <div class="method-heading">
         
@@ -652,7 +655,7 @@ Includes at the suite level are routed to the toplevel.
 
     
       <div id="loadfiles-method" class="method-detail ">
-        <a name="M000009"></a>
+        <a name="M000010"></a>
 
         <div class="method-heading">
         

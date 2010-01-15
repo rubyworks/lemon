@@ -96,7 +96,7 @@
           
             
             <li class="method">
-              <a href="#M000014">#After</a>
+              <a href="#M000013">#After</a>
             </li>
           
             
@@ -116,12 +116,12 @@
           
             
             <li class="method">
-              <a href="#M000016">#When</a>
+              <a href="#M000015">#When</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000015">#after</a>
+              <a href="#M000014">#after</a>
             </li>
           
             
@@ -156,17 +156,12 @@
           
             
             <li class="method">
-              <a href="#M000018">#pending</a>
+              <a href="#M000016">#to_s</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000019">#to_s</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000010">#unit</a>
+              <a href="#M000009">#unit</a>
             </li>
           
         </ul>
@@ -234,6 +229,8 @@
         
           <li class="class"><a href="../../../classes/Lemon/Reporters/DotProgress.html">Lemon::Reporters::DotProgress</a></li>
         
+          <li class="class"><a href="../../../classes/Lemon/Reporters/Outline.html">Lemon::Reporters::Outline</a></li>
+        
           <li class="class"><a href="../../../classes/Lemon/Reporters/Verbose.html">Lemon::Reporters::Verbose</a></li>
         
           <li class="class"><a href="../../../classes/Lemon/Runner.html">Lemon::Runner</a></li>
@@ -250,7 +247,7 @@
         
           <li class="class"><a href="../../../classes/Object.html">Object</a></li>
         
-          <li class="class"><a href="../../../classes/PendingAssertion.html">PendingAssertion</a></li>
+          <li class="class"><a href="../../../classes/Pending.html">Pending</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -447,7 +444,7 @@ A test case <tt>target</tt> is a class or module.
 
     
       <div id="-fter-method" class="method-detail ">
-        <a name="M000014"></a>
+        <a name="M000013"></a>
 
         <div class="method-heading">
         
@@ -468,7 +465,7 @@ Define an after procedure for this case.
           <div class="method-source-code"
             id="-fter-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 92</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 93</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">After</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-ivar">@after_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -478,7 +475,7 @@ Define an after procedure for this case.
 
         
         <div class="aliases">
-          Also aliased as: <a href="Case.html#M000015">after</a>
+          Also aliased as: <a href="Case.html#M000014">after</a>
         </div>
         
       </div>
@@ -506,7 +503,7 @@ Define a before procedure for this case.
           <div class="method-source-code"
             id="-efore-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 86</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 87</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Before</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-ivar">@before_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -536,7 +533,8 @@ Define a before procedure for this case.
         <div class="method-description">
           
           <p>
-Define a new test concern for this case.
+Define a new test concern for this case. TODO: Probably will deprecate the
+&amp;setup procedure (YAGNI).
 </p>
           
 
@@ -544,7 +542,7 @@ Define a new test concern for this case.
           <div class="method-source-code"
             id="-oncern-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 53</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 54</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Concern</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">description</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">setup</span>)
       <span class="ruby-identifier">concern</span> = <span class="ruby-constant">Concern</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">description</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">setup</span>)
       <span class="ruby-ivar">@concerns</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">concern</span>
@@ -583,7 +581,7 @@ Define a unit test for this case.
           <div class="method-source-code"
             id="-nit-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 74</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 75</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Unit</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">targets</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-identifier">targets_hash</span> = <span class="ruby-constant">Hash</span><span class="ruby-operator">===</span><span class="ruby-identifier">targets</span>.<span class="ruby-identifier">last</span> <span class="ruby-value">? </span><span class="ruby-identifier">targets</span>.<span class="ruby-identifier">pop</span> <span class="ruby-operator">:</span> {}
       <span class="ruby-identifier">targets_hash</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">target_method</span>, <span class="ruby-identifier">target_concern</span><span class="ruby-operator">|</span>
@@ -599,14 +597,14 @@ Define a unit test for this case.
 
         
         <div class="aliases">
-          Also aliased as: <a href="Case.html#M000010">unit</a>
+          Also aliased as: <a href="Case.html#M000009">unit</a>
         </div>
         
       </div>
 
     
       <div id="-hen-method" class="method-detail ">
-        <a name="M000016"></a>
+        <a name="M000015"></a>
 
         <div class="method-heading">
         
@@ -627,7 +625,7 @@ Define a concern procedure to apply case-wide.
           <div class="method-source-code"
             id="-hen-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 98</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 99</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">When</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-ivar">@when_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -640,7 +638,7 @@ Define a concern procedure to apply case-wide.
 
     
       <div id="after-method" class="method-detail method-alias">
-        <a name="M000015"></a>
+        <a name="M000014"></a>
 
         <div class="method-heading">
         
@@ -653,7 +651,7 @@ Define a concern procedure to apply case-wide.
         <div class="method-description">
           
           <p>
-Alias for <a href="Case.html#M000014">After</a>
+Alias for <a href="Case.html#M000013">After</a>
 </p>
           
 
@@ -736,7 +734,7 @@ The last defined concern. Used to assign new unit tests.
           <div class="method-source-code"
             id="current-concern-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 61</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 62</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_concern</span>
       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@concerns</span>.<span class="ruby-identifier">empty?</span>
         <span class="ruby-ivar">@concerns</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Concern</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
@@ -773,7 +771,7 @@ Iterate over each test concern.
           <div class="method-source-code"
             id="each-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 69</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 70</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-ivar">@concerns</span>.<span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
     <span class="ruby-keyword kw">end</span></pre>
@@ -854,40 +852,8 @@ submodules. A hack has been used to circumvent. See Suite.const_missing.
       </div>
 
     
-      <div id="pending-method" class="method-detail ">
-        <a name="M000018"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">pending</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="pending-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 103</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pending</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">PendingAssertion</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
       <div id="to-s-method" class="method-detail ">
-        <a name="M000019"></a>
+        <a name="M000016"></a>
 
         <div class="method-heading">
         
@@ -906,7 +872,7 @@ submodules. A hack has been used to circumvent. See Suite.const_missing.
           <div class="method-source-code"
             id="to-s-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 108</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 109</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
       <span class="ruby-identifier">target</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/^\#\&lt;.*?\&gt;::/</span>, <span class="ruby-value str">''</span>)
     <span class="ruby-keyword kw">end</span></pre>
@@ -919,7 +885,7 @@ submodules. A hack has been used to circumvent. See Suite.const_missing.
 
     
       <div id="unit-method" class="method-detail method-alias">
-        <a name="M000010"></a>
+        <a name="M000009"></a>
 
         <div class="method-heading">
         

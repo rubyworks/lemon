@@ -4,8 +4,8 @@ aliases: []
 block_params: 
 comment: []
 
-full_name: Lemon::Test::Case#pending
+full_name: Lemon::Reporter#require_ansicolor
 is_singleton: false
-name: pending
+name: require_ansicolor
 params: ()
-visibility: public
+visibility: private

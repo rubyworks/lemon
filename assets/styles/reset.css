@@ -11,7 +11,7 @@ h1 { font-size: 90px; margin: 20px; }
 ul { margin: 0 auto; list-style-type: none; width: 300px; }
 li { float: left; padding: 10px; text-align: center; }
 
-pre { font-size: 95%; padding: 20px 0 10px 0; -moz-border-radius: 10px; font-family: courier, monospace; background: #aaa;}
+pre { font-size: 120%; padding: 15px 0 10px 0; -moz-border-radius: 10px; font-family: courier, monospace; }
 code { font-family: courier, monospace; }
 
 img { border: none; }

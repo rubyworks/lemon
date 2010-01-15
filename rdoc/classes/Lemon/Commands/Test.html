@@ -90,37 +90,37 @@
           
             
             <li class="singleton">
-              <a href="#M000084">::new</a>
+              <a href="#M000092">::new</a>
             </li>
           
             
             <li class="singleton">
-              <a href="#M000082">::options</a>
+              <a href="#M000090">::options</a>
             </li>
           
             
             <li class="singleton">
-              <a href="#M000083">::run</a>
+              <a href="#M000091">::run</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000086">#includes</a>
+              <a href="#M000094">#includes</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000087">#parser</a>
+              <a href="#M000095">#parser</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000085">#requires</a>
+              <a href="#M000093">#requires</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000089">#run</a>
+              <a href="#M000096">#run</a>
             </li>
           
         </ul>
@@ -188,6 +188,8 @@
         
           <li class="class"><a href="../../../classes/Lemon/Reporters/DotProgress.html">Lemon::Reporters::DotProgress</a></li>
         
+          <li class="class"><a href="../../../classes/Lemon/Reporters/Outline.html">Lemon::Reporters::Outline</a></li>
+        
           <li class="class"><a href="../../../classes/Lemon/Reporters/Verbose.html">Lemon::Reporters::Verbose</a></li>
         
           <li class="class"><a href="../../../classes/Lemon/Runner.html">Lemon::Runner</a></li>
@@ -204,7 +206,7 @@
         
           <li class="class"><a href="../../../classes/Object.html">Object</a></li>
         
-          <li class="class"><a href="../../../classes/PendingAssertion.html">PendingAssertion</a></li>
+          <li class="class"><a href="../../../classes/Pending.html">Pending</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -271,7 +273,7 @@ Command-line tool.
 
     
       <div id="new-method" class="method-detail ">
-        <a name="M000084"></a>
+        <a name="M000092"></a>
 
         <div class="method-heading">
         
@@ -307,7 +309,7 @@ New <a href="../Command.html">Command</a> instance.
 
     
       <div id="options-method" class="method-detail ">
-        <a name="M000082"></a>
+        <a name="M000090"></a>
 
         <div class="method-heading">
         
@@ -339,7 +341,7 @@ New <a href="../Command.html">Command</a> instance.
 
     
       <div id="run-method" class="method-detail ">
-        <a name="M000083"></a>
+        <a name="M000091"></a>
 
         <div class="method-heading">
         
@@ -379,7 +381,7 @@ Initialize and run.
 
     
       <div id="includes-method" class="method-detail ">
-        <a name="M000086"></a>
+        <a name="M000094"></a>
 
         <div class="method-heading">
         
@@ -414,7 +416,7 @@ Get or set paths to include in $LOAD_PATH.
 
     
       <div id="parser-method" class="method-detail ">
-        <a name="M000087"></a>
+        <a name="M000095"></a>
 
         <div class="method-heading">
         
@@ -441,6 +443,9 @@ Instance of OptionParser.
         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Run unit tests.&quot;</span>)
         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--verbose'</span>, <span class="ruby-value str">'-v'</span>, <span class="ruby-value str">&quot;select verbose report format&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">type</span><span class="ruby-operator">|</span>
           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">format</span> = <span class="ruby-identifier">:verbose</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--outline'</span>, <span class="ruby-value str">'-O'</span>, <span class="ruby-value str">&quot;select outline report format&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">type</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">format</span> = <span class="ruby-identifier">:outline</span>
         <span class="ruby-keyword kw">end</span>
         <span class="ruby-comment cmt">#opt.on('--format', '-f [TYPE]', &quot;select alternate report format&quot;) do |type|</span>
         <span class="ruby-comment cmt">#  self.format = type</span>
@@ -471,7 +476,7 @@ Instance of OptionParser.
 
     
       <div id="requires-method" class="method-detail ">
-        <a name="M000085"></a>
+        <a name="M000093"></a>
 
         <div class="method-heading">
         
@@ -506,7 +511,7 @@ Get or set librarires to pre-require.
 
     
       <div id="run-method" class="method-detail ">
-        <a name="M000089"></a>
+        <a name="M000096"></a>
 
         <div class="method-heading">
         
@@ -527,7 +532,7 @@ Run unit tests.
           <div class="method-source-code"
             id="run-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/commands/test.rb, line 68</span>
+<span class="ruby-comment cmt"># File lib/lemon/commands/test.rb, line 71</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>
       <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">parse!</span>
 

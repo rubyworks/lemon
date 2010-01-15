@@ -30,7 +30,11 @@ instance_methods:
 - !ruby/object:RDoc::RI::MethodSummary 
   name: failures
 - !ruby/object:RDoc::RI::MethodSummary 
+  name: green
+- !ruby/object:RDoc::RI::MethodSummary 
   name: pendings
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: red
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_concern
 - !ruby/object:RDoc::RI::MethodSummary 
@@ -44,6 +48,10 @@ instance_methods:
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_success
 - !ruby/object:RDoc::RI::MethodSummary 
+  name: require_ansicolor
+- !ruby/object:RDoc::RI::MethodSummary 
   name: successes
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: yellow
 name: Reporter
 superclass: Object

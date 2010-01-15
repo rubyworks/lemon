@@ -2,8 +2,9 @@
 aliases: []
 
 block_params: 
-comment: []
-
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: "TODO: make Reporter#factory more dynamic"
 full_name: Lemon::Reporter::factory
 is_singleton: true
 name: factory

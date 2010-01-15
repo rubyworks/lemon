@@ -5,7 +5,7 @@ aliases:
 block_params: 
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
-  body: Define a new test concern for this case.
+  body: "Define a new test concern for this case. TODO: Probably will deprecate the &amp;setup procedure (YAGNI)."
 full_name: Lemon::Test::Case#Concern
 is_singleton: false
 name: Concern

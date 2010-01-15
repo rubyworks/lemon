@@ -91,62 +91,82 @@
           
             
             <li class="singleton">
-              <a href="#M000098">::factory</a>
+              <a href="#M000106">::factory</a>
             </li>
           
             
             <li class="singleton">
-              <a href="#M000100">::new</a>
+              <a href="#M000107">::new</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000109">#errors</a>
+              <a href="#M000117">#errors</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000108">#failures</a>
+              <a href="#M000116">#failures</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000110">#pendings</a>
+              <a href="#M000122">#green</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000102">#report_concern</a>
+              <a href="#M000118">#pendings</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000105">#report_error</a>
+              <a href="#M000120">#red</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000104">#report_failure</a>
+              <a href="#M000110">#report_concern</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000106">#report_finish</a>
+              <a href="#M000113">#report_error</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000101">#report_start</a>
+              <a href="#M000112">#report_failure</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000103">#report_success</a>
+              <a href="#M000114">#report_finish</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000107">#successes</a>
+              <a href="#M000109">#report_start</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000111">#report_success</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000119">#require_ansicolor</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000115">#successes</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000121">#yellow</a>
             </li>
           
         </ul>
@@ -214,6 +234,8 @@
         
           <li class="class"><a href="../../classes/Lemon/Reporters/DotProgress.html">Lemon::Reporters::DotProgress</a></li>
         
+          <li class="class"><a href="../../classes/Lemon/Reporters/Outline.html">Lemon::Reporters::Outline</a></li>
+        
           <li class="class"><a href="../../classes/Lemon/Reporters/Verbose.html">Lemon::Reporters::Verbose</a></li>
         
           <li class="class"><a href="../../classes/Lemon/Runner.html">Lemon::Runner</a></li>
@@ -230,7 +252,7 @@
         
           <li class="class"><a href="../../classes/Object.html">Object</a></li>
         
-          <li class="class"><a href="../../classes/PendingAssertion.html">PendingAssertion</a></li>
+          <li class="class"><a href="../../classes/Pending.html">Pending</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -290,7 +312,7 @@
 
     
       <div id="factory-method" class="method-detail ">
-        <a name="M000098"></a>
+        <a name="M000106"></a>
 
         <div class="method-heading">
         
@@ -302,7 +324,10 @@
 
         <div class="method-description">
           
-          
+          <p>
+TODO: make <a href="Reporter.html#M000106">Reporter#factory</a> more
+dynamic
+</p>
           
 
           
@@ -315,6 +340,8 @@
       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">format</span>
       <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:verbose</span>
         <span class="ruby-constant">Reporters</span><span class="ruby-operator">::</span><span class="ruby-constant">Verbose</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">runner</span>)
+      <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:outline</span>
+        <span class="ruby-constant">Reporters</span><span class="ruby-operator">::</span><span class="ruby-constant">Outline</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">runner</span>)
       <span class="ruby-keyword kw">else</span>
         <span class="ruby-constant">Reporters</span><span class="ruby-operator">::</span><span class="ruby-constant">DotProgress</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">runner</span>)
       <span class="ruby-keyword kw">end</span>
@@ -328,7 +355,7 @@
 
     
       <div id="new-method" class="method-detail ">
-        <a name="M000100"></a>
+        <a name="M000107"></a>
 
         <div class="method-heading">
         
@@ -347,9 +374,10 @@
           <div class="method-source-code"
             id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 17</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 19</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">runner</span>)
       <span class="ruby-ivar">@runner</span> = <span class="ruby-identifier">runner</span>
+      <span class="ruby-identifier">require_ansicolor</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -366,7 +394,7 @@
 
     
       <div id="report-concern-method" class="method-detail ">
-        <a name="M000102"></a>
+        <a name="M000110"></a>
 
         <div class="method-heading">
         
@@ -385,7 +413,7 @@
           <div class="method-source-code"
             id="report-concern-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 28</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 31</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_concern</span>(<span class="ruby-identifier">concern</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
@@ -397,7 +425,7 @@
 
     
       <div id="report-error-method" class="method-detail ">
-        <a name="M000105"></a>
+        <a name="M000113"></a>
 
         <div class="method-heading">
         
@@ -416,7 +444,7 @@
           <div class="method-source-code"
             id="report-error-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 37</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 40</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_error</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
@@ -428,7 +456,7 @@
 
     
       <div id="report-failure-method" class="method-detail ">
-        <a name="M000104"></a>
+        <a name="M000112"></a>
 
         <div class="method-heading">
         
@@ -447,7 +475,7 @@
           <div class="method-source-code"
             id="report-failure-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 34</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 37</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_failure</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
@@ -459,7 +487,7 @@
 
     
       <div id="report-finish-method" class="method-detail ">
-        <a name="M000106"></a>
+        <a name="M000114"></a>
 
         <div class="method-heading">
         
@@ -478,7 +506,7 @@
           <div class="method-source-code"
             id="report-finish-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 40</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 43</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_finish</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
@@ -490,7 +518,7 @@
 
     
       <div id="report-start-method" class="method-detail ">
-        <a name="M000101"></a>
+        <a name="M000109"></a>
 
         <div class="method-heading">
         
@@ -509,7 +537,7 @@
           <div class="method-source-code"
             id="report-start-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 25</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 28</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_start</span>(<span class="ruby-identifier">suite</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
@@ -521,7 +549,7 @@
 
     
       <div id="report-success-method" class="method-detail ">
-        <a name="M000103"></a>
+        <a name="M000111"></a>
 
         <div class="method-heading">
         
@@ -540,7 +568,7 @@
           <div class="method-source-code"
             id="report-success-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 31</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 34</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_success</span>(<span class="ruby-identifier">testunit</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
@@ -558,7 +586,7 @@
 
     
       <div id="errors-method" class="method-detail ">
-        <a name="M000109"></a>
+        <a name="M000117"></a>
 
         <div class="method-heading">
         
@@ -577,7 +605,7 @@
           <div class="method-source-code"
             id="errors-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 47</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 50</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">errors</span>    ; <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">errors</span>    ; <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -588,7 +616,7 @@
 
     
       <div id="failures-method" class="method-detail ">
-        <a name="M000108"></a>
+        <a name="M000116"></a>
 
         <div class="method-heading">
         
@@ -607,7 +635,7 @@
           <div class="method-source-code"
             id="failures-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 46</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 49</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">failures</span>  ; <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">failures</span>  ; <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -617,8 +645,40 @@
       </div>
 
     
+      <div id="green-method" class="method-detail ">
+        <a name="M000122"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">green</span><span
+            class="method-args">(string)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="green-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 71</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">green</span>(<span class="ruby-identifier">string</span>)
+      <span class="ruby-ivar">@ansicolor</span> <span class="ruby-operator">?</span> <span class="ruby-constant">ANSI</span><span class="ruby-operator">::</span><span class="ruby-constant">Code</span>.<span class="ruby-identifier">green</span>{ <span class="ruby-identifier">string</span> } <span class="ruby-operator">:</span> <span class="ruby-identifier">string</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
       <div id="pendings-method" class="method-detail ">
-        <a name="M000110"></a>
+        <a name="M000118"></a>
 
         <div class="method-heading">
         
@@ -637,7 +697,7 @@
           <div class="method-source-code"
             id="pendings-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 48</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 51</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pendings</span>  ; <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">pendings</span>  ; <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -647,8 +707,77 @@
       </div>
 
     
+      <div id="red-method" class="method-detail ">
+        <a name="M000120"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">red</span><span
+            class="method-args">(string)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="red-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 63</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">red</span>(<span class="ruby-identifier">string</span>)
+      <span class="ruby-ivar">@ansicolor</span> <span class="ruby-operator">?</span> <span class="ruby-constant">ANSI</span><span class="ruby-operator">::</span><span class="ruby-constant">Code</span>.<span class="ruby-identifier">red</span>{ <span class="ruby-identifier">string</span> } <span class="ruby-operator">:</span> <span class="ruby-identifier">string</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="require-ansicolor-method" class="method-detail ">
+        <a name="M000119"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">require_ansicolor</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="require-ansicolor-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 54</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">require_ansicolor</span>
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-identifier">require</span> <span class="ruby-value str">'ansi/code'</span>
+        <span class="ruby-ivar">@ansicolor</span> = <span class="ruby-keyword kw">true</span>
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">LoadError</span>
+        <span class="ruby-ivar">@ansicolor</span> = <span class="ruby-keyword kw">false</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
       <div id="successes-method" class="method-detail ">
-        <a name="M000107"></a>
+        <a name="M000115"></a>
 
         <div class="method-heading">
         
@@ -667,8 +796,40 @@
           <div class="method-source-code"
             id="successes-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 45</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 48</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">successes</span> ; <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">successes</span> ; <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="yellow-method" class="method-detail ">
+        <a name="M000121"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">yellow</span><span
+            class="method-args">(string)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="yellow-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 67</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">yellow</span>(<span class="ruby-identifier">string</span>)
+      <span class="ruby-ivar">@ansicolor</span> <span class="ruby-operator">?</span> <span class="ruby-constant">ANSI</span><span class="ruby-operator">::</span><span class="ruby-constant">Code</span>.<span class="ruby-identifier">yellow</span>{ <span class="ruby-identifier">string</span> } <span class="ruby-operator">:</span> <span class="ruby-identifier">string</span>
+    <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>

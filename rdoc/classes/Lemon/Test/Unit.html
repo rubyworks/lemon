@@ -174,6 +174,8 @@
         
           <li class="class"><a href="../../../classes/Lemon/Reporters/DotProgress.html">Lemon::Reporters::DotProgress</a></li>
         
+          <li class="class"><a href="../../../classes/Lemon/Reporters/Outline.html">Lemon::Reporters::Outline</a></li>
+        
           <li class="class"><a href="../../../classes/Lemon/Reporters/Verbose.html">Lemon::Reporters::Verbose</a></li>
         
           <li class="class"><a href="../../../classes/Lemon/Runner.html">Lemon::Runner</a></li>
@@ -190,7 +192,7 @@
         
           <li class="class"><a href="../../../classes/Object.html">Object</a></li>
         
-          <li class="class"><a href="../../../classes/PendingAssertion.html">PendingAssertion</a></li>
+          <li class="class"><a href="../../../classes/Pending.html">Pending</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -392,10 +394,13 @@ This method has the other end of the BIG FAT HACK. See Suite#const_missing.
 <pre>
 <span class="ruby-comment cmt"># File lib/lemon/test/unit.rb, line 34</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call</span>
-      <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">test_stack</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>  <span class="ruby-comment cmt"># hack</span>
-      <span class="ruby-identifier">procedure</span>.<span class="ruby-identifier">call</span>
-    <span class="ruby-keyword kw">ensure</span>
-      <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">test_stack</span>.<span class="ruby-identifier">pop</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">Pending</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">procedure</span>
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">test_stack</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>  <span class="ruby-comment cmt"># hack</span>
+        <span class="ruby-identifier">procedure</span>.<span class="ruby-identifier">call</span>
+      <span class="ruby-keyword kw">ensure</span>
+        <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">test_stack</span>.<span class="ruby-identifier">pop</span>
+      <span class="ruby-keyword kw">end</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -427,7 +432,7 @@ The suite to which this unit test belongs.
           <div class="method-source-code"
             id="suite-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/unit.rb, line 42</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/unit.rb, line 45</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">suite</span>
       <span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">suite</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -459,7 +464,7 @@ The suite to which this unit test belongs.
           <div class="method-source-code"
             id="to-s-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/unit.rb, line 47</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/unit.rb, line 50</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
       <span class="ruby-node">&quot;#{testcase}##{target} #{aspect}&quot;</span>
     <span class="ruby-keyword kw">end</span></pre>

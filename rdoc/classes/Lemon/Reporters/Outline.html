@@ -5,7 +5,7 @@
 <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 
-  <title>Class: Lemon::Reporters::DotProgress</title>
+  <title>Class: Lemon::Reporters::Outline</title>
 
   
     <link rel="SHORTCUT ICON" href="../../../assets/icon/class.png">
@@ -40,7 +40,7 @@
         <img src="../../../assets/icon/class.png" align="absmiddle">&nbsp;
       
       <a href="../../../index.html">Lemon</a>&nbsp;
-      <a href="/">Lemon::Reporters::DotProgress</a>
+      <a href="/">Lemon::Reporters::Outline</a>
     </h1>
   </div>
 
@@ -52,8 +52,8 @@
         <div class="section-body">
           <ul>
           
-            <li class="file"><a href="../../../files/lib/lemon/reporters/dotprogress_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-              class="thickbox" title="lib/lemon/reporters/dotprogress.rb">lib/lemon/reporters/dotprogress.rb</a></li>
+            <li class="file"><a href="../../../files/lib/lemon/reporters/outline_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/lemon/reporters/outline.rb">lib/lemon/reporters/outline.rb</a></li>
           
           </ul>
         </div>
@@ -90,37 +90,37 @@
           
             
             <li class="method">
-              <a href="#M000049">#report_concern</a>
+              <a href="#M000066">#report_concern</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000052">#report_error</a>
+              <a href="#M000070">#report_error</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000051">#report_failure</a>
+              <a href="#M000069">#report_failure</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000054">#report_finish</a>
+              <a href="#M000072">#report_finish</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000053">#report_pending</a>
+              <a href="#M000071">#report_pending</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000048">#report_start</a>
+              <a href="#M000065">#report_start</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000050">#report_success</a>
+              <a href="#M000068">#report_success</a>
             </li>
           
         </ul>
@@ -227,11 +227,11 @@
 
     <div id="description">
       
-        <h1>DotProgress</h1>
+        <h1>Outline</h1>
       
 
       <p>
-Generic <a href="../Reporter.html">Reporter</a>
+<a href="Outline.html">Outline</a> <a href="../Reporter.html">Reporter</a>
 </p>
 
     </div>
@@ -249,7 +249,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 
     
       <div id="report-concern-method" class="method-detail ">
-        <a name="M000049"></a>
+        <a name="M000066"></a>
 
         <div class="method-heading">
         
@@ -261,15 +261,17 @@ Generic <a href="../Reporter.html">Reporter</a>
 
         <div class="method-description">
           
-          <p class="missing-docs">(Not documented)</p>
+          
           
 
           
           <div class="method-source-code"
             id="report-concern-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporters/dotprogress.rb, line 12</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporters/outline.rb, line 14</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_concern</span>(<span class="ruby-identifier">concern</span>)
+      <span class="ruby-identifier">puts</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{concern.description}\n\n&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">concern</span>.<span class="ruby-identifier">description</span>.<span class="ruby-identifier">empty?</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -280,7 +282,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 
     
       <div id="report-error-method" class="method-detail ">
-        <a name="M000052"></a>
+        <a name="M000070"></a>
 
         <div class="method-heading">
         
@@ -292,16 +294,20 @@ Generic <a href="../Reporter.html">Reporter</a>
 
         <div class="method-description">
           
-          <p class="missing-docs">(Not documented)</p>
+          
           
 
           
           <div class="method-source-code"
             id="report-error-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporters/dotprogress.rb, line 23</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporters/outline.rb, line 34</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_error</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
-      <span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;E&quot;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">red</span>(<span class="ruby-node">&quot;* #{testunit} (ERROR)&quot;</span>)
+      <span class="ruby-comment cmt">#puts</span>
+      <span class="ruby-comment cmt">#puts &quot;        ERROR #{exception.backtrace[0]}&quot;</span>
+      <span class="ruby-comment cmt">#puts &quot;        #{exception}&quot;</span>
+      <span class="ruby-comment cmt">#puts</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -312,7 +318,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 
     
       <div id="report-failure-method" class="method-detail ">
-        <a name="M000051"></a>
+        <a name="M000069"></a>
 
         <div class="method-heading">
         
@@ -324,16 +330,20 @@ Generic <a href="../Reporter.html">Reporter</a>
 
         <div class="method-description">
           
-          <p class="missing-docs">(Not documented)</p>
+          
           
 
           
           <div class="method-source-code"
             id="report-failure-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporters/dotprogress.rb, line 19</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporters/outline.rb, line 25</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_failure</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
-      <span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;F&quot;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">red</span>(<span class="ruby-node">&quot;* #{testunit} (FAILURE)&quot;</span>)
+      <span class="ruby-comment cmt">#puts</span>
+      <span class="ruby-comment cmt">#puts &quot;        FAIL #{exception.backtrace[0]}&quot;</span>
+      <span class="ruby-comment cmt">#puts &quot;        #{exception}&quot;</span>
+      <span class="ruby-comment cmt">#puts</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -344,7 +354,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 
     
       <div id="report-finish-method" class="method-detail ">
-        <a name="M000054"></a>
+        <a name="M000072"></a>
 
         <div class="method-heading">
         
@@ -356,16 +366,16 @@ Generic <a href="../Reporter.html">Reporter</a>
 
         <div class="method-description">
           
-          <p class="missing-docs">(Not documented)</p>
+          
           
 
           
           <div class="method-source-code"
             id="report-finish-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporters/dotprogress.rb, line 31</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_finish</span> <span class="ruby-comment cmt">#(successes, failures, errors, pendings)</span>
-      <span class="ruby-identifier">puts</span>; <span class="ruby-identifier">puts</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporters/outline.rb, line 51</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_finish</span>
+      <span class="ruby-identifier">puts</span>
 
       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">failures</span>.<span class="ruby-identifier">empty?</span>
         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;FAILURES:\n\n&quot;</span>
@@ -387,13 +397,13 @@ Generic <a href="../Reporter.html">Reporter</a>
         <span class="ruby-keyword kw">end</span>
       <span class="ruby-keyword kw">end</span>
 
-      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">pendings</span>.<span class="ruby-identifier">empty?</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;PENDING:\n\n&quot;</span>
-        <span class="ruby-identifier">pendings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span><span class="ruby-operator">|</span>
-          <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;    #{testunit}&quot;</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-identifier">puts</span>
-      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-comment cmt">#unless pendings.empty?</span>
+      <span class="ruby-comment cmt">#  puts &quot;PENDING:\n\n&quot;</span>
+      <span class="ruby-comment cmt">#  pendings.each do |testunit, exception|</span>
+      <span class="ruby-comment cmt">#    puts &quot;    #{testunit}&quot;</span>
+      <span class="ruby-comment cmt">#  end</span>
+      <span class="ruby-comment cmt">#  puts</span>
+      <span class="ruby-comment cmt">#end</span>
 
       <span class="ruby-identifier">total</span> = <span class="ruby-identifier">successes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">failures</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">pendings</span>.<span class="ruby-identifier">size</span>
       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{total} tests, #{successes.size} pass, #{failures.size} failures, #{errors.size} errors, #{pendings.size} pending&quot;</span>
@@ -407,7 +417,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 
     
       <div id="report-pending-method" class="method-detail ">
-        <a name="M000053"></a>
+        <a name="M000071"></a>
 
         <div class="method-heading">
         
@@ -419,16 +429,19 @@ Generic <a href="../Reporter.html">Reporter</a>
 
         <div class="method-description">
           
-          <p class="missing-docs">(Not documented)</p>
+          
           
 
           
           <div class="method-source-code"
             id="report-pending-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporters/dotprogress.rb, line 27</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporters/outline.rb, line 43</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_pending</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">exception</span>)
-      <span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;P&quot;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">yellow</span>(<span class="ruby-node">&quot;* #{testunit} (PENDING)&quot;</span>)
+      <span class="ruby-comment cmt">#puts</span>
+      <span class="ruby-comment cmt">#puts &quot;        PENDING #{exception.backtrace[0]}&quot;</span>
+      <span class="ruby-comment cmt">#puts</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -439,7 +452,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 
     
       <div id="report-start-method" class="method-detail ">
-        <a name="M000048"></a>
+        <a name="M000065"></a>
 
         <div class="method-heading">
         
@@ -451,14 +464,14 @@ Generic <a href="../Reporter.html">Reporter</a>
 
         <div class="method-description">
           
-          <p class="missing-docs">(Not documented)</p>
+          
           
 
           
           <div class="method-source-code"
             id="report-start-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporters/dotprogress.rb, line 9</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporters/outline.rb, line 10</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_start</span>(<span class="ruby-identifier">suite</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
@@ -470,7 +483,7 @@ Generic <a href="../Reporter.html">Reporter</a>
 
     
       <div id="report-success-method" class="method-detail ">
-        <a name="M000050"></a>
+        <a name="M000068"></a>
 
         <div class="method-heading">
         
@@ -482,16 +495,16 @@ Generic <a href="../Reporter.html">Reporter</a>
 
         <div class="method-description">
           
-          <p class="missing-docs">(Not documented)</p>
+          
           
 
           
           <div class="method-source-code"
             id="report-success-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/reporters/dotprogress.rb, line 15</span>
+<span class="ruby-comment cmt"># File lib/lemon/reporters/outline.rb, line 20</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_success</span>(<span class="ruby-identifier">testunit</span>)
-      <span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;.&quot;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">green</span>(<span class="ruby-node">&quot;* #{testunit}&quot;</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
