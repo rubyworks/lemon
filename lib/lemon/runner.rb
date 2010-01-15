@@ -52,7 +52,7 @@ module Lemon
               testunit.call
               reporter.report_success(testunit)
               successes << testunit
-            rescue PendingAssertion => exception
+            rescue Pending => exception
               reporter.report_pending(testunit, exception)
               pendings << [testunit, exception]
             rescue Assertion => exception
@@ -88,6 +88,7 @@ module Lemon
           block.call(testcase) if match === concern.to_s
         end
       end
+      concern.call
     end
 
     #

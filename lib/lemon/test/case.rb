@@ -50,8 +50,8 @@ module Lemon::Test
     end
 
     # Define a new test concern for this case.
-    def Concern(*description)
-      concern = Concern.new(self, description)
+    def Concern(*description, &setup)
+      concern = Concern.new(self, description, &setup)
       @concerns << concern
     end
 
@@ -100,9 +100,9 @@ module Lemon::Test
     end
 
     #
-    def pending
-      raise PendingAssertion
-    end
+    #def pending
+    #  raise Pending
+    #end
 
     #
     def to_s
@@ -112,6 +112,7 @@ module Lemon::Test
 
 end
 
-class PendingAssertion < Assertion
+class Pending < Assertion
+  def self.to_proc; lambda{ raise self }; end
 end
 

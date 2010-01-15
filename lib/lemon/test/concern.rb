@@ -15,10 +15,14 @@ module Lemon::Test
     # Unit tests that belong to this concern.
     attr :testunits
 
+    # Setup procedure for concern.
+    attr :setup
+
     # New concern.
-    def initialize(testcase, *description)
+    def initialize(testcase, *description, &setup)
       @testcase    = testcase
       @description = description.join("\n")
+      @setup       = setup
       @testunits   = []
     end
 
@@ -36,6 +40,11 @@ module Lemon::Test
     # Returns the description with newlines removed.
     def to_s
       description.gsub(/\n/, ' ')
+    end
+
+    #
+    def call
+      setup.call if setup
     end
 
   end
