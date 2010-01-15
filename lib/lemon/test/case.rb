@@ -50,6 +50,7 @@ module Lemon::Test
     end
 
     # Define a new test concern for this case.
+    # TODO: Probably will deprecate the &setup procedure (YAGNI).
     def Concern(*description, &setup)
       concern = Concern.new(self, description, &setup)
       @concerns << concern
