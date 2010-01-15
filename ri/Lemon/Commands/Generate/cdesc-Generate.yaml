@@ -24,6 +24,10 @@ comment:
   width: 
 - !ruby/struct:RDoc::Markup::Flow::P 
   body: Lemon Generate Command-line tool.
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Lemon Generate Command-line tool.
 constants: []
 
 full_name: Lemon::Commands::Generate

@@ -45,6 +45,10 @@ comment:
   width: 
 - !ruby/struct:RDoc::Markup::Flow::P 
   body: Test Case encapsulates a collection of unit tests organized into groups of concern.
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Test Case encapsulates a collection of unit tests organized into groups of concern.
 constants: []
 
 full_name: Lemon::Test::Case

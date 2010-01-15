@@ -1,17 +1,17 @@
 html { font-family: sans-serif; font-size: 16px; color: black; }
-body { padding: 0; margin: 0; }
+body { padding: 0; margin: 0; font-family: sans-serif; font-size: 12px; background: #fff; }
 
 p { text-align: justify; margin: 20px 0; }
 
 a { text-decoration: none; font-size: 10pt; color: tan; }
 a:hover { text-decoration: underline; }
 
-h1 { font-size: 100px; margin: 20px; }
+h1 { font-size: 90px; margin: 20px; }
 
 ul { margin: 0 auto; list-style-type: none; width: 300px; }
 li { float: left; padding: 10px; text-align: center; }
 
-pre { font-size: 90%; padding: 20px 0 10px 0; -moz-border-radius: 10px; font-family: courier, monospace; }
+pre { font-size: 95%; padding: 20px 0 10px 0; -moz-border-radius: 10px; font-family: courier, monospace; background: #aaa;}
 code { font-family: courier, monospace; }
 
 img { border: none; }

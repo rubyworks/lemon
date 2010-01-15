@@ -13,6 +13,10 @@ class_methods:
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
   body: Lemon Command-line tool base class.
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Lemon Command-line tool base class.
 constants: []
 
 full_name: Lemon::Command

@@ -9,6 +9,12 @@ attributes:
 - !ruby/object:RDoc::RI::Attribute 
   comment: 
   - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Setup procedure for concern.
+  name: setup
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
     body: The test case to which this concern belongs.
   name: testcase
   rw: R
@@ -28,6 +34,10 @@ comment:
   width: 
 - !ruby/struct:RDoc::Markup::Flow::P 
   body: Test Concerns are used to organize unit tests in groups, so as to address specific quality assurance objectives.
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Test Concerns are used to organize unit tests in groups, so as to address specific quality assurance objectives.
 constants: []
 
 full_name: Lemon::Test::Concern
@@ -36,6 +46,8 @@ includes: []
 instance_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
   name: assign
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: call
 - !ruby/object:RDoc::RI::MethodSummary 
   name: each
 - !ruby/object:RDoc::RI::MethodSummary 

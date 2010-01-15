@@ -96,7 +96,7 @@
           
             
             <li class="method">
-              <a href="#M000013">#After</a>
+              <a href="#M000014">#After</a>
             </li>
           
             
@@ -111,17 +111,17 @@
           
             
             <li class="method">
-              <a href="#M000008">#Unit</a>
+              <a href="#M000007">#Unit</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000017">#When</a>
+              <a href="#M000016">#When</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000016">#after</a>
+              <a href="#M000015">#after</a>
             </li>
           
             
@@ -141,7 +141,7 @@
           
             
             <li class="method">
-              <a href="#M000007">#each</a>
+              <a href="#M000006">#each</a>
             </li>
           
             
@@ -161,7 +161,7 @@
           
             
             <li class="method">
-              <a href="#M000020">#to_s</a>
+              <a href="#M000019">#to_s</a>
             </li>
           
             
@@ -447,7 +447,7 @@ A test case <tt>target</tt> is a class or module.
 
     
       <div id="-fter-method" class="method-detail ">
-        <a name="M000013"></a>
+        <a name="M000014"></a>
 
         <div class="method-heading">
         
@@ -478,7 +478,7 @@ Define an after procedure for this case.
 
         
         <div class="aliases">
-          Also aliased as: <a href="Case.html#M000016">after</a>
+          Also aliased as: <a href="Case.html#M000015">after</a>
         </div>
         
       </div>
@@ -528,7 +528,7 @@ Define a before procedure for this case.
         <div class="method-heading">
         
           <span class="method-name">Concern</span><span
-            class="method-args">(*description)</span>
+            class="method-args">(*description, &setup)</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
@@ -545,8 +545,8 @@ Define a new test concern for this case.
             id="-oncern-source">
 <pre>
 <span class="ruby-comment cmt"># File lib/lemon/test/case.rb, line 53</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Concern</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">description</span>)
-      <span class="ruby-identifier">concern</span> = <span class="ruby-constant">Concern</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">description</span>)
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Concern</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">description</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">setup</span>)
+      <span class="ruby-identifier">concern</span> = <span class="ruby-constant">Concern</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">description</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">setup</span>)
       <span class="ruby-ivar">@concerns</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">concern</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
@@ -562,7 +562,7 @@ Define a new test concern for this case.
 
     
       <div id="-nit-method" class="method-detail ">
-        <a name="M000008"></a>
+        <a name="M000007"></a>
 
         <div class="method-heading">
         
@@ -606,7 +606,7 @@ Define a unit test for this case.
 
     
       <div id="-hen-method" class="method-detail ">
-        <a name="M000017"></a>
+        <a name="M000016"></a>
 
         <div class="method-heading">
         
@@ -640,7 +640,7 @@ Define a concern procedure to apply case-wide.
 
     
       <div id="after-method" class="method-detail method-alias">
-        <a name="M000016"></a>
+        <a name="M000015"></a>
 
         <div class="method-heading">
         
@@ -653,7 +653,7 @@ Define a concern procedure to apply case-wide.
         <div class="method-description">
           
           <p>
-Alias for <a href="Case.html#M000013">After</a>
+Alias for <a href="Case.html#M000014">After</a>
 </p>
           
 
@@ -695,7 +695,7 @@ Alias for <a href="Case.html#M000011">Before</a>
         <div class="method-heading">
         
           <span class="method-name">concern</span><span
-            class="method-args">(*description)</span>
+            class="method-args">(*description, &setup)</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
@@ -752,7 +752,7 @@ The last defined concern. Used to assign new unit tests.
 
     
       <div id="each-method" class="method-detail ">
-        <a name="M000007"></a>
+        <a name="M000006"></a>
 
         <div class="method-heading">
         
@@ -887,7 +887,7 @@ submodules. A hack has been used to circumvent. See Suite.const_missing.
 
     
       <div id="to-s-method" class="method-detail ">
-        <a name="M000020"></a>
+        <a name="M000019"></a>
 
         <div class="method-heading">
         
@@ -932,7 +932,7 @@ submodules. A hack has been used to circumvent. See Suite.const_missing.
         <div class="method-description">
           
           <p>
-Alias for <a href="Case.html#M000008">Unit</a>
+Alias for <a href="Case.html#M000007">Unit</a>
 </p>
           
 

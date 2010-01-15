@@ -34,6 +34,10 @@ comment:
   width: 
 - !ruby/struct:RDoc::Markup::Flow::P 
   body: Test Suites encapsulate a set of test cases.
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Test Suites encapsulate a set of test cases.
 constants: []
 
 full_name: Lemon::Test::Suite

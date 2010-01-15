@@ -1,0 +1,21 @@
+--- !ruby/object:RDoc::RI::ModuleDescription 
+attributes: []
+
+class_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: suite
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: suite=
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: test_stack
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: require 'lemon' require 'yaml'
+constants: []
+
+full_name: Lemon
+includes: []
+
+instance_methods: []
+
+name: Lemon

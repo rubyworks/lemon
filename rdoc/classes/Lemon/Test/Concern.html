@@ -101,6 +101,11 @@
           
             
             <li class="method">
+              <a href="#M000030">#call</a>
+            </li>
+          
+            
+            <li class="method">
               <a href="#M000028">#each</a>
             </li>
           
@@ -281,6 +286,23 @@ The description of this concern. Make this as detailed as you wish.
         </div>
       </div>
       
+      <div id="setup-attribute-method" class="method-detail">
+        <a name="setup"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">setup</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+Setup procedure for concern.
+</p>
+        
+        </div>
+      </div>
+      
     </div>
     
 
@@ -296,7 +318,7 @@ The description of this concern. Make this as detailed as you wish.
         <div class="method-heading">
         
           <span class="method-name">new</span><span
-            class="method-args">(testcase, *description)</span>
+            class="method-args">(testcase, *description, &setup)</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
@@ -312,10 +334,11 @@ New concern.
           <div class="method-source-code"
             id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/concern.rb, line 19</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">testcase</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">description</span>)
+<span class="ruby-comment cmt"># File lib/lemon/test/concern.rb, line 22</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">testcase</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">description</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">setup</span>)
       <span class="ruby-ivar">@testcase</span>    = <span class="ruby-identifier">testcase</span>
       <span class="ruby-ivar">@description</span> = <span class="ruby-identifier">description</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+      <span class="ruby-ivar">@setup</span>       = <span class="ruby-identifier">setup</span>
       <span class="ruby-ivar">@testunits</span>   = []
     <span class="ruby-keyword kw">end</span></pre>
           </div>
@@ -354,10 +377,42 @@ Assign a unit test to this concern.
           <div class="method-source-code"
             id="assign-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/concern.rb, line 26</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/concern.rb, line 30</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">assign</span>(<span class="ruby-identifier">testunit</span>)
       <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">Unit</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">testunit</span>
       <span class="ruby-ivar">@testunits</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">testunit</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="call-method" class="method-detail ">
+        <a name="M000030"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">call</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="call-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/lemon/test/concern.rb, line 46</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call</span>
+      <span class="ruby-identifier">setup</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">setup</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -389,7 +444,7 @@ Iterate through each test unit.
           <div class="method-source-code"
             id="each-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/concern.rb, line 32</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/concern.rb, line 36</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-ivar">@testunits</span>.<span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
     <span class="ruby-keyword kw">end</span></pre>
@@ -423,7 +478,7 @@ Returns the description with newlines removed.
           <div class="method-source-code"
             id="to-s-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/lemon/test/concern.rb, line 37</span>
+<span class="ruby-comment cmt"># File lib/lemon/test/concern.rb, line 41</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
       <span class="ruby-identifier">description</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\n/</span>, <span class="ruby-value str">' '</span>)
     <span class="ruby-keyword kw">end</span></pre>

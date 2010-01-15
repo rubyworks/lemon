@@ -4,9 +4,9 @@ aliases: []
 block_params: 
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
-  body: New concern.
-full_name: Lemon::Test::Concern::new
+  body: Current suite being defined. This is used to define a Suite object via the toplevel DSL.
+full_name: Lemon::suite
 is_singleton: true
-name: new
-params: (testcase, *description, &setup)
+name: suite
+params: ()
 visibility: public

@@ -9,5 +9,5 @@ comment:
 full_name: Lemon::Test::Case#Concern
 is_singleton: false
 name: Concern
-params: (*description)
+params: (*description, &setup)
 visibility: public

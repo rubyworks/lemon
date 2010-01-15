@@ -4,9 +4,9 @@ aliases: []
 block_params: 
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
-  body: "Alias for #Concern"
-full_name: Lemon::Test::Case#concern
-is_singleton: false
-name: concern
-params: (*description, &setup)
+  body: Get current running test. Used for the BIG FAT HACK.
+full_name: Lemon::test_stack
+is_singleton: true
+name: test_stack
+params: ()
 visibility: public
