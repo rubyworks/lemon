@@ -74,6 +74,7 @@ module Test
 
     # Define a test case belonging to this suite.
     def Case(target_class, &block)
+      raise "lemon: case target must be a class or module" unless Module === target_class
       testcases << Case.new(self, target_class, &block)
     end
 
