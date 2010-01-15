@@ -32,10 +32,13 @@ module Lemon::Test
 
     # This method has the other end of the BIG FAT HACK. See Suite#const_missing.
     def call
-      Lemon.test_stack << self  # hack
-      procedure.call
-    ensure
-      Lemon.test_stack.pop
+      raise Pending unless procedure
+      begin
+        Lemon.test_stack << self  # hack
+        procedure.call
+      ensure
+        Lemon.test_stack.pop
+      end
     end
 
     # The suite to which this unit test belongs.
