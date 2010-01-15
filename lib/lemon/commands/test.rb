@@ -43,6 +43,9 @@ module Commands
         opt.on('--verbose', '-v', "select verbose report format") do |type|
           self.format = :verbose
         end
+        opt.on('--outline', '-O', "select outline report format") do |type|
+          self.format = :outline
+        end
         #opt.on('--format', '-f [TYPE]', "select alternate report format") do |type|
         #  self.format = type
         #end
