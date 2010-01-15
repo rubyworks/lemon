@@ -3,8 +3,8 @@ module Reporters
 
   require 'lemon/reporter'
 
-  # Verbose Reporter
-  class Verbose < Reporter
+  # Outline Reporter
+  class Outline < Reporter
 
     #
     def report_start(suite)
@@ -24,26 +24,26 @@ module Reporters
     #
     def report_failure(testunit, exception)
       puts red("* #{testunit} (FAILURE)")
-      puts
-      puts "        FAIL #{exception.backtrace[0]}"
-      puts "        #{exception}"
-      puts
+      #puts
+      #puts "        FAIL #{exception.backtrace[0]}"
+      #puts "        #{exception}"
+      #puts
     end
 
     #
     def report_error(testunit, exception)
       puts red("* #{testunit} (ERROR)")
-      puts
-      puts "        ERROR #{exception.backtrace[0]}"
-      puts "        #{exception}"
-      puts
+      #puts
+      #puts "        ERROR #{exception.backtrace[0]}"
+      #puts "        #{exception}"
+      #puts
     end
 
     #
     def report_pending(testunit, exception)
       puts yellow("* #{testunit} (PENDING)")
       #puts
-      #puts "        PENDING #{exception.backtrace[1]}"
+      #puts "        PENDING #{exception.backtrace[0]}"
       #puts
     end
 
@@ -51,25 +51,25 @@ module Reporters
     def report_finish
       puts
 
-      #unless failures.empty?
-      #  puts "FAILURES:\n\n"
-      #  failures.each do |testunit, exception|
-      #    puts "    #{testunit}"
-      #    puts "    #{exception}"
-      #    puts "    #{exception.backtrace[0]}"
-      #    puts
-      #  end
-      #end
+      unless failures.empty?
+        puts "FAILURES:\n\n"
+        failures.each do |testunit, exception|
+          puts "    #{testunit}"
+          puts "    #{exception}"
+          puts "    #{exception.backtrace[0]}"
+          puts
+        end
+      end
 
-      #unless errors.empty?
-      #  puts "ERRORS:\n\n"
-      #  errors.each do |testunit, exception|
-      #    puts "    #{testunit}"
-      #    puts "    #{exception}"
-      #    puts "    #{exception.backtrace[0]}"
-      #    puts
-      #  end
-      #end
+      unless errors.empty?
+        puts "ERRORS:\n\n"
+        errors.each do |testunit, exception|
+          puts "    #{testunit}"
+          puts "    #{exception}"
+          puts "    #{exception.backtrace[0]}"
+          puts
+        end
+      end
 
       #unless pendings.empty?
       #  puts "PENDING:\n\n"
