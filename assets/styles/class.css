@@ -1,3 +1,6 @@
-.page { width: 800px; margin: 0 auto; }
+.page { width: 730px; margin: 0 auto; }
 
-.copyright p { text-align: center; margin: 0 auto; }
+.bordered { border-top: 2px solid yellow; border-bottom: 2px solid yellow; }
+
+.copyright { padding: 0; text-align: left; }
+.copyright td { font-size: 10px; color: #444; }

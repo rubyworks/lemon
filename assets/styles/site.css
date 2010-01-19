@@ -1,80 +1,28 @@
-h1 {
- font-family: times;
- font-size: 42pt;
- color: #500;
-}
+h1 { font-family: times; font-size: 400%; margin: 20px 0; color: #f7d901; }
+h2 { font-size: 220%; margin-top: 30px; color: #444; }
+h3 { font-size: 190%; color: orange; }
 
-h2 {
- font-size: 32pt;
-}
-
-h3 {
-  color: orange;
-}
-
-p { color: #222; font-weight: normal; }
+p { color: #222; font-weight: normal; font-size: 120%; }
 a { color: #262; }
 a:hover { text-decoration: underline; }
 
-h1 { font-size: 90px; margin: 20px 0; color: #f7d901; }
-h2 { margin-top: 30px; }
+ pre { background: #ffffff; -moz-border-radius: 10px; line-height: 140%; }
+code { color: #222; font-weight: bold; }
+  tt { color: #222; font-weight: bold; }
 
- pre { background: #ffffff; -moz-border-radius: 10px; }
-code { color: #262; font-weight: bold; }
-  tt { color: #262; font-weight: bold; }
+#nav { padding: 0 0 20px 50px; text-align: left; color: pink; float: right; }
+#nav a { font-size: 250%; font-weight: bold; font-variant: small-caps; }
+#nav a:hover { color: #0C0; text-decoration: none; }
 
-#nav { padding: 20px 50px 20px 0; text-align: center; color: pink; }
-#nav a { font-size: 90%; }
-
-#header { height: 250px; text-align: left; border-top: 2px solid yellow; border-bottom: 2px solid yellow; background: url(../images/skin.jpg) #f7e931; }
+#header { height: 250px; text-align: left; }
 #header h1 { font-size: 100px; padding: 40px 0 0 0; color: #f7d901; margin-left: -10px; }
 
-#main { color: white; border-bottom: 2px solid yellow; padding: 10px 0 30px 0; }
+#main { color: white; padding: 20px 0 30px 0; background: url(../images/skin.jpg) #f7e931; }
+#main p { font-weight: bold; font-family: times; font-size: 150%; }
 #main h2 { color: #333333; }
 #main h3 { color: #333333; }
-#main a { font-size: 95%; text-decoration: underline; }
 
-#footer { padding: 30px; text-align: center; background: url(../images/skin.jpg) #f7e931; }
+#footer { margin-top: 40px; padding: 40px 0; text-align: center; background: url(../images/skin.jpg) #f7e931; }
 #footer .copyright { padding-top: 0; }
 #footer .copyright p { color: #222; font-weight: normal; font-size: 80%; line-height: 150%; }
-
-#content {
-  width: 720px;
-  margin: 0 auto;
-  padding: 30px;
-  background: #FFF;
-}
-
-#example {
-  text-align: left;
-  border: 1px solid #cccccc;
-  width: 350px;
-  padding: 20px;
-}
-
-#blurb {
-  font-size: 1.5em;
-  color: red;
-}
-
-#about {
-  clear: both;
-  padding: 30px;
-  border: 0px solid red;
-  text-align: left;
-  font-size: 18pt;
-  text-align: justify;
-  font-family: times;
-}
-
-#copyright {
-  margin: 5px 0px;
-  font-family: monospace;
-  font-size: 10px;
-  color: #aaa;
-  text-align: center;
-}
-
-#tigerops { width: 900px; margin: 30 auto;}
-#tigerops iframe { width: 900px; border: none; }
 

@@ -14,33 +14,37 @@
 </head>
 <body onload="sh_highlightDocument();">
 
-<div id="nav">
-<div class="page">
-  <!-- <a href="guide/doc.en/index.html">English Manual</a> &nbsp;&middot;&nbsp; -->
-  <a href="rdoc/index.html">API Documents</a> &nbsp;&middot;&nbsp;
-  <a href="http://wiki.github.com/proutils/lemon">Wiki-Wiki</a> &nbsp;&middot;&nbsp;
-  <a href="http://googlegroups.com/group/proutils">Mailing List</a> &nbsp;&middot;&nbsp;
-  <a href="http://github.com/proutils/lemon">Development</a>
-</div>
-</div>
-
 <div id="header">
 <div class="page">
+
   <img src="assets/images/cut-lemon.png" height="200px" align="right"/>
   <h1><img src="assets/images/title.png"/></h1>
+  <h2>Pucker-Strength Unit Testing</h2>
+
 </div>
 </div>
 
-<div id="main">
+<div id="main" class="bordered">
 <div class="page">
 
-  <h2>Pucker-Strength Unit Testing</h2>
+  <div id="nav">
+    <!-- <a href="guide/doc.en/index.html">English Manual</a> &nbsp;&middot;&nbsp; -->
+    <a href="http://wiki.github.com/proutils/lemon">Documentation</a> <br/>
+    <a href="qedoc/index.html">Demonstrandum</a> <br/>
+    <a href="rdoc/index.html">API Documents</a> <br/>
+    <a href="http://googlegroups.com/group/proutils">Mailing List</a> <br/>
+    <a href="http://github.com/proutils/lemon">Development</a>
+  </div>
 
   <p>Lemon is a unit testing framework which enforces highly formal
   case-to-class and unit-to-method test construction.
-  This strict approach is arguably the most proper technique for unit
-  testing because it helps promote good test coverage.</p>
+  This strict approach is arguably a more proper technique for unit
+  testing because it helps focus concern on individual units of
+  behavior and thus helps promote good test coverage. This is unlike
+  functional and integration testing which rightly focus on more
+  holistic issues.</p>
 
+<!--
   <h3>Writing Tests</h3>
 
   <p>Let's say we have a library that consists of the class <code>HelloWorld</code>
@@ -85,7 +89,7 @@
   <p>The <tt>lemon</tt> command-line tool is used to run tests. Simply provide the name of the test files as arguments:</p>
 
   <pre class="sh_sh">
-  $ lemon test/cases/*.rb
+  > lemon test/cases/*.rb
   </pre>
 
   <p>By default the <tt>lemon</tt> command outputs the traditional dot-progress format. The <tt>--verbose</tt>
@@ -98,7 +102,7 @@
   or <tt>-c</tt> option.</p>
 
   <pre class="sh_sh">
-  $ lemon -c test/cases/*.rb
+  > lemon -c test/cases/*.rb
   </pre>
 
   <p>To enusre only the code you are interested in is checked, you can either use <tt>-r</tt> to pre-require
@@ -106,12 +110,10 @@
   to include via the <tt>--namespace</tt> or <tt>-n</tt> option.
 
   <pre class="sh_sh">
-  $ lemon -c -n HelloWorld test/cases/*.rb
+  > lemon -c -n HelloWorld test/cases/*.rb
   </pre>
 
   <p>For more information on Lemon and how to use it please see the Lemon <a href="http://wiki.github.com/proutils/lemon">Wiki</a>.</p>
-
-  <img src="assets/images/lemons-are-good.png" height="200px" align="right" />
 
   <h2>Development</h2>
 
@@ -125,12 +127,47 @@
 
   <p>Lemon is an open-source project licensed under the terms of <b>Lesser General Public License</b>.</p>
 
-  <br/></br>
+-->
+</div>
+</div>
+
+<div>
+<div class="page">
+  <h3>Example</h3>
+
+  <p>To give you a taste of what a lemon testcase looks like, let's say we have a library
+  that consists of the class <code>HelloWorld</code> with method <code>#to_s</code>:<p>
+
+<pre class="sh_ruby">
+  class HelloWorld
+    def to_s
+      "Hello, World!"
+    end
+  end
+</pre>
+
+  <p>We would write a Lemon test case along the following lines:</p>
+
+<pre class="sh_ruby">
+  TestCase HelloWorld do
+    Concern "String output works as expected."
+
+    Unit :to_s => "returns a string" do
+      HelloWorld.new.to_s.assert.is_a?(String)
+    end
+
+    Unit :to_s => "returns a 13 character phrase" do
+      HelloWorld.new.to_s.size.assert == 13
+    end
+  end
+</pre>
+
+  <p>A silly example to be sure, but one we can all easily understand.</p>
 
 </div>
 </div>
 
-<div id="footer">
+<div id="footer" class="bordered">
 <div class="page">
   <script type="text/javascript"><!--
   google_ad_client = "pub-1126154564663472";
@@ -146,22 +183,30 @@
 
   <br/><br/><br/>
 
-  <div style="margin-top: 40px; width: 780px; height: 100px; margin: 0 auto; padding: 10px 0; font-size: 110%;">
-    <div style="float: left;">
+  <table class="copyright">
+    <tr>
+    <td>
+      <img src="assets/images/lemons-are-good.png" height="180px" align="center" />
+    </td>
+    <td style="padding: 0 36px;">
       <a href="http://proutils.github.com/"><img src="assets/images/proutils-d.png" align="bottom" style="margin: 5px;" /></a><br/>
       <span style="padding-left: 36px;">Lemon is a ProUtils Project</span>
-    </div>
-    <div style="width: 500px; float: left; padding: 0; text-align: left;">
+    </td>
+    <td>
       <a href="http://www.gnu.org/licenses/lgpl-3.0-standalone.html">
         <img src="assets/images/lgplv3-147x51.png" align="left" style="margin: 20px;" />
       </a>
-      <p><b>Lemon</b>, Copyright &copy; 2009 Thomas Sawyer</p>
-      <p><b>Contact:</b> transfire @ gmail.com</p>
-    </div>
-  </div>
+    </td>
+    </tr>
+  </table>
 
+  <div style="clear: both; margin-top: 30px;">
+      <b>Lemon</b>, Copyright &copy; 2009 Thomas Sawyer &middot;
+      <b>Contact:</b> transfire @ gmail.com
+  </div>
 </div>
-</dir>
+</div>
 
 </body>
 </html>
+
