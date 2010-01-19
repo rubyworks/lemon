@@ -11,7 +11,7 @@ a:hover { text-decoration: underline; }
 ul { margin: 0 auto; list-style-type: none; width: 300px; }
 li { float: left; padding: 10px; text-align: center; }
 
-pre  { font-size: 130%; padding: 15px 0 0 0; -moz-border-radius: 10px; font-family: courier, monospace; color: #000; }
+pre  { font-size: 130%; padding: 10px 0 0 0; -moz-border-radius: 10px; font-family: courier, monospace; color: #000; }
 code { font-family: courier, monospace; }
 
 img { border: none; }

@@ -1,8 +1,8 @@
 h1 { font-family: times; font-size: 400%; margin: 20px 0; color: #f7d901; }
-h2 { font-size: 350%; margin-top: 30px; color: #444; }
+h2 { font-size: 220%; margin-top: 30px; color: #444; }
 h3 { font-size: 190%; color: orange; }
 
-p { color: #222; font-weight: normal; }
+p { color: #222; font-weight: normal; font-size: 120%; }
 a { color: #262; }
 a:hover { text-decoration: underline; }
 
@@ -10,18 +10,19 @@ a:hover { text-decoration: underline; }
 code { color: #222; font-weight: bold; }
   tt { color: #222; font-weight: bold; }
 
-#nav { padding: 20px 50px 20px 0; text-align: center; color: pink; }
-#nav a { font-size: 100%; font-weight: bold; }
+#nav { padding: 0 0 20px 50px; text-align: left; color: pink; float: right; }
+#nav a { font-size: 250%; font-weight: bold; font-variant: small-caps; }
+#nav a:hover { color: #0C0; text-decoration: none; }
 
-#header { height: 250px; text-align: left; border-top: 2px solid yellow; border-bottom: 2px solid yellow; background: url(../images/skin.jpg) #f7e931; }
+#header { height: 250px; text-align: left; }
 #header h1 { font-size: 100px; padding: 40px 0 0 0; color: #f7d901; margin-left: -10px; }
 
-#main { color: white; border-bottom: 2px solid yellow; padding: 10px 0 30px 0; }
+#main { color: white; padding: 20px 0 30px 0; background: url(../images/skin.jpg) #f7e931; }
+#main p { font-weight: bold; font-family: times; font-size: 150%; }
 #main h2 { color: #333333; }
 #main h3 { color: #333333; }
-#main a { font-size: 95%; text-decoration: underline; }
 
-#footer { padding: 30px; text-align: center; background: url(../images/skin.jpg) #f7e931; }
+#footer { margin-top: 40px; padding: 40px 0; text-align: center; background: url(../images/skin.jpg) #f7e931; }
 #footer .copyright { padding-top: 0; }
 #footer .copyright p { color: #222; font-weight: normal; font-size: 80%; line-height: 150%; }
 
