@@ -47,6 +47,7 @@ module Lemon
           reporter.report_concern(concern)
           run_concern_procedures(concern, suite, testcase)
           concern.each do |testunit|
+            #mark_coverage(testcase, testunit)
             run_pretest_procedures(testunit, suite, testcase)
             begin
               testunit.call
@@ -74,7 +75,44 @@ module Lemon
       @reporter ||= Reporter.factory(format, self)
     end
 
-    private
+    #
+    #def uncovered
+    #  c = []
+    #  @testcase_coverage.each do |testcase, testunits|
+    #    testunits.each do |testunit, coverage|
+    #      c << [testcase, testunit] if coverage == false
+    #    end
+    #  end
+    #  c
+    #end
+
+    #
+    def uncovered
+      uncovered_targets = []
+      coverage.each do |testcase, testunits|
+        testunits.each do |testunit, covered|
+          uncovered_targets << [testcase, testunit] unless covered
+        end
+      end
+      uncovered_targets
+    end
+
+    #
+    def undefined
+      covered_testunits = successes + (failures + errors + pendings).map{ |tu, e| tu }
+      covered_targets = covered_testunits.map{ |tu| [tu.testcase.target.name, tu.target.to_s] }
+
+      targets = []
+      coverage.each do |testcase, testunits|
+        testunits.each do |testunit, coverage|
+          targets << [testcase, testunit]
+        end
+      end
+
+      covered_targets - targets
+    end
+
+  private
 
     #
     def run_concern_procedures(concern, suite, testcase)
@@ -118,6 +156,60 @@ module Lemon
         end
       end
     end
+
+    #
+    def coverage
+      @coverage ||= Lemon::Coverage.new(suite) #, namespaces, :public => public_only?)
+    end
+
+=begin
+    # TODO: I would think all this should be gained form the Coverage class.
+
+    # TODO: options to include non-public and superclasses less Object and Kernel.
+    def mark_coverage(testcase, testunit)
+      testunit = testunit.target.to_sym
+      profile  = testcase_profile(testcase)
+      coverage = testcase_coverage(testcase)
+
+      if profile[:public].include?(testunit) || profile[:meta_public].include?(testunit)
+        coverage[testunit] = :public
+      elsif profile[:private].include?(testunit) || profile[:meta_private].include?(testunit)
+        coverage[testunit] = :private
+      elsif profile[:protected].include?(testunit) || profile[:meta_protected].include?(testunit)
+        coverage[testunit] = :protected
+      else
+        coverage[testunit] = nil # nil means does not exist, while false means not covered.
+      end
+    end
+
+    #
+    def testcase_coverage(testcase)
+      target = testcase.target
+      @testcase_coverage ||= {}
+      @testcase_coverage[target] ||= (
+        h = {}
+        target.public_instance_methods(false).each{|unit| h[unit] = false }
+        (target.public_methods(false) - Object.public_methods(false)).each{|unit| h[unit] = false }
+        #target.private_instance_method(false)
+        #target.protected_instance_method(false)
+        h
+      )
+    end
+
+    #
+    def testcase_profile(testcase)
+      target = testcase.target
+      @testcase_profile ||= {}
+      @testcase_profile[target] ||= {
+        :public    => target.public_instance_methods(false).map{|s|s.to_sym},
+        :private   => target.private_instance_methods(false).map{|s|s.to_sym},
+        :protected => target.protected_instance_methods(false).map{|s|s.to_sym},
+        :meta_public    => (target.public_methods(false) - Object.public_methods(false)).map{|s|s.to_sym},
+        :meta_private   => (target.private_methods(false) - Object.private_methods(false)).map{|s|s.to_sym},
+        :meta_protected => (target.protected_methods(false)- Object.protected_methods(false)).map{|s|s.to_sym}
+      }
+    end
+=end
 
   end
 

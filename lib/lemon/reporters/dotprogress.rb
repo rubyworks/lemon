@@ -60,7 +60,8 @@ module Reporters
       end
 
       total = successes.size + failures.size + errors.size + pendings.size
-      puts "#{total} tests, #{successes.size} pass, #{failures.size} failures, #{errors.size} errors, #{pendings.size} pending"
+      puts "#{total} tests: #{successes.size} pass, #{failures.size} fail, #{errors.size} err, #{pendings.size} pending " +
+           "(#{uncovered.size} uncovered, #{undefined.size} undefined)"
     end
 
   end

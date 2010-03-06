@@ -8,6 +8,9 @@ module Test
   #
   class Suite
 
+    # Files from which the suite is loaded.
+    attr :files
+
     # Test cases in this suite.
     attr :testcases
 
@@ -20,14 +23,29 @@ module Test
     # List of post-test procedures that apply suite-wide.
     attr :after_clauses
 
+    # A snapshot of the system before the suite is loaded.
+    attr :canonical
+
     #
     def initialize(*files)
+      @files          = files.flatten
       @testcases      = []
       @before_clauses = {}
       @after_clauses  = {}
       @when_clauses   = {}
 
+      @canonical = system_snapshot
+
       loadfiles(*files)
+    end
+
+    # Produces a list of all existent Modules and Classes.
+    def system_snapshot
+      sys = []
+      ObjectSpace.each_object(Module) do |m|
+        sys << m
+      end
+      sys
     end
 
     #

@@ -86,14 +86,15 @@ module Commands
       load_files = []
 
       includes.each do |path|
-        $LOAD_PATHS.unshift(path)
+        $LOAD_PATH.unshift(path)
       end
 
       requires.each{ |path| require(path) }
 
-      cover  = Lemon::Coverage.new(load_files, namespaces, :public => public_only?)
-      suite  = Lemon::Test::Suite.new(test_files)
-      puts cover.coverage(suite).to_yaml
+      cover = Lemon::Coverage.new(test_files, namespaces, :public => public_only?)
+      #suite = Lemon::Test::Suite.new(test_files)
+      #puts cover.coverage(suite).to_yaml
+      puts cover.coverage.to_yaml
     end
 
   end

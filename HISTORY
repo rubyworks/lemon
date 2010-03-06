@@ -1,5 +1,14 @@
 = RELEASE HISTORY
 
+== 10.03.06 / 2010-03-06
+
+Changes:
+
+* Runner can provide uncovered and undefined testunit list.
+* Generator can exclude already covered testunits with -u option.
+* Suite class has Coverage instance.
+
+
 == 0.5 / 2009-12-31
 
 This is the initial public release of Lemon. Lemon is

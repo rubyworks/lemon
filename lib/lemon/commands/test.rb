@@ -74,7 +74,7 @@ module Commands
       files = ARGV.dup
 
       includes.each do |path|
-        $LOAD_PATHS.unshift(path)
+        $LOAD_PATH.unshift(path)
       end
 
       requires.each{ |path| require(path) }

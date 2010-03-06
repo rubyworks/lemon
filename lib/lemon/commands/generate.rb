@@ -21,6 +21,7 @@ module Commands
       @includes    = []
       @namespaces  = []
       @public_only = false
+      @uncovered   = false
     end
 
     #
@@ -30,8 +31,16 @@ module Commands
     attr_accessor :public_only
 
     #
+    attr_accessor :uncovered
+
+    #
     def public_only?
       @public_only
+    end
+
+    #
+    def uncovered_only?
+      @uncovered
     end
 
     # Get or set librarires to pre-require.
@@ -63,6 +72,9 @@ module Commands
         opt.on("--public", "-p", "only include public methods") do
           self.public_only = true
         end
+        opt.on("--uncovered", "-u", "only include uncovered methods") do
+          self.uncovered = true
+        end
         opt.on("--output", "-o [PATH]", "output directory") do |path|
           self.output = path
         end
@@ -91,14 +103,22 @@ module Commands
       test_files = ARGV.dup
 
       includes.each do |path|
-        $LOAD_PATHS.unshift(path)
+        $LOAD_PATH.unshift(path)
       end
 
       requires.each{ |path| require(path) }
 
-      cover  = Lemon::Coverage.new([], namespaces, :public=>public_only?)
-      suite  = Lemon::Test::Suite.new(*test_files)
-      puts cover.generate(output) #(suite).to_yaml
+      #cover  = Lemon::Coverage.new([], namespaces, :public=>public_only?, :uncovered=>uncovered_only?)
+      #suite  = Lemon::Test::Suite.new(*test_files)
+
+      cover  = Lemon::Coverage.new(test_files, namespaces, :public=>public_only?)
+      #suite  = Lemon::Test::Suite.new(*test_files)
+
+      if uncovered_only?
+        puts cover.generate_uncovered(output) #(suite).to_yaml
+      else
+        puts cover.generate(output) #(suite).to_yaml
+      end
     end
 
   end

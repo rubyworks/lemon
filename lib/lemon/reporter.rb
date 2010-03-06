@@ -3,6 +3,16 @@ module Lemon
   # = Reporter Base Class
   class Reporter
 
+    # Supports ANSI Codes?
+    ANSI_SUPPORT = (
+      begin
+        require 'ansi/code'
+        true
+      rescue LoadError
+        false
+      end
+    )
+
     # TODO: make Reporter#factory more dynamic
     def self.factory(format, runner)
       format = format.to_sym if format
@@ -17,8 +27,8 @@ module Lemon
     end
 
     def initialize(runner)
-      @runner = runner
-      require_ansicolor
+      @runner    = runner
+      @ansicolor = ANSI_SUPPORT
     end
 
     #
@@ -49,16 +59,18 @@ module Lemon
     def failures  ; runner.failures  ; end
     def errors    ; runner.errors    ; end
     def pendings  ; runner.pendings  ; end
+    def uncovered ; runner.uncovered ; end
+    def undefined ; runner.undefined ; end
 
     #
-    def require_ansicolor
-      begin
-        require 'ansi/code'
-        @ansicolor = true
-      rescue LoadError
-        @ansicolor = false
-      end
-    end
+    #def require_ansicolor
+    #  begin
+    #    require 'ansi/code'
+    #    @ansicolor = true
+    #  rescue LoadError
+    #    @ansicolor = false
+    #  end
+    #end
 
     def red(string)
       @ansicolor ? ANSI::Code.red{ string } : string

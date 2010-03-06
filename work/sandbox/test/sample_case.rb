@@ -1,9 +1,11 @@
-testcase X do
+require 'sample'
 
-  unit :a => "Returns a String" do
+TestCase X do
+
+  Unit :a => "Returns a String" do
   end
 
-  unit :b => "Returns a String" do
+  Unit :b => "Returns a String" do
   end
 
 end
