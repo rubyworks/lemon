@@ -15,11 +15,11 @@ module Lemon
 
     # TODO: make Reporter#factory more dynamic
     def self.factory(format, runner)
-      format = format.to_sym if format
+      format = format.to_s if format
       case format
-      when :verbose
+      when 'v', 'verb', 'verbose'
         Reporters::Verbose.new(runner)
-      when :outline
+      when 'o', 'out', 'outline'
         Reporters::Outline.new(runner)
       else
         Reporters::DotProgress.new(runner)

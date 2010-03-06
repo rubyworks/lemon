@@ -2,6 +2,7 @@ module Lemon
 module Commands
 
   # Lemon Generate Command-line tool.
+  #
   class Generate < Command
     require 'lemon/coverage'
 
@@ -24,8 +25,8 @@ module Commands
       @uncovered   = false
     end
 
-    #
-    attr_accessor :output
+    # TODO: Support output ? perhaps complex scaffolding
+    #attr_accessor :output
 
     #
     attr_accessor :public_only
@@ -75,9 +76,9 @@ module Commands
         opt.on("--uncovered", "-u", "only include uncovered methods") do
           self.uncovered = true
         end
-        opt.on("--output", "-o [PATH]", "output directory") do |path|
-          self.output = path
-        end
+        #opt.on("--output", "-o [PATH]", "output directory") do |path|
+        #  self.output = path
+        #end
         opt.on("-r [FILES]" , "library files to require") do |files|
           files = files.split(/[:;]/)
           requires(*files)
@@ -115,9 +116,9 @@ module Commands
       #suite  = Lemon::Test::Suite.new(*test_files)
 
       if uncovered_only?
-        puts cover.generate_uncovered(output) #(suite).to_yaml
+        puts cover.generate_uncovered #(output)
       else
-        puts cover.generate(output) #(suite).to_yaml
+        puts cover.generate #(output)
       end
     end
 
