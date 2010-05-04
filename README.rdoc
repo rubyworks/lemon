@@ -37,7 +37,7 @@ The simplist test case would be written as follows:
     end
   end
 
-The +#Covers+ method works kist like +#require+ with the exception
+The +Covers+ method works just like +require+ with the exception
 that loading the file does not occur until just before the tests
 are run. This allows Lemon to cacluate accurate coverage reports.
 

@@ -35,6 +35,11 @@ ridoc:
   ignore : ~
   active : true
 
+rdoc:
+  template: newfish
+  exclude: [Syckfile]
+  active: true  
+
 stats:
   service  : Stats
   title    : ~

@@ -1,6 +1,28 @@
 = RELEASE HISTORY
 
-== 10.03.06 / 2010-03-06
+== 0.7.0 / 2010-05-04
+
+This release fixes issue with coverage reports. To do this
+we have interoduced the +Covers+ method. This allows Lemon
+to distingush between code that is inteded to be covered
+by the tests and mere support code.
+
+Keep in mind that there is no perfect way to handle coverage.
+Even with the distiction the +Covers+ method provides, coverage
+might not be reported exactly as desired. Other techinques can
+be used to refine coverage however, such a preloading embedded
+support libraries.
+
+Changes:
+
+* Add +Covers+ method to solidify coverage reporting.
+* New Snapshot class improves encapsulation to coverage state.
+
+
+== 0.6.0 / 2010-03-06
+
+This release adds coverage reporting to testing and improves
+the generator.
 
 Changes:
 
@@ -9,7 +31,7 @@ Changes:
 * Suite class has Coverage instance.
 
 
-== 0.5 / 2009-12-31
+== 0.5.0 / 2009-12-31
 
 This is the initial public release of Lemon. Lemon is
 still under development and should be considered betaware,
