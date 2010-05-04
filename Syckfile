@@ -5,7 +5,7 @@ box:
   types  : [gem, gz]
   include: [bin, lib, meta, test, "[A-Z]*"]
   exclude: [Syckfile]
-  master : true
+  master : false
 
 email:
   service : Email
