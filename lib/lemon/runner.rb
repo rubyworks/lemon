@@ -41,6 +41,8 @@ module Lemon
 
     # Run tests.
     def run
+      prepare_coverage
+
       reporter.report_start(suite)
       suite.each do |testcase|
         testcase.each do |concern|
@@ -86,8 +88,27 @@ module Lemon
     #  c
     #end
 
-    #
     def uncovered
+      @uncovered ||= calculate_uncovered
+    end
+
+    def undefined
+      @undefined ||= calculate_undefined
+    end
+
+    #
+    def prepare_coverage
+      coverage.canonical! #suite.take_snapshot
+      suite.load_covered_files
+      #suite.covers.each do |file|
+      #  require file
+      #end
+      @uncovered = calculate_uncovered
+      @undefined = calculate_undefined
+    end
+
+    #
+    def calculate_uncovered
       uncovered_targets = []
       coverage.each do |testcase, testunits|
         testunits.each do |testunit, covered|
@@ -98,7 +119,7 @@ module Lemon
     end
 
     #
-    def undefined
+    def calculate_undefined
       covered_testunits = successes + (failures + errors + pendings).map{ |tu, e| tu }
       covered_targets = covered_testunits.map{ |tu| [tu.testcase.target.name, tu.target.to_s] }
 
@@ -129,29 +150,29 @@ module Lemon
       concern.call
     end
 
-    #
+    # Run pre-test advice.
     def run_pretest_procedures(testunit, suite, testcase)
       suite.before_clauses.each do |match, block|
-        if match.nil? or match === testunit.aspect
+        if match.nil? or testunit.match?(match)
           block.call(testunit)
         end
       end
       testcase.before_clauses.each do |match, block|
-        if match.nil? or match === testunit.aspect
+        if match.nil? or testunit.match?(match)
           block.call(testunit)
         end
       end
     end
 
-    #
+    # Run post-test advice.
     def run_postest_procedures(testunit, suite, testcase)
       testcase.after_clauses.each do |match, block|
-        if match.nil? or match === testunit.aspect
+        if match.nil? or testunit.match?(match)
           block.call(testunit)
         end
       end
       suite.after_clauses.each do |match, block|
-        if match.nil? or match === testunit.aspect
+        if match.nil? or testunit.match?(match)
           block.call(testunit)
         end
       end

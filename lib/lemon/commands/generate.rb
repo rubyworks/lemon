@@ -112,8 +112,11 @@ module Commands
       #cover  = Lemon::Coverage.new([], namespaces, :public=>public_only?, :uncovered=>uncovered_only?)
       #suite  = Lemon::Test::Suite.new(*test_files)
 
-      cover  = Lemon::Coverage.new(test_files, namespaces, :public=>public_only?)
-      #suite  = Lemon::Test::Suite.new(*test_files)
+      suite  = Lemon::Test::Suite.new(test_files)
+      cover  = Lemon::Coverage.new(suite, namespaces, :public=>public_only?)
+
+      cover.canonical!
+      cover.load_covered_files
 
       if uncovered_only?
         puts cover.generate_uncovered #(output)

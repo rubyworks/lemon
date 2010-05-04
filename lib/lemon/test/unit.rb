@@ -51,6 +51,10 @@ module Lemon::Test
       "#{testcase}##{target} #{aspect}"
     end
 
+    #
+    def match?(match)    
+      match == target || match === aspect
+    end
   end
 
 end

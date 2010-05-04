@@ -1,7 +1,12 @@
+require 'lemon/snapshot'
+
 module Lemon
 
   #
   class Coverage
+
+    #
+    attr :suite
 
     # Paths of lemon tests and/or ruby scripts to be compared and covered.
     # This can include directories too, in which case all .rb scripts below
@@ -28,8 +33,13 @@ module Lemon
         @suite = Test::Suite.new(suite_or_files)
         @files = suite_or_files
       end
-      @canonical = @suite.canonical
+      #@canonical = @suite.canonical
       @public    = options[:public]
+    end
+
+    #
+    def canonical!
+      @canonical = Snapshot.capture
     end
 
     #
@@ -49,8 +59,8 @@ module Lemon
     end
 
     # Produce a coverage map.
-    def coverage(suite=nil)
-      suite = suite || @suite
+    def coverage #(suite=nil)
+      #suite = suite || @suite
       checklist = self.cover
       suite.each do |testcase|
         testcase.testunits.each do |testunit|
@@ -60,7 +70,17 @@ module Lemon
       checklist
     end
 
+    #
+    def load_covered_files
+      suite.load_covered_files
+    end
+
     # Coverage template.
+    def cover
+      return system.checklist
+    end
+
+=begin
     def cover
       cover = Hash.new{|h,k|h[k]={}}
       system.each do |base|
@@ -68,33 +88,36 @@ module Lemon
         cover[base.name] = {}
 
         # instance methods
-        base.public_instance_methods(false).each do |meth|
+        base.public_instance_methods.each do |meth|
           cover[base.name][meth.to_s] = false
         end
+
         # meta methods
-        (base.public_methods(false) - Object.public_methods(false)).each do |meth|
+        (base.public_methods - Object.public_methods(true)).each do |meth|
           cover[base.name][meth.to_s] = false
         end
 
         unless public_only?
           # instance methods
-          base.private_instance_methods(false).each do |meth|
+          base.private_instance_methods.each do |meth|
             cover[base.name][meth.to_s] = false
           end
-          base.protected_instance_methods(false).each do |meth|
+          base.protected_instance_methods.each do |meth|
             cover[base.name][meth.to_s] = false
           end
+
           # meta methods
-          (base.private_methods(false) - Object.private_methods(false)).each do |meth|
+          (base.private_methods - Object.private_methods(true)).each do |meth|
             cover[base.name][meth.to_s] = false
           end
-          (base.protected_methods(false) - Object.protected_methods(false)).each do |meth|
+          (base.protected_methods - Object.protected_methods(true)).each do |meth|
             cover[base.name][meth.to_s] = false
           end
         end
       end
       cover
     end
+=end
 
     # Iterate over +paths+ and use #load to bring in all +.rb+ scripts.
     #def load_system
@@ -109,11 +132,9 @@ module Lemon
     #  files.each{ |file| load(file) }
     #end
 
-    # System to be covered. This takes a sanpshot of the system
-    # and then removes the conical snapshot, and then filters out
-    # the namespace.
-    #
-    # TODO: Perhaps get rid of the conical subtraction and require a namespace?
+    # Snapshot of System to be covered. This takes a current snapshot
+    # of the system and removes the canonical snapshot or filters out
+    # everything but the selected namespace.
     def system
       if namespaces.empty?
         snapshot - canonical
@@ -124,25 +145,29 @@ module Lemon
       end
     end
 
-    # TODO: combine with coverage to provided option to only do what hasn't been covered thus far.
-    # TODO: support output directory
-
+    # Generate code template.
+    #
+    # TODO: support output
     def generate(output=nil)
       code = []
-      system.each do |base|
-        next if base.is_a?(Lemon::Test::Suite)
-        code << "TestCase #{base} do"
-        base.public_instance_methods(false).each do |meth|
+      system.each do |ofmod|
+        next if ofmod.base.is_a?(Lemon::Test::Suite)
+
+        code << "TestCase #{mod} do"
+
+        ofmod.public_instance_methods.each do |meth|
           code << "\n  Unit :#{meth} => '' do\n    raise Pending\n  end"
         end
+
         unless public_only?
-          base.private_instance_methods(false).each do |meth|
+          ofmod.private_instance_methods.each do |meth|
             code << "\n  Unit :#{meth} => '' do\n    raise Pending\n  end"
           end
-          base.protected_instance_methods(false).each do |meth|
+          ofmod.protected_instance_methods.each do |meth|
             code << "\n  Unit :#{meth} => '' do\n    raise Pending\n  end"
           end
         end
+
         code << "\nend\n"
       end
       code.join("\n")
@@ -174,16 +199,9 @@ module Lemon
       code.join("\n")
     end
 
-    # Produces a list of all existent Modules and Classes.
+    # Get a snapshot of the system.
     def snapshot
-      sys = []
-      #ObjectSpace.each_object(Class) do |c|
-      #  sys << c
-      #end
-      ObjectSpace.each_object(Module) do |m|
-        sys << m
-      end
-      sys
+      Snapshot.capture
     end
 
   end#class Coverage

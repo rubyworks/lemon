@@ -1,32 +1,34 @@
 = Lemon
 
-* http://proutils.github.com/lemon
-* http://github.com/proutils/lemon
+* home: http://proutils.github.com/lemon
+* work: http://github.com/proutils/lemon
 
 
 == DESCRIPTION
 
-Lemon is a Unit Testing Framework that enforces a testcase 
-construction mirroring the class or module and method design
+Lemon is a Unit Testing Framework that enforces a test case 
+construction mirroring the class/module and method design
 of the target system. Arguably this promotes the proper
-technique for unit testing, since it helps ensure good test
+technique for unit testing and helps ensure good test
 coverage.
 
 The difference between unit testing and functional testing, and
 all other forms of testing for that matter, lies in where the
 *concern* lies. The concern of unit testing are the concerns
-of unit tests.
+of unit tests -- the individual methods.
 
 
 == HOW TO USE
 
-Say our library consists of the class X:
+Say our library 'mylib.rb' consists of the class X:
 
   class X
     def a; "a"; end
   end
 
 The simplist test case would be written as follows:
+
+  Covers 'mylib'
 
   TestCase X do
     Unit :a => "method #a does something expected" do
@@ -35,8 +37,12 @@ The simplist test case would be written as follows:
     end
   end
 
-As tests grow, we need to organize them into concerns. For this
-Lemon provides the #Concern method.
+The +#Covers+ method works kist like +#require+ with the exception
+that loading the file does not occur until just before the tests
+are run. This allows Lemon to cacluate accurate coverage reports.
+
+As tests grow, we might need to organize them into special concerns.
+For this Lemon provides the #Concern method.
 
   TestCase X do
     Concern "Description of a concern that the following unit",
@@ -68,8 +74,6 @@ comparing it to your tests.
 
 == Generating Test Skeletons
 
-NOTE: This feature is not yet fully implemented!
-
 Because of the one to one correspondance of case-unit to class-method, Lemon can
 also generate test scaffolding for previously written code. To do this, use the
 <tt>--generate</tt> option and provide the lib location, or files, of the
@@ -89,20 +93,9 @@ applications.
 
 == COPYRIGHT
 
-(LGPL License)
+(MIT License)
 
 Copyright (c) 2009 Thomas Sawyer
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-Lesser General Public License for more details.
-
-You should have received a copy of the Lesser General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
+See LICENSE file for details.
 

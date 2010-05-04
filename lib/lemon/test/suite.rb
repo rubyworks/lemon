@@ -11,6 +11,10 @@ module Test
     # Files from which the suite is loaded.
     attr :files
 
+    # Script the suite covers. There files are
+    # required just before running the suite.
+    attr :covers
+
     # Test cases in this suite.
     attr :testcases
 
@@ -29,14 +33,22 @@ module Test
     #
     def initialize(*files)
       @files          = files.flatten
+      @covers         = []
       @testcases      = []
       @before_clauses = {}
       @after_clauses  = {}
       @when_clauses   = {}
 
-      @canonical = system_snapshot
+      load_helpers
 
-      loadfiles(*files)
+      #@canonical = system_snapshot
+
+      load_files(*files)
+    end
+
+    #
+    def take_snapshot
+      @canonical = system_snapshot
     end
 
     # Produces a list of all existent Modules and Classes.
@@ -49,34 +61,57 @@ module Test
     end
 
     #
-    def loadfiles(*files)
+    def load_helpers(*files)
+      helpers = []
+      filelist.each do |file|
+        dir = File.dirname(file)
+        hlp = Dir[File.join(dir, '{test_,}helper.rb')]
+        helpers.concat(hlp)
+      end
+
+      helpers.each do |hlp|
+        require hlp
+      end
+    end
+
+    #
+    def load_files(*files)
       Lemon.suite = self
-
-      # directories glob *.rb files
-      files = files.flatten.map do |file|
-        if File.directory?(file)
-          Dir[File.join(file, '**', '*.rb')]
-        else
-          file
-        end
-      end.flatten.uniq
-
-      files.each do |file|
+      filelist.each do |file|
         #file = File.expand_path(file)
         #instance_eval(File.read(file), file)
         load(file)
       end
-
       return Lemon.suite
     end
 
-    # Load a helper. This method must be used when loading local
-    # suite support. The usual #require or #load can only be used
-    # for extenal support libraries (such as a test mock framework).
-    # This is so because suite code is not evaluated at the toplevel.
-    def helper(file)
-      instance_eval(File.read(file), file)
+    # Directories glob *.rb files.
+    def filelist
+      @filelist ||= (
+        @files.flatten.map do |file|
+          if File.directory?(file)
+            Dir[File.join(file, '**', '*.rb')]
+          else
+            file
+          end
+        end.flatten.uniq
+      )
     end
+
+    #
+    def load_covered_files
+      covers.each do |file|
+        require file
+      end
+    end
+
+    ## Load a helper. This method must be used when loading local
+    ## suite support. The usual #require or #load can only be used
+    ## for extenal support libraries (such as a test mock framework).
+    ## This is so because suite code is not evaluated at the toplevel.
+    #def helper(file)
+    #  instance_eval(File.read(file), file)
+    #end
 
     #
     #def load(file)
@@ -119,6 +154,11 @@ module Test
     # Define a concern procedure to apply suite-wide.
     def When(match=nil, &block)
       @when_clauses[match] = block #<< Advice.new(match, &block)
+    end
+
+    #
+    def Covers(file)
+      @covers << file
     end
 
     # Iterate through this suite's test cases.

@@ -83,16 +83,36 @@ module Lemon::Test
     end
     alias_method :unit, :Unit
 
+    # Define a meta-class unit test for this case.
+    #def MetaUnit(*targets, &block)
+    #  targets_hash = Hash===targets.last ? targets.pop : {}
+    #  targets_hash.each do |target_method, target_concern|
+    #   @metaunits << Unit.new(current_concern, target_method, target_concern, &block)
+    #  end
+    #  targets.each do |target_method|
+    #    @metaunits << Unit.new(current_concern, target_method, &block)
+    #  end
+    #end
+    #alias_method :metaunit, :MetaUnit
+
     # Define a before procedure for this case.
-    def Before(match=nil, &block)
-      @before_clauses[match] = block #<< Advice.new(match, &block)
+    def Before(*matches, &block)
+      matches == [nil] if matches.empty?
+      matches.each do |match|
+        @before_clauses[match] = block #<< Advice.new(match, &block)
+      end
     end
+
     alias_method :before, :Before
 
     # Define an after procedure for this case.
-    def After(match=nil, &block)
-      @after_clauses[match] = block #<< Advice.new(match, &block)
+    def After(*matches, &block)
+      matches == [nil] if matches.empty?
+      matches.each do |match|
+        @after_clauses[match] = block #<< Advice.new(match, &block)
+      end
     end
+
     alias_method :after, :After
 
     # Define a concern procedure to apply case-wide.

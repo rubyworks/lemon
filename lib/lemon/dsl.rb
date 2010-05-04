@@ -31,6 +31,10 @@ end
 
 alias :TestCase :Case
 
+def Covers(script)
+  Lemon.suite.Covers(script)
+end
+
 # FIXME: This is a BIG FAT HACK! For the life of me I cannot find
 # a way to resolve module constants included in the test cases.
 # Becuase of closure, the constant lookup goes through here, and not

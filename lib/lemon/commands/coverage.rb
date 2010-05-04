@@ -91,10 +91,12 @@ module Commands
 
       requires.each{ |path| require(path) }
 
-      cover = Lemon::Coverage.new(test_files, namespaces, :public => public_only?)
-      #suite = Lemon::Test::Suite.new(test_files)
-      #puts cover.coverage(suite).to_yaml
-      puts cover.coverage.to_yaml
+      suite = Lemon::Test::Suite.new(test_files)
+      coverage = Lemon::Coverage.new(suite, namespaces, :public => public_only?)
+      coverage.canonical!
+      coverage.load_covered_files
+
+      puts coverage.coverage.to_yaml
     end
 
   end
