@@ -42,7 +42,7 @@ module Lemon
     #   Coverage.new('lib/', :MyApp, :public => true)
     #
     def initialize(suite, namespaces=nil, options={})
-      @namespaces = namespaces || []
+      @namespaces = [namespaces].flatten.compact
       @suite = suite
       @files = suite.files
       #@canonical = @suite.canonical
@@ -152,8 +152,7 @@ module Lemon
         snapshot - canonical
       else
         snapshot.filter do |ofmod|
-        #snapshot.select do |m|
-          namespaces.any?{ |n| ofmod.name.start_with?(n) }
+          namespaces.any?{ |n| ofmod.name.start_with?(n.to_s) }
         end
       end
     end
@@ -163,6 +162,7 @@ module Lemon
     # TODO: support output
     def generate(output=nil)
       code = []
+
       system.each do |ofmod|
         next if ofmod.base.is_a?(Lemon::Test::Suite)
 
@@ -176,17 +176,9 @@ module Lemon
           code << "\n  Unit :#{meth} => '' do\n    raise Pending\n  end"
         end
 
-        #unless public_only?
-        #  ofmod.private_instance_methods.each do |meth|
-        #    code << "\n  Unit :#{meth} => '' do\n    raise Pending\n  end"
-        #  end
-        #  ofmod.protected_instance_methods.each do |meth|
-        #    code << "\n  Unit :#{meth} => '' do\n    raise Pending\n  end"
-        #  end
-        #end
-
         code << "\nend\n"
       end
+
       code.join("\n")
     end
 

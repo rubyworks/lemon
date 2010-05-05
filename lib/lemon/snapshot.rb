@@ -41,11 +41,10 @@ module Lemon
 
     #
     def capture
-      sys = []
+      @modules = {}
       ObjectSpace.each_object(Module) do |mod|
         @modules[mod] = OfModule.new(mod)
       end
-      sys
     end
 
     #
