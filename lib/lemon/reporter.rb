@@ -67,31 +67,26 @@ module Lemon
     def cover? ; runner.cover? ; end
 
     #
-    #def require_ansicolor
-    #  begin
-    #    require 'ansi/code'
-    #    @ansicolor = true
-    #  rescue LoadError
-    #    @ansicolor = false
-    #  end
-    #end
-
     def red(string)
       @ansicolor ? ANSI::Code.red{ string } : string
     end
 
+    #
     def yellow(string)
       @ansicolor ? ANSI::Code.yellow{ string } : string
     end
 
+    #
     def green(string)
       @ansicolor ? ANSI::Code.green{ string } : string
     end
 
+    #
     def total
       successes.size + failures.size + errors.size + pendings.size
     end
 
+    #
     def tally
       s = "#{total} tests: #{successes.size} pass, #{failures.size} fail, #{errors.size} err, #{pendings.size} pending "
       s += "(#{uncovered.size} uncovered, #{undefined.size} undefined)" if cover?
