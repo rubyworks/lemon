@@ -151,7 +151,7 @@ module Lemon
       if namespaces.empty?
         snapshot - canonical
       else
-        snapshot.filter do |ofmod|
+        (snapshot - canonical).filter do |ofmod|
           namespaces.any?{ |n| ofmod.name.start_with?(n.to_s) }
         end
       end
