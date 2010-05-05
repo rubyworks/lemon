@@ -56,7 +56,7 @@ module Commands
       @includes
     end
 
-    # Get or set paths to include in $LOAD_PATH.
+    #
     def namespaces(*names)
       @namespaces.concat(names) unless names.empty?
       @namespaces
@@ -65,9 +65,9 @@ module Commands
     # Instance of OptionParser.
     def parser
       @parser ||= OptionParser.new do |opt|
-        opt.banner = "lemon -g [OPTIONS]"
-        opt.separator("Generate test scaffolding.")
-        opt.on("--namespace", "-n [NAME]", "include namespace") do |name|
+        opt.banner = "lemon generate [OPTIONS]"
+        opt.separator("Generate unit test scaffolding.")
+        opt.on("--namespace", "-n [NAME]", "limit tests to this namespace") do |name|
           namespaces(name)
         end
         opt.on("--public", "-p", "only include public methods") do

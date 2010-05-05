@@ -52,9 +52,9 @@ module Commands
     # Instance of OptionParser.
     def parser
       @parser ||= OptionParser.new do |opt|
-        opt.banner = "lemon -c [OPTIONS]"
-        opt.separator("Produce test coverage reports.")
-        opt.on('--namespace', '-n [NAME]', "include namespace") do |name|
+        opt.banner = "lemon coverage [OPTIONS]"
+        opt.separator("Produce test coverage report.")
+        opt.on('--namespace', '-n [NAME]', "limit coverage to this namespace") do |name|
           namespaces(name)
         end
         opt.on('--public', '-p', "only include public methods") do

@@ -20,6 +20,7 @@ module Commands
       @coverage    = false
       @requires    = []
       @includes    = []
+      @namespaces  = []
     end
 
     #
@@ -36,6 +37,12 @@ module Commands
     def includes(*paths)
       @includes.concat(paths) unless paths.empty?
       @includes
+    end
+
+    #
+    def namespaces(*names)
+      @namespaces.concat(names) unless names.empty?
+      @namespaces
     end
 
     # Instance of OptionParser.
@@ -55,6 +62,9 @@ module Commands
         end
         opt.on('--format', '-f [TYPE]', "select report format") do |type|
           self.format = type
+        end
+        opt.on("--namespace", "-n [NAME]", "limit testing to this namespace") do |name|
+          namespaces(name)
         end
         opt.on("-r [FILES]" , 'library files to require') do |files|
           files = files.split(/[:;]/)
@@ -87,7 +97,7 @@ module Commands
       requires.each{ |path| require(path) }
 
       suite  = Lemon::Test::Suite.new(*files)
-      runner = Lemon::Runner.new(suite, format, :cover=>coverage)
+      runner = Lemon::Runner.new(suite, format, :cover=>coverage, :namespaces=>namespaces)
       runner.run
     end
 

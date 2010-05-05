@@ -54,7 +54,7 @@ module Lemon
     end
 
     # Produce a hash based checklist that Coverage uses
-    # to compare against test and create a coverage report.
+    # to compare against tests and create a coverage report.
     def checklist(public_only=true)
       h = Hash.new{|h,k|h[k]={}}
       modules.values.each do |mod|
@@ -96,6 +96,17 @@ module Lemon
           modules.delete(mod)
         end
       end
+    end
+
+    #
+    def filter(&block)
+      c = Snapshot.new
+      modules.each do |mod, ofmod|
+        if block.call(ofmod)
+          c[mod] = ofmod
+        end
+      end
+      c
     end
 
     #

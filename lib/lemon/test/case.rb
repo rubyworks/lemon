@@ -75,7 +75,7 @@ module Lemon::Test
     def Unit(*targets, &block)
       targets_hash = Hash===targets.last ? targets.pop : {}
       targets_hash.each do |target_method, target_concern|
-        @testunits << Unit.new(current_concern, target_method, target_concern, &block)
+        @testunits << Unit.new(current_concern, target_method, :aspect=>target_concern, &block)
       end
       targets.each do |target_method|
         @testunits << Unit.new(current_concern, target_method, &block)
@@ -83,17 +83,17 @@ module Lemon::Test
     end
     alias_method :unit, :Unit
 
-    # Define a meta-class unit test for this case.
-    #def MetaUnit(*targets, &block)
-    #  targets_hash = Hash===targets.last ? targets.pop : {}
-    #  targets_hash.each do |target_method, target_concern|
-    #   @metaunits << Unit.new(current_concern, target_method, target_concern, &block)
-    #  end
-    #  targets.each do |target_method|
-    #    @metaunits << Unit.new(current_concern, target_method, &block)
-    #  end
-    #end
-    #alias_method :metaunit, :MetaUnit
+    # Define a meta-method unit test for this case.
+    def MetaUnit(*targets, &block)
+      targets_hash = Hash===targets.last ? targets.pop : {}
+      targets_hash.each do |target_method, target_concern|
+        @testunits << Unit.new(current_concern, target_method, :aspect=>target_concern, :metaclass=>true, &block)
+      end
+      targets.each do |target_method|
+        @testunits << Unit.new(current_concern, target_method, :metaclass=>true, &block)
+      end
+    end
+    alias_method :metaunit, :MetaUnit
 
     # Define a before procedure for this case.
     def Before(*matches, &block)

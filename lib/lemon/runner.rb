@@ -46,12 +46,20 @@ module Lemon
       @options[:cover]
     end
 
+    # Namespaces option specifies the selection of test cases
+    # to run. Is is an array of strings which are matched 
+    # against the module/class names using #start_wtih?
+    def namespaces
+      @options[:namespaces] || []
+    end
+
     # Run tests.
     def run
       prepare
 
       reporter.report_start(suite)
-      suite.each do |testcase|
+
+      each do |testcase|
         testcase.each do |concern|
           reporter.report_concern(concern)
           run_concern_procedures(concern, suite, testcase)
@@ -76,7 +84,23 @@ module Lemon
           end
         end
       end
+
       reporter.report_finish #(successes, failures, errors, pendings)
+    end
+
+    # Iterate overs suite testcases, filtering out unselected testcases
+    # if any namespaces are provided.
+    def each(&block)
+      if namespaces.empty?
+        suite.each do |testcase|
+          block.call(testcase)
+        end
+      else
+        suite.each do |testcase|
+          next unless namespaces.any?{ |n| testcase.target.name.start_with?(n) }
+          block.call(testcase)
+        end
+      end
     end
 
     # All output is handled by a reporter.
@@ -192,7 +216,7 @@ module Lemon
 
     #
     def coverage
-      @coverage ||= Lemon::Coverage.new(suite) #, namespaces, :public => public_only?)
+      @coverage ||= Lemon::Coverage.new(suite, namespaces, :public => public_only?)
     end
 
 =begin

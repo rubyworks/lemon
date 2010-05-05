@@ -19,15 +19,23 @@ module Lemon::Test
     attr :procedure
 
     # New unit test.
-    def initialize(concern, target, aspect=nil, &procedure)
+    def initialize(concern, target, options={}, &procedure)
       concern.assign(self)
 
       @concern   = concern
       @testcase  = concern.testcase
 
       @target    = target
-      @aspect    = aspect
+
+      @aspect    = options[:aspect]
+      @meta      = options[:metaclass]
+
       @procedure = procedure
+    end
+
+    # Is this unit test for a meta-method?
+    def meta?
+      @meta
     end
 
     # This method has the other end of the BIG FAT HACK. See Suite#const_missing.
@@ -46,9 +54,30 @@ module Lemon::Test
       testcase.suite
     end
 
+    # If meta-method return target method's name prefixed with double colons.
+    # If instance method then return target method's name.
+    def key
+      meta? ? "::#{target}" : "#{target}"
+    end
+
+    # If meta-method return target method's name prefixed with double colons.
+    # If instance method then return target method's name prefixed with hash character.
+    def name
+      meta? ? "::#{target}" : "##{target}"
+    end
+
+    #
+    def fullname
+      meta? ? "#{testcase}::#{target}" : "#{testcase}##{target}"
+    end
+
     #
     def to_s
-      "#{testcase}##{target} #{aspect}"
+      if meta?
+        "#{testcase}.#{target} #{aspect}"
+      else
+        "#{testcase}##{target} #{aspect}"
+      end
     end
 
     #

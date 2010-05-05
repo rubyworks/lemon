@@ -19,22 +19,34 @@ module Lemon
     #
     attr :namespaces
 
+    ## New Coverage object.
+    ##
+    ##   Coverage.new('lib/', :MyApp, :public => true)
+    ##
+    #def initialize(suite_or_files, namespaces=nil, options={})
+    #  @namespaces = namespaces || []
+    #  case suite_or_files
+    #  when Test::Suite
+    #    @suite = suite_or_files
+    #    @files = suite_or_files.files
+    #  else
+    #    @suite = Test::Suite.new(suite_or_files)
+    #    @files = suite_or_files
+    #  end
+    #  #@canonical = @suite.canonical
+    #  @public    = options[:public]
+    #end
+
     # New Coverage object.
     #
     #   Coverage.new('lib/', :MyApp, :public => true)
     #
-    def initialize(suite_or_files, namespaces=nil, options={})
+    def initialize(suite, namespaces=nil, options={})
       @namespaces = namespaces || []
-      case suite_or_files
-      when Test::Suite
-        @suite = suite_or_files
-        @files = suite_or_files.files
-      else
-        @suite = Test::Suite.new(suite_or_files)
-        @files = suite_or_files
-      end
+      @suite = suite
+      @files = suite.files
       #@canonical = @suite.canonical
-      @public    = options[:public]
+      @public = options[:public]
     end
 
     #
@@ -61,10 +73,10 @@ module Lemon
     # Produce a coverage map.
     def coverage #(suite=nil)
       #suite = suite || @suite
-      checklist = self.cover
+      checklist = system.checklist
       suite.each do |testcase|
         testcase.testunits.each do |testunit|
-          checklist[testcase.target.name][testunit.target.to_s] = true
+          checklist[testcase.target.name][testunit.key] = true
         end
       end
       checklist
@@ -76,9 +88,9 @@ module Lemon
     end
 
     # Coverage template.
-    def cover
-      return system.checklist
-    end
+    #def cover
+    #  system.checklist
+    #end
 
 =begin
     def cover
@@ -139,8 +151,9 @@ module Lemon
       if namespaces.empty?
         snapshot - canonical
       else
-        snapshot.select do |m|
-          namespaces.any?{ |n| m.name.start_with?(n) }
+        snapshot.filter do |ofmod|
+        #snapshot.select do |m|
+          namespaces.any?{ |n| ofmod.name.start_with?(n) }
         end
       end
     end
@@ -155,18 +168,22 @@ module Lemon
 
         code << "TestCase #{ofmod.base} do"
 
-        ofmod.public_instance_methods.each do |meth|
+        ofmod.class_methods(public_only?).each do |meth|
+          code << "\n  MetaUnit :#{meth} => '' do\n    raise Pending\n  end"
+        end
+
+        ofmod.instance_methods(public_only?).each do |meth|
           code << "\n  Unit :#{meth} => '' do\n    raise Pending\n  end"
         end
 
-        unless public_only?
-          ofmod.private_instance_methods.each do |meth|
-            code << "\n  Unit :#{meth} => '' do\n    raise Pending\n  end"
-          end
-          ofmod.protected_instance_methods.each do |meth|
-            code << "\n  Unit :#{meth} => '' do\n    raise Pending\n  end"
-          end
-        end
+        #unless public_only?
+        #  ofmod.private_instance_methods.each do |meth|
+        #    code << "\n  Unit :#{meth} => '' do\n    raise Pending\n  end"
+        #  end
+        #  ofmod.protected_instance_methods.each do |meth|
+        #    code << "\n  Unit :#{meth} => '' do\n    raise Pending\n  end"
+        #  end
+        #end
 
         code << "\nend\n"
       end
@@ -181,7 +198,12 @@ module Lemon
         code << "TestCase #{base} do"
         methods.each do |meth, covered|
           next if covered
-          code << "\n  Unit :#{meth} => '' do\n    raise Pending\n  end"
+          if meth.to_s =~ /^\:\:/
+            meth = meth.sub('::','')
+            code << "\n  MetaUnit :#{meth} => '' do\n    raise Pending\n  end"
+          else
+            code << "\n  Unit :#{meth} => '' do\n    raise Pending\n  end"
+          end
         end
         #base.public_instance_methods(false).each do |meth|
         #  code << "\n  Unit :#{meth} => '' do\n    Pending\n  end"
