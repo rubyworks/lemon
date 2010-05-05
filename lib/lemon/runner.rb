@@ -216,7 +216,7 @@ module Lemon
 
     #
     def coverage
-      @coverage ||= Lemon::Coverage.new(suite, namespaces, :public => public_only?)
+      @coverage ||= Lemon::Coverage.new(suite, namespaces) #, :public => public_only?)
     end
 
 =begin
