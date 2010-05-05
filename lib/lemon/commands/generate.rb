@@ -7,8 +7,8 @@ module Commands
     require 'lemon/coverage'
 
     #
-    def self.options
-      ['-g', '--generate']
+    def self.subcommand
+      'generate' #['-g', '--generate']
     end
 
     # Initialize and run.

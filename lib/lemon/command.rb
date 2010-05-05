@@ -28,10 +28,13 @@ module Lemon
     # Factory method to initialize and run choosen sub-command.
     def self.run
       cmd = commands.find do |command_class|
-        [command_class.options].flatten.find do |opt|
-          ARGV.delete(opt)
-        end
+        /^#{ARGV.first}/ =~ command_class.subcommand
+        #[command_class.options].flatten.find do |subcmd|
+        #  #ARGV.delete(opt)
+        #  /^#{ARGV.first}/ =~ subcmd
+        #end
       end
+      ARGV.shift if cmd
       cmd ? cmd.run : Commands::Test.run
     end
 

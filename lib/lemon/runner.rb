@@ -30,18 +30,25 @@ module Lemon
     attr :pendings
 
     # New Runner.
-    def initialize(suite, format)
+    def initialize(suite, format, options={})
       @suite     = suite
       @format    = format
+      @options   = options
+
       @successes = []
       @failures  = []
       @errors    = []
       @pendings  = []
     end
 
+    #
+    def cover?
+      @options[:cover]
+    end
+
     # Run tests.
     def run
-      prepare_coverage
+      prepare
 
       reporter.report_start(suite)
       suite.each do |testcase|
@@ -88,23 +95,28 @@ module Lemon
     #  c
     #end
 
+    #
+    def prepare
+      if cover?
+        coverage.canonical!
+      end
+
+      suite.load_covered_files
+
+      if cover?
+        @uncovered = calculate_uncovered
+        @undefined = calculate_undefined
+      end
+    end
+
+    #
     def uncovered
       @uncovered ||= calculate_uncovered
     end
 
+    #
     def undefined
       @undefined ||= calculate_undefined
-    end
-
-    #
-    def prepare_coverage
-      coverage.canonical! #suite.take_snapshot
-      suite.load_covered_files
-      #suite.covers.each do |file|
-      #  require file
-      #end
-      @uncovered = calculate_uncovered
-      @undefined = calculate_undefined
     end
 
     #

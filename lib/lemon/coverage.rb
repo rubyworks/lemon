@@ -153,7 +153,7 @@ module Lemon
       system.each do |ofmod|
         next if ofmod.base.is_a?(Lemon::Test::Suite)
 
-        code << "TestCase #{mod} do"
+        code << "TestCase #{ofmod.base} do"
 
         ofmod.public_instance_methods.each do |meth|
           code << "\n  Unit :#{meth} => '' do\n    raise Pending\n  end"

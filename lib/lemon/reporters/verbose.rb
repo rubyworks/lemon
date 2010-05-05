@@ -79,23 +79,32 @@ module Reporters
       #  puts
       #end
 
-      unless uncovered.empty?
-        unc = uncovered.map do |testunit|
-          yellow(testunit.join('#'))
-        end.join(", ")
-        puts "\nUncovered: " + unc
+      if cover?
+
+        unless uncovered.empty?
+          unc = uncovered.map do |testunit|
+            yellow(testunit.join('#'))
+          end.join(", ")
+          puts "\nUncovered: " + unc
+        end
+
+        unless undefined.empty?
+          unc = undefined.map do |testunit|
+            yellow(testunit.join('#'))
+          end.join(", ")
+          puts "\nUndefined: " + unc
+        end
+
       end
 
-      unless undefined.empty?
-        unc = undefined.map do |testunit|
-          yellow(testunit.join('#'))
-        end.join(", ")
-        puts "\nUndefined: " + unc
-      end
+      #total = successes.size + failures.size + errors.size + pendings.size
+      #tally = "\n#{total} tests: #{successes.size} pass, #{failures.size} fail, #{errors.size} err, #{pendings.size} pending"
+      #if cover?
+      #  tally += " (#{uncovered.size} uncovered, #{undefined.size} undefined)"
+      #end
 
-      total = successes.size + failures.size + errors.size + pendings.size
-      puts "\n#{total} tests: #{successes.size} pass, #{failures.size} fail, #{errors.size} err, #{pendings.size} pending " +
-           "(#{uncovered.size} uncovered, #{undefined.size} undefined)"
+      puts
+      puts tally
     end
 
   end

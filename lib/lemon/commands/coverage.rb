@@ -6,8 +6,8 @@ module Commands
     require 'yaml'
     require 'lemon/coverage'
 
-    def self.options
-      ['-c', '--coverage']
+    def self.subcommand
+      'coverage' #['-c', '--coverage']
     end
 
     # Initialize and run.

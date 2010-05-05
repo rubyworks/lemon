@@ -76,7 +76,6 @@ module Reporters
       #  pendings.each do |testunit, exception|
       #    puts "    #{testunit}"
       #  end
-      #  puts
       #end
 
       unless uncovered.empty?
@@ -97,9 +96,7 @@ module Reporters
         puts
       end
 
-      total = successes.size + failures.size + errors.size + pendings.size
-      puts "#{total} tests: #{successes.size} pass, #{failures.size} fail, #{errors.size} err, #{pendings.size} pending " +
-           "(#{uncovered.size} uncovered, #{undefined.size} undefined)"
+      puts tally
     end
 
   end

@@ -5,8 +5,8 @@ module Commands
   class Test < Command
     require 'lemon/runner'
 
-    def self.options
-      []
+    def self.subcommand
+      'test' #['-t', '--test']
     end
 
     # Initialize and run.
@@ -17,12 +17,14 @@ module Commands
     # New Command instance.
     def initialize
       @format      = nil
+      @coverage    = false
       @requires    = []
       @includes    = []
     end
 
     #
     attr_accessor :format
+    attr_accessor :coverage
 
     # Get or set librarires to pre-require.
     def requires(*paths)
@@ -39,7 +41,12 @@ module Commands
     # Instance of OptionParser.
     def parser
       @parser ||= OptionParser.new do |opt|
+        opt.banner = "lemon [options] [test-files ...]"
         opt.separator("Run unit tests.")
+        opt.separator("OPTIONS:")
+        opt.on('--coverage', '-c', "include coverage informarton") do
+          self.coverage = true
+        end
         opt.on('--verbose', '-v', "select verbose report format") do |type|
           self.format = :verbose
         end
@@ -80,7 +87,7 @@ module Commands
       requires.each{ |path| require(path) }
 
       suite  = Lemon::Test::Suite.new(*files)
-      runner = Lemon::Runner.new(suite, format)
+      runner = Lemon::Runner.new(suite, format, :cover=>coverage)
       runner.run
     end
 
