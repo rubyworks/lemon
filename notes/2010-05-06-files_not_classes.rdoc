@@ -1,0 +1,19 @@
+= 2010-05-06 Files, Not Classes
+
+Just had a realization about my approch to Lemon tests.
+Until now I have equated the test-case to the class/module
+and the test-unit to the method. That makes sense, but it means
+I have left out a very important factor in the the design
+of tests: the file.
+
+I had defined a test-suite as the entire set of tests to
+be run. But I think now I am mistaken. The suite should
+correspond to the fiel being tested. Often that will mean
+one test-case per test-suite, but that's okay.
+
+After the next release, 0.7.0, I will implement this
+refactorization. I beleive it should ultimately help
+improve test coverage as well.
+
+
+

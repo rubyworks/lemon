@@ -1,0 +1,49 @@
+= DEVELOPMENT NOTES
+
+== 2010-05-05 Getting Good Coverage
+
+Getting good coverage analysis is not easy. The difficulty comes
+is determining what is of interest to the tests and what
+is not. That isn't so hard with completely new code, but
+core extensions, for instance, are challenging to isolate
+from original methods.
+
+Thee issue can mostly be taken care of by taking a canonical
+snapshot of the system before loading the tests. Then taking
+a snapshot after loading the tests and comparing the two.
+For the most part the difference will be the code in need of
+coverage.
+
+Unfortunately helper code still gets in the way of taking these
+snapshots. As a result I have determined there are only four
+possible complete solutions.
+
+1) Use a Ruby lexer/parser to syntatically deconstruct the
+target libraries. This is a complex solution, and not one
+I relish trying.
+
+2) All helpers must go in special files that are preloaded so
+the snapshot can isolate it from the actual target code. This
+means any mocks, for instance, would have to be defined in
+separate files for the the test(s) that might use them. This
+solution it good in that it actually encourges the writing
+reusable helper code, but it can be annoying when writting
+one-off mocks and such.
+
+3) As an alternate to #2, Lemon could provide a method
+for specifying that a class/module or method is a helper
+and can simply be ignored when analysing coverage.
+
+4) Lastly, the library file being covered can be specified
+with a special method, e.g. #Covers. The method would act
+just like +#require+ except that it takes a snapshot before and
+after the loading the library, and in this way builds up
+a table of proper coverage targets.
+
+Options #2 and #3 have proven lack luster. It's simply too
+much overhead involved to get good coverage. Option #4 is the most
+robust choice. Unfortunately coverage reports can be very slow
+if there are lot of files to cover --Snapshots can take a second
+or two to create. Hopefully it can be sped up with refinement,
+but at the very least the coverage reporting if optional.
+
