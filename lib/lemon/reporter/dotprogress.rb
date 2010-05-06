@@ -1,10 +1,9 @@
 module Lemon
-module Reporters
-
-  require 'lemon/reporter'
+module Reporter
+  require 'lemon/reporter/abstract'
 
   # Generic Reporter
-  class DotProgress < Reporter
+  class DotProgress < Abstract
 
     def report_start(suite)
     end

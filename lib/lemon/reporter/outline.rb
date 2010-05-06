@@ -1,10 +1,9 @@
 module Lemon
-module Reporters
-
-  require 'lemon/reporter'
+module Reporter
+  require 'lemon/reporter/abstract'
 
   # Outline Reporter
-  class Outline < Reporter
+  class Outline < Abstract
 
     #
     def report_start(suite)

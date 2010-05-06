@@ -162,7 +162,7 @@ module Lemon
     #
     def generate_uncovered(output=nil)
       code = []
-      coverage.each do |base, methods|
+      checklist.each do |base, methods|
         next if /Lemon::Test::Suite/ =~ base.to_s
         code << "TestCase #{base} do"
         methods.each do |meth, covered|

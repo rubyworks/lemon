@@ -6,7 +6,7 @@ module Lemon
 
   require 'lemon/kernel'
   require 'lemon/test/suite'
-  require 'lemon/reporters'
+  require 'lemon/reporter'
 
   #
   class Runner
