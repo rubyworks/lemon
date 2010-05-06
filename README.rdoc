@@ -73,7 +73,7 @@ the <tt>--verbose</tt> or <tt>-v</tt> option.
 Lemon can check test coverage by loading your target system and 
 comparing it to your tests.
 
-  $ lemon --coverage -Ilib test/cases/
+  $ lemon coverage -Ilib test/cases/
 
 === Generating Test Skeletons
 
@@ -83,7 +83,7 @@ also generate test scaffolding for previously written code. To do this, use the
 scripts for which to generate test scaffolding, and the output location for
 the test scripts.
 
-  $ lemon --generate -Ilib test/cases/
+  $ lemon generate -Ilib test/cases/
 
 Generating test case scaffodling from code will undoubtedly strike test-driven developers
 as a case of putting the cart before the horse. However, it is not unreasonable to argue

@@ -21,6 +21,10 @@ email:
   secure  : <%= ENV['EMAIL_SECURE'] %>
   active  : true
 
+grancher:
+  service: Grancher
+  active: true
+
 dnote:
   service  : DNote
   loadpath : ~
