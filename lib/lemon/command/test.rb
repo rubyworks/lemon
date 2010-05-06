@@ -1,13 +1,13 @@
 module Lemon
-module Commands
+module Command
+  require 'lemon/command/abstract'
 
-  # Lemon Coverage Command-line tool.
-  class Coverage < Command
-    require 'yaml'
-    require 'lemon/coverage'
+  # Lemon Test Command-line tool.
+  class Test < Abstract
+    require 'lemon/runner'
 
     def self.subcommand
-      'coverage' #['-c', '--coverage']
+      'test'
     end
 
     # Initialize and run.
@@ -17,19 +17,18 @@ module Commands
 
     # New Command instance.
     def initialize
+      @format      = nil
+      @cover       = false
       @requires    = []
       @includes    = []
       @namespaces  = []
-      @public_only = false
     end
 
     #
-    attr_accessor :public_only
+    attr_accessor :format
 
     #
-    def public_only?
-      @public_only
-    end
+    attr_accessor :cover
 
     # Get or set librarires to pre-require.
     def requires(*paths)
@@ -43,7 +42,7 @@ module Commands
       @includes
     end
 
-    # Get or set paths to include in $LOAD_PATH.
+    #
     def namespaces(*names)
       @namespaces.concat(names) unless names.empty?
       @namespaces
@@ -52,21 +51,31 @@ module Commands
     # Instance of OptionParser.
     def parser
       @parser ||= OptionParser.new do |opt|
-        opt.banner = "lemon coverage [OPTIONS]"
-        opt.separator("Produce test coverage report.")
-        opt.on('--namespace', '-n [NAME]', "limit coverage to this namespace") do |name|
-          namespaces(name)
+        opt.banner = "lemon [options] [test-files ...]"
+        opt.separator("Run unit tests.")
+        opt.separator("OPTIONS:")
+        opt.on('--coverage', '-c', "include coverage informarton") do
+          self.cover = true
         end
-        opt.on('--public', '-p', "only include public methods") do
-          self.public_only = true
+        opt.on('--verbose', '-v', "select verbose report format") do |type|
+          self.format = :verbose
+        end
+        opt.on('--outline', '-o', "select outline report format") do |type|
+          self.format = :outline
+        end
+        opt.on('--format', '-f [TYPE]', "select report format") do |type|
+          self.format = type
+        end
+        opt.on("--namespace", "-n [NAME]", "limit testing to this namespace") do |name|
+          namespaces(name)
         end
         opt.on("-r [FILES]" , 'library files to require') do |files|
           files = files.split(/[:;]/)
           requires(*files)
         end
         opt.on("-I [PATH]" , 'include in $LOAD_PATH') do |path|
-          path = path.split(/[:;]/)
-          includes(*path)
+          paths = path.split(/[:;]/)
+          includes(*paths)
         end
         opt.on("--debug" , 'turn on debugging mode') do
           $DEBUG = true
@@ -78,20 +87,19 @@ module Commands
       end
     end
 
-    #
+    # Run unit tests.
     def run
       parser.parse!
 
-      test_files = ARGV.dup
-      load_files = []
+      files = ARGV.dup
 
       includes.each{ |path| $LOAD_PATH.unshift(path) }
       requires.each{ |path| require(path) }
 
-      suite    = Lemon::Test::Suite.new(test_files, :cover=>true)
-      coverage = Lemon::Coverage.new(suite, namespaces, :public => public_only?)
+      suite  = Lemon::Test::Suite.new(files, :cover=>cover)
+      runner = Lemon::Runner.new(suite, :format=>format, :cover=>cover, :namespaces=>namespaces)
 
-      puts coverage.checklist.to_yaml
+      runner.run
     end
 
   end

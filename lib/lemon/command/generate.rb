@@ -1,9 +1,9 @@
 module Lemon
-module Commands
+module Command
+  require 'lemon/command/abstract'
 
   # Lemon Generate Command-line tool.
-  #
-  class Generate < Command
+  class Generate < Abstract
     require 'lemon/coverage'
 
     #
