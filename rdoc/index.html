@@ -19,13 +19,16 @@
 
   <script type="text/javascript">
     $(document).ready( function() {
-      hookHighlightSyntax()
+      $('#documentation pre').wrapInner('<code></code>');
+      hljs.tabReplace = '    ';
+      hljs.initHighlightingOnLoad('ruby');
+
 	    hookSourceViews();
 	    hookDebuggingToggle();
 	    hookQuickSearch();
 	    highlightLocationTarget();
 
-	    $('ul.link-list a').bind("click", highlightClickTarget);
+	    $('ul.link-list a').bind( "click", highlightClickTarget );
     });
   </script>
 </head>
@@ -49,15 +52,11 @@
         <h3 class="section-header">Information</h3>
         <ul>
         
-          <li class="file"><a href="files/HISTORY.html">HISTORY</a></li>
+          <li class="file"><a href="HISTORY.html">HISTORY</a></li>
         
-          <li class="file"><a href="files/Syckfile.html">Syckfile</a></li>
+          <li class="file"><a href="LICENSE.html">LICENSE</a></li>
         
-          <li class="file"><a href="files/COPYING.html">COPYING</a></li>
-        
-          <li class="file"><a href="files/README_rdoc.html">README.rdoc</a></li>
-        
-          <li class="file"><a href="files/COPYING_LESSER.html">COPYING.LESSER</a></li>
+          <li class="file"><a href="README_rdoc.html">README.rdoc</a></li>
         
         </ul>
       </div>
@@ -71,51 +70,60 @@
         <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
         <fieldset>
           <legend>Quicksearch</legend>
-          <input type="text" name="quicksearch" value="" class="quicksearch-field" />
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
         </fieldset>
         </form>
 
         <ul class="link-list">
         
-          <li class="module"><a href="classes/Lemon.html">Lemon</a></li>
+          <li class="module"><a href="Lemon.html">Lemon</a></li>
         
-          <li class="class"><a href="classes/Lemon/Command.html">Lemon::Command</a></li>
+          <li class="module"><a href="Lemon/Command.html">Lemon::Command</a></li>
         
-          <li class="module"><a href="classes/Lemon/Commands.html">Lemon::Commands</a></li>
+          <li class="class"><a href="Lemon/Command/Abstract.html">Lemon::Command::Abstract</a></li>
         
-          <li class="class"><a href="classes/Lemon/Commands/Coverage.html">Lemon::Commands::Coverage</a></li>
+          <li class="class"><a href="Lemon/Command/Coverage.html">Lemon::Command::Coverage</a></li>
         
-          <li class="class"><a href="classes/Lemon/Commands/Generate.html">Lemon::Commands::Generate</a></li>
+          <li class="class"><a href="Lemon/Command/Generate.html">Lemon::Command::Generate</a></li>
         
-          <li class="class"><a href="classes/Lemon/Commands/Test.html">Lemon::Commands::Test</a></li>
+          <li class="class"><a href="Lemon/Command/Test.html">Lemon::Command::Test</a></li>
         
-          <li class="class"><a href="classes/Lemon/Coverage.html">Lemon::Coverage</a></li>
+          <li class="class"><a href="Lemon/Coverage.html">Lemon::Coverage</a></li>
         
-          <li class="class"><a href="classes/Lemon/Reporter.html">Lemon::Reporter</a></li>
+          <li class="module"><a href="Lemon/Reporter.html">Lemon::Reporter</a></li>
         
-          <li class="module"><a href="classes/Lemon/Reporters.html">Lemon::Reporters</a></li>
+          <li class="class"><a href="Lemon/Reporter/Abstract.html">Lemon::Reporter::Abstract</a></li>
         
-          <li class="class"><a href="classes/Lemon/Reporters/DotProgress.html">Lemon::Reporters::DotProgress</a></li>
+          <li class="class"><a href="Lemon/Reporter/DotProgress.html">Lemon::Reporter::DotProgress</a></li>
         
-          <li class="class"><a href="classes/Lemon/Reporters/Outline.html">Lemon::Reporters::Outline</a></li>
+          <li class="class"><a href="Lemon/Reporter/Outline.html">Lemon::Reporter::Outline</a></li>
         
-          <li class="class"><a href="classes/Lemon/Reporters/Verbose.html">Lemon::Reporters::Verbose</a></li>
+          <li class="class"><a href="Lemon/Reporter/Verbose.html">Lemon::Reporter::Verbose</a></li>
         
-          <li class="class"><a href="classes/Lemon/Runner.html">Lemon::Runner</a></li>
+          <li class="class"><a href="Lemon/Runner.html">Lemon::Runner</a></li>
         
-          <li class="module"><a href="classes/Lemon/Test.html">Lemon::Test</a></li>
+          <li class="class"><a href="Lemon/Snapshot.html">Lemon::Snapshot</a></li>
         
-          <li class="class"><a href="classes/Lemon/Test/Case.html">Lemon::Test::Case</a></li>
+          <li class="class"><a href="Lemon/Snapshot/OfModule.html">Lemon::Snapshot::OfModule</a></li>
         
-          <li class="class"><a href="classes/Lemon/Test/Concern.html">Lemon::Test::Concern</a></li>
+          <li class="module"><a href="Lemon/Test.html">Lemon::Test</a></li>
         
-          <li class="class"><a href="classes/Lemon/Test/Suite.html">Lemon::Test::Suite</a></li>
+          <li class="class"><a href="Lemon/Test/Case.html">Lemon::Test::Case</a></li>
         
-          <li class="class"><a href="classes/Lemon/Test/Unit.html">Lemon::Test::Unit</a></li>
+          <li class="class"><a href="Lemon/Test/Concern.html">Lemon::Test::Concern</a></li>
         
-          <li class="class"><a href="classes/Object.html">Object</a></li>
+          <li class="class"><a href="Lemon/Test/Suite.html">Lemon::Test::Suite</a></li>
         
-          <li class="class"><a href="classes/Pending.html">Pending</a></li>
+          <li class="class"><a href="Lemon/Test/Unit.html">Lemon::Test::Unit</a></li>
+        
+          <li class="class"><a href="Object.html">Object</a></li>
+        
+          <li class="module"><a href="Object/unit.testcase;.html">Object::unit.testcase;</a></li>
+        
+          <li class="module"><a href="Kernel.html">Kernel</a></li>
+        
+          <li class="class"><a href="Pending.html">Pending</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -123,745 +131,1068 @@
 
       <!-- METHODS -->
       <div id="methodindex-section" class="section project-section">
-        <h3 class="section-header">Method Index</h3>
+        <h3 class="section-header">Method Index
+          <span class="search-toggle"><img src="assets/icon/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
         <ul>
           
             
             <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Command</span>
-              <a href="classes/Lemon/Command.html#M000040">::commands</a>
+              <span class="method-parent-aside">Lemon::Snapshot</span>
+              <a href="Lemon/Snapshot.html#method-c-capture">::capture</a>
+            </li>
+          
+            
+            <li class="singleton" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Abstract</span>
+              <a href="Lemon/Command/Abstract.html#method-c-commands">::commands</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
               <span class="method-parent-aside">Object</span>
-              <a href="classes/Object.html#M000079">::const_missing</a>
+              <a href="Object.html#method-c-const_missing">::const_missing</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
               <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000106">::factory</a>
+              <a href="Lemon/Reporter.html#method-c-factory">::factory</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Command</span>
-              <a href="classes/Lemon/Command.html#M000041">::inherited</a>
+              <span class="method-parent-aside">Lemon::Command::Abstract</span>
+              <a href="Lemon/Command/Abstract.html#method-c-inherited">::inherited</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000000">::new</a>
-            </li>
-          
-            
-            <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Test::Suite</span>
-              <a href="classes/Lemon/Test/Suite.html#M000008">::new</a>
-            </li>
-          
-            
-            <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Generate</span>
-              <a href="classes/Lemon/Commands/Generate.html#M000099">::new</a>
+              <span class="method-parent-aside">Lemon::Command::Coverage</span>
+              <a href="Lemon/Command/Coverage.html#method-c-new">::new</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
               <span class="method-parent-aside">Lemon::Runner</span>
-              <a href="classes/Lemon/Runner.html#M000046">::new</a>
+              <a href="Lemon/Runner.html#method-c-new">::new</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000107">::new</a>
+              <span class="method-parent-aside">Lemon::Test::Suite</span>
+              <a href="Lemon/Test/Suite.html#method-c-new">::new</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Coverage</span>
-              <a href="classes/Lemon/Commands/Coverage.html#M000082">::new</a>
+              <span class="method-parent-aside">Lemon::Command::Test</span>
+              <a href="Lemon/Command/Test.html#method-c-new">::new</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Test</span>
-              <a href="classes/Lemon/Commands/Test.html#M000092">::new</a>
+              <span class="method-parent-aside">Lemon::Command::Generate</span>
+              <a href="Lemon/Command/Generate.html#method-c-new">::new</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Test::Unit</span>
-              <a href="classes/Lemon/Test/Unit.html#M000031">::new</a>
+              <span class="method-parent-aside">Lemon::Test::Case</span>
+              <a href="Lemon/Test/Case.html#method-c-new">::new</a>
+            </li>
+          
+            
+            <li class="singleton" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-c-new">::new</a>
+            </li>
+          
+            
+            <li class="singleton" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot</span>
+              <a href="Lemon/Snapshot.html#method-c-new">::new</a>
+            </li>
+          
+            
+            <li class="singleton" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot::OfModule</span>
+              <a href="Lemon/Snapshot/OfModule.html#method-c-new">::new</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Concern</span>
-              <a href="classes/Lemon/Test/Concern.html#M000026">::new</a>
+              <a href="Lemon/Test/Concern.html#method-c-new">::new</a>
+            </li>
+          
+            
+            <li class="singleton" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Unit</span>
+              <a href="Lemon/Test/Unit.html#method-c-new">::new</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
               <span class="method-parent-aside">Lemon::Coverage</span>
-              <a href="classes/Lemon/Coverage.html#M000035">::new</a>
+              <a href="Lemon/Coverage.html#method-c-new">::new</a>
+            </li>
+          
+            
+            <li class="singleton" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Abstract</span>
+              <a href="Lemon/Command/Abstract.html#method-c-options">::options</a>
+            </li>
+          
+            
+            <li class="singleton" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Coverage</span>
+              <a href="Lemon/Command/Coverage.html#method-c-run">::run</a>
+            </li>
+          
+            
+            <li class="singleton" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Test</span>
+              <a href="Lemon/Command/Test.html#method-c-run">::run</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
               <span class="method-parent-aside">Lemon::Command</span>
-              <a href="classes/Lemon/Command.html#M000039">::options</a>
+              <a href="Lemon/Command.html#method-c-run">::run</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Coverage</span>
-              <a href="classes/Lemon/Commands/Coverage.html#M000080">::options</a>
+              <span class="method-parent-aside">Lemon::Command::Generate</span>
+              <a href="Lemon/Command/Generate.html#method-c-run">::run</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Generate</span>
-              <a href="classes/Lemon/Commands/Generate.html#M000097">::options</a>
+              <span class="method-parent-aside">Lemon::Command::Coverage</span>
+              <a href="Lemon/Command/Coverage.html#method-c-subcommand">::subcommand</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Test</span>
-              <a href="classes/Lemon/Commands/Test.html#M000090">::options</a>
+              <span class="method-parent-aside">Lemon::Command::Test</span>
+              <a href="Lemon/Command/Test.html#method-c-subcommand">::subcommand</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Generate</span>
-              <a href="classes/Lemon/Commands/Generate.html#M000098">::run</a>
-            </li>
-          
-            
-            <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Command</span>
-              <a href="classes/Lemon/Command.html#M000042">::run</a>
-            </li>
-          
-            
-            <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Coverage</span>
-              <a href="classes/Lemon/Commands/Coverage.html#M000081">::run</a>
-            </li>
-          
-            
-            <li class="singleton" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Test</span>
-              <a href="classes/Lemon/Commands/Test.html#M000091">::run</a>
+              <span class="method-parent-aside">Lemon::Command::Generate</span>
+              <a href="Lemon/Command/Generate.html#method-c-subcommand">::subcommand</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
               <span class="method-parent-aside">Lemon</span>
-              <a href="classes/Lemon.html#M000073">::suite</a>
+              <a href="Lemon.html#method-c-suite">::suite</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
               <span class="method-parent-aside">Lemon</span>
-              <a href="classes/Lemon.html#M000074">::suite=</a>
+              <a href="Lemon.html#method-c-suite%3D">::suite=</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
               <span class="method-parent-aside">Lemon</span>
-              <a href="classes/Lemon.html#M000083">::test_stack</a>
+              <a href="Lemon.html#method-c-test_stack">::test_stack</a>
             </li>
           
             
             <li class="singleton" style="clear: both;">
               <span class="method-parent-aside">Pending</span>
-              <a href="classes/Pending.html#M000019">::to_proc</a>
+              <a href="Pending.html#method-c-to_proc">::to_proc</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot</span>
+              <a href="Lemon/Snapshot.html#method-i--">#-</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot</span>
+              <a href="Lemon/Snapshot.html#method-i-%3C%3C">#<<</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Suite</span>
-              <a href="classes/Lemon/Test/Suite.html#M000023">#After</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000013">#After</a>
+              <a href="Lemon/Test/Suite.html#method-i-After">#After</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Object</span>
-              <a href="classes/Object.html#M000076">#After</a>
+              <a href="Object.html#method-i-After">#After</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000011">#Before</a>
+              <a href="Lemon/Test/Case.html#method-i-After">#After</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Case</span>
+              <a href="Lemon/Test/Case.html#method-i-Before">#Before</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Suite</span>
-              <a href="classes/Lemon/Test/Suite.html#M000022">#Before</a>
+              <a href="Lemon/Test/Suite.html#method-i-Before">#Before</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Object</span>
-              <a href="classes/Object.html#M000075">#Before</a>
+              <a href="Object.html#method-i-Before">#Before</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Suite</span>
-              <a href="classes/Lemon/Test/Suite.html#M000020">#Case</a>
+              <a href="Lemon/Test/Suite.html#method-i-Case">#Case</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Object</span>
-              <a href="classes/Object.html#M000078">#Case</a>
+              <a href="Object.html#method-i-Case">#Case</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000003">#Concern</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Test::Suite</span>
-              <a href="classes/Lemon/Test/Suite.html#M000021">#TestCase</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000007">#Unit</a>
+              <a href="Lemon/Test/Case.html#method-i-Concern">#Concern</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Object</span>
-              <a href="classes/Object.html#M000077">#When</a>
+              <a href="Object.html#method-i-Covers">#Covers</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Suite</span>
-              <a href="classes/Lemon/Test/Suite.html#M000024">#When</a>
+              <a href="Lemon/Test/Suite.html#method-i-Covers">#Covers</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Object</span>
+              <a href="Object.html#method-i-Helper">#Helper</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Suite</span>
+              <a href="Lemon/Test/Suite.html#method-i-Helper">#Helper</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000015">#When</a>
+              <a href="Lemon/Test/Case.html#method-i-MetaUnit">#MetaUnit</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Suite</span>
+              <a href="Lemon/Test/Suite.html#method-i-TestCase">#TestCase</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000014">#after</a>
+              <a href="Lemon/Test/Case.html#method-i-Unit">#Unit</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Case</span>
+              <a href="Lemon/Test/Case.html#method-i-When">#When</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Suite</span>
+              <a href="Lemon/Test/Suite.html#method-i-When">#When</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Object</span>
+              <a href="Object.html#method-i-When">#When</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot</span>
+              <a href="Lemon/Snapshot.html#method-i-%5B%5D">#[]</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot</span>
+              <a href="Lemon/Snapshot.html#method-i-%5B%5D%3D">#[]=</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Case</span>
+              <a href="Lemon/Test/Case.html#method-i-after">#after</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Concern</span>
-              <a href="classes/Lemon/Test/Concern.html#M000027">#assign</a>
+              <a href="Lemon/Test/Concern.html#method-i-assign">#assign</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000012">#before</a>
+              <a href="Lemon/Test/Case.html#method-i-before">#before</a>
             </li>
           
             
             <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Test::Concern</span>
-              <a href="classes/Lemon/Test/Concern.html#M000030">#call</a>
+              <span class="method-parent-aside">Lemon::Coverage</span>
+              <a href="Lemon/Coverage.html#method-i-calculate_coverage">#calculate_coverage</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Unit</span>
-              <a href="classes/Lemon/Test/Unit.html#M000032">#call</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000004">#concern</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Coverage</span>
-              <a href="classes/Lemon/Coverage.html#M000038">#cover</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Coverage</span>
-              <a href="classes/Lemon/Coverage.html#M000037">#coverage</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000005">#current_concern</a>
+              <a href="Lemon/Test/Unit.html#method-i-call">#call</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Concern</span>
-              <a href="classes/Lemon/Test/Concern.html#M000028">#each</a>
+              <a href="Lemon/Test/Concern.html#method-i-call">#call</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot</span>
+              <a href="Lemon/Snapshot.html#method-i-capture">#capture</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Coverage</span>
+              <a href="Lemon/Coverage.html#method-i-checklist">#checklist</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot</span>
+              <a href="Lemon/Snapshot.html#method-i-checklist">#checklist</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot::OfModule</span>
+              <a href="Lemon/Snapshot/OfModule.html#method-i-class_methods">#class_methods</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot</span>
+              <a href="Lemon/Snapshot.html#method-i-clean%21">#clean!</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000006">#each</a>
+              <a href="Lemon/Test/Case.html#method-i-concern">#concern</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-cover%3F">#cover?</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Runner</span>
+              <a href="Lemon/Runner.html#method-i-cover%3F">#cover?</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Suite</span>
-              <a href="classes/Lemon/Test/Suite.html#M000025">#each</a>
+              <a href="Lemon/Test/Suite.html#method-i-cover%3F">#cover?</a>
             </li>
           
             
             <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000117">#errors</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000116">#failures</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Coverage</span>
-              <a href="classes/Lemon/Coverage.html#M000045">#generate</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000122">#green</a>
+              <span class="method-parent-aside">Lemon::Runner</span>
+              <a href="Lemon/Runner.html#method-i-coverage">#coverage</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Suite</span>
-              <a href="classes/Lemon/Test/Suite.html#M000017">#helper</a>
+              <a href="Lemon/Test/Suite.html#method-i-coverage">#coverage</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000001">#helper</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000002">#include</a>
+              <a href="Lemon/Test/Case.html#method-i-current_concern">#current_concern</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Suite</span>
-              <a href="classes/Lemon/Test/Suite.html#M000018">#include</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Test</span>
-              <a href="classes/Lemon/Commands/Test.html#M000094">#includes</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Coverage</span>
-              <a href="classes/Lemon/Commands/Coverage.html#M000086">#includes</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Generate</span>
-              <a href="classes/Lemon/Commands/Generate.html#M000102">#includes</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Test::Suite</span>
-              <a href="classes/Lemon/Test/Suite.html#M000010">#loadfiles</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Coverage</span>
-              <a href="classes/Lemon/Commands/Coverage.html#M000087">#namespaces</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Generate</span>
-              <a href="classes/Lemon/Commands/Generate.html#M000103">#namespaces</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Coverage</span>
-              <a href="classes/Lemon/Commands/Coverage.html#M000088">#parser</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Generate</span>
-              <a href="classes/Lemon/Commands/Generate.html#M000104">#parser</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Test</span>
-              <a href="classes/Lemon/Commands/Test.html#M000095">#parser</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000118">#pendings</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Object</span>
-              <a href="classes/Object.html#M000108">#pry</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Coverage</span>
-              <a href="classes/Lemon/Commands/Coverage.html#M000084">#public_only?</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Generate</span>
-              <a href="classes/Lemon/Commands/Generate.html#M000100">#public_only?</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Coverage</span>
-              <a href="classes/Lemon/Coverage.html#M000036">#public_only?</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000120">#red</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::Outline</span>
-              <a href="classes/Lemon/Reporters/Outline.html#M000066">#report_concern</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::DotProgress</span>
-              <a href="classes/Lemon/Reporters/DotProgress.html#M000049">#report_concern</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000110">#report_concern</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::Verbose</span>
-              <a href="classes/Lemon/Reporters/Verbose.html#M000060">#report_concern</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::Verbose</span>
-              <a href="classes/Lemon/Reporters/Verbose.html#M000063">#report_error</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000113">#report_error</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::Outline</span>
-              <a href="classes/Lemon/Reporters/Outline.html#M000070">#report_error</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::DotProgress</span>
-              <a href="classes/Lemon/Reporters/DotProgress.html#M000052">#report_error</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::DotProgress</span>
-              <a href="classes/Lemon/Reporters/DotProgress.html#M000051">#report_failure</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::Verbose</span>
-              <a href="classes/Lemon/Reporters/Verbose.html#M000062">#report_failure</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000112">#report_failure</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::Outline</span>
-              <a href="classes/Lemon/Reporters/Outline.html#M000069">#report_failure</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000114">#report_finish</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::Outline</span>
-              <a href="classes/Lemon/Reporters/Outline.html#M000072">#report_finish</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::Verbose</span>
-              <a href="classes/Lemon/Reporters/Verbose.html#M000067">#report_finish</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::DotProgress</span>
-              <a href="classes/Lemon/Reporters/DotProgress.html#M000054">#report_finish</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::DotProgress</span>
-              <a href="classes/Lemon/Reporters/DotProgress.html#M000053">#report_pending</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::Outline</span>
-              <a href="classes/Lemon/Reporters/Outline.html#M000071">#report_pending</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::Verbose</span>
-              <a href="classes/Lemon/Reporters/Verbose.html#M000064">#report_pending</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::Outline</span>
-              <a href="classes/Lemon/Reporters/Outline.html#M000065">#report_start</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::DotProgress</span>
-              <a href="classes/Lemon/Reporters/DotProgress.html#M000048">#report_start</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::Verbose</span>
-              <a href="classes/Lemon/Reporters/Verbose.html#M000059">#report_start</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000109">#report_start</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::DotProgress</span>
-              <a href="classes/Lemon/Reporters/DotProgress.html#M000050">#report_success</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::Outline</span>
-              <a href="classes/Lemon/Reporters/Outline.html#M000068">#report_success</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporters::Verbose</span>
-              <a href="classes/Lemon/Reporters/Verbose.html#M000061">#report_success</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000111">#report_success</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Runner</span>
-              <a href="classes/Lemon/Runner.html#M000055">#reporter</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000119">#require_ansicolor</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Coverage</span>
-              <a href="classes/Lemon/Commands/Coverage.html#M000085">#requires</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Generate</span>
-              <a href="classes/Lemon/Commands/Generate.html#M000101">#requires</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Test</span>
-              <a href="classes/Lemon/Commands/Test.html#M000093">#requires</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Coverage</span>
-              <a href="classes/Lemon/Commands/Coverage.html#M000089">#run</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Runner</span>
-              <a href="classes/Lemon/Runner.html#M000047">#run</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Test</span>
-              <a href="classes/Lemon/Commands/Test.html#M000096">#run</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Commands::Generate</span>
-              <a href="classes/Lemon/Commands/Generate.html#M000105">#run</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Runner</span>
-              <a href="classes/Lemon/Runner.html#M000056">#run_concern_procedures</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Runner</span>
-              <a href="classes/Lemon/Runner.html#M000058">#run_postest_procedures</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Runner</span>
-              <a href="classes/Lemon/Runner.html#M000057">#run_pretest_procedures</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Coverage</span>
-              <a href="classes/Lemon/Coverage.html#M000044">#snapshot</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000115">#successes</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Test::Unit</span>
-              <a href="classes/Lemon/Test/Unit.html#M000033">#suite</a>
-            </li>
-          
-            
-            <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Coverage</span>
-              <a href="classes/Lemon/Coverage.html#M000043">#system</a>
+              <a href="Lemon/Test/Suite.html#method-i-each">#each</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Concern</span>
-              <a href="classes/Lemon/Test/Concern.html#M000029">#to_s</a>
+              <a href="Lemon/Test/Concern.html#method-i-each">#each</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Case</span>
+              <a href="Lemon/Test/Case.html#method-i-each">#each</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Coverage</span>
+              <a href="Lemon/Coverage.html#method-i-each">#each</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Runner</span>
+              <a href="Lemon/Runner.html#method-i-each">#each</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot</span>
+              <a href="Lemon/Snapshot.html#method-i-each">#each</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-errors">#errors</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-failures">#failures</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Suite</span>
+              <a href="Lemon/Test/Suite.html#method-i-filelist">#filelist</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot</span>
+              <a href="Lemon/Snapshot.html#method-i-filter">#filter</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Runner</span>
+              <a href="Lemon/Runner.html#method-i-format">#format</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Unit</span>
-              <a href="classes/Lemon/Test/Unit.html#M000034">#to_s</a>
+              <a href="Lemon/Test/Unit.html#method-i-fullname">#fullname</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Coverage</span>
+              <a href="Lemon/Coverage.html#method-i-generate">#generate</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Coverage</span>
+              <a href="Lemon/Coverage.html#method-i-generate_uncovered">#generate_uncovered</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-green">#green</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000016">#to_s</a>
+              <a href="Lemon/Test/Case.html#method-i-helper">#helper</a>
             </li>
           
             
             <li class="method" style="clear: both;">
               <span class="method-parent-aside">Lemon::Test::Case</span>
-              <a href="classes/Lemon/Test/Case.html#M000009">#unit</a>
+              <a href="Lemon/Test/Case.html#method-i-include">#include</a>
             </li>
           
             
             <li class="method" style="clear: both;">
-              <span class="method-parent-aside">Lemon::Reporter</span>
-              <a href="classes/Lemon/Reporter.html#M000121">#yellow</a>
+              <span class="method-parent-aside">Lemon::Test::Suite</span>
+              <a href="Lemon/Test/Suite.html#method-i-include">#include</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Test</span>
+              <a href="Lemon/Command/Test.html#method-i-includes">#includes</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Coverage</span>
+              <a href="Lemon/Command/Coverage.html#method-i-includes">#includes</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Generate</span>
+              <a href="Lemon/Command/Generate.html#method-i-includes">#includes</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot::OfModule</span>
+              <a href="Lemon/Snapshot/OfModule.html#method-i-instance_methods">#instance_methods</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Unit</span>
+              <a href="Lemon/Test/Unit.html#method-i-key">#key</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Suite</span>
+              <a href="Lemon/Test/Suite.html#method-i-load_files">#load_files</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Unit</span>
+              <a href="Lemon/Test/Unit.html#method-i-match%3F">#match?</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Unit</span>
+              <a href="Lemon/Test/Unit.html#method-i-meta%3F">#meta?</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Case</span>
+              <a href="Lemon/Test/Case.html#method-i-metaunit">#metaunit</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Unit</span>
+              <a href="Lemon/Test/Unit.html#method-i-name">#name</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot::OfModule</span>
+              <a href="Lemon/Snapshot/OfModule.html#method-i-name">#name</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Generate</span>
+              <a href="Lemon/Command/Generate.html#method-i-namespaces">#namespaces</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Coverage</span>
+              <a href="Lemon/Command/Coverage.html#method-i-namespaces">#namespaces</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Test</span>
+              <a href="Lemon/Command/Test.html#method-i-namespaces">#namespaces</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Runner</span>
+              <a href="Lemon/Runner.html#method-i-namespaces">#namespaces</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Generate</span>
+              <a href="Lemon/Command/Generate.html#method-i-parser">#parser</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Test</span>
+              <a href="Lemon/Command/Test.html#method-i-parser">#parser</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Coverage</span>
+              <a href="Lemon/Command/Coverage.html#method-i-parser">#parser</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-pendings">#pendings</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Kernel</span>
+              <a href="Kernel.html#method-i-pry">#pry</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Generate</span>
+              <a href="Lemon/Command/Generate.html#method-i-public_only%3F">#public_only?</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Coverage</span>
+              <a href="Lemon/Command/Coverage.html#method-i-public_only%3F">#public_only?</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Coverage</span>
+              <a href="Lemon/Coverage.html#method-i-public_only%3F">#public_only?</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-red">#red</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Verbose</span>
+              <a href="Lemon/Reporter/Verbose.html#method-i-report_concern">#report_concern</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-report_concern">#report_concern</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Outline</span>
+              <a href="Lemon/Reporter/Outline.html#method-i-report_concern">#report_concern</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::DotProgress</span>
+              <a href="Lemon/Reporter/DotProgress.html#method-i-report_concern">#report_concern</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Verbose</span>
+              <a href="Lemon/Reporter/Verbose.html#method-i-report_error">#report_error</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::DotProgress</span>
+              <a href="Lemon/Reporter/DotProgress.html#method-i-report_error">#report_error</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Outline</span>
+              <a href="Lemon/Reporter/Outline.html#method-i-report_error">#report_error</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-report_error">#report_error</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Verbose</span>
+              <a href="Lemon/Reporter/Verbose.html#method-i-report_failure">#report_failure</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-report_failure">#report_failure</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::DotProgress</span>
+              <a href="Lemon/Reporter/DotProgress.html#method-i-report_failure">#report_failure</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Outline</span>
+              <a href="Lemon/Reporter/Outline.html#method-i-report_failure">#report_failure</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-report_finish">#report_finish</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Outline</span>
+              <a href="Lemon/Reporter/Outline.html#method-i-report_finish">#report_finish</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::DotProgress</span>
+              <a href="Lemon/Reporter/DotProgress.html#method-i-report_finish">#report_finish</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Verbose</span>
+              <a href="Lemon/Reporter/Verbose.html#method-i-report_finish">#report_finish</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Outline</span>
+              <a href="Lemon/Reporter/Outline.html#method-i-report_pending">#report_pending</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Verbose</span>
+              <a href="Lemon/Reporter/Verbose.html#method-i-report_pending">#report_pending</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::DotProgress</span>
+              <a href="Lemon/Reporter/DotProgress.html#method-i-report_pending">#report_pending</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-report_start">#report_start</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Outline</span>
+              <a href="Lemon/Reporter/Outline.html#method-i-report_start">#report_start</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::DotProgress</span>
+              <a href="Lemon/Reporter/DotProgress.html#method-i-report_start">#report_start</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Verbose</span>
+              <a href="Lemon/Reporter/Verbose.html#method-i-report_start">#report_start</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-report_success">#report_success</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Verbose</span>
+              <a href="Lemon/Reporter/Verbose.html#method-i-report_success">#report_success</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::DotProgress</span>
+              <a href="Lemon/Reporter/DotProgress.html#method-i-report_success">#report_success</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Outline</span>
+              <a href="Lemon/Reporter/Outline.html#method-i-report_success">#report_success</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Runner</span>
+              <a href="Lemon/Runner.html#method-i-reporter">#reporter</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Generate</span>
+              <a href="Lemon/Command/Generate.html#method-i-requires">#requires</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Test</span>
+              <a href="Lemon/Command/Test.html#method-i-requires">#requires</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Coverage</span>
+              <a href="Lemon/Command/Coverage.html#method-i-requires">#requires</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Generate</span>
+              <a href="Lemon/Command/Generate.html#method-i-run">#run</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Coverage</span>
+              <a href="Lemon/Command/Coverage.html#method-i-run">#run</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Test</span>
+              <a href="Lemon/Command/Test.html#method-i-run">#run</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Runner</span>
+              <a href="Lemon/Runner.html#method-i-run">#run</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Runner</span>
+              <a href="Lemon/Runner.html#method-i-run_concern_procedures">#run_concern_procedures</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Runner</span>
+              <a href="Lemon/Runner.html#method-i-run_postest_procedures">#run_postest_procedures</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Runner</span>
+              <a href="Lemon/Runner.html#method-i-run_pretest_procedures">#run_pretest_procedures</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot</span>
+              <a href="Lemon/Snapshot.html#method-i-size">#size</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Coverage</span>
+              <a href="Lemon/Coverage.html#method-i-snapshot">#snapshot</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-successes">#successes</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Unit</span>
+              <a href="Lemon/Test/Unit.html#method-i-suite">#suite</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Coverage</span>
+              <a href="Lemon/Coverage.html#method-i-suite%3D">#suite=</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Coverage</span>
+              <a href="Lemon/Coverage.html#method-i-system">#system</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-tally">#tally</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot::OfModule</span>
+              <a href="Lemon/Snapshot/OfModule.html#method-i-to_a">#to_a</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Snapshot</span>
+              <a href="Lemon/Snapshot.html#method-i-to_a">#to_a</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Concern</span>
+              <a href="Lemon/Test/Concern.html#method-i-to_s">#to_s</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Case</span>
+              <a href="Lemon/Test/Case.html#method-i-to_s">#to_s</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Unit</span>
+              <a href="Lemon/Test/Unit.html#method-i-to_s">#to_s</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-total">#total</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-uncovered_cases">#uncovered_cases</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Runner</span>
+              <a href="Lemon/Runner.html#method-i-uncovered_cases">#uncovered_cases</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Coverage</span>
+              <a href="Lemon/Coverage.html#method-i-uncovered_cases">#uncovered_cases</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Command::Generate</span>
+              <a href="Lemon/Command/Generate.html#method-i-uncovered_only%3F">#uncovered_only?</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-uncovered_units">#uncovered_units</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Runner</span>
+              <a href="Lemon/Runner.html#method-i-uncovered_units">#uncovered_units</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Coverage</span>
+              <a href="Lemon/Coverage.html#method-i-uncovered_units">#uncovered_units</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Coverage</span>
+              <a href="Lemon/Coverage.html#method-i-undefined_units">#undefined_units</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-undefined_units">#undefined_units</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Runner</span>
+              <a href="Lemon/Runner.html#method-i-undefined_units">#undefined_units</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Test::Case</span>
+              <a href="Lemon/Test/Case.html#method-i-unit">#unit</a>
+            </li>
+          
+            
+            <li class="method" style="clear: both;">
+              <span class="method-parent-aside">Lemon::Reporter::Abstract</span>
+              <a href="Lemon/Reporter/Abstract.html#method-i-yellow">#yellow</a>
             </li>
           
         </ul>
@@ -874,353 +1205,43 @@
       <div style="float: right; margin-right: 5px;">
         <a href="http://validator.w3.org/check/referer"><img src="assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
       </div>
-      Generated with <a href="http://github.com/proutils/webri">WebRI RedFish</a> 1.1
+      Generated with <a href="http://github.com/proutils/webri">WebRI NewFish</a> 1.2.1
       <br/><br/> 
     </div>
   </div>
 
-<!--
-  
-  
-  <h2>Files</h2>
-  <ul>
-    
-      <li class="file"><a href="files/COPYING.html">COPYING</a></li>
-    
-      <li class="file"><a href="files/COPYING_LESSER.html">COPYING.LESSER</a></li>
-    
-      <li class="file"><a href="files/HISTORY.html">HISTORY</a></li>
-    
-      <li class="file"><a href="files/README_rdoc.html">README.rdoc</a></li>
-    
-      <li class="file"><a href="files/Syckfile.html">Syckfile</a></li>
-    
-  </ul>
-  
-
-  <h2>Classes/Modules</h2>
-  <ul>
-    
-    <li class="module"><a href="classes/Lemon.html">Lemon</a></li>
-    
-    <li class="class"><a href="classes/Lemon/Command.html">Lemon::Command</a></li>
-    
-    <li class="module"><a href="classes/Lemon/Commands.html">Lemon::Commands</a></li>
-    
-    <li class="class"><a href="classes/Lemon/Commands/Coverage.html">Lemon::Commands::Coverage</a></li>
-    
-    <li class="class"><a href="classes/Lemon/Commands/Generate.html">Lemon::Commands::Generate</a></li>
-    
-    <li class="class"><a href="classes/Lemon/Commands/Test.html">Lemon::Commands::Test</a></li>
-    
-    <li class="class"><a href="classes/Lemon/Coverage.html">Lemon::Coverage</a></li>
-    
-    <li class="class"><a href="classes/Lemon/Reporter.html">Lemon::Reporter</a></li>
-    
-    <li class="module"><a href="classes/Lemon/Reporters.html">Lemon::Reporters</a></li>
-    
-    <li class="class"><a href="classes/Lemon/Reporters/DotProgress.html">Lemon::Reporters::DotProgress</a></li>
-    
-    <li class="class"><a href="classes/Lemon/Reporters/Outline.html">Lemon::Reporters::Outline</a></li>
-    
-    <li class="class"><a href="classes/Lemon/Reporters/Verbose.html">Lemon::Reporters::Verbose</a></li>
-    
-    <li class="class"><a href="classes/Lemon/Runner.html">Lemon::Runner</a></li>
-    
-    <li class="module"><a href="classes/Lemon/Test.html">Lemon::Test</a></li>
-    
-    <li class="class"><a href="classes/Lemon/Test/Case.html">Lemon::Test::Case</a></li>
-    
-    <li class="class"><a href="classes/Lemon/Test/Concern.html">Lemon::Test::Concern</a></li>
-    
-    <li class="class"><a href="classes/Lemon/Test/Suite.html">Lemon::Test::Suite</a></li>
-    
-    <li class="class"><a href="classes/Lemon/Test/Unit.html">Lemon::Test::Unit</a></li>
-    
-    <li class="class"><a href="classes/Object.html">Object</a></li>
-    
-    <li class="class"><a href="classes/Pending.html">Pending</a></li>
-    
-  </ul>
-
-  <h2>Methods</h2>
-  <ul>
-    
-      <li><a href="classes/Lemon/Command.html#M000040">::commands &mdash; Lemon::Command</a></li>
-    
-      <li><a href="classes/Object.html#M000079">::const_missing &mdash; Object</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000106">::factory &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Lemon/Command.html#M000041">::inherited &mdash; Lemon::Command</a></li>
-    
-      <li><a href="classes/Lemon/Coverage.html#M000035">::new &mdash; Lemon::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000000">::new &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Lemon/Test/Concern.html#M000026">::new &mdash; Lemon::Test::Concern</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Test.html#M000092">::new &mdash; Lemon::Commands::Test</a></li>
-    
-      <li><a href="classes/Lemon/Runner.html#M000046">::new &mdash; Lemon::Runner</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Coverage.html#M000082">::new &mdash; Lemon::Commands::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Test/Suite.html#M000008">::new &mdash; Lemon::Test::Suite</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000107">::new &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Generate.html#M000099">::new &mdash; Lemon::Commands::Generate</a></li>
-    
-      <li><a href="classes/Lemon/Test/Unit.html#M000031">::new &mdash; Lemon::Test::Unit</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Coverage.html#M000080">::options &mdash; Lemon::Commands::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Test.html#M000090">::options &mdash; Lemon::Commands::Test</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Generate.html#M000097">::options &mdash; Lemon::Commands::Generate</a></li>
-    
-      <li><a href="classes/Lemon/Command.html#M000039">::options &mdash; Lemon::Command</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Coverage.html#M000081">::run &mdash; Lemon::Commands::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Command.html#M000042">::run &mdash; Lemon::Command</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Test.html#M000091">::run &mdash; Lemon::Commands::Test</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Generate.html#M000098">::run &mdash; Lemon::Commands::Generate</a></li>
-    
-      <li><a href="classes/Lemon.html#M000073">::suite &mdash; Lemon</a></li>
-    
-      <li><a href="classes/Lemon.html#M000074">::suite= &mdash; Lemon</a></li>
-    
-      <li><a href="classes/Lemon.html#M000083">::test_stack &mdash; Lemon</a></li>
-    
-      <li><a href="classes/Pending.html#M000019">::to_proc &mdash; Pending</a></li>
-    
-      <li><a href="classes/Lemon/Test/Suite.html#M000023">#After &mdash; Lemon::Test::Suite</a></li>
-    
-      <li><a href="classes/Object.html#M000076">#After &mdash; Object</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000013">#After &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Object.html#M000075">#Before &mdash; Object</a></li>
-    
-      <li><a href="classes/Lemon/Test/Suite.html#M000022">#Before &mdash; Lemon::Test::Suite</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000011">#Before &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Object.html#M000078">#Case &mdash; Object</a></li>
-    
-      <li><a href="classes/Lemon/Test/Suite.html#M000020">#Case &mdash; Lemon::Test::Suite</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000003">#Concern &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Lemon/Test/Suite.html#M000021">#TestCase &mdash; Lemon::Test::Suite</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000007">#Unit &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Object.html#M000077">#When &mdash; Object</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000015">#When &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Lemon/Test/Suite.html#M000024">#When &mdash; Lemon::Test::Suite</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000014">#after &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Lemon/Test/Concern.html#M000027">#assign &mdash; Lemon::Test::Concern</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000012">#before &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Lemon/Test/Unit.html#M000032">#call &mdash; Lemon::Test::Unit</a></li>
-    
-      <li><a href="classes/Lemon/Test/Concern.html#M000030">#call &mdash; Lemon::Test::Concern</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000004">#concern &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Lemon/Coverage.html#M000038">#cover &mdash; Lemon::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Coverage.html#M000037">#coverage &mdash; Lemon::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000005">#current_concern &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000006">#each &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Lemon/Test/Suite.html#M000025">#each &mdash; Lemon::Test::Suite</a></li>
-    
-      <li><a href="classes/Lemon/Test/Concern.html#M000028">#each &mdash; Lemon::Test::Concern</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000117">#errors &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000116">#failures &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Lemon/Coverage.html#M000045">#generate &mdash; Lemon::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000122">#green &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Lemon/Test/Suite.html#M000017">#helper &mdash; Lemon::Test::Suite</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000001">#helper &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Lemon/Test/Suite.html#M000018">#include &mdash; Lemon::Test::Suite</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000002">#include &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Test.html#M000094">#includes &mdash; Lemon::Commands::Test</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Generate.html#M000102">#includes &mdash; Lemon::Commands::Generate</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Coverage.html#M000086">#includes &mdash; Lemon::Commands::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Test/Suite.html#M000010">#loadfiles &mdash; Lemon::Test::Suite</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Generate.html#M000103">#namespaces &mdash; Lemon::Commands::Generate</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Coverage.html#M000087">#namespaces &mdash; Lemon::Commands::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Coverage.html#M000088">#parser &mdash; Lemon::Commands::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Test.html#M000095">#parser &mdash; Lemon::Commands::Test</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Generate.html#M000104">#parser &mdash; Lemon::Commands::Generate</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000118">#pendings &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Object.html#M000108">#pry &mdash; Object</a></li>
-    
-      <li><a href="classes/Lemon/Coverage.html#M000036">#public_only? &mdash; Lemon::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Generate.html#M000100">#public_only? &mdash; Lemon::Commands::Generate</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Coverage.html#M000084">#public_only? &mdash; Lemon::Commands::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000120">#red &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/Verbose.html#M000060">#report_concern &mdash; Lemon::Reporters::Verbose</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/DotProgress.html#M000049">#report_concern &mdash; Lemon::Reporters::DotProgress</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/Outline.html#M000066">#report_concern &mdash; Lemon::Reporters::Outline</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000110">#report_concern &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000113">#report_error &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/Outline.html#M000070">#report_error &mdash; Lemon::Reporters::Outline</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/Verbose.html#M000063">#report_error &mdash; Lemon::Reporters::Verbose</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/DotProgress.html#M000052">#report_error &mdash; Lemon::Reporters::DotProgress</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/DotProgress.html#M000051">#report_failure &mdash; Lemon::Reporters::DotProgress</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000112">#report_failure &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/Outline.html#M000069">#report_failure &mdash; Lemon::Reporters::Outline</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/Verbose.html#M000062">#report_failure &mdash; Lemon::Reporters::Verbose</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000114">#report_finish &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/Verbose.html#M000067">#report_finish &mdash; Lemon::Reporters::Verbose</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/Outline.html#M000072">#report_finish &mdash; Lemon::Reporters::Outline</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/DotProgress.html#M000054">#report_finish &mdash; Lemon::Reporters::DotProgress</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/Outline.html#M000071">#report_pending &mdash; Lemon::Reporters::Outline</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/Verbose.html#M000064">#report_pending &mdash; Lemon::Reporters::Verbose</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/DotProgress.html#M000053">#report_pending &mdash; Lemon::Reporters::DotProgress</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000109">#report_start &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/Verbose.html#M000059">#report_start &mdash; Lemon::Reporters::Verbose</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/Outline.html#M000065">#report_start &mdash; Lemon::Reporters::Outline</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/DotProgress.html#M000048">#report_start &mdash; Lemon::Reporters::DotProgress</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/Outline.html#M000068">#report_success &mdash; Lemon::Reporters::Outline</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000111">#report_success &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/DotProgress.html#M000050">#report_success &mdash; Lemon::Reporters::DotProgress</a></li>
-    
-      <li><a href="classes/Lemon/Reporters/Verbose.html#M000061">#report_success &mdash; Lemon::Reporters::Verbose</a></li>
-    
-      <li><a href="classes/Lemon/Runner.html#M000055">#reporter &mdash; Lemon::Runner</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000119">#require_ansicolor &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Coverage.html#M000085">#requires &mdash; Lemon::Commands::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Test.html#M000093">#requires &mdash; Lemon::Commands::Test</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Generate.html#M000101">#requires &mdash; Lemon::Commands::Generate</a></li>
-    
-      <li><a href="classes/Lemon/Runner.html#M000047">#run &mdash; Lemon::Runner</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Coverage.html#M000089">#run &mdash; Lemon::Commands::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Test.html#M000096">#run &mdash; Lemon::Commands::Test</a></li>
-    
-      <li><a href="classes/Lemon/Commands/Generate.html#M000105">#run &mdash; Lemon::Commands::Generate</a></li>
-    
-      <li><a href="classes/Lemon/Runner.html#M000056">#run_concern_procedures &mdash; Lemon::Runner</a></li>
-    
-      <li><a href="classes/Lemon/Runner.html#M000058">#run_postest_procedures &mdash; Lemon::Runner</a></li>
-    
-      <li><a href="classes/Lemon/Runner.html#M000057">#run_pretest_procedures &mdash; Lemon::Runner</a></li>
-    
-      <li><a href="classes/Lemon/Coverage.html#M000044">#snapshot &mdash; Lemon::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000115">#successes &mdash; Lemon::Reporter</a></li>
-    
-      <li><a href="classes/Lemon/Test/Unit.html#M000033">#suite &mdash; Lemon::Test::Unit</a></li>
-    
-      <li><a href="classes/Lemon/Coverage.html#M000043">#system &mdash; Lemon::Coverage</a></li>
-    
-      <li><a href="classes/Lemon/Test/Concern.html#M000029">#to_s &mdash; Lemon::Test::Concern</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000016">#to_s &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Lemon/Test/Unit.html#M000034">#to_s &mdash; Lemon::Test::Unit</a></li>
-    
-      <li><a href="classes/Lemon/Test/Case.html#M000009">#unit &mdash; Lemon::Test::Case</a></li>
-    
-      <li><a href="classes/Lemon/Reporter.html#M000121">#yellow &mdash; Lemon::Reporter</a></li>
-    
-  </ul>
--->
-
   
   <div id="documentation">
-    <h1><a href="../classes/Lemon.html">Lemon</a></h1>
+    <h1><a href="Lemon.html">Lemon</a></h1>
 <ul>
-<li><a href="http://proutils.github.com/lemon">proutils.github.com/lemon</a>
-
+<li><p>
+home: <a
+href="http://proutils.github.com/lemon">proutils.github.com/lemon</a>
+</p>
 </li>
-<li><a href="http://github.com/proutils/lemon">github.com/proutils/lemon</a>
-
+<li><p>
+work: <a
+href="http://github.com/proutils/lemon">github.com/proutils/lemon</a>
+</p>
 </li>
 </ul>
 <h2>DESCRIPTION</h2>
 <p>
-<a href="../classes/Lemon.html">Lemon</a> is a Unit Testing Framework that
-enforces a testcase construction mirroring the class or module and method
-design of the target system. Arguably this promotes the proper technique
-for unit testing, since it helps ensure good test coverage.
+<a href="Lemon.html">Lemon</a> is a Unit Testing Framework that enforces a
+test case  construction mirroring the class/module and method design of the
+target system. Arguably this promotes the proper technique for unit testing
+and helps ensure good test coverage.
 </p>
 <p>
 The difference between unit testing and functional testing, and all other
 forms of testing for that matter, lies in where the <b>concern</b> lies.
-The concern of unit testing are the concerns of unit tests.
+The concern of unit testing are the concerns of unit tests &#8212; the
+individual methods.
 </p>
 <h2>HOW TO USE</h2>
+<h3>Writing Tests</h3>
 <p>
-Say our library consists of the class X:
+Say our library &#8216;mylib.rb&#8217; consists of the class X:
 </p>
 <pre>
   class X
@@ -1231,6 +1252,8 @@ Say our library consists of the class X:
 The simplist test case would be written as follows:
 </p>
 <pre>
+  Covers 'mylib'
+
   TestCase X do
     Unit :a =&gt; &quot;method #a does something expected&quot; do
       x = X.new
@@ -1239,13 +1262,20 @@ The simplist test case would be written as follows:
   end
 </pre>
 <p>
-As tests grow, we need to organize them into concerns. For this <a
-href="../classes/Lemon.html">Lemon</a> provides the Concern method.
+The <tt>Covers</tt> method works just like <tt>require</tt> with the
+exception that loading the file does not occur until just before the tests
+are run. This allows <a href="Lemon.html">Lemon</a> to cacluate accurate
+coverage reports.
+</p>
+<p>
+As tests grow, we might need to organize them into special concerns. For
+this <a href="Lemon.html">Lemon</a> provides the #Concern method.
 </p>
 <pre>
+  Covers 'mylib'
+
   TestCase X do
-    Concern &quot;Description of a concern that the following unit&quot;,
-            &quot;tests address.&quot;
+    Concern &quot;Description of a concern that the following unit tests address.&quot;
 
     Unit :a =&gt; &quot;method #a does something expected&quot; do
       x = X.new
@@ -1253,6 +1283,7 @@ href="../classes/Lemon.html">Lemon</a> provides the Concern method.
     end
   end
 </pre>
+<h3>Running Tests</h3>
 <p>
 To run tests use the <tt>lemon</tt> command-line utility.
 </p>
@@ -1266,27 +1297,24 @@ Normal output is typical <em>dot-progress</em>. For verbose output, use the
 <pre>
   $ lemon -v test/cases/name_case.rb
 </pre>
-<h2>Checking Test Coverage</h2>
+<h3>Checking Test Coverage</h3>
 <p>
-<a href="../classes/Lemon.html">Lemon</a> can check test coverage by
-loading your target system and comparing it to your tests.
+<a href="Lemon.html">Lemon</a> can check test coverage by loading your
+target system and  comparing it to your tests.
 </p>
 <pre>
-  $ lemon --coverage -Ilib -rmyapp test/cases/
+  $ lemon --coverage -Ilib test/cases/
 </pre>
-<h2>Generating Test Skeletons</h2>
-<p>
-NOTE: This feature is not yet fully implemented!
-</p>
+<h3>Generating Test Skeletons</h3>
 <p>
 Because of the one to one correspondance of case-unit to class-method, <a
-href="../classes/Lemon.html">Lemon</a> can also generate test scaffolding
-for previously written code. To do this, use the <tt>--generate</tt> option
-and provide the lib location, or files, of the scripts for which to
-generate test scaffolding, and the output location for the test scripts.
+href="Lemon.html">Lemon</a> can also generate test scaffolding for
+previously written code. To do this, use the <tt>--generate</tt> option and
+provide the lib location, or files, of the scripts for which to generate
+test scaffolding, and the output location for the test scripts.
 </p>
 <pre>
-  $ lemon --generate -rlib/ test/cases/
+  $ lemon --generate -Ilib test/cases/
 </pre>
 <p>
 Generating test case scaffodling from code will undoubtedly strike
@@ -1294,34 +1322,19 @@ test-driven developers as a case of putting the cart before the horse.
 However, it is not unreasonable to argue that high-level, behavior-driven,
 functional testing frameworks, such as Q.E.D. and Cucumber are better
 suited to test-first methodologies. While test-driven development can
-obviously be done with <a href="../classes/Lemon.html">Lemon</a>,
-unit-testing is more appropriate for testing specific, critical protions of
-code, or for achieving full test coverage for mission critical
-applications.
+obviously be done with <a href="Lemon.html">Lemon</a>, unit-testing is more
+appropriate for testing specific, critical protions of code, or for
+achieving full test coverage for mission critical applications.
 </p>
 <h2>COPYRIGHT</h2>
 <p>
-(LGPL License)
+(MIT License)
 </p>
 <p>
 Copyright &#169; 2009 Thomas Sawyer
 </p>
 <p>
-This program is free software: you can redistribute it and/or modify it
-under the terms of the Lesser General Public License as published by the
-Free Software Foundation, either version 3 of the License, or (at your
-option) any later version.
-</p>
-<p>
-This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE. See the Lesser General Public License for
-more details.
-</p>
-<p>
-You should have received a copy of the Lesser General Public License along
-with this program. If not, see <<a
-href="http://www.gnu.org/licenses/">www.gnu.org/licenses/</a>>.
+See <a href="LICENSE.html">LICENSE</a> file for details.
 </p>
 
   </div>
