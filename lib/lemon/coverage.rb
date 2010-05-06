@@ -123,6 +123,52 @@ module Lemon
 #      end
 #    end
 
+    # List of modules/classes not covered.
+    def uncovered_cases
+      c = suite.coverage.map{ |ofmod| ofmod.base }
+      a = suite.testcases.map{ |tc| tc.target }
+      c - a
+    end
+
+    # List of methods not covered by covered cases.
+    def uncovered_units
+      @calculated ||= calculate_coverage
+      @uncovered_units
+    end
+
+    #
+    def undefined_units
+      @calculated ||= calculate_coverage
+      @undefined_units
+    end
+
+    #
+    def calculate_coverage
+      clist = []
+      tlist = []
+      suite.testcases.each do |tc|
+        mod = tc.target
+
+        metaunits, units = *tc.testunits.partition{ |u| u.meta? }
+
+        units.map!{ |u| u.fullname }
+        metaunits.map!{ |u| u.fullname }
+
+        tlist = tlist | units
+        tlist = tlist | metaunits
+
+        if system[mod]
+          meths = system[mod].instance_methods.map{ |m| "#{mod}##{m}" }
+          metameths = system[mod].class_methods.map{ |m| "#{mod}.#{m}" }
+
+          clist = clist | meths
+          clist = clist | metameths
+        end
+      end
+      @uncovered_units = clist - tlist
+      @undefined_units = tlist - clist
+    end
+
     #
     def system
       if namespaces.empty?

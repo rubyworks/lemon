@@ -23,54 +23,76 @@ module Test
     # List of post-test procedures that apply suite-wide.
     attr :after_clauses
 
-    # A snapshot of the system before the suite is loaded.
-    attr :canonical
+    ## A snapshot of the system before the suite is loaded.
+    #attr :canonical
 
-    # Instance of snapshot recording coverage information.
-    #attr :coverage
+    # List of files to be covered. This primarily serves
+    # as a means for allowing one test to load another
+    # and ensuring converage remains accurate.
+    #attr :subtest
+
+    def coverage
+      @final_coveage ||= @coverage - @canonical
+    end
 
     #
-    attr :options
+    #attr :options
 
     #
     def initialize(files, options={})
       @files          = files.flatten
       @options        = options
 
-      #@coverage       = Snapshot.new
+      #@subtest        = []
       @testcases      = []
       @before_clauses = {}
       @after_clauses  = {}
       @when_clauses   = {}
 
-      load_helpers
-      take_snapshot
+      #load_helpers
+
+      @coverage  = Snapshot.new
+      @canonical = Snapshot.capture
+
       load_files
+      #load_subtest_helpers
     end
 
     #
     def cover?
-      options[:cover]
+      @options[:cover]
     end
 
     #
-    def take_snapshot
-      @canonical = Snapshot.capture
-    end
-
+    #def load_helpers(*files)
+    #  helpers = []
+    #  filelist.each do |file|
+    #    dir = File.dirname(file)
+    #    hlp = Dir[File.join(dir, '{test_,}helper.rb')]
+    #    helpers.concat(hlp)
+    #  end
     #
-    def load_helpers(*files)
-      helpers = []
-      filelist.each do |file|
-        dir = File.dirname(file)
-        hlp = Dir[File.join(dir, '{test_,}helper.rb')]
-        helpers.concat(hlp)
-      end
+    #  helpers.each do |hlp|
+    #    require hlp
+    #  end
+    #end
 
-      helpers.each do |hlp|
-        require hlp
-      end
-    end
+    #def load_subtest_helpers
+    #  helpers = []
+    #  @subtest.each do |file|
+    #    dir = File.dirname(file)
+    #    hlp = Dir[File.join(dir, '{test_,}helper.rb')]
+    #    helpers.concat(hlp)
+    #  end
+    #
+    #  #s = Snapshot.capture
+    #  helpers.each do |hlp|
+    #    require hlp
+    #  end
+    #  #z = Snapshot.capture
+    #  #d = z - s
+    #  #@canonical << d
+    #end
 
     #
     def load_files #(*files)
@@ -80,6 +102,7 @@ module Test
 
       Lemon.suite = self
       filelist.each do |file|
+        #@current_file = file
         #file = File.expand_path(file)
         #instance_eval(File.read(file), file)
         require(file) #load(file)
@@ -134,8 +157,6 @@ module Test
 
     #
     alias_method :TestCase, :Case
-
-    #
     #alias_method :testcase, :Case
 
     # Define a pre-test procedure to apply suite-wide.
@@ -157,24 +178,35 @@ module Test
       @when_clauses[match] = block #<< Advice.new(match, &block)
     end
 
-    #
-    def coverage
-      Snapshot.capture - canonical
+    # TODO: need require_find() to avoid first snapshot
+    def Covers(file)
+      if cover?
+        #return if $".include?(file)
+        s = Snapshot.capture
+        if require(file)
+          z = Snapshot.capture
+          @coverage << (z - s)
+        end
+      else
+        require file
+      end
     end
 
     #
-    def Covers(file)
-      #if cover?
-      #  $stdout.print '.'; $stdout.flush
-      #  s1 = Snapshot.capture
-      #  require file
-      #  s2 = Snapshot.capture
-      #  dx = (s2 - s1)
-      #  @covers << dx
-      #else
+    def Helper(file)
+      local = File.join(File.dirname(caller[1]), file.to_str + '.rb')
+      if File.exist?(local)
+        require local
+      else
         require file
-      #end
+      end
     end
+
+    #
+    #def Subtest(file)
+    #  @subtest << file
+    #  require file
+    #end
 
     # Iterate through this suite's test cases.
     def each(&block)

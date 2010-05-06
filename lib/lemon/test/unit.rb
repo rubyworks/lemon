@@ -68,7 +68,7 @@ module Lemon::Test
 
     #
     def fullname
-      meta? ? "#{testcase}::#{target}" : "#{testcase}##{target}"
+      meta? ? "#{testcase}.#{target}" : "#{testcase}##{target}"
     end
 
     #

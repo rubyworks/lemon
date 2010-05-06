@@ -140,6 +140,22 @@ module Lemon
 =end
 
     #
+    def uncovered_cases
+      @uncovered_cases ||= coverage.uncovered_cases
+    end
+
+    #
+    def uncovered_units
+      @uncovered_units ||= coverage.uncovered_units
+    end
+
+    #
+    def undefined_units
+      @undefined_units ||= coverage.undefined_units
+    end
+
+=begin
+    #
     def uncovered
       @uncovered ||= calculate_uncovered
     end
@@ -184,6 +200,7 @@ module Lemon
 
       covered_targets - targets
     end
+=end
 
   private
 

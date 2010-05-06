@@ -80,18 +80,32 @@ module Reporter
 
       if cover?
 
-        unless uncovered.empty?
-          unc = uncovered.map do |unit|
-            yellow(unit)
+        unless uncovered_cases.empty?
+          unc = uncovered_cases.map do |mod|
+            yellow(mod.name)
           end.join(", ")
-          puts "\nUncovered: " + unc
+          puts "\nUncovered Cases: " + unc
         end
 
-        unless undefined.empty?
-          unc = undefined.map do |unit|
+        unless uncovered_units.empty?
+          unc = uncovered_units.map do |unit|
             yellow(unit)
           end.join(", ")
-          puts "\nUndefined: " + unc
+          puts "\nUncovered Units: " + unc
+        end
+
+        #unless uncovered.empty?
+        #  unc = uncovered.map do |unit|
+        #    yellow(unit)
+        #  end.join(", ")
+        #  puts "\nUncovered: " + unc
+        #end
+
+        unless undefined_units.empty?
+          unc = undefined_units.map do |unit|
+            yellow(unit)
+          end.join(", ")
+          puts "\nUndefined Units: " + unc
         end
 
       end

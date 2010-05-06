@@ -28,16 +28,25 @@ end
 def Case(target_class, &block)
   Lemon.suite.Case(target_class, &block)
 end
-
 alias :TestCase :Case
 
+#
 def Covers(script)
   Lemon.suite.Covers(script)
 end
 
+#
+def Helper(script)
+  Lemon.suite.Helper(script)
+end
+
+#def Subtest(script)
+#  Lemon.suite.Subtest(script)
+#end
+
 # FIXME: This is a BIG FAT HACK! For the life of me I cannot find
 # a way to resolve module constants included in the test cases.
-# Becuase of closure, the constant lookup goes through here, and not
+# Because of closure, the constant lookup goes through here, and not
 # the Case singleton class. So to work around we must note each test
 # before it is run, and reroute the missing constants.
 #

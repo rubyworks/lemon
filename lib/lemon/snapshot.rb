@@ -43,6 +43,7 @@ module Lemon
     def capture
       @modules = {}
       ObjectSpace.each_object(Module) do |mod|
+        next if mod.name.empty?
         @modules[mod] = OfModule.new(mod)
       end
     end
@@ -52,7 +53,7 @@ module Lemon
       modules.values.map{ |m| m.to_a(public_only) }.flatten
     end
 
-    # Produce a hash based checklist that Coverage uses
+    # Produce a hash based checklist thap mod #.namet Coverage uses
     # to compare against tests and create a coverage report.
     def checklist(public_only=true)
       h = Hash.new{|h,k|h[k]={}}
