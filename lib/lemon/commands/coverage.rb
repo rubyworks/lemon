@@ -85,18 +85,13 @@ module Commands
       test_files = ARGV.dup
       load_files = []
 
-      includes.each do |path|
-        $LOAD_PATH.unshift(path)
-      end
-
+      includes.each{ |path| $LOAD_PATH.unshift(path) }
       requires.each{ |path| require(path) }
 
-      suite = Lemon::Test::Suite.new(test_files)
+      suite    = Lemon::Test::Suite.new(test_files, :cover=>true)
       coverage = Lemon::Coverage.new(suite, namespaces, :public => public_only?)
-      coverage.canonical!
-      coverage.load_covered_files
 
-      puts coverage.coverage.to_yaml
+      puts coverage.checklist.to_yaml
     end
 
   end

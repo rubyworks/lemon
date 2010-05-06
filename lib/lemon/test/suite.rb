@@ -11,10 +11,6 @@ module Test
     # Files from which the suite is loaded.
     attr :files
 
-    # Script the suite covers. There files are
-    # required just before running the suite.
-    attr :covers
-
     # Test cases in this suite.
     attr :testcases
 
@@ -30,34 +26,36 @@ module Test
     # A snapshot of the system before the suite is loaded.
     attr :canonical
 
+    # Instance of snapshot recording coverage information.
+    #attr :coverage
+
     #
-    def initialize(*files)
+    attr :options
+
+    #
+    def initialize(files, options={})
       @files          = files.flatten
-      @covers         = []
+      @options        = options
+
+      #@coverage       = Snapshot.new
       @testcases      = []
       @before_clauses = {}
       @after_clauses  = {}
       @when_clauses   = {}
 
       load_helpers
+      take_snapshot
+      load_files
+    end
 
-      #@canonical = system_snapshot
-
-      load_files(*files)
+    #
+    def cover?
+      options[:cover]
     end
 
     #
     def take_snapshot
-      @canonical = system_snapshot
-    end
-
-    # Produces a list of all existent Modules and Classes.
-    def system_snapshot
-      sys = []
-      ObjectSpace.each_object(Module) do |m|
-        sys << m
-      end
-      sys
+      @canonical = Snapshot.capture
     end
 
     #
@@ -75,13 +73,23 @@ module Test
     end
 
     #
-    def load_files(*files)
+    def load_files #(*files)
+      #if cover?
+      #  $stdout << "Load: "
+      #end
+
       Lemon.suite = self
       filelist.each do |file|
         #file = File.expand_path(file)
         #instance_eval(File.read(file), file)
-        load(file)
+        require(file) #load(file)
       end
+
+      #if cover?
+      #  $stdout << "\n"
+      #  $stdout.flush
+      #end
+
       return Lemon.suite
     end
 
@@ -96,13 +104,6 @@ module Test
           end
         end.flatten.uniq
       )
-    end
-
-    #
-    def load_covered_files
-      covers.each do |file|
-        require file
-      end
     end
 
     ## Load a helper. This method must be used when loading local
@@ -157,8 +158,22 @@ module Test
     end
 
     #
+    def coverage
+      Snapshot.capture - canonical
+    end
+
+    #
     def Covers(file)
-      @covers << file
+      #if cover?
+      #  $stdout.print '.'; $stdout.flush
+      #  s1 = Snapshot.capture
+      #  require file
+      #  s2 = Snapshot.capture
+      #  dx = (s2 - s1)
+      #  @covers << dx
+      #else
+        require file
+      #end
     end
 
     # Iterate through this suite's test cases.

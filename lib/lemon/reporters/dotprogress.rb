@@ -13,7 +13,7 @@ module Reporters
     end
 
     def report_success(testunit)
-      print "."
+      print "."; $stdout.flush
     end
 
     def report_failure(testunit, exception)

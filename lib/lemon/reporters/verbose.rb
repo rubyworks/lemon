@@ -82,15 +82,15 @@ module Reporters
       if cover?
 
         unless uncovered.empty?
-          unc = uncovered.map do |testunit|
-            yellow(testunit.join('#'))
+          unc = uncovered.map do |unit|
+            yellow(unit)
           end.join(", ")
           puts "\nUncovered: " + unc
         end
 
         unless undefined.empty?
-          unc = undefined.map do |testunit|
-            yellow(testunit.join('#'))
+          unc = undefined.map do |unit|
+            yellow(unit)
           end.join(", ")
           puts "\nUndefined: " + unc
         end

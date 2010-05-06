@@ -6,7 +6,7 @@ module Commands
     require 'lemon/runner'
 
     def self.subcommand
-      'test' #['-t', '--test']
+      'test'
     end
 
     # Initialize and run.
@@ -17,7 +17,7 @@ module Commands
     # New Command instance.
     def initialize
       @format      = nil
-      @coverage    = false
+      @cover       = false
       @requires    = []
       @includes    = []
       @namespaces  = []
@@ -25,7 +25,9 @@ module Commands
 
     #
     attr_accessor :format
-    attr_accessor :coverage
+
+    #
+    attr_accessor :cover
 
     # Get or set librarires to pre-require.
     def requires(*paths)
@@ -52,7 +54,7 @@ module Commands
         opt.separator("Run unit tests.")
         opt.separator("OPTIONS:")
         opt.on('--coverage', '-c', "include coverage informarton") do
-          self.coverage = true
+          self.cover = true
         end
         opt.on('--verbose', '-v', "select verbose report format") do |type|
           self.format = :verbose
@@ -90,14 +92,12 @@ module Commands
 
       files = ARGV.dup
 
-      includes.each do |path|
-        $LOAD_PATH.unshift(path)
-      end
-
+      includes.each{ |path| $LOAD_PATH.unshift(path) }
       requires.each{ |path| require(path) }
 
-      suite  = Lemon::Test::Suite.new(*files)
-      runner = Lemon::Runner.new(suite, format, :cover=>coverage, :namespaces=>namespaces)
+      suite  = Lemon::Test::Suite.new(files, :cover=>cover)
+      runner = Lemon::Runner.new(suite, :format=>format, :cover=>cover, :namespaces=>namespaces)
+
       runner.run
     end
 

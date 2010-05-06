@@ -89,6 +89,23 @@ module Lemon
     end
 
     #
+    def <<(other)
+      other.modules.each do |mod, ofmod|
+        if self[mod]
+          self[mod].public_instance_methods += ofmod.public_instance_methods
+          self[mod].private_instance_methods += ofmod.private_instance_methods
+          self[mod].protected_instance_methods += ofmod.protected_instance_methods
+
+          self[mod].public_class_methods += ofmod.public_class_methods
+          self[mod].private_class_methods += ofmod.private_class_methods
+          self[mod].protected_class_methods += ofmod.protected_class_methods
+        else
+          self[mod] = ofmod.dup
+        end
+      end     
+    end
+
+    #
     def clean!
       modules.each do |mod, ofmod|
         if ofmod.class_methods(false).empty? && ofmod.instance_methods(false).empty?
@@ -128,7 +145,7 @@ module Lemon
         @protected_instance_methods = base.protected_instance_methods(false)
         @private_instance_methods   = base.private_instance_methods(false)
 
-        @public_class_methods    = base.public_methods(false)
+        @public_class_methods    = base.methods(false)
         @protected_class_methods = base.protected_methods(false)
         @private_class_methods   = base.private_methods(false)
       end

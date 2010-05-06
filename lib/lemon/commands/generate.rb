@@ -103,20 +103,12 @@ module Commands
 
       test_files = ARGV.dup
 
-      includes.each do |path|
-        $LOAD_PATH.unshift(path)
-      end
-
+      includes.each{ |path| $LOAD_PATH.unshift(path) }
       requires.each{ |path| require(path) }
 
+      suite = Lemon::Test::Suite.new(test_files, :cover=>true)
+      cover = Lemon::Coverage.new(suite, namespaces, :public=>public_only?)
       #cover  = Lemon::Coverage.new([], namespaces, :public=>public_only?, :uncovered=>uncovered_only?)
-      #suite  = Lemon::Test::Suite.new(*test_files)
-
-      suite  = Lemon::Test::Suite.new(test_files)
-      cover  = Lemon::Coverage.new(suite, namespaces, :public=>public_only?)
-
-      cover.canonical!
-      cover.load_covered_files
 
       if uncovered_only?
         puts cover.generate_uncovered #(output)

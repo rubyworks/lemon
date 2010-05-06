@@ -13,8 +13,8 @@ module Lemon
     # then directory will be included.
     attr :files
 
-    # Conical snapshot of system (before loading libraries to be covered).
-    attr :canonical
+    ## Conical snapshot of system (before loading libraries to be covered).
+    #attr :canonical
 
     #
     attr :namespaces
@@ -49,10 +49,10 @@ module Lemon
       @public = options[:public]
     end
 
-    #
-    def canonical!
-      @canonical = Snapshot.capture
-    end
+    ##
+    #def canonical!
+    #  @canonical = Snapshot.capture
+    #end
 
     #
     def suite=(suite)
@@ -67,69 +67,35 @@ module Lemon
 
     #
     def each(&block)
-      coverage.each(&block)
+      checklist.each(&block)
     end
 
     # Produce a coverage map.
-    def coverage #(suite=nil)
-      #suite = suite || @suite
-      checklist = system.checklist
-      suite.each do |testcase|
-        testcase.testunits.each do |testunit|
-          checklist[testcase.target.name][testunit.key] = true
-        end
-      end
-      checklist
-    end
-
-    #
-    def load_covered_files
-      suite.load_covered_files
-    end
-
-    # Coverage template.
-    #def cover
-    #  system.checklist
+    #def checklist
+    #  list = system.checklist
+    #  suite.each do |testcase|
+    #    testcase.testunits.each do |testunit|
+    #      list[testcase.target.name][testunit.key] = true
+    #    end
+    #  end
+    #  list
     #end
 
-=begin
-    def cover
-      cover = Hash.new{|h,k|h[k]={}}
-      system.each do |base|
-        next if base.is_a?(Lemon::Test::Suite)
-        cover[base.name] = {}
-
-        # instance methods
-        base.public_instance_methods.each do |meth|
-          cover[base.name][meth.to_s] = false
-        end
-
-        # meta methods
-        (base.public_methods - Object.public_methods(true)).each do |meth|
-          cover[base.name][meth.to_s] = false
-        end
-
-        unless public_only?
-          # instance methods
-          base.private_instance_methods.each do |meth|
-            cover[base.name][meth.to_s] = false
-          end
-          base.protected_instance_methods.each do |meth|
-            cover[base.name][meth.to_s] = false
-          end
-
-          # meta methods
-          (base.private_methods - Object.private_methods(true)).each do |meth|
-            cover[base.name][meth.to_s] = false
-          end
-          (base.protected_methods - Object.protected_methods(true)).each do |meth|
-            cover[base.name][meth.to_s] = false
-          end
+    # Produce a coverage checklist.
+    def checklist
+      list = system.checklist
+      suite.each do |testcase|
+        testcase.testunits.each do |testunit|
+          list[testcase.target.name][testunit.key] = true
         end
       end
-      cover
+      list
     end
-=end
+
+#    #
+#    def load_covered_files
+#      suite.load_covered_files
+#    end
 
     # Iterate over +paths+ and use #load to bring in all +.rb+ scripts.
     #def load_system
@@ -144,14 +110,25 @@ module Lemon
     #  files.each{ |file| load(file) }
     #end
 
-    # Snapshot of System to be covered. This takes a current snapshot
-    # of the system and removes the canonical snapshot or filters out
-    # everything but the selected namespace.
+#    # Snapshot of System to be covered. This takes a current snapshot
+#    # of the system and removes the canonical snapshot or filters out
+#    # everything but the selected namespace.
+#    def system
+#      if namespaces.empty?
+#        snapshot - canonical
+#      else
+#        (snapshot - canonical).filter do |ofmod|
+#          namespaces.any?{ |n| ofmod.name.start_with?(n.to_s) }
+#        end
+#      end
+#    end
+
+    #
     def system
       if namespaces.empty?
-        snapshot - canonical
+        suite.coverage
       else
-        (snapshot - canonical).filter do |ofmod|
+        suite.coverage.filter do |ofmod|
           namespaces.any?{ |n| ofmod.name.start_with?(n.to_s) }
         end
       end

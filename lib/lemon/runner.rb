@@ -30,15 +30,19 @@ module Lemon
     attr :pendings
 
     # New Runner.
-    def initialize(suite, format, options={})
+    def initialize(suite, options={})
       @suite     = suite
-      @format    = format
       @options   = options
 
       @successes = []
       @failures  = []
       @errors    = []
       @pendings  = []
+    end
+
+    #
+    def format
+      @options[:format]
     end
 
     #
@@ -55,7 +59,7 @@ module Lemon
 
     # Run tests.
     def run
-      prepare
+      #prepare
 
       reporter.report_start(suite)
 
@@ -119,6 +123,7 @@ module Lemon
     #  c
     #end
 
+=begin
     #
     def prepare
       if cover?
@@ -132,6 +137,7 @@ module Lemon
         @undefined = calculate_undefined
       end
     end
+=end
 
     #
     def uncovered
@@ -146,9 +152,15 @@ module Lemon
     #
     def calculate_uncovered
       uncovered_targets = []
-      coverage.each do |testcase, testunits|
-        testunits.each do |testunit, covered|
-          uncovered_targets << [testcase, testunit] unless covered
+      coverage.checklist.each do |mod, meths|
+        meths.each do |meth, covered|
+          if !covered
+            if /^::/ =~ meth.to_s
+              uncovered_targets << "#{mod}#{meth}"
+            else
+              uncovered_targets << "#{mod}##{meth}"
+            end
+          end
         end
       end
       uncovered_targets
@@ -157,12 +169,16 @@ module Lemon
     #
     def calculate_undefined
       covered_testunits = successes + (failures + errors + pendings).map{ |tu, e| tu }
-      covered_targets = covered_testunits.map{ |tu| [tu.testcase.target.name, tu.target.to_s] }
+      covered_targets = covered_testunits.map{ |tu| tu.fullname }
 
       targets = []
-      coverage.each do |testcase, testunits|
-        testunits.each do |testunit, coverage|
-          targets << [testcase, testunit]
+      coverage.each do |mod, meths|
+        meths.each do |meth, cov|
+          if /^::/ =~ meth.to_s
+            targets << "#{mod}#{meth}"
+          else
+            targets << "#{mod}##{meth}"
+          end
         end
       end
 
