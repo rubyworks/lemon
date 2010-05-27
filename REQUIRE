@@ -1,0 +1,9 @@
+development:
+  - syckle
+  - box
+
+development/test:
+  - cucumber
+  - ae
+  - aruba
+
