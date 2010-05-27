@@ -1,6 +1,7 @@
-MANIFEST
 .cache
+MANIFEST
 doc/rdoc
 doc/ri
 log
 pkg
+tmp

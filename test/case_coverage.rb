@@ -1,3 +1,5 @@
+Covers 'lemon/coverage'
+
 TestCase Lemon::Coverage do
 
   #Before /returns/ do |unit|

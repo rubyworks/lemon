@@ -1,4 +1,4 @@
-Covers 'sample'
+Covers File.dirname(__FILE__) + '/example.rbx'
 
 TestCase X do
 
