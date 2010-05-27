@@ -30,7 +30,7 @@ Feature: Coverage
       end
       """
     When I cd to "example"
-    And I run "lemon cover -Ilib -v test/case_complete.rb"
+    And I run "lemon -c -Ilib test/case_complete.rb"
     Then the stdout should contain "0 uncovered cases"
     And the stdout should contain "0 uncovered units"
     And the stdout should contain "0 undefined units"
@@ -58,7 +58,7 @@ Feature: Coverage
       end
       """
     When I cd to "example"
-    And I run "lemon cover -Ilib -v test/case_complete.rb"
+    And I run "lemon -c -Ilib test/case_complete.rb"
     Then the stdout should contain "1 uncovered cases"
     And the stdout should contain "1 uncovered units"
     And the stdout should contain "1 undefined units"
