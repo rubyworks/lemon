@@ -3,7 +3,7 @@ require 'lemon/coversheet/abstract'
 module Lemon
 module CoverSheet
 
-  class Verbose < Abstract
+  class Outline < Abstract
 
     #
     def coverage_finished

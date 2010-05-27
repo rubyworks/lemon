@@ -1,5 +1,5 @@
 require 'lemon/snapshot'
-require 'lemon/coversheet/verbose'
+require 'lemon/coversheet/outline'
 
 module Lemon
 
@@ -98,18 +98,16 @@ module Lemon
       coversheet = nil
       case type
       when :verbose
-        coversheet = CoverSheet::Verbose.new(self)
-        coversheet.coverage_finished
-      else
         puts checklist.to_yaml
+      else
+        coversheet = CoverSheet::Outline.new(self)
+        coversheet.coverage_finished
       end
-      
     end
 
-#    #
-#    def load_covered_files
-#      suite.load_covered_files
-#    end
+    #def load_covered_files
+    #  suite.load_covered_files
+    #end
 
     # Iterate over +paths+ and use #load to bring in all +.rb+ scripts.
     #def load_system
@@ -124,18 +122,18 @@ module Lemon
     #  files.each{ |file| load(file) }
     #end
 
-#    # Snapshot of System to be covered. This takes a current snapshot
-#    # of the system and removes the canonical snapshot or filters out
-#    # everything but the selected namespace.
-#    def system
-#      if namespaces.empty?
-#        snapshot - canonical
-#      else
-#        (snapshot - canonical).filter do |ofmod|
-#          namespaces.any?{ |n| ofmod.name.start_with?(n.to_s) }
-#        end
-#      end
-#    end
+    #    # Snapshot of System to be covered. This takes a current snapshot
+    #    # of the system and removes the canonical snapshot or filters out
+    #    # everything but the selected namespace.
+    #    def system
+    #      if namespaces.empty?
+    #        snapshot - canonical
+    #      else
+    #        (snapshot - canonical).filter do |ofmod|
+    #          namespaces.any?{ |n| ofmod.name.start_with?(n.to_s) }
+    #        end
+    #      end
+    #    end
 
     # List of modules/classes not covered.
     def uncovered_cases
