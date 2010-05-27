@@ -1,4 +1,5 @@
 require 'lemon/snapshot'
+require 'lemon/coversheet/verbose'
 
 module Lemon
 
@@ -92,6 +93,19 @@ module Lemon
       list
     end
 
+    #
+    def format(type)
+      coversheet = nil
+      case type
+      when :verbose
+        coversheet = CoverSheet::Verbose.new(self)
+        coversheet.coverage_finished
+      else
+        puts checklist.to_yaml
+      end
+      
+    end
+
 #    #
 #    def load_covered_files
 #      suite.load_covered_files
@@ -165,6 +179,7 @@ module Lemon
           clist = clist | metameths
         end
       end
+
       @uncovered_units = clist - tlist
       @undefined_units = tlist - clist
     end

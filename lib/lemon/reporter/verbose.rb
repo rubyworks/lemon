@@ -78,6 +78,7 @@ module Reporter
       #  puts
       #end
 
+=begin
       if cover?
 
         unless uncovered_cases.empty?
@@ -109,6 +110,7 @@ module Reporter
         end
 
       end
+=end
 
       #total = successes.size + failures.size + errors.size + pendings.size
       #tally = "\n#{total} tests: #{successes.size} pass, #{failures.size} fail, #{errors.size} err, #{pendings.size} pending"

@@ -48,15 +48,15 @@ module Reporter
     def errors    ; runner.errors    ; end
     def pendings  ; runner.pendings  ; end
 
-    def uncovered_cases ; runner.uncovered_cases ; end
-    def uncovered_units ; runner.uncovered_units ; end
-    def undefined_units ; runner.undefined_units ; end
+    #def uncovered_cases ; runner.uncovered_cases ; end
+    #def uncovered_units ; runner.uncovered_units ; end
+    #def undefined_units ; runner.undefined_units ; end
 
     #def uncovered ; runner.uncovered ; end
     #def undefined ; runner.undefined ; end
 
-    # Is coverage information requested?
-    def cover? ; runner.cover? ; end
+    ## Is coverage information requested?
+    #def cover? ; runner.cover? ; end
 
     #
     def red(string)
@@ -81,7 +81,7 @@ module Reporter
     #
     def tally
       s = "#{total} tests: #{successes.size} pass, #{failures.size} fail, #{errors.size} err, #{pendings.size} pending "
-      s += "(#{uncovered_units.size} uncovered, #{undefined_units.size} undefined)" if cover?
+      #s += "(#{uncovered_units.size} uncovered, #{undefined_units.size} undefined)" if cover?
       s
     end
 

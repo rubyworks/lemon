@@ -46,9 +46,9 @@ module Lemon
     end
 
     #
-    def cover?
-      @options[:cover]
-    end
+    #def cover?
+    #  @options[:cover]
+    #end
 
     # Namespaces option specifies the selection of test cases
     # to run. Is is an array of strings which are matched 
@@ -139,6 +139,7 @@ module Lemon
     end
 =end
 
+=begin
     #
     def uncovered_cases
       @uncovered_cases ||= coverage.uncovered_cases
@@ -153,6 +154,7 @@ module Lemon
     def undefined_units
       @undefined_units ||= coverage.undefined_units
     end
+=end
 
 =begin
     #
@@ -247,10 +249,9 @@ module Lemon
       end
     end
 
-    #
-    def coverage
-      @coverage ||= Lemon::Coverage.new(suite, namespaces) #, :public => public_only?)
-    end
+    #def coverage
+    #  @coverage ||= Lemon::Coverage.new(suite, namespaces) #, :public => public_only?)
+    #end
 
 =begin
     # TODO: I would think all this should be gained form the Coverage class.

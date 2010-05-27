@@ -18,11 +18,15 @@ module Command
 
     # New Command instance.
     def initialize
+      @format      = nil
       @requires    = []
       @includes    = []
       @namespaces  = []
       @public_only = false
     end
+
+    #
+    attr_accessor :format
 
     #
     attr_accessor :public_only
@@ -55,6 +59,15 @@ module Command
       @parser ||= OptionParser.new do |opt|
         opt.banner = "lemon coverage [OPTIONS]"
         opt.separator("Produce test coverage report.")
+        opt.on('--verbose', '-v', "select verbose report format") do |type|
+          self.format = :verbose
+        end
+        #opt.on('--outline', '-o', "select outline report format") do |type|
+        #  self.format = :outline
+        #end
+        #opt.on('--format', '-f [TYPE]', "select report format") do |type|
+        #  self.format = type
+        #end
         opt.on('--namespace', '-n [NAME]', "limit coverage to this namespace") do |name|
           namespaces(name)
         end
@@ -90,9 +103,9 @@ module Command
       requires.each{ |path| require(path) }
 
       suite    = Lemon::Test::Suite.new(test_files, :cover=>true)
-      coverage = Lemon::Coverage.new(suite, namespaces, :public => public_only?)
+      coverage = Lemon::Coverage.new(suite, namespaces, :public=>public_only?)
 
-      puts coverage.checklist.to_yaml
+      coverage.format(format)
     end
 
   end

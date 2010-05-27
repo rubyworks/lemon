@@ -54,9 +54,9 @@ module Command
         opt.banner = "lemon [options] [test-files ...]"
         opt.separator("Run unit tests.")
         opt.separator("OPTIONS:")
-        opt.on('--coverage', '-c', "include coverage informarton") do
-          self.cover = true
-        end
+        #opt.on('--coverage', '-c', "include coverage informarton") do
+        #  self.cover = true
+        #end
         opt.on('--verbose', '-v', "select verbose report format") do |type|
           self.format = :verbose
         end
@@ -96,8 +96,11 @@ module Command
       includes.each{ |path| $LOAD_PATH.unshift(path) }
       requires.each{ |path| require(path) }
 
-      suite  = Lemon::Test::Suite.new(files, :cover=>cover)
-      runner = Lemon::Runner.new(suite, :format=>format, :cover=>cover, :namespaces=>namespaces)
+      #suite  = Lemon::Test::Suite.new(files, :cover=>cover)
+      #runner = Lemon::Runner.new(suite, :format=>format, :cover=>cover, :namespaces=>namespaces)
+
+      suite  = Lemon::Test::Suite.new(files)
+      runner = Lemon::Runner.new(suite, :format=>format, :namespaces=>namespaces)
 
       runner.run
     end
