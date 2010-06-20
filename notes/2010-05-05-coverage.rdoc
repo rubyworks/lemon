@@ -1,6 +1,4 @@
-= DEVELOPMENT NOTES
-
-== 2010-05-05 Getting Good Coverage
+= 2010-05-05 Getting Good Coverage
 
 Getting good coverage analysis is not easy. The difficulty comes
 is determining what is of interest to the tests and what

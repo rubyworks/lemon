@@ -1,5 +1,6 @@
 module Lemon
   require 'lemon'
+  require 'optparse'
 
   # Lemon Command-line tool.
   class Command
@@ -17,7 +18,7 @@ module Lemon
       @includes    = []
       @namespaces  = []
       @uncovered   = false
-      @public_only = false
+      @public_only = true
     end
 
     #
@@ -64,7 +65,8 @@ module Lemon
     def parser
       @parser ||= OptionParser.new do |opt|
         opt.banner = "lemon [options] [files ...]"
-        opt.separator("Run unit tests.")
+        opt.separator("Run unit tests, check coverage and generate test scaffolding.")
+        opt.separator " "
         opt.separator("COMMAND OPTIONS (choose one):")
         opt.on('--test', '-t', "run unit tests [default]") do
           self.command = :test
@@ -75,33 +77,37 @@ module Lemon
         opt.on('--generate', '-g', "generate unit test scaffolding") do
           self.command = :generate
         end
+        opt.separator " "
         opt.separator("COMMON OPTIONS:")
+        opt.on("--namespace", "-n NAME", "limit testing/coverage to namespace") do |name|
+          namespaces(name)
+        end
+        opt.on('--format', '-f TYPE', "select output format") do |type|
+          self.format = type
+        end
         opt.on('--verbose', '-v', "select verbose report format") do |type|
           self.format = :verbose
         end
         opt.on('--outline', '-o', "select outline report format") do |type|
           self.format = :outline
         end
-        opt.on('--format', '-f [TYPE]', "select report format") do |type|
-          self.format = type
+        opt.separator " "
+        opt.separator("COVERAGE OPTIONS:")
+        opt.on('--private', '-p', "include private and protected methods") do
+          self.public_only = false
         end
-        opt.on("--namespace", "-n [NAME]", "limit testing to this namespace") do |name|
-          namespaces(name)
-        end
+        opt.separator " "
         opt.separator("GENERATOR OPTIONS:")
-        opt.on("--uncovered", "-u", "only include uncovered methods") do
+        opt.on("--uncovered", "-u", "only include missing units of uncovered methods") do
           self.uncovered = true
         end
-        opt.separator("COVERAGE & GENERATOR OPTIONS:")
-        opt.on('--public', '-p', "only include public methods") do
-          self.public_only = true
-        end
-        opt.separator("RUNTIME OPTIONS:")
-        opt.on("-r [FILES]" , 'library files to require') do |files|
+         opt.separator " "
+        opt.separator("SYSTEM OPTIONS:")
+        opt.on("-r [FILES]" , 'files to require (before doing anything else)') do |files|
           files = files.split(/[:;]/)
           requires(*files)
         end
-        opt.on("-I [PATH]" , 'include in $LOAD_PATH') do |path|
+        opt.on("-I [PATH]" , 'locations to add to $LOAD_PATH') do |path|
           paths = path.split(/[:;]/)
           includes(*paths)
         end
@@ -160,7 +166,7 @@ module Lemon
       includes.each{ |path| $LOAD_PATH.unshift(path) }
       requires.each{ |path| require(path) }
 
-      suite = Lemon::Test::Suite.new(test_files, :cover=>true)
+      suite = Lemon::Test::Suite.new(test_files, :cover=>true, :cover_all=>true)
       cover = Lemon::Coverage.new(suite, namespaces, :public=>public_only)
       #cover  = Lemon::Coverage.new([], namespaces, :public=>public_only?, :uncovered=>uncovered)
 

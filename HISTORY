@@ -1,8 +1,13 @@
 = RELEASE HISTORY
 
-== 0.8.0 / 2010-05-27
+== 0.8.0 / 2010-06-21
 
 This release removes coverage information from testing. Coverage can be time consuming, but running test should be as fast as possbile. For this reason coverage and testing are kept two independent activities. This release also adds some test coverage for Lemon itself via Cucumber.
+
+Changes:
+
+* Separated coverage from testing completely.
+* Test generator defaults to public methods only.
 
 
 == 0.7.0 / 2010-05-04

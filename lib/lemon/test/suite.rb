@@ -64,6 +64,11 @@ module Test
     end
 
     #
+    def cover_all?
+      @options[:cover_all]
+    end
+
+    #
     #def load_helpers(*files)
     #  helpers = []
     #  filelist.each do |file|
@@ -105,7 +110,11 @@ module Test
         #@current_file = file
         #file = File.expand_path(file)
         #instance_eval(File.read(file), file)
-        require(file) #load(file)
+        if cover_all?
+          Covers(file)
+        else
+          require(file) #load(file)
+        end
       end
 
       #if cover?
