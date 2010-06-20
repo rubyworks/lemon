@@ -10,8 +10,8 @@ a:hover { text-decoration: underline; }
 code { color: #222; font-weight: bold; }
   tt { color: #222; font-weight: bold; }
 
-#nav { padding: 0 0 20px 50px; text-align: left; color: pink; float: right; }
-#nav a { font-size: 250%; font-weight: bold; font-variant: small-caps; }
+#nav { padding: 0 30px 20px 60px; text-align: left; color: pink; float: right; }
+#nav a { font-size: 160%; font-weight: bold; line-height: 150%; }
 #nav a:hover { color: #0C0; text-decoration: none; }
 
 #header { height: 250px; text-align: left; }
@@ -26,3 +26,8 @@ code { color: #222; font-weight: bold; }
 #footer .copyright { padding-top: 0; }
 #footer .copyright p { color: #222; font-weight: normal; font-size: 80%; line-height: 150%; }
 
+#forkme {
+  position: absolute;
+  top: 0; right: 0;
+  width: 150px;
+}

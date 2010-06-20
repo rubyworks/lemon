@@ -99,11 +99,6 @@
           
             
             <li class="method">
-              <a href="#method-i-cover%3F">#cover?</a>
-            </li>
-          
-            
-            <li class="method">
               <a href="#method-i-errors">#errors</a>
             </li>
           
@@ -174,21 +169,6 @@
           
             
             <li class="method">
-              <a href="#method-i-uncovered_cases">#uncovered_cases</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#method-i-uncovered_units">#uncovered_units</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#method-i-undefined_units">#undefined_units</a>
-            </li>
-          
-            
-            <li class="method">
               <a href="#method-i-yellow">#yellow</a>
             </li>
           
@@ -209,9 +189,15 @@
         
           <li class="file"><a href="../../HISTORY.html">HISTORY</a></li>
         
+          <li class="file"><a href="../../PROFILE.html">PROFILE</a></li>
+        
           <li class="file"><a href="../../LICENSE.html">LICENSE</a></li>
         
+          <li class="file"><a href="../../VERSION.html">VERSION</a></li>
+        
           <li class="file"><a href="../../README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../../REQUIRE.html">REQUIRE</a></li>
         
         </ul>
       </div>
@@ -235,15 +221,13 @@
         
           <li class="module"><a href="../../Lemon.html">Lemon</a></li>
         
-          <li class="module"><a href="../../Lemon/Command.html">Lemon::Command</a></li>
+          <li class="class"><a href="../../Lemon/Command.html">Lemon::Command</a></li>
         
-          <li class="class"><a href="../../Lemon/Command/Abstract.html">Lemon::Command::Abstract</a></li>
+          <li class="module"><a href="../../Lemon/CoverSheet.html">Lemon::CoverSheet</a></li>
         
-          <li class="class"><a href="../../Lemon/Command/Coverage.html">Lemon::Command::Coverage</a></li>
+          <li class="class"><a href="../../Lemon/CoverSheet/Abstract.html">Lemon::CoverSheet::Abstract</a></li>
         
-          <li class="class"><a href="../../Lemon/Command/Generate.html">Lemon::Command::Generate</a></li>
-        
-          <li class="class"><a href="../../Lemon/Command/Test.html">Lemon::Command::Test</a></li>
+          <li class="class"><a href="../../Lemon/CoverSheet/Outline.html">Lemon::CoverSheet::Outline</a></li>
         
           <li class="class"><a href="../../Lemon/Coverage.html">Lemon::Coverage</a></li>
         
@@ -583,38 +567,6 @@ Supports ANSI Codes?
       <h3 class="section-header">Private Instance Methods</h3>
 
     
-      <div id="cover--method" class="method-detail ">
-        <a name="method-i-cover%3F"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">cover?</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Is coverage information requested?
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="cover--source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/lemon/reporter/abstract.rb, line 59</span>
-59:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cover?</span> ; <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">cover?</span> ; <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
       <div id="errors-method" class="method-detail ">
         <a name="method-i-errors"></a>
 
@@ -822,7 +774,7 @@ Is coverage information requested?
     <span class="ruby-comment cmt"># File lib/lemon/reporter/abstract.rb, line 82</span>
 82:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tally</span>
 83:       <span class="ruby-identifier">s</span> = <span class="ruby-node">&quot;#{total} tests: #{successes.size} pass, #{failures.size} fail, #{errors.size} err, #{pendings.size} pending &quot;</span>
-84:       <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;(#{uncovered_units.size} uncovered, #{undefined_units.size} undefined)&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cover?</span>
+84:       <span class="ruby-comment cmt">#s += &quot;(#{uncovered_units.size} uncovered, #{undefined_units.size} undefined)&quot; if cover?</span>
 85:       <span class="ruby-identifier">s</span>
 86:     <span class="ruby-keyword kw">end</span></pre>
           </div>
@@ -857,96 +809,6 @@ Is coverage information requested?
 77:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">total</span>
 78:       <span class="ruby-identifier">successes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">failures</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">pendings</span>.<span class="ruby-identifier">size</span>
 79:     <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="uncovered-cases-method" class="method-detail ">
-        <a name="method-i-uncovered_cases"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">uncovered_cases</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="uncovered-cases-source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/lemon/reporter/abstract.rb, line 51</span>
-51:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">uncovered_cases</span> ; <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">uncovered_cases</span> ; <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="uncovered-units-method" class="method-detail ">
-        <a name="method-i-uncovered_units"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">uncovered_units</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="uncovered-units-source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/lemon/reporter/abstract.rb, line 52</span>
-52:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">uncovered_units</span> ; <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">uncovered_units</span> ; <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="undefined-units-method" class="method-detail ">
-        <a name="method-i-undefined_units"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">undefined_units</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="undefined-units-source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/lemon/reporter/abstract.rb, line 53</span>
-53:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">undefined_units</span> ; <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">undefined_units</span> ; <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>

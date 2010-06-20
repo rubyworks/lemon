@@ -5,7 +5,7 @@
 <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 
-  <title>Module: Lemon::Reporter</title>
+  <title>Module: Lemon::CoverSheet</title>
 
   
     <link rel="SHORTCUT ICON" href="../assets/icon/module.png">
@@ -43,7 +43,7 @@
         <img src="../assets/icon/module.png" align="absmiddle">&nbsp;
       
       <a href="../index.html">Lemon</a>&nbsp;
-      <a href="/">Lemon::Reporter</a>
+      <a href="/">Lemon::CoverSheet</a>
     </h1>
   </div>
 
@@ -55,20 +55,11 @@
         <div class="section-body">
           <ul>
           
-            <li class="file"><a href="../lib/lemon/reporter/dotprogress_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-              class="thickbox" title="lib/lemon/reporter/dotprogress.rb">lib/lemon/reporter/dotprogress.rb</a></li>
+            <li class="file"><a href="../lib/lemon/coversheet/abstract_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/lemon/coversheet/abstract.rb">lib/lemon/coversheet/abstract.rb</a></li>
           
-            <li class="file"><a href="../lib/lemon/reporter/verbose_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-              class="thickbox" title="lib/lemon/reporter/verbose.rb">lib/lemon/reporter/verbose.rb</a></li>
-          
-            <li class="file"><a href="../lib/lemon/reporter/abstract_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-              class="thickbox" title="lib/lemon/reporter/abstract.rb">lib/lemon/reporter/abstract.rb</a></li>
-          
-            <li class="file"><a href="../lib/lemon/reporter/outline_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-              class="thickbox" title="lib/lemon/reporter/outline.rb">lib/lemon/reporter/outline.rb</a></li>
-          
-            <li class="file"><a href="../lib/lemon/reporter_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-              class="thickbox" title="lib/lemon/reporter.rb">lib/lemon/reporter.rb</a></li>
+            <li class="file"><a href="../lib/lemon/coversheet/outline_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/lemon/coversheet/outline.rb">lib/lemon/coversheet/outline.rb</a></li>
           
           </ul>
         </div>
@@ -91,31 +82,15 @@
         <h3 class="section-header">Namespace</h3>
         <ul class="link-list">
           
-          <li class="class"><a href="Reporter/Abstract.html">Lemon::Reporter::Abstract</a></li>
+          <li class="class"><a href="CoverSheet/Abstract.html">Lemon::CoverSheet::Abstract</a></li>
           
-          <li class="class"><a href="Reporter/DotProgress.html">Lemon::Reporter::DotProgress</a></li>
-          
-          <li class="class"><a href="Reporter/Outline.html">Lemon::Reporter::Outline</a></li>
-          
-          <li class="class"><a href="Reporter/Verbose.html">Lemon::Reporter::Verbose</a></li>
+          <li class="class"><a href="CoverSheet/Outline.html">Lemon::CoverSheet::Outline</a></li>
           
         </ul>
       </div>
       
 
       <!-- Method Quickref -->
-      
-      <div id="method-list-section" class="section">
-        <h3 class="section-header">Methods</h3>
-        <ul class="link-list">
-          
-            
-            <li class="singleton">
-              <a href="#method-c-factory">::factory</a>
-            </li>
-          
-        </ul>
-      </div>
       
 
       <!-- Included Modules -->
@@ -226,7 +201,7 @@
 
     <div id="description">
       
-        <h1>Reporter</h1>
+        <h1>CoverSheet</h1>
       
 
       
@@ -240,54 +215,6 @@
 
     <!-- Methods -->
     
-    <div id="public-class-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
-
-    
-      <div id="factory-method" class="method-detail ">
-        <a name="method-c-factory"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">factory</span><span
-            class="method-args">(format, runner)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-TODO: make Reporter#factory more dynamic
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="factory-source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/lemon/reporter.rb, line 9</span>
- 9:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">factory</span>(<span class="ruby-identifier">format</span>, <span class="ruby-identifier">runner</span>)
-10:     <span class="ruby-identifier">format</span> = <span class="ruby-identifier">format</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">format</span>
-11:     <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">format</span>
-12:     <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'v'</span>, <span class="ruby-value str">'verb'</span>, <span class="ruby-value str">'verbose'</span>
-13:       <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Verbose</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">runner</span>)
-14:     <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'o'</span>, <span class="ruby-value str">'out'</span>, <span class="ruby-value str">'outline'</span>
-15:       <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Outline</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">runner</span>)
-16:     <span class="ruby-keyword kw">else</span>
-17:       <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">DotProgress</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">runner</span>)
-18:     <span class="ruby-keyword kw">end</span>
-19:   <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-    </div>
-  
 
   </div>
 

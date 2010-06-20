@@ -139,6 +139,11 @@
           
             
             <li class="method">
+              <a href="#method-i-cover_all%3F">#cover_all?</a>
+            </li>
+          
+            
+            <li class="method">
               <a href="#method-i-coverage">#coverage</a>
             </li>
           
@@ -179,9 +184,15 @@
         
           <li class="file"><a href="../../HISTORY.html">HISTORY</a></li>
         
+          <li class="file"><a href="../../PROFILE.html">PROFILE</a></li>
+        
           <li class="file"><a href="../../LICENSE.html">LICENSE</a></li>
         
+          <li class="file"><a href="../../VERSION.html">VERSION</a></li>
+        
           <li class="file"><a href="../../README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../../REQUIRE.html">REQUIRE</a></li>
         
         </ul>
       </div>
@@ -205,15 +216,13 @@
         
           <li class="module"><a href="../../Lemon.html">Lemon</a></li>
         
-          <li class="module"><a href="../../Lemon/Command.html">Lemon::Command</a></li>
+          <li class="class"><a href="../../Lemon/Command.html">Lemon::Command</a></li>
         
-          <li class="class"><a href="../../Lemon/Command/Abstract.html">Lemon::Command::Abstract</a></li>
+          <li class="module"><a href="../../Lemon/CoverSheet.html">Lemon::CoverSheet</a></li>
         
-          <li class="class"><a href="../../Lemon/Command/Coverage.html">Lemon::Command::Coverage</a></li>
+          <li class="class"><a href="../../Lemon/CoverSheet/Abstract.html">Lemon::CoverSheet::Abstract</a></li>
         
-          <li class="class"><a href="../../Lemon/Command/Generate.html">Lemon::Command::Generate</a></li>
-        
-          <li class="class"><a href="../../Lemon/Command/Test.html">Lemon::Command::Test</a></li>
+          <li class="class"><a href="../../Lemon/CoverSheet/Outline.html">Lemon::CoverSheet::Outline</a></li>
         
           <li class="class"><a href="../../Lemon/Coverage.html">Lemon::Coverage</a></li>
         
@@ -457,10 +466,10 @@ Define a post-test procedure to apply suite-wide.
           <div class="method-source-code"
             id="-fter-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 170</span>
-170:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">After</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, &amp;<span class="ruby-identifier">block</span>)
-171:       <span class="ruby-ivar">@after_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
-172:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 179</span>
+179:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">After</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, &amp;<span class="ruby-identifier">block</span>)
+180:       <span class="ruby-ivar">@after_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
+181:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -491,10 +500,10 @@ Define a pre-test procedure to apply suite-wide.
           <div class="method-source-code"
             id="-efore-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 163</span>
-163:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Before</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, &amp;<span class="ruby-identifier">block</span>)
-164:       <span class="ruby-ivar">@before_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
-165:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 172</span>
+172:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Before</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, &amp;<span class="ruby-identifier">block</span>)
+173:       <span class="ruby-ivar">@before_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
+174:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -525,11 +534,11 @@ Define a test case belonging to this suite.
           <div class="method-source-code"
             id="-ase-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 153</span>
-153:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Case</span>(<span class="ruby-identifier">target_class</span>, &amp;<span class="ruby-identifier">block</span>)
-154:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;lemon: case target must be a class or module&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">Module</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">target_class</span>
-155:       <span class="ruby-identifier">testcases</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Case</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">target_class</span>, &amp;<span class="ruby-identifier">block</span>)
-156:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 162</span>
+162:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Case</span>(<span class="ruby-identifier">target_class</span>, &amp;<span class="ruby-identifier">block</span>)
+163:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;lemon: case target must be a class or module&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">Module</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">target_class</span>
+164:       <span class="ruby-identifier">testcases</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Case</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">target_class</span>, &amp;<span class="ruby-identifier">block</span>)
+165:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -564,19 +573,19 @@ TODO: need require_find() to avoid first snapshot
           <div class="method-source-code"
             id="-overs-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 182</span>
-182:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Covers</span>(<span class="ruby-identifier">file</span>)
-183:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cover?</span>
-184:         <span class="ruby-comment cmt">#return if $&quot;.include?(file)</span>
-185:         <span class="ruby-identifier">s</span> = <span class="ruby-constant">Snapshot</span>.<span class="ruby-identifier">capture</span>
-186:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">require</span>(<span class="ruby-identifier">file</span>)
-187:           <span class="ruby-identifier">z</span> = <span class="ruby-constant">Snapshot</span>.<span class="ruby-identifier">capture</span>
-188:           <span class="ruby-ivar">@coverage</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">z</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">s</span>)
-189:         <span class="ruby-keyword kw">end</span>
-190:       <span class="ruby-keyword kw">else</span>
-191:         <span class="ruby-identifier">require</span> <span class="ruby-identifier">file</span>
-192:       <span class="ruby-keyword kw">end</span>
-193:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 191</span>
+191:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Covers</span>(<span class="ruby-identifier">file</span>)
+192:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cover?</span>
+193:         <span class="ruby-comment cmt">#return if $&quot;.include?(file)</span>
+194:         <span class="ruby-identifier">s</span> = <span class="ruby-constant">Snapshot</span>.<span class="ruby-identifier">capture</span>
+195:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">require</span>(<span class="ruby-identifier">file</span>)
+196:           <span class="ruby-identifier">z</span> = <span class="ruby-constant">Snapshot</span>.<span class="ruby-identifier">capture</span>
+197:           <span class="ruby-ivar">@coverage</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">z</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">s</span>)
+198:         <span class="ruby-keyword kw">end</span>
+199:       <span class="ruby-keyword kw">else</span>
+200:         <span class="ruby-identifier">require</span> <span class="ruby-identifier">file</span>
+201:       <span class="ruby-keyword kw">end</span>
+202:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -605,15 +614,15 @@ TODO: need require_find() to avoid first snapshot
           <div class="method-source-code"
             id="-elper-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 196</span>
-196:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Helper</span>(<span class="ruby-identifier">file</span>)
-197:       <span class="ruby-identifier">local</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">caller</span>[<span class="ruby-value">1</span>]), <span class="ruby-identifier">file</span>.<span class="ruby-identifier">to_str</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'.rb'</span>)
-198:       <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">local</span>)
-199:         <span class="ruby-identifier">require</span> <span class="ruby-identifier">local</span>
-200:       <span class="ruby-keyword kw">else</span>
-201:         <span class="ruby-identifier">require</span> <span class="ruby-identifier">file</span>
-202:       <span class="ruby-keyword kw">end</span>
-203:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 205</span>
+205:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Helper</span>(<span class="ruby-identifier">file</span>)
+206:       <span class="ruby-identifier">local</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">caller</span>[<span class="ruby-value">1</span>]), <span class="ruby-identifier">file</span>.<span class="ruby-identifier">to_str</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'.rb'</span>)
+207:       <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">local</span>)
+208:         <span class="ruby-identifier">require</span> <span class="ruby-identifier">local</span>
+209:       <span class="ruby-keyword kw">else</span>
+210:         <span class="ruby-identifier">require</span> <span class="ruby-identifier">file</span>
+211:       <span class="ruby-keyword kw">end</span>
+212:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -667,10 +676,10 @@ Define a concern procedure to apply suite-wide.
           <div class="method-source-code"
             id="-hen-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 177</span>
-177:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">When</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, &amp;<span class="ruby-identifier">block</span>)
-178:       <span class="ruby-ivar">@when_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
-179:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 186</span>
+186:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">When</span>(<span class="ruby-identifier">match</span>=<span class="ruby-keyword kw">nil</span>, &amp;<span class="ruby-identifier">block</span>)
+187:       <span class="ruby-ivar">@when_clauses</span>[<span class="ruby-identifier">match</span>] = <span class="ruby-identifier">block</span> <span class="ruby-comment cmt">#&lt;&lt; Advice.new(match, &amp;block)</span>
+188:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -703,6 +712,38 @@ Define a concern procedure to apply suite-wide.
 62:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cover?</span>
 63:       <span class="ruby-ivar">@options</span>[<span class="ruby-value">:cover</span>]
 64:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="cover-all--method" class="method-detail ">
+        <a name="method-i-cover_all%3F"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">cover_all?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="cover-all--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 67</span>
+67:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cover_all?</span>
+68:       <span class="ruby-ivar">@options</span>[<span class="ruby-value">:cover_all</span>]
+69:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -772,10 +813,10 @@ Iterate through this suite&#8217;s test cases.
           <div class="method-source-code"
             id="each-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 212</span>
-212:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>(&amp;<span class="ruby-identifier">block</span>)
-213:       <span class="ruby-ivar">@testcases</span>.<span class="ruby-identifier">each</span>(&amp;<span class="ruby-identifier">block</span>)
-214:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 221</span>
+221:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>(&amp;<span class="ruby-identifier">block</span>)
+222:       <span class="ruby-ivar">@testcases</span>.<span class="ruby-identifier">each</span>(&amp;<span class="ruby-identifier">block</span>)
+223:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -806,18 +847,18 @@ Directories glob *.rb files.
           <div class="method-source-code"
             id="filelist-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 120</span>
-120:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">filelist</span>
-121:       <span class="ruby-ivar">@filelist</span> <span class="ruby-operator">||=</span> (
-122:         <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
-123:           <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">file</span>)
-124:             <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">file</span>, <span class="ruby-value str">'**'</span>, <span class="ruby-value str">'*.rb'</span>)]
-125:           <span class="ruby-keyword kw">else</span>
-126:             <span class="ruby-identifier">file</span>
-127:           <span class="ruby-keyword kw">end</span>
-128:         <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
-129:       )
-130:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 129</span>
+129:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">filelist</span>
+130:       <span class="ruby-ivar">@filelist</span> <span class="ruby-operator">||=</span> (
+131:         <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+132:           <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">file</span>)
+133:             <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">file</span>, <span class="ruby-value str">'**'</span>, <span class="ruby-value str">'*.rb'</span>)]
+134:           <span class="ruby-keyword kw">else</span>
+135:             <span class="ruby-identifier">file</span>
+136:           <span class="ruby-keyword kw">end</span>
+137:         <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
+138:       )
+139:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -848,12 +889,12 @@ Includes at the suite level are routed to the toplevel.
           <div class="method-source-code"
             id="include-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 146</span>
-146:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">include</span>(*<span class="ruby-identifier">mods</span>)
-147:       <span class="ruby-constant">TOPLEVEL_BINDING</span>.<span class="ruby-identifier">eval</span>(<span class="ruby-value str">'self'</span>).<span class="ruby-identifier">instance_eval</span> <span class="ruby-keyword kw">do</span>
-148:         <span class="ruby-identifier">include</span>(*<span class="ruby-identifier">mods</span>)
-149:       <span class="ruby-keyword kw">end</span>
-150:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 155</span>
+155:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">include</span>(*<span class="ruby-identifier">mods</span>)
+156:       <span class="ruby-constant">TOPLEVEL_BINDING</span>.<span class="ruby-identifier">eval</span>(<span class="ruby-value str">'self'</span>).<span class="ruby-identifier">instance_eval</span> <span class="ruby-keyword kw">do</span>
+157:         <span class="ruby-identifier">include</span>(*<span class="ruby-identifier">mods</span>)
+158:       <span class="ruby-keyword kw">end</span>
+159:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -882,27 +923,31 @@ Includes at the suite level are routed to the toplevel.
           <div class="method-source-code"
             id="load-files-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 98</span>
- 98:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_files</span> <span class="ruby-comment cmt">#(*files)</span>
- 99:       <span class="ruby-comment cmt">#if cover?</span>
-100:       <span class="ruby-comment cmt">#  $stdout &lt;&lt; &quot;Load: &quot;</span>
-101:       <span class="ruby-comment cmt">#end</span>
-102: 
-103:       <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">suite</span> = <span class="ruby-keyword kw">self</span>
-104:       <span class="ruby-identifier">filelist</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
-105:         <span class="ruby-comment cmt">#@current_file = file</span>
-106:         <span class="ruby-comment cmt">#file = File.expand_path(file)</span>
-107:         <span class="ruby-comment cmt">#instance_eval(File.read(file), file)</span>
-108:         <span class="ruby-identifier">require</span>(<span class="ruby-identifier">file</span>) <span class="ruby-comment cmt">#load(file)</span>
-109:       <span class="ruby-keyword kw">end</span>
-110: 
-111:       <span class="ruby-comment cmt">#if cover?</span>
-112:       <span class="ruby-comment cmt">#  $stdout &lt;&lt; &quot;\n&quot;</span>
-113:       <span class="ruby-comment cmt">#  $stdout.flush</span>
-114:       <span class="ruby-comment cmt">#end</span>
-115: 
-116:       <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">suite</span>
-117:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lemon/test/suite.rb, line 103</span>
+103:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_files</span> <span class="ruby-comment cmt">#(*files)</span>
+104:       <span class="ruby-comment cmt">#if cover?</span>
+105:       <span class="ruby-comment cmt">#  $stdout &lt;&lt; &quot;Load: &quot;</span>
+106:       <span class="ruby-comment cmt">#end</span>
+107: 
+108:       <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">suite</span> = <span class="ruby-keyword kw">self</span>
+109:       <span class="ruby-identifier">filelist</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+110:         <span class="ruby-comment cmt">#@current_file = file</span>
+111:         <span class="ruby-comment cmt">#file = File.expand_path(file)</span>
+112:         <span class="ruby-comment cmt">#instance_eval(File.read(file), file)</span>
+113:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cover_all?</span>
+114:           <span class="ruby-constant">Covers</span>(<span class="ruby-identifier">file</span>)
+115:         <span class="ruby-keyword kw">else</span>
+116:           <span class="ruby-identifier">require</span>(<span class="ruby-identifier">file</span>) <span class="ruby-comment cmt">#load(file)</span>
+117:         <span class="ruby-keyword kw">end</span>
+118:       <span class="ruby-keyword kw">end</span>
+119: 
+120:       <span class="ruby-comment cmt">#if cover?</span>
+121:       <span class="ruby-comment cmt">#  $stdout &lt;&lt; &quot;\n&quot;</span>
+122:       <span class="ruby-comment cmt">#  $stdout.flush</span>
+123:       <span class="ruby-comment cmt">#end</span>
+124: 
+125:       <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Lemon</span>.<span class="ruby-identifier">suite</span>
+126:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>

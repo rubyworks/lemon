@@ -99,16 +99,6 @@
           
             
             <li class="method">
-              <a href="#method-i-cover%3F">#cover?</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#method-i-coverage">#coverage</a>
-            </li>
-          
-            
-            <li class="method">
               <a href="#method-i-each">#each</a>
             </li>
           
@@ -147,21 +137,6 @@
               <a href="#method-i-run_pretest_procedures">#run_pretest_procedures</a>
             </li>
           
-            
-            <li class="method">
-              <a href="#method-i-uncovered_cases">#uncovered_cases</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#method-i-uncovered_units">#uncovered_units</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#method-i-undefined_units">#undefined_units</a>
-            </li>
-          
         </ul>
       </div>
       
@@ -179,9 +154,15 @@
         
           <li class="file"><a href="../HISTORY.html">HISTORY</a></li>
         
+          <li class="file"><a href="../PROFILE.html">PROFILE</a></li>
+        
           <li class="file"><a href="../LICENSE.html">LICENSE</a></li>
         
+          <li class="file"><a href="../VERSION.html">VERSION</a></li>
+        
           <li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../REQUIRE.html">REQUIRE</a></li>
         
         </ul>
       </div>
@@ -205,15 +186,13 @@
         
           <li class="module"><a href="../Lemon.html">Lemon</a></li>
         
-          <li class="module"><a href="../Lemon/Command.html">Lemon::Command</a></li>
+          <li class="class"><a href="../Lemon/Command.html">Lemon::Command</a></li>
         
-          <li class="class"><a href="../Lemon/Command/Abstract.html">Lemon::Command::Abstract</a></li>
+          <li class="module"><a href="../Lemon/CoverSheet.html">Lemon::CoverSheet</a></li>
         
-          <li class="class"><a href="../Lemon/Command/Coverage.html">Lemon::Command::Coverage</a></li>
+          <li class="class"><a href="../Lemon/CoverSheet/Abstract.html">Lemon::CoverSheet::Abstract</a></li>
         
-          <li class="class"><a href="../Lemon/Command/Generate.html">Lemon::Command::Generate</a></li>
-        
-          <li class="class"><a href="../Lemon/Command/Test.html">Lemon::Command::Test</a></li>
+          <li class="class"><a href="../Lemon/CoverSheet/Outline.html">Lemon::CoverSheet::Outline</a></li>
         
           <li class="class"><a href="../Lemon/Coverage.html">Lemon::Coverage</a></li>
         
@@ -442,38 +421,6 @@ New <a href="Runner.html">Runner</a>.
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="cover--method" class="method-detail ">
-        <a name="method-i-cover%3F"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">cover?</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="cover--source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 49</span>
-49:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cover?</span>
-50:       <span class="ruby-ivar">@options</span>[<span class="ruby-value">:cover</span>]
-51:     <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
       <div id="each-method" class="method-detail ">
         <a name="method-i-each"></a>
 
@@ -683,138 +630,10 @@ Run tests.
       </div>
 
     
-      <div id="uncovered-cases-method" class="method-detail ">
-        <a name="method-i-uncovered_cases"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">uncovered_cases</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="uncovered-cases-source">
-<pre>
-     <span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 143</span>
-143:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">uncovered_cases</span>
-144:       <span class="ruby-ivar">@uncovered_cases</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">coverage</span>.<span class="ruby-identifier">uncovered_cases</span>
-145:     <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="uncovered-units-method" class="method-detail ">
-        <a name="method-i-uncovered_units"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">uncovered_units</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="uncovered-units-source">
-<pre>
-     <span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 148</span>
-148:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">uncovered_units</span>
-149:       <span class="ruby-ivar">@uncovered_units</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">coverage</span>.<span class="ruby-identifier">uncovered_units</span>
-150:     <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="undefined-units-method" class="method-detail ">
-        <a name="method-i-undefined_units"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">undefined_units</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="undefined-units-source">
-<pre>
-     <span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 153</span>
-153:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">undefined_units</span>
-154:       <span class="ruby-ivar">@undefined_units</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">coverage</span>.<span class="ruby-identifier">undefined_units</span>
-155:     <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
     </div>
   
     <div id="private-instance-method-details" class="method-section section">
       <h3 class="section-header">Private Instance Methods</h3>
-
-    
-      <div id="coverage-method" class="method-detail ">
-        <a name="method-i-coverage"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">coverage</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="coverage-source">
-<pre>
-     <span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 251</span>
-251:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">coverage</span>
-252:       <span class="ruby-ivar">@coverage</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Lemon</span><span class="ruby-operator">::</span><span class="ruby-constant">Coverage</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">suite</span>, <span class="ruby-identifier">namespaces</span>) <span class="ruby-comment cmt">#, :public =&gt; public_only?)</span>
-253:     <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
 
     
       <div id="run-concern-procedures-method" class="method-detail ">
@@ -837,20 +656,20 @@ Run tests.
           <div class="method-source-code"
             id="run-concern-procedures-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 208</span>
-208:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_concern_procedures</span>(<span class="ruby-identifier">concern</span>, <span class="ruby-identifier">suite</span>, <span class="ruby-identifier">testcase</span>)
-209:       <span class="ruby-identifier">suite</span>.<span class="ruby-identifier">when_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
-210:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">match</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">concern</span>.<span class="ruby-identifier">to_s</span>
-211:           <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">testcase</span>)
-212:         <span class="ruby-keyword kw">end</span>
-213:       <span class="ruby-keyword kw">end</span>
-214:       <span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">when_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
-215:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">match</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">concern</span>.<span class="ruby-identifier">to_s</span>
-216:           <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">testcase</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">concern</span>.<span class="ruby-identifier">to_s</span>
-217:         <span class="ruby-keyword kw">end</span>
-218:       <span class="ruby-keyword kw">end</span>
-219:       <span class="ruby-identifier">concern</span>.<span class="ruby-identifier">call</span>
-220:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 210</span>
+210:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_concern_procedures</span>(<span class="ruby-identifier">concern</span>, <span class="ruby-identifier">suite</span>, <span class="ruby-identifier">testcase</span>)
+211:       <span class="ruby-identifier">suite</span>.<span class="ruby-identifier">when_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
+212:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">match</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">concern</span>.<span class="ruby-identifier">to_s</span>
+213:           <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">testcase</span>)
+214:         <span class="ruby-keyword kw">end</span>
+215:       <span class="ruby-keyword kw">end</span>
+216:       <span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">when_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
+217:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">match</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">concern</span>.<span class="ruby-identifier">to_s</span>
+218:           <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">testcase</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">concern</span>.<span class="ruby-identifier">to_s</span>
+219:         <span class="ruby-keyword kw">end</span>
+220:       <span class="ruby-keyword kw">end</span>
+221:       <span class="ruby-identifier">concern</span>.<span class="ruby-identifier">call</span>
+222:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -881,19 +700,19 @@ Run post-test advice.
           <div class="method-source-code"
             id="run-postest-procedures-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 237</span>
-237:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_postest_procedures</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">suite</span>, <span class="ruby-identifier">testcase</span>)
-238:       <span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">after_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
-239:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">testunit</span>.<span class="ruby-identifier">match?</span>(<span class="ruby-identifier">match</span>)
-240:           <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">testunit</span>)
-241:         <span class="ruby-keyword kw">end</span>
-242:       <span class="ruby-keyword kw">end</span>
-243:       <span class="ruby-identifier">suite</span>.<span class="ruby-identifier">after_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
-244:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">testunit</span>.<span class="ruby-identifier">match?</span>(<span class="ruby-identifier">match</span>)
-245:           <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">testunit</span>)
-246:         <span class="ruby-keyword kw">end</span>
-247:       <span class="ruby-keyword kw">end</span>
-248:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 239</span>
+239:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_postest_procedures</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">suite</span>, <span class="ruby-identifier">testcase</span>)
+240:       <span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">after_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
+241:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">testunit</span>.<span class="ruby-identifier">match?</span>(<span class="ruby-identifier">match</span>)
+242:           <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">testunit</span>)
+243:         <span class="ruby-keyword kw">end</span>
+244:       <span class="ruby-keyword kw">end</span>
+245:       <span class="ruby-identifier">suite</span>.<span class="ruby-identifier">after_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
+246:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">testunit</span>.<span class="ruby-identifier">match?</span>(<span class="ruby-identifier">match</span>)
+247:           <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">testunit</span>)
+248:         <span class="ruby-keyword kw">end</span>
+249:       <span class="ruby-keyword kw">end</span>
+250:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -924,19 +743,19 @@ Run pre-test advice.
           <div class="method-source-code"
             id="run-pretest-procedures-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 223</span>
-223:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_pretest_procedures</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">suite</span>, <span class="ruby-identifier">testcase</span>)
-224:       <span class="ruby-identifier">suite</span>.<span class="ruby-identifier">before_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
-225:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">testunit</span>.<span class="ruby-identifier">match?</span>(<span class="ruby-identifier">match</span>)
-226:           <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">testunit</span>)
-227:         <span class="ruby-keyword kw">end</span>
-228:       <span class="ruby-keyword kw">end</span>
-229:       <span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">before_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
-230:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">testunit</span>.<span class="ruby-identifier">match?</span>(<span class="ruby-identifier">match</span>)
-231:           <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">testunit</span>)
-232:         <span class="ruby-keyword kw">end</span>
-233:       <span class="ruby-keyword kw">end</span>
-234:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lemon/runner.rb, line 225</span>
+225:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_pretest_procedures</span>(<span class="ruby-identifier">testunit</span>, <span class="ruby-identifier">suite</span>, <span class="ruby-identifier">testcase</span>)
+226:       <span class="ruby-identifier">suite</span>.<span class="ruby-identifier">before_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
+227:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">testunit</span>.<span class="ruby-identifier">match?</span>(<span class="ruby-identifier">match</span>)
+228:           <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">testunit</span>)
+229:         <span class="ruby-keyword kw">end</span>
+230:       <span class="ruby-keyword kw">end</span>
+231:       <span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">before_clauses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span>, <span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
+232:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">testunit</span>.<span class="ruby-identifier">match?</span>(<span class="ruby-identifier">match</span>)
+233:           <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">testunit</span>)
+234:         <span class="ruby-keyword kw">end</span>
+235:       <span class="ruby-keyword kw">end</span>
+236:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
