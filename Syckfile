@@ -3,7 +3,9 @@ email:
   service : Email
   file    : ~
   subject : ~
-  mailto  : ruby-talk@ruby-lang.org, proutils@googlegroups.com
+  mailto  : 
+    - ruby-talk@ruby-lang.org
+    - proutils@googlegroups.com
   parts   : [readme]
   active  : true
 
