@@ -1,0 +1,64 @@
+= RELEASE HISTORY
+
+== 0.8.1 / 2010-07-11
+
+This release adds a timer to the verbose output, which help isolate unit tests
+that are slow. It also fixed bug in Before and After advice that prevented them
+from triggering correctly.
+
+Changes:
+
+* Add times to verbose reporter.
+
+
+== 0.8.0 / 2010-06-21
+
+This release removes coverage information from testing. Coverage can be time
+consuming, but running test should be as fast as possbile. For this reason 
+coverage and testing are kept two independent activities. This release also
+adds some test coverage for Lemon itself via Cucumber.
+
+Changes:
+
+* Separated coverage from testing completely.
+* Test generator defaults to public methods only.
+
+
+== 0.7.0 / 2010-05-04
+
+This release fixes issue with coverage reports. To do this we have interoduced
+the +Covers+ method. This allows Lemon to distingush between code that is
+inteded to be covered by the tests and mere support code.
+
+Keep in mind that there is no perfect way to handle coverage. Even with the
+distiction the +Covers+ method provides, coverage might not be reported exactly
+as desired. Other techinques can be used to refine coverage however, such
+a preloading embedded support libraries.
+
+Changes:
+
+* Add +Covers+ method to solidify coverage reporting.
+* New Snapshot class improves encapsulation to coverage state.
+
+
+== 0.6.0 / 2010-03-06
+
+This release adds coverage reporting to testing and improves the generator.
+
+Changes:
+
+* Runner can provide uncovered and undefined testunit list.
+* Generator can exclude already covered testunits with -u option.
+* Suite class has Coverage instance.
+
+
+== 0.5.0 / 2009-12-31
+
+This is the initial public release of Lemon. Lemon is still under development
+and should be considered betaware, but it's API is stable and the system usable
+enough to warrant a release.
+
+Changes:
+
+* Happy First Release Day!
+
