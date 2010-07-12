@@ -55,14 +55,12 @@ end
 
 def Object.const_missing(name)
   if unit = Lemon.test_stack.last
-    begin
-      (class << unit.testcase; self; end).const_get(name)
-    rescue NameError
-      super(name)
+    klass = (class << unit.testcase; self; end)
+    if klass.const_defined?(name)
+      return klass.const_get(name)
     end
-  else
-    super(name)
   end
+  super(name)
 end
 
 # Get current running test. Used for the BIG FAT HACK.
