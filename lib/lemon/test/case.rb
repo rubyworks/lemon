@@ -97,7 +97,7 @@ module Lemon::Test
 
     # Define a before procedure for this case.
     def Before(*matches, &block)
-      matches == [nil] if matches.empty?
+      matches = [nil] if matches.empty?
       matches.each do |match|
         @before_clauses[match] = block #<< Advice.new(match, &block)
       end
@@ -107,7 +107,7 @@ module Lemon::Test
 
     # Define an after procedure for this case.
     def After(*matches, &block)
-      matches == [nil] if matches.empty?
+      matches = [nil] if matches.empty?
       matches.each do |match|
         @after_clauses[match] = block #<< Advice.new(match, &block)
       end
