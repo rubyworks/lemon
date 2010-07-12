@@ -7,22 +7,24 @@ module Reporter
 
     #
     def report_start(suite)
+      timer_reset
     end
 
     #
     def report_concern(concern)
       puts
-      puts "#{concern.description}\n\n" unless concern.description.empty?
+      puts "== #{concern.description}\n\n" unless concern.description.empty?
+      timer_reset
     end
 
     #
     def report_success(testunit)
-      puts green("* #{testunit}")
+      puts "%12s  %s  %s" % [timer, green("SUCCESS"), green("#{testunit}")]
     end
 
     #
     def report_failure(testunit, exception)
-      puts red("* #{testunit} (FAILURE)")
+      puts "%12s  %s  %s" % [timer, red("FAILURE"), red("#{testunit}")]
       puts
       puts "        FAIL #{exception.backtrace[0]}"
       puts "        #{exception}"
@@ -31,7 +33,7 @@ module Reporter
 
     #
     def report_error(testunit, exception)
-      puts red("* #{testunit} (ERROR)")
+      puts "%12s  %s  %s" % [timer, red("ERRORED"), red("#{testunit}")]
       puts
       puts "        ERROR #{exception.backtrace[0]}"
       puts "        #{exception}"
@@ -40,7 +42,7 @@ module Reporter
 
     #
     def report_pending(testunit, exception)
-      puts yellow("* #{testunit} (PENDING)")
+      puts "%12s  %s  %s" % [timer, yellow("PENDING"), yellow("#{testunit}")]
       #puts
       #puts "        PENDING #{exception.backtrace[1]}"
       #puts
@@ -120,6 +122,18 @@ module Reporter
 
       puts
       puts tally
+    end
+
+    #
+    def timer
+      secs  = Time.now - @time
+      @time = Time.now
+      return "%0.5fs" % [secs.to_s]
+    end
+
+    #
+    def timer_reset
+      @time = Time.now
     end
 
   end

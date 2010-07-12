@@ -74,6 +74,11 @@ module Reporter
     end
 
     #
+    def cyan(string)
+      @ansicolor ? ANSI::Code.cyan{ string } : string
+    end
+
+    #
     def total
       successes.size + failures.size + errors.size + pendings.size
     end
