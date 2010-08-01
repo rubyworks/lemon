@@ -1,0 +1,52 @@
+= 2010-07-11 | Kool-Aid 
+
+Taking Unit Testing to the next level with a dab of DBC.
+
+Say we have,
+
+  class K
+
+    def f1(a1)
+      g1(a1)
+    end
+
+    def g1(a1)
+      a1 + 1
+    end
+
+  end
+
+Now what do we want to say about K#f1?
+
+  unit K, :f1 do |a|
+    case a
+    when 1
+      result do |r|
+        r.assert == 2
+      end
+    end
+  end
+
+Now later we induce labor.
+
+  k = K.new
+  k.f1(1)
+
+It does't really matter what the result class contains, or how it 
+even gets called. Thus it can test side-effects as well as simple
+functional results.
+
+Okay, so how do we implement this?
+
+  class K
+
+    alias "f1:lemon", :f1
+
+    def f1(a1)
+      Lemon.verify_unit(binding) do
+        send("f1:lemon", a1)
+      end
+    end
+
+  end
+
