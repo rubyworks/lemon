@@ -1,9 +1,16 @@
-development:
-  - syckle
-  - box
+requires:
+  - name: syckle
+    group: dev
 
-development/test:
-  - cucumber
-  - ae
-  - aruba
+  - name: box
+    group: dev
+
+  - name: cucumber
+    group: test
+
+  - name: ae
+    group: test
+
+  - name: aruba
+    group: test
 
