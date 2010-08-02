@@ -60,31 +60,35 @@ module Lemon
     # Run tests.
     def run
       #prepare
-
+      scope = Object.new
+ 
       reporter.report_start(suite)
 
       each do |testcase|
         testcase.each do |concern|
           reporter.report_concern(concern)
-          run_concern_procedures(concern, suite, testcase)
+          run_concern_procedures(concern, scope) #, suite, testcase)
           concern.each do |testunit|
             #mark_coverage(testcase, testunit)
-            run_pretest_procedures(testunit, suite, testcase)
+            run_pretest_procedures(testunit, scope) #, suite, testcase)
             begin
-              testunit.call
+              testunit.call(scope)
               reporter.report_success(testunit)
               successes << testunit
             rescue Pending => exception
+              exception = clean_backtrace(exception)
               reporter.report_pending(testunit, exception)
               pendings << [testunit, exception]
             rescue Assertion => exception
+              exception = clean_backtrace(exception)
               reporter.report_failure(testunit, exception)
               failures << [testunit, exception]
             rescue Exception => exception
+              exception = clean_backtrace(exception)
               reporter.report_error(testunit, exception)
               errors << [testunit, exception]
             end
-            run_postest_procedures(testunit, suite, testcase)
+            run_postest_procedures(testunit, scope) #, suite, testcase)
           end
         end
       end
@@ -207,46 +211,65 @@ module Lemon
   private
 
     #
-    def run_concern_procedures(concern, suite, testcase)
+    def run_concern_procedures(concern, scope) #suite, testcase)
+      tc    = concern.testcase
+      suite = tc.suite
       suite.when_clauses.each do |match, block|
         if match.nil? or match === concern.to_s
-          block.call(testcase)
+          #block.call #(test_case)
+          scope.instance_exec(tc, &block)
         end
       end
-      testcase.when_clauses.each do |match, block|
+      tc.when_clauses.each do |match, block|
         if match.nil? or match === concern.to_s
-          block.call(testcase) if match === concern.to_s
+          if match === concern.to_s
+            #block.call #(test_case)
+            scope.instance_exec(tc, &block)
+          end
         end
       end
-      concern.call
+      concern.call(scope)
     end
 
     # Run pre-test advice.
-    def run_pretest_procedures(testunit, suite, testcase)
+    def run_pretest_procedures(unit, scope) #, suite, testcase)
+      suite = unit.testcase.suite
       suite.before_clauses.each do |match, block|
-        if match.nil? or testunit.match?(match)
-          block.call(testunit)
+        if match.nil? or unit.match?(match)
+          #block.call(unit)
+          scope.instance_exec(unit, &block)
         end
       end
-      testcase.before_clauses.each do |match, block|
-        if match.nil? or testunit.match?(match)
-          block.call(testunit)
+      unit.testcase.before_clauses.each do |match, block|
+        if match.nil? or test_unit.match?(match)
+          #block.call(testunit)
+          scope.instance_exec(unit, &block)
         end
       end
     end
 
     # Run post-test advice.
-    def run_postest_procedures(testunit, suite, testcase)
-      testcase.after_clauses.each do |match, block|
-        if match.nil? or testunit.match?(match)
-          block.call(testunit)
+    def run_postest_procedures(unit, scope) #, suite, testcase)
+      suite = unit.testcase.suite
+      unit.testcase.after_clauses.each do |match, block|
+        if match.nil? or unit.match?(match)
+          #block.call(unit)
+          scope.instance_exec(unit, &block)
         end
       end
       suite.after_clauses.each do |match, block|
         if match.nil? or testunit.match?(match)
-          block.call(testunit)
+          #block.call(testunit)
+          scope.instance_exec(unit, &block)
         end
       end
+    end
+
+    # Remove reference to lemon library from backtrace.
+    def clean_backtrace(exception)
+      trace = exception.backtrace.reject{ |t| t =~ /(lib|bin)\/lemon/ }
+      exception.set_backtrace(trace)
+      exception
     end
 
     #def coverage

@@ -43,8 +43,11 @@ module Lemon::Test
     end
 
     #
-    def call
-      setup.call if setup
+    def call(scope)
+      if setup
+        #setup.call
+        scope.instance_eval(&setup)
+      end
     end
 
   end

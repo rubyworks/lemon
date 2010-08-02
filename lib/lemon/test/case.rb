@@ -5,7 +5,7 @@ module Lemon::Test
 
   # Test Case encapsulates a collection of 
   # unit tests organized into groups of concern.
-  class Case
+  class Case < Module
 
     # The test suite to which this testcase belongs.
     attr :suite
@@ -34,7 +34,9 @@ module Lemon::Test
       @before_clauses = {}
       @after_clauses  = {}
       @when_clauses   = {}
-      instance_eval(&block)
+
+      #instance_eval(&block)
+      module_eval(&block)
     end
 
     # Load a helper script applicable to this test case.
@@ -134,6 +136,10 @@ module Lemon::Test
 end
 
 class Pending < Assertion
+  def self.to_proc; lambda{ raise self }; end
+end
+
+class Untested < Exception
   def self.to_proc; lambda{ raise self }; end
 end
 

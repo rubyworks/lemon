@@ -31,6 +31,8 @@ module Test
     # and ensuring converage remains accurate.
     #attr :subtest
 
+    #attr :current_file
+
     def coverage
       @final_coveage ||= @coverage - @canonical
     end
@@ -107,7 +109,7 @@ module Test
 
       Lemon.suite = self
       filelist.each do |file|
-        #@current_file = file
+        @current_file = file
         #file = File.expand_path(file)
         #instance_eval(File.read(file), file)
         if cover_all?

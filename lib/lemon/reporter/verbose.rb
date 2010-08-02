@@ -33,10 +33,11 @@ module Reporter
 
     #
     def report_error(testunit, exception)
-      puts "%12s  %s  %s" % [timer, red("ERRORED"), red("#{testunit}")]
+      puts "%12s  %s  %s" % [timer, red("ERROR  "), red("#{testunit}")]
       puts
-      puts "        ERROR #{exception.backtrace[0]}"
+      puts "        ERROR #{exception.class}"
       puts "        #{exception}"
+      puts "        " + exception.backtrace.join("\n        ")
       puts
     end
 

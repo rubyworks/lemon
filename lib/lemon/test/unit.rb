@@ -1,3 +1,5 @@
+$lemon_check_stack = []
+
 module Lemon::Test
 
   #
@@ -30,6 +32,8 @@ module Lemon::Test
       @aspect    = options[:aspect]
       @meta      = options[:metaclass]
 
+      @tested    = false
+
       @procedure = procedure
     end
 
@@ -38,14 +42,32 @@ module Lemon::Test
       @meta
     end
 
+    #
+    attr_accessor :tested
+
     # This method has the other end of the BIG FAT HACK. See Suite#const_missing.
-    def call
+    def call(scope)
+      this = self
       raise Pending unless procedure
+      testcase.target.class_eval do
+        alias_method :__lemon__, this.target
+        define_method(this.target) do |*a,&b|
+          this.tested = true
+          __lemon__(*a,&b)
+        end
+      end
+      Lemon.test_stack << self  # hack
       begin
-        Lemon.test_stack << self  # hack
-        procedure.call
+        scope.instance_eval(&procedure) #procedure.call
       ensure
         Lemon.test_stack.pop
+        testcase.target.class_eval %{
+          alias_method :#{target}, :__lemon__
+        }
+      end
+      if !tested
+        #exception = Untested.new("#{target} not tested")
+        Kernel.eval %[raise Pending, "#{target} not tested"], procedure
       end
     end
 
