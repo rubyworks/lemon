@@ -1,14 +1,12 @@
-module Lemon
+module Lemon::Test
 module Reporter
-  require 'lemon/reporter/abstract'
+
+  require 'lemon/test/reporter/abstract'
 
   # Generic Reporter
   class DotProgress < Abstract
 
     def report_start(suite)
-    end
-
-    def report_concern(concern)
     end
 
     def report_success(testunit)

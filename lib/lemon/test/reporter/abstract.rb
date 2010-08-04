@@ -1,4 +1,4 @@
-module Lemon
+module Lemon::Test
 module Reporter
 
   # = Reporter Base Class
@@ -26,7 +26,13 @@ module Reporter
     def report_start(suite)
     end
 
-    def report_concern(concern)
+    def report_start_testcase(instance)
+    end
+
+    def report_instance(instance)
+    end
+
+    def report_start_testunit(testunit)
     end
 
     def report_success(testunit)
@@ -36,6 +42,12 @@ module Reporter
     end
 
     def report_error(testunit, exception)
+    end
+
+    def report_finish_testunit(testunit)
+    end
+
+    def report_finish_testcase(instance)
     end
 
     def report_finish
@@ -60,22 +72,22 @@ module Reporter
 
     #
     def red(string)
-      @ansicolor ? ANSI::Code.red{ string } : string
+      @ansicolor ? string.ansi(:red) : string
     end
 
     #
     def yellow(string)
-      @ansicolor ? ANSI::Code.yellow{ string } : string
+      @ansicolor ? string.ansi(:yellow) : string
     end
 
     #
     def green(string)
-      @ansicolor ? ANSI::Code.green{ string } : string
+      @ansicolor ? string.ansi(:green) : string
     end
 
     #
     def cyan(string)
-      @ansicolor ? ANSI::Code.cyan{ string } : string
+      @ansicolor ? string.ansi(:cyan) : string
     end
 
     #

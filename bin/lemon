@@ -1,3 +1,4 @@
 #!/usr/bin/env ruby
-require 'lemon/command'
-Lemon::Command.run
+require 'lemon/rind/app'
+Lemon::Rind::App.cli(ARGV)
+

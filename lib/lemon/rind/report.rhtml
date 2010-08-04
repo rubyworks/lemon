@@ -1,0 +1,37 @@
+<html>
+<head>
+  <title>Lemon Coverage Report</title>
+  <style>
+    body{background:#221; margin: 0; padding: 0; color: yellow;}
+    #main{
+      width:600px; margin:0 auto;
+    }
+    #list {
+      color: #333;
+      border:1px solid #ccc;
+      background:white;
+      padding: 10px 20px 30px 20px;
+      min-height: 300px;
+    }
+    .green{color:green;}
+    .red{color:red;}
+  </style>
+</head>
+<body>
+<div id="main">
+  Lemon
+  <div id="list">
+    <h1>Lemon Coverage Report</h1>
+    <% chart.sort.each do |(unit, yes)| %>
+      <% if yes %>
+        <div class="green"><%= unit.to_s %></div>
+      <% else %>
+        <div class="red"><%= unit.to_s %></div>
+      <% end %>
+    <% end %>
+  </div>
+  Lemon (c) 2010 Thomas Sawyer
+</div>
+</body>
+</html>
+

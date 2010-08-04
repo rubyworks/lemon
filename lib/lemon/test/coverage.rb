@@ -1,7 +1,8 @@
-require 'lemon/snapshot'
-require 'lemon/coversheet/outline'
+require 'lemon/test/snapshot'
+require 'lemon/test/coversheet/outline'
 
 module Lemon
+module Test
 
   #
   class Coverage
@@ -177,7 +178,8 @@ module Lemon
           clist = clist | metameths
         end
       end
-
+#p clist
+#p tlist
       @uncovered_units = clist - tlist
       @undefined_units = tlist - clist
     end
@@ -256,5 +258,6 @@ module Lemon
 
   end#class Coverage
 
+end#module Test
 end#module Lemon
 

@@ -1,4 +1,4 @@
-require 'lemon/coversheet/abstract'
+require 'lemon/test/coversheet/abstract'
 
 module Lemon
 module CoverSheet

@@ -1,17 +1,50 @@
 
 class Example
 
-  def f(x,y)
-    x + y
+  def initialize(a=1)
+    @a = a
   end
-  
+
+  def f(x,y)
+    @a * x + y
+  end
+
+  def self.m(a)
+    a
+  end
+
 end
+
 
 TestCase Example do
 
-  unit :f do
-    ex = Example.new
+  instance "without multipler" do
+    Example.new
+  end
+
+  Unit :f do |ex|
     ex.f(1,2).assert == 3
+    ex.f(2,2).assert == 4
+  end
+
+  instance "with multipler" do
+    Example.new(2)
+  end
+
+  Unit :f, "incorporate the multiplier" do |ex|
+    ex.f(1,2).assert == 4
+    ex.f(2,2).assert == 6
+  end
+
+  teardown do
+    # ...
+  end
+
+  singleton
+
+  Unit :m do |ex|
+    ex.assert == Example
+    ex.m(1).assert == 1
   end
 
 end

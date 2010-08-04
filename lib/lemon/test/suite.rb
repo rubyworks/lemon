@@ -2,7 +2,7 @@ module Lemon
 module Test
 
   require 'lemon/test/case'
-  require 'lemon/dsl'
+  require 'lemon/test/dsl'
 
   # Test Suites encapsulate a set of test cases.
   #

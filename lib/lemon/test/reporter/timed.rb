@@ -1,30 +1,38 @@
-module Lemon
+module Lemon::Test
 module Reporter
-  require 'lemon/reporter/abstract'
 
-  # Verbose Reporter
-  class Verbose < Abstract
+  require 'lemon/test/reporter/abstract'
+
+  # Timed Reporter
+  class Timed < Abstract
 
     #
     def report_start(suite)
+      @start = Time.now
       timer_reset
+      puts
     end
 
     #
-    def report_concern(concern)
-      puts
-      puts "== #{concern.description}\n\n" unless concern.description.empty?
+    #def report_instance(instance)
+    #  puts
+    #  puts "== #{concern.description}\n\n" unless concern.description.empty?
+    #  timer_reset
+    #end
+
+    def report_start_testunit(testunit)
       timer_reset
     end
 
     #
     def report_success(testunit)
-      puts "%12s  %s  %s" % [timer, green("SUCCESS"), green("#{testunit}")]
+      into = [clock, timer, green("SUCCESS"), testunit.to_s, testunit.description]
+      puts "%12s  %12s  %20s  %s  %s" % into
     end
 
     #
     def report_failure(testunit, exception)
-      puts "%12s  %s  %s" % [timer, red("FAILURE"), red("#{testunit}")]
+      puts "%12s  %12s  %20s  %s" % [clock, timer, red("FAILURE"), red("#{testunit.description}")]
       puts
       puts "        FAIL #{exception.backtrace[0]}"
       puts "        #{exception}"
@@ -33,7 +41,7 @@ module Reporter
 
     #
     def report_error(testunit, exception)
-      puts "%12s  %s  %s" % [timer, red("ERROR  "), red("#{testunit}")]
+      puts "%12s  %12s  %20s  %s" % [clock, timer, red("ERROR  "), red("#{testunit.description}")]
       puts
       puts "        ERROR #{exception.class}"
       puts "        #{exception}"
@@ -43,7 +51,7 @@ module Reporter
 
     #
     def report_pending(testunit, exception)
-      puts "%12s  %s  %s" % [timer, yellow("PENDING"), yellow("#{testunit}")]
+      puts "%12s  %12s  %20s  %s" % [clock, timer, yellow("PENDING"), yellow("#{testunit.description}")]
       #puts
       #puts "        PENDING #{exception.backtrace[1]}"
       #puts
@@ -123,6 +131,12 @@ module Reporter
 
       puts
       puts tally
+    end
+
+    #
+    def clock
+      secs = Time.now - @start
+      return "%0.5fs" % [secs.to_s]
     end
 
     #

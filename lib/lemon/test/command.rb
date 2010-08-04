@@ -1,6 +1,9 @@
 module Lemon
-  require 'lemon'
+module Test
+
   require 'optparse'
+  require 'lemon/test/coverage'
+  require 'lemon/test/runner'
 
   # Lemon Command-line tool.
   class Command
@@ -129,7 +132,7 @@ module Lemon
 
     # Run unit tests.
     def test
-      require 'lemon/runner'
+      #require 'lemon/test/runner'
 
       files = ARGV.dup
 
@@ -140,7 +143,7 @@ module Lemon
       #runner = Lemon::Runner.new(suite, :format=>format, :cover=>cover, :namespaces=>namespaces)
 
       suite  = Lemon::Test::Suite.new(files)
-      runner = Lemon::Runner.new(suite, :format=>format, :namespaces=>namespaces)
+      runner = Lemon::Test::Runner.new(suite, :format=>format, :namespaces=>namespaces)
 
       runner.run
     end
@@ -167,7 +170,7 @@ module Lemon
       requires.each{ |path| require(path) }
 
       suite = Lemon::Test::Suite.new(test_files, :cover=>true, :cover_all=>true)
-      cover = Lemon::Coverage.new(suite, namespaces, :public=>public_only)
+      cover = Lemon::Test::Coverage.new(suite, namespaces, :public=>public_only)
       #cover  = Lemon::Coverage.new([], namespaces, :public=>public_only?, :uncovered=>uncovered)
 
       if uncovered
@@ -180,5 +183,6 @@ module Lemon
 
   end
 
+end
 end
 

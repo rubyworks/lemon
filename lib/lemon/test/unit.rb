@@ -1,5 +1,3 @@
-$lemon_check_stack = []
-
 module Lemon::Test
 
   #
@@ -8,33 +6,30 @@ module Lemon::Test
     # The test case to which this unit test belongs.
     attr :testcase
 
-    # The concern which this test helps ensure.
-    attr :concern
+    # The instance which this test helps ensure.
+    attr :instance
 
     # A test unit +target+ is a method.
     attr :target
 
-    # The aspect of the concern this test fulfills.
+    # The aspect of the instance this test fulfills.
     attr :aspect
 
     # Test procedure, in which test assertions should be made.
     attr :procedure
 
     # New unit test.
-    def initialize(concern, target, options={}, &procedure)
-      concern.assign(self)
-
-      @concern   = concern
-      @testcase  = concern.testcase
-
+    def initialize(testcase, target, options={}, &procedure)
+      @testcase  = testcase
       @target    = target
 
       @aspect    = options[:aspect]
       @meta      = options[:metaclass]
-
-      @tested    = false
+      @instance  = options[:instance]
 
       @procedure = procedure
+
+      @tested    = false
     end
 
     # Is this unit test for a meta-method?
@@ -48,8 +43,9 @@ module Lemon::Test
     # This method has the other end of the BIG FAT HACK. See Suite#const_missing.
     def call(scope)
       this = self
+      base = meta? ? (class << testcase.target; self; end) : testcase.target
       raise Pending unless procedure
-      testcase.target.class_eval do
+      base.class_eval do
         alias_method :__lemon__, this.target
         define_method(this.target) do |*a,&b|
           this.tested = true
@@ -58,10 +54,15 @@ module Lemon::Test
       end
       Lemon.test_stack << self  # hack
       begin
-        scope.instance_eval(&procedure) #procedure.call
+        if instance && procedure.arity != 0
+          scope.instance_exec(instance.setup, &procedure) #procedure.call
+        else
+          scope.instance_exec(&procedure) #procedure.call
+        end
+        # TODO: teardown
       ensure
         Lemon.test_stack.pop
-        testcase.target.class_eval %{
+        base.class_eval %{
           alias_method :#{target}, :__lemon__
         }
       end
@@ -96,9 +97,19 @@ module Lemon::Test
     #
     def to_s
       if meta?
-        "#{testcase}.#{target} #{aspect}"
+        "#{testcase}.#{target}"
       else
-        "#{testcase}##{target} #{aspect}"
+        "#{testcase}##{target}"
+      end
+    end
+
+    #
+    def description
+      if meta?
+        "#{testcase} #{instance} .#{target} #{aspect}"
+      else
+        a  = /^[aeiou]/i =~ testcase.to_s ? 'An' : 'A'
+        "#{a} #{testcase} #{instance} receiving ##{target} #{aspect}"
       end
     end
 
@@ -109,6 +120,4 @@ module Lemon::Test
   end
 
 end
-
-
 

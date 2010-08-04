@@ -1,4 +1,5 @@
 module Lemon
+module Test
 
   #
   class Snapshot
@@ -183,3 +184,5 @@ module Lemon
   end
 
 end
+end
+

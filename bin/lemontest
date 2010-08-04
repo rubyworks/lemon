@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require 'lemon/test/command'
+Lemon::Test::Command.run
