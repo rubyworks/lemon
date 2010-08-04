@@ -37,6 +37,7 @@ ridoc:
 
 rdoc:
   template: newfish
+  output: site/doc/api
   exclude: [Syckfile]
   active: true  
 
