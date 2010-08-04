@@ -1,11 +1,10 @@
 --- 
-title: Lemon
-suite: proutils
-copyright: Copyright 2009 Thomas Sawyer
-license: MIT
+title  : Lemon
+suite  : proutils
 summary: Pucker-tight Unit Testing
 authors: Thomas Sawyer
-contact: proutils@googlegroups.com
+contact: trans <transfire@gmail.com>
+license: Apache 2.0
 
 description:
   Lemon is a unit testing framework that tightly correlates
@@ -14,3 +13,5 @@ description:
 resources:
   homepage: http://proutils.github.com/lemon
   repository: git://github.com/proutils/lemon.git
+
+copyright: Copyright 2009 Thomas Sawyer

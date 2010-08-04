@@ -1,0 +1,26 @@
+---
+name     : lemon
+version  : 0.9.0
+released : 2010-08-05
+codename : Squeeze
+loadpath : lib
+
+requires:
+  - name: tracepoint
+    version: 1.1+
+
+  - name: syckle
+    group: dev
+
+  - name: box
+    group: dev
+
+  - name: cucumber
+    group: test
+
+  - name: ae
+    group: test
+
+  - name: aruba
+    group: test
+
