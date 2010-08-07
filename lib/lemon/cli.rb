@@ -1,5 +1,6 @@
 module Lemon
 
+  require 'lemon/meta/data'
   require 'optparse'
 
   # CLI Interface handle all lemon sub-commands.
@@ -51,6 +52,43 @@ module Lemon
         raise err if $DEBUG
         $stderr.puts('ERROR: ' + err.to_s)
       end
+    end
+
+    # T E S T
+
+    # Run unit tests.
+    def test(scripts)
+      require 'lemon/controller/test_runner'
+
+      loadpath = options[:loadpath] || []
+      requires = options[:requires] || []
+
+      loadpath.each{ |path| $LOAD_PATH.unshift(path) }
+      requires.each{ |path| require(path) }
+
+      #suite  = Lemon::Test::Suite.new(files, :cover=>cover)
+      #runner = Lemon::Runner.new(suite, :format=>format, :cover=>cover, :namespaces=>namespaces)
+
+      suite  = Lemon::TestSuite.new(scripts)
+      runner = Lemon::TestRunner.new(
+        suite, :format=>options[:format], :namespaces=>options[:namespaces]
+      )
+
+      runner.run
+    end
+
+    #
+    def test_parse(argv)
+      option_parser.banner = "Usage: lemon [-t] [options] [files ...]"
+      #option_parser.separator("Run unit tests.")
+
+      option_format
+      option_verbose
+      option_namespaces
+      option_loadpath
+      option_requires
+
+      option_parser.parse!(argv)
     end
 
     # C O V E R A G E
@@ -127,42 +165,6 @@ module Lemon
       option_parser.parse!(argv)
     end
 
-    # T E S T  R U N
-
-    # Run unit tests.
-    def test(scripts)
-      require 'lemon/controller/test_runner'
-
-      loadpath = options[:loadpath] || []
-      requires = options[:requires] || []
-
-      loadpath.each{ |path| $LOAD_PATH.unshift(path) }
-      requires.each{ |path| require(path) }
-
-      #suite  = Lemon::Test::Suite.new(files, :cover=>cover)
-      #runner = Lemon::Runner.new(suite, :format=>format, :cover=>cover, :namespaces=>namespaces)
-
-      suite  = Lemon::TestSuite.new(scripts)
-      runner = Lemon::TestRunner.new(
-        suite, :format=>options[:format], :namespaces=>options[:namespaces]
-      )
-
-      runner.run
-    end
-
-    #
-    def test_parse(argv)
-      option_parser.banner = "Usage: lemon [-t] [options] [files ...]"
-      #option_parser.separator("Run unit tests.")
-
-      option_format
-      option_namespaces
-      option_loadpath
-      option_requires
-
-      option_parser.parse!(argv)
-    end
-
     # P A R S E R  O P T I O N S
 
     def option_commands
@@ -194,6 +196,12 @@ module Lemon
     def option_format
       option_parser.on('-f', '--format NAME', 'output format') do |name|
         options[:format] = name
+      end
+    end
+
+    def option_verbose
+      option_parser.on('-v', '--verbose', 'shortcut for `-f verbose`') do |name|
+        options[:format] = 'verbose'
       end
     end
 
@@ -242,6 +250,11 @@ module Lemon
         OptionParser.new do |opt|
           opt.on_tail("--debug" , 'turn on debugging mode') do
             $DEBUG = true
+          end
+          opt.on_tail("--about" , 'display information about lemon') do
+            puts "Lemon v#{Lemon::VERSION}"
+            puts "#{Lemon::COPYRIGHT}"
+            exit
           end
           opt.on_tail('-h', '--help', 'display help (also try `<command> --help`)') do
             puts opt
