@@ -5,9 +5,11 @@ module Lemon
   # CLI Interface handle all lemon sub-commands.
   class CLI
 
-    COMMANDS = { '-t' => 'test',     '--test'     => 'test',
-                 '-c' => 'coverage', '--coverage' => 'coverage',
-                 '-g' => 'generate', '--generate' => 'generate' }
+    COMMANDS = {
+      '-t' => 'test'    , '--test' => 'test',
+      '-c' => 'coverage', '--cov'  => 'coverage', '--coverage' => 'coverage',
+      '-g' => 'generate', '--gen'  => 'generate', '--generate' => 'generate' 
+    }
 
     #
     def self.run(argv=ARGV)
@@ -26,10 +28,17 @@ module Lemon
 
     #
     def run(argv)
-      cmdopt  = COMMANDS.keys.find{ |k| argv.include?(k)  }
-      command = COMMANDS[cmdopt] || 'test'
+      cmdopt  = COMMANDS.keys.find{ |k| argv.delete(k)  }
+      command = COMMANDS[cmdopt]
 
-      option_commands
+      if command.nil? && argv.include?('--help')
+        option_commands
+        option_parser.parse!(argv)
+      end
+
+      command ||= 'test'
+
+      #option_commands
 
       #cmd = argv.shift
       #cmd = COMMANDS.find{ |c| /^#{cmd}/ =~ c }
@@ -38,7 +47,7 @@ module Lemon
       begin
         __send__("#{command}_parse", argv)
         __send__("#{command}", argv)
-      rescue Exception => err
+      rescue => err
         raise err if $DEBUG
         $stderr.puts('ERROR: ' + err.to_s)
       end
@@ -70,6 +79,9 @@ module Lemon
 
     #
     def coverage_parse(argv)
+      option_parser.banner = "Usage: lemon -c [options] [files ...]"
+      #option_parser.separator("Check test coverage.")
+
       option_namespaces
       option_private
       option_output
@@ -104,6 +116,9 @@ module Lemon
 
     #
     def generate_parse(argv)
+      option_parser.banner = "Usage: lemon -g [options] [files ...]"
+      #option_parser.separator("Generate test scaffolding.")
+
       option_namespaces
       #option_covered
       option_uncovered
@@ -137,6 +152,9 @@ module Lemon
 
     #
     def test_parse(argv)
+      option_parser.banner = "Usage: lemon [-t] [options] [files ...]"
+      #option_parser.separator("Run unit tests.")
+
       option_format
       option_namespaces
       option_loadpath
@@ -148,15 +166,14 @@ module Lemon
     # P A R S E R  O P T I O N S
 
     def option_commands
-      option_parser.banner = "lemon [options] [files ...]"
-      option_parser.separator("Run unit tests, check coverage and generate test scaffolding.")
-      option_parser.on('--test', '-t', "run unit tests [default]") do
+      option_parser.banner = "Usage: lemon [command] [options] [files ...]"
+      option_parser.on('-t', '--test', 'run unit tests [default]') do
         @command = :test
       end
-      option_parser.on('--coverage', '-c', "provide test coverage analysis") do
+      option_parser.on('-c', '--cov', '--coverage', 'provide test coverage analysis') do
         @command = :coverage
       end
-      option_parser.on('--generate', '-g', "generate unit test scaffolding") do
+      option_parser.on('-g', '--gen', '--generate', 'generate unit test scaffolding') do
         @command = :generate
       end
     end
@@ -226,7 +243,7 @@ module Lemon
           opt.on_tail("--debug" , 'turn on debugging mode') do
             $DEBUG = true
           end
-          opt.on_tail('-h', '--help', 'display this help messae') do
+          opt.on_tail('-h', '--help', 'display help (also try `<command> --help`)') do
             puts opt
             exit
           end
