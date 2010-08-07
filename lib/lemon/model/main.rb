@@ -1,3 +1,6 @@
+# NOTE: This code is not being used. It is here for the time being
+# on the outseide change that I decide to go back to a toplevel design.
+
 require 'lemon/model/test_suite'
 
 # Current suite being defined. This is used

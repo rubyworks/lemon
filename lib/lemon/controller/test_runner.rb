@@ -122,6 +122,7 @@ module Lemon
       format = reporter_list.find do |r|
         /^#{format}/ =~ r
       end
+      raise "unsupported format" unless format
       require "lemon/view/test_reports/#{format}"
       reporter = Lemon::TestReports.const_get(format.capitalize)
       reporter.new(self)
@@ -205,77 +206,6 @@ module Lemon
 end
 
 
-
-
-
-
-
-
-
-    #def coverage
-    #  @coverage ||= Lemon::Coverage.new(suite, namespaces) #, :public => public_only?)
-    #end
-
-=begin
-    # TODO: I would think all this should be gained form the Coverage class.
-
-    # TODO: options to include non-public and superclasses less Object and Kernel.
-    def mark_coverage(testcase, testunit)
-      testunit = testunit.target.to_sym
-      profile  = testcase_profile(testcase)
-      coverage = testcase_coverage(testcase)
-
-      if profile[:public].include?(testunit) || profile[:meta_public].include?(testunit)
-        coverage[testunit] = :public
-      elsif profile[:private].include?(testunit) || profile[:meta_private].include?(testunit)
-        coverage[testunit] = :private
-      elsif profile[:protected].include?(testunit) || profile[:meta_protected].include?(testunit)
-        coverage[testunit] = :protected
-      else
-        coverage[testunit] = nil # nil means does not exist, while false means not covered.
-      end
-    end
-
-    #
-    def testcase_coverage(testcase)
-      target = testcase.target
-      @testcase_coverage ||= {}
-      @testcase_coverage[target] ||= (
-        h = {}
-        target.public_instance_methods(false).each{|unit| h[unit] = false }
-        (target.public_methods(false) - Object.public_methods(false)).each{|unit| h[unit] = false }
-        #target.private_instance_method(false)
-        #target.protected_instance_method(false)
-        h
-      )
-    end
-
-    #
-    def testcase_profile(testcase)
-      target = testcase.target
-      @testcase_profile ||= {}
-      @testcase_profile[target] ||= {
-        :public    => target.public_instance_methods(false).map{|s|s.to_sym},
-        :private   => target.private_instance_methods(false).map{|s|s.to_sym},
-        :protected => target.protected_instance_methods(false).map{|s|s.to_sym},
-        :meta_public    => (target.public_methods(false) - Object.public_methods(false)).map{|s|s.to_sym},
-        :meta_private   => (target.private_methods(false) - Object.private_methods(false)).map{|s|s.to_sym},
-        :meta_protected => (target.protected_methods(false)- Object.protected_methods(false)).map{|s|s.to_sym}
-      }
-    end
-=end
-
-    #
-    #def uncovered
-    #  c = []
-    #  @testcase_coverage.each do |testcase, testunits|
-    #    testunits.each do |testunit, coverage|
-    #      c << [testcase, testunit] if coverage == false
-    #    end
-    #  end
-    #  c
-    #end
-
 =begin
     #
     def prepare
@@ -289,71 +219,6 @@ end
         @uncovered = calculate_uncovered
         @undefined = calculate_undefined
       end
-    end
-=end
-
-=begin
-    #
-    def uncovered_cases
-      @uncovered_cases ||= coverage.uncovered_cases
-    end
-
-    #
-    def uncovered_units
-      @uncovered_units ||= coverage.uncovered_units
-    end
-
-    #
-    def undefined_units
-      @undefined_units ||= coverage.undefined_units
-    end
-=end
-
-=begin
-    #
-    def uncovered
-      @uncovered ||= calculate_uncovered
-    end
-
-    #
-    def undefined
-      @undefined ||= calculate_undefined
-    end
-
-    #
-    def calculate_uncovered
-      uncovered_targets = []
-      coverage.checklist.each do |mod, meths|
-        meths.each do |meth, covered|
-          if !covered
-            if /^::/ =~ meth.to_s
-              uncovered_targets << "#{mod}#{meth}"
-            else
-              uncovered_targets << "#{mod}##{meth}"
-            end
-          end
-        end
-      end
-      uncovered_targets
-    end
-
-    #
-    def calculate_undefined
-      covered_testunits = successes + (failures + errors + pendings).map{ |tu, e| tu }
-      covered_targets = covered_testunits.map{ |tu| tu.fullname }
-
-      targets = []
-      coverage.each do |mod, meths|
-        meths.each do |meth, cov|
-          if /^::/ =~ meth.to_s
-            targets << "#{mod}#{meth}"
-          else
-            targets << "#{mod}##{meth}"
-          end
-        end
-      end
-
-      covered_targets - targets
     end
 =end
 

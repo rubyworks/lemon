@@ -24,7 +24,7 @@ module Lemon::TestReports
       print "P"
     end
 
-    def report_finish #(successes, failures, errors, pendings)
+    def report_finish(suite)
       puts; puts
 
       unless failures.empty?

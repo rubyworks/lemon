@@ -24,7 +24,7 @@ module Lemon
       @target    = target
 
       @aspect    = options[:aspect]
-      @meta      = options[:metaclass]
+      @function  = options[:function] || options[:metaclass]
       @instance  = options[:instance]
 
       @procedure = procedure
@@ -32,10 +32,11 @@ module Lemon
       @tested    = false
     end
 
-    # Is this unit test for a meta-method?
-    def meta?
-      @meta
+    # Is this unit test for a class or module level method?
+    def function?
+      @function
     end
+    alias_method :meta?, :function?
 
     #
     attr_accessor :tested

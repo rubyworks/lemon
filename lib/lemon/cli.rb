@@ -35,17 +35,19 @@ module Lemon
       #cmd = COMMANDS.find{ |c| /^#{cmd}/ =~ c }
       #option_parser.order!(argv)
 
-      __send__("#{command}_parse", argv)
-      __send__("#{command}", argv)
+      begin
+        __send__("#{command}_parse", argv)
+        __send__("#{command}", argv)
+      rescue Exception => err
+        raise err if $DEBUG
+        $stderr.puts('ERROR: ' + err.to_s)
+      end
     end
 
     # C O V E R A G E
 
     # Ouput coverage report.
     def coverage(test_files)
-      $stderr.print "Calculating... "
-      $stderr.flush
-
       require 'lemon/controller/coverage_analyzer'
 
       loadpath = options[:loadpath] || []
@@ -54,8 +56,12 @@ module Lemon
       loadpath.each{ |path| $LOAD_PATH.unshift(path) }
       requires.each{ |path| require(path) }
 
-      suite = Lemon::TestSuite.new(test_files, :cover=>true)
-      cover = Lemon::CoverageAnalyzer.new(suite, options)
+      $stderr.print "Calculating... "
+      $stderr.flush
+
+      cover = Lemon::CoverageAnalyzer.new(test_files, options)
+
+      cover.calculate
 
       $stderr.puts
 

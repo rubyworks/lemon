@@ -57,7 +57,7 @@ module Lemon::CoverReports
 
     #
     def tally
-      "#{uncovered_cases.size} uncovered cases, #{uncovered_units.size} uncovered units, #{undefined_units.size} undefined units"
+      "#{covered_units.size} covered units, #{uncovered_units.size} uncovered units, #{undefined_units.size} undefined units, #{uncovered_cases.size} uncovered cases"
     end
 
   end

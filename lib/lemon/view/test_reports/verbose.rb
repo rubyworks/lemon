@@ -51,7 +51,7 @@ module Lemon::TestReports
     end
 
     #
-    def report_finish
+    def report_finish(suite)
       #puts
 
       #unless failures.empty?
@@ -80,46 +80,6 @@ module Lemon::TestReports
       #    puts "    #{testunit}"
       #  end
       #  puts
-      #end
-
-=begin
-      if cover?
-
-        unless uncovered_cases.empty?
-          unc = uncovered_cases.map do |mod|
-            yellow(mod.name)
-          end.join(", ")
-          puts "\nUncovered Cases: " + unc
-        end
-
-        unless uncovered_units.empty?
-          unc = uncovered_units.map do |unit|
-            yellow(unit)
-          end.join(", ")
-          puts "\nUncovered Units: " + unc
-        end
-
-        #unless uncovered.empty?
-        #  unc = uncovered.map do |unit|
-        #    yellow(unit)
-        #  end.join(", ")
-        #  puts "\nUncovered: " + unc
-        #end
-
-        unless undefined_units.empty?
-          unc = undefined_units.map do |unit|
-            yellow(unit)
-          end.join(", ")
-          puts "\nUndefined Units: " + unc
-        end
-
-      end
-=end
-
-      #total = successes.size + failures.size + errors.size + pendings.size
-      #tally = "\n#{total} tests: #{successes.size} pass, #{failures.size} fail, #{errors.size} err, #{pendings.size} pending"
-      #if cover?
-      #  tally += " (#{uncovered.size} uncovered, #{undefined.size} undefined)"
       #end
 
       puts

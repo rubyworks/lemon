@@ -47,22 +47,24 @@ module Lemon
     #
     #   CoverageAnalyzer.new(suite, :MyApp, :public => true)
     #
-    def initialize(suite, options={})
-      @suite = suite
+    def initialize(test_files, options={})
+      @files = test_files
 
       @namespaces = [options[:namespaces]].flatten.compact
       @private    = options[:private]
       @format     = options[:format]
 
-      @files = suite.files
+      @reporter   = reporter_find(@format)
 
-      #@canonical = @suite.canonical
+      @canonical = Snapshot.capture #system #@suite.canonical
+
+      @suite = Lemon::TestSuite.new(test_files, :cover=>true)  #@suite = suite
     end
 
-    ##
-    #def canonical!
-    #  @canonical = Snapshot.capture
-    #end
+    #
+    def canonical
+      @canonical #= Snapshot.capture
+    end
 
     #
     def suite=(suite)
@@ -102,6 +104,22 @@ module Lemon
       )
     end
 
+    #
+    def targets
+      @targets ||= units.map{ |u| u.namespace }.uniq
+    end
+
+    #
+    def target_system
+      @target_system ||= system(*targets)
+    end
+
+    #
+    #def target_units
+    #  @target_units ||= target_system.units
+    #end
+
+
     # Produce a coverage map.
     #def checklist
     #  list = system.checklist
@@ -130,27 +148,47 @@ module Lemon
 
     #
     def uncovered
-      system.units - units
+      #system.units - units
+      @uncovered
     end
 
     #
     def undefined
-      units - system.units
+      #units - system.units
+      @undefined      
     end
 
+    # List of modules/classes not covered.
+    def uncovered_cases
+      @uncovered_cases
+    end
 
     #
-#    def format(type)
-#      coversheet = nil
-#      case type
-#      when :verbose
-#        puts checklist.to_yaml
-#     else
-#        #coversheet = CoverSheet::Outline.new(self)
-#        #coversheet.coverage_finished
-#        reporter.coverage_finished
-#      end
-#    end
+    def calculate
+      @units = (
+        list = []
+        suite.each do |testcase|
+          testcase.testunits.each do |unit|
+            list << Snapshot::Unit.new(
+              unit.testcase.target,
+              unit.target,
+              :function=>unit.function?
+            )
+          end
+        end
+        list
+      )
+
+      @uncovered = target_system.units - @units
+
+      @undefined = @units - target_system.units
+
+      @uncovered_cases = (
+        list = filter(system.units - (target_system.units + canonical.units))
+        list.map{ |u| u.namespace }.uniq
+        list
+      )
+    end
 
     #def load_covered_files
     #  suite.load_covered_files
@@ -182,71 +220,40 @@ module Lemon
     #      end
     #    end
 
-    # List of modules/classes not covered.
-    def uncovered_cases
-      uncovered.map{ |u| u.namespace }.uniq
-      #c = suite.coverage.map{ |ofmod| ofmod.base }
-      #a = suite.testcases.map{ |tc| tc.target }
-      #c - a
-    end
-
-=begin
-    # List of methods not covered by covered cases.
-    def uncovered_units
-      @calculated ||= calculate_coverage
-      @uncovered_units
-    end
+    #
+    #def system
+    #  if namespaces.empty?
+    #    suite.coverage
+    #  else
+    #    suite.coverage.filter do |ofmod|
+    #      namespaces.any?{ |n| ofmod.name.start_with?(n.to_s) }
+    #    end
+    #  end
+    #end
 
     #
-    def undefined_units
-      @calculated ||= calculate_coverage
-      @undefined_units
-    end
-
-    #
-    def calculate_coverage
-      clist = []
-      tlist = []
-      suite.testcases.each do |tc|
-        mod = tc.target
-
-        metaunits, units = *tc.testunits.partition{ |u| u.meta? }
-
-        units.map!{ |u| u.fullname }
-        metaunits.map!{ |u| u.fullname }
-
-        tlist = tlist | units
-        tlist = tlist | metaunits
-
-        if system[mod]
-          meths = system[mod].instance_methods.map{ |m| "#{mod}##{m}" }
-          metameths = system[mod].class_methods.map{ |m| "#{mod}.#{m}" }
-
-          clist = clist | meths
-          clist = clist | metameths
-        end
-      end
-#p clist
-#p tlist
-      @uncovered_units = clist - tlist
-      @undefined_units = tlist - clist
-    end
-=end
-
-    #
-    def system
-      if namespaces.empty?
-        suite.coverage
-      else
-        suite.coverage.filter do |ofmod|
-          namespaces.any?{ |n| ofmod.name.start_with?(n.to_s) }
-        end
-      end
+    def system(*namespaces)
+      namespaces = nil if namespaces.empty?
+      Snapshot.capture(namespaces)
     end
 
     # Get a snapshot of the system.
-    def snapshot
-      Snapshot.capture
+    #def snapshot
+    #  Snapshot.capture
+    #end
+
+    #
+    def filter(units)
+      return units if namespaces.nil? or namespaces.empty?
+      #units = units.reject do |u|
+      #  /^Lemon::/ =~ u.namespace.to_s
+      #end
+      units = units.select do |u|
+        namespaces.any? do |ns|
+          /^#{ns}/ =~ u.namespace.to_s
+        end
+      end
+      units
     end
 
     #
@@ -265,6 +272,7 @@ module Lemon
       format = reporter_list.find do |name|
         /^#{format}/ =~ name
       end
+      raise "unsupported format" unless format
       require "lemon/view/cover_reports/#{format}"
       reporter = Lemon::CoverReports.const_get(format.capitalize)
       reporter.new(self)

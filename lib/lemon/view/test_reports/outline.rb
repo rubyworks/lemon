@@ -50,7 +50,7 @@ module Lemon::TestReports
     end
 
     #
-    def report_finish
+    def report_finish(suite)
       puts
 
       unless failures.empty?

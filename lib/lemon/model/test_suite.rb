@@ -22,7 +22,8 @@ module Lemon
     # List of post-test procedures that apply suite-wide.
     attr :after
 
-    ## A snapshot of the system before the suite is loaded.
+    # A snapshot of the system before the suite is loaded.
+    # Only set if +cover+ option is true.
     #attr :canonical
 
     # List of files to be covered. This primarily serves
@@ -32,9 +33,9 @@ module Lemon
 
     #attr :current_file
 
-    def coverage
-      @final_coveage ||= @coverage - @canonical
-    end
+    #def coverage
+    #  @final_coveage ||= @coverage - @canonical
+    #end
 
     #
     #attr :options
@@ -52,12 +53,15 @@ module Lemon
 
       #load_helpers
 
-      @coverage  = Snapshot.new
-      @canonical = Snapshot.capture
+      #if cover? or cover_all?
+      #  @coverage  = Snapshot.new
+      #  @canonical = Snapshot.capture
+      #end
 
       #load_subtest_helpers
 
-      @scope = Scope.new
+      # TODO: maybe use a scope to evaluate all tests?
+      #@scope = Scope.new
 
       @dsl = DSL.new(self) #, files)
 
@@ -65,11 +69,11 @@ module Lemon
     end
 
     #
-    class Scope < Module
-      def initialize
-        extend self
-      end
-    end
+    #class Scope < Module
+    #  def initialize
+    #    extend self
+    #  end
+    #end
 
     # Iterate through this suite's test cases.
     def each(&block)
@@ -86,7 +90,7 @@ module Lemon
       @options[:cover_all]
     end
 
-    #
+    # TODO: automatic helper loading ?
     #def load_helpers(*files)
     #  helpers = []
     #  filelist.each do |file|
@@ -119,21 +123,11 @@ module Lemon
 
     #
     def load_files #(*files)
-      #if cover?
-      #  $stdout << "Load: "
-      #end
-
+      #$stdout << "Load: " if cover?
       #Lemon.suite = self
 
       filelist.each do |file|
-        @current_file = file
-        #if cover_all?
-        #  Covers(file)
-        #else
-          file = File.expand_path(file)
-          @dsl.module_eval(File.read(file), file)
-          #require(file) #load(file)
-        #end
+        load_file(file)
       end
 
       #if cover?
@@ -142,6 +136,18 @@ module Lemon
       #end
 
       self #return Lemon.suite
+    end
+
+    #
+    def load_file(file)
+      #@current_file = file
+      #if cover_all?
+      #  Covers(file)
+      #else
+        file = File.expand_path(file)
+        @dsl.module_eval(File.read(file), file)
+        #require(file) #load(file)
+      #end
     end
 
     # Directories glob *.rb files.
@@ -157,13 +163,13 @@ module Lemon
       )
     end
 
-    ## Load a helper. This method must be used when loading local
-    ## suite support. The usual #require or #load can only be used
-    ## for extenal support libraries (such as a test mock framework).
-    ## This is so because suite code is not evaluated at the toplevel.
-    #def helper(file)
-    #  instance_eval(File.read(file), file)
-    #end
+    # Load a helper. This method must be used when loading local
+    # test support. The usual #require or #load can only be used
+    # for external support libraries (such as a test mock framework).
+    # This is so because suite code is not evaluated at the toplevel.
+    def helper(file)
+      instance_eval(File.read(file), file)
+    end
 
     #
     #def load(file)
@@ -211,39 +217,32 @@ module Lemon
       #  @when_clauses[match] = block #<< Advice.new(match, &block)
       #end
 
-      # TODO: need require_find() to avoid first snapshot
+      # TODO: need require_find() to avoid first snapshot ?
       def Covers(file)
-        if @test_suite.cover?
-          #return if $".include?(file)
-          s = Snapshot.capture
-          if require(file)
-            z = Snapshot.capture
-            @test_suite.coverage << (z - s)
-          end
-        else
+        #if @test_suite.cover?
+        #  #return if $".include?(file)
+        #  s = Snapshot.capture
+        #  if require(file)
+        #    z = Snapshot.capture
+        #    @test_suite.coverage << (z - s)
+        #  end
+        #else
           require file
-        end
+        #end
       end
 
       #
       def Helper(file)
         local = File.join(File.dirname(caller[1]), file.to_str + '.rb')
         if File.exist?(local)
-          require local
+          @test_suite.load_file(local) #require local
         else
           require file
         end
       end
-
-      #
-      #def Subtest(file)
-      #  @subtest << file
-      #  require file
-      #end
 
     end
 
   end
 
 end
-
