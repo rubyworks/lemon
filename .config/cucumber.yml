@@ -1,2 +1,3 @@
-default: --format profile test/features
-html_report: --format progress --format html --out=log/cucumber/index.html test/features
+default: test/cli
+profile: --format profile test/cli
+log: --format progress --format html --out=log/cucumber/index.html test/cli
