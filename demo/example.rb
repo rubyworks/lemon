@@ -1,16 +1,20 @@
 class Example
 
-  def self.m(a,b)
-    a * b
+  def initialize(a=1)
+    @a = a
+  end
+
+  def f(x,y)
+    @a * x + y
   end
 
   def q(x,y)
     x % y
   end
 
-  def f(x,y)
-    x + y
+  def self.m(a,b)
+    a * b
   end
-  
+
 end
 

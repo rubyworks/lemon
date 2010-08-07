@@ -1,20 +1,4 @@
-
-class Example
-
-  def initialize(a=1)
-    @a = a
-  end
-
-  def f(x,y)
-    @a * x + y
-  end
-
-  def self.m(a)
-    a
-  end
-
-end
-
+Covers File.dirname(__FILE__) + '/example.rb'
 
 TestCase Example do
 
@@ -31,7 +15,7 @@ TestCase Example do
     Example.new(2)
   end
 
-  Unit :f, "incorporate the multiplier" do |ex|
+  Unit :f => "incorporate the multiplier" do |ex|
     ex.f(1,2).assert == 4
     ex.f(2,2).assert == 6
   end
@@ -44,7 +28,7 @@ TestCase Example do
 
   Unit :m do |ex|
     ex.assert == Example
-    ex.m(1).assert == 1
+    ex.m(1,1).assert == 1
   end
 
 end

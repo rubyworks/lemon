@@ -10,10 +10,10 @@ requires:
     version: 1.1+
 
   - name: syckle
-    group: dev
+    group: development
 
   - name: box
-    group: dev
+    group: development
 
   - name: cucumber
     group: test

@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
-require 'lemon/rind/app'
-Lemon::Rind::App.cli(ARGV)
+require 'lemon/cli'
+Lemon::CLI.run(ARGV)
 
