@@ -1,4 +1,4 @@
-Covers File.dirname(__FILE__) + '/example.rb'
+Covers File.dirname(__FILE__) + '/fixture/example.rb'
 
 TestCase Example do
 

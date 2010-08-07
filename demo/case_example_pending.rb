@@ -1,8 +1,4 @@
-class Example
-  def f(x,y)
-    x + y
-  end
-end
+Covers File.dirname(__FILE__) + '/fixture/example.rb'
 
 TestCase Example do
 
