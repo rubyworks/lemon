@@ -32,20 +32,34 @@ The simplest test case would be written as follows:
     end
   end
 
-The +Covers+ method works just like +require+ with the exception that loading the file does not occur until just before the tests are run. This allows Lemon to calculate accurate coverage reports.
+The +Covers+ method works just like +require+ with the exception that Lemon records the file for refernce --under certain scenarios it can be used to improve overall test covered.
 
-As tests grow, we might need to organize them into special concerns. For this Lemon provides the #Concern method.
+As tests grow, we might need to organize them into special concerns. For this Lemon provides a generic #Concern method and two special concern methods, #Instance and #Singleton. The difference between them is the object of concern each addresses. The concern methods also provide the setup/before procedures common to other test frameworks. The most useful of the methods is #Instance, which is used to setup an instance of the testcase's target class.
 
   Covers 'mylib'
 
   TestCase X do
-    Concern "Description of a concern that the following unit tests address."
+    Instance "Description of a concern that the following unit tests address." do
+      X.new
+    end
 
-    Unit :a => "method #a does something expected" do
-      x = X.new
+    Unit :a => "method #a does something expected" do |x|
       x.a.assert.is_a? String
     end
   end
+
+Notice that the parameter passed to the block of +Unit+ methdod is the instance of +X+ created in the Instance block. This block is run for every subsequent +Unit+ untill a new concern is defined.
+
+The +Singleton+ method is just like Instance except it's block must return the target class (or module) itself. If not block is given the block parameter will automactially be the target. Another impotant effect of Singleton is that all subsequent +Unit+ calls are treated as MetaUnit calls unit the new concern is defined.
+
+The generic #Concern method is used when the focues of the unit tests is more indirect, and an +Instance+ or +Singleton+ concern won;t suffice but a setup procedure is still required.
+
+In conjunction with the conern methods, there is a +Teardown+ method which can be used "tidy-up" after each unit run if need be.
+
+Lastly, there are the +Prepare+ and +Cleanup+ methods which can be used only once for each testcase. Teh +Prepare+ method defines a procedure to run before any of the testcase's units are run, and the +Cleanup+ method defines a procedure to run after that are all finished.
+
+That is the bulk of the matter forf writing Lemon tests. There are few other features not mentions here. You can learn more about hose by reading the wiki[http://wiki.github.com/proutils/lemon].
+
 
 === Running Tests
 
@@ -57,24 +71,33 @@ Normal output is typical <i>dot-progress</i>. For verbose output, use the <code>
 
   $ lemon -v test/cases/name_case.rb
 
+Other output types can be specified by the `--format` or `-f` option.
+
+  $ lemon -f tap test/cases/name_case.rb
+
+
 === Checking Test Coverage
 
 Lemon can check test coverage by loading your target system and comparing it to your tests. To do this supply the <code>lemon</code> command the <code>--coverage</code> or <code>-c</code> option.
 
-  $ lemon --coverage -Ilib test/cases/
+  $ lemon -c -Ilib test/cases/*.rb
 
 === Generating Test Skeletons
 
 Because of the one to one correspondence of case-unit to class-method, Lemon can also generate test scaffolding for previously written code. To do this, use the <code>--generate</code> or <code>-g</code> option and provide the lib location, or files, of the scripts for which to generate test scaffolding, and the output location for the test scripts.
 
-  $ lemon --generate -Ilib test/cases/
+  $ lemon -g -Ilib test/cases/*.rb
 
 Generating test case scaffolding from code will undoubtedly strike test-driven developers as a case of putting the cart before the horse. However, it is not unreasonable to argue that high-level, behavior-driven, functional testing frameworks, such as Q.E.D. and Cucumber are better suited to test-first methodologies. While test-driven development can obviously be done with Lemon, unit-testing is more appropriate for testing specific, critical portions of code, or for achieving full test coverage for mission critical applications.
+
+=== Test Directory
+
+There is no special directory for Lemon tests. Since they are unit tests, `test/` or `test/unit/` are good choices. Other options are `cases/` and `test/cases` since each file generally defines a single testcase. However, I recommend using interface-based names, regardless of the framework you actually use. In which case, `test/unit` is still a good choice, but also `test/api` if Lemon will be the only framework you use to test the API directly.
 
 
 == COPYRIGHT
 
-(MIT License)
+(Apache 2.0 License)
 
 Copyright (c) 2009 Thomas Sawyer
 
