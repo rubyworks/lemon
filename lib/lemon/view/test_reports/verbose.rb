@@ -83,9 +83,9 @@ module Lemon::TestReports
     def finish_suite(suite)
       puts
 
-      unless failures.empty?
+      unless record[:fail].empty?
         puts "FAILURES:\n\n"
-        failures.each do |unit, exception|
+        record[:fail].each do |unit, exception|
           puts "    #{unit}"
           puts "    #{exception}"
           puts "    #{exception.backtrace[0]}"
@@ -93,9 +93,9 @@ module Lemon::TestReports
         end
       end
 
-      unless errors.empty?
+      unless record[:error].empty?
         puts "ERRORS:\n\n"
-        errors.each do |unit, exception|
+        record[:error].each do |unit, exception|
           puts "    #{unit}"
           puts "    #{exception}"
           puts "    #{exception.backtrace[0]}"
@@ -103,9 +103,9 @@ module Lemon::TestReports
         end
       end
 
-      #unless pendings.empty?
+      #unless record[:pending].empty?
       #  puts "PENDING:\n\n"
-      #  pendings.each do |unit, exception|
+      #  record[:pending].each do |unit, exception|
       #    puts "    #{unit}"
       #  end
       #  puts

@@ -24,7 +24,7 @@ module Lemon
        @teardown = procedure
     end
 
-    #
+    # Teardown instance.
     def teardown(scope=nil)
       if scope
         scope.instance_eval(&@teardown) if @teardown
@@ -61,21 +61,6 @@ module Lemon
       description.gsub(/\n/, ' ')
     end
   end
-
- #class TestSingleton < Instance
- #   def initialize(testcase, *description)
- #     @testcase    = testcase
- #     @description = description.join("\n")
- #   end
- #
- #   def setup
- #     testcase.target
- #   end
- #
- #    def meta?
- #     true 
- #   end
- #end
 
 end
 

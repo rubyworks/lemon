@@ -12,27 +12,30 @@ module Lemon
     # Report format.
     attr :format
 
+    # Record pass, fail, error, pending and omitted units.
+    attr :record
+
     # Record of successful tests.
-    attr :successes
+    #attr :successes
 
     # Record of failed tests.
-    attr :failures
+    #attr :failures
 
     # Record of errors.
-    attr :errors
+    #attr :errors
 
     # Record of pending tests.
-    attr :pendings
+    #attr :pendings
+
+    # Record of pending tests.
+    #attr :omits
 
     # New Runner.
     def initialize(suite, options={})
-      @suite     = suite
-      @options   = options
+      @suite   = suite
+      @options = options
 
-      @successes = []
-      @failures  = []
-      @errors    = []
-      @pendings  = []
+      @record  = {:pass=>[], :fail=>[], :error=>[], :pending=>[], :omit=>[]}
     end
 
     #
@@ -69,26 +72,30 @@ module Lemon
           #  reporter.report_instance(step)
           #when TestUnit
           #  unit = step
-            next report.omit(unit) if unit.omit?
+            if unit.omit?
+              report.omit(unit)
+              record[:omit] << unit
+              next
+            end
             report.start_unit(unit)
             #run_pretest_procedures(unit, scope) #, suite, testcase)
             begin
               run_unit(unit, scope)
               #unit.call(scope)
               report.pass(unit)
-              successes << unit
+              record[:pass] << unit
             rescue Pending => exception
               exception = clean_backtrace(exception)
               report.pending(unit, exception)
-              pendings << [unit, exception]
+              record[:pending] << [unit, exception]
             rescue Assertion => exception
               exception = clean_backtrace(exception)
               report.fail(unit, exception)
-              failures << [unit, exception]
+              record[:fail] << [unit, exception]
             rescue Exception => exception
               exception = clean_backtrace(exception)
               report.error(unit, exception)
-              errors << [unit, exception]
+              record[:error] << [unit, exception]
             end
             report.finish_unit(unit)
             #run_postest_procedures(unit, scope) #, suite, testcase)

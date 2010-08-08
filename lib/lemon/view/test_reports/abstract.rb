@@ -69,10 +69,7 @@ module Lemon::TestReports
 
     private
 
-    def successes ; runner.successes ; end
-    def failures  ; runner.failures  ; end
-    def errors    ; runner.errors    ; end
-    def pendings  ; runner.pendings  ; end
+    def record ; runner.record ; end
 
     #def uncovered_cases ; runner.uncovered_cases ; end
     #def uncovered_units ; runner.uncovered_units ; end
@@ -85,33 +82,17 @@ module Lemon::TestReports
     #def cover? ; runner.cover? ; end
 
     #
-    #def red(string)
-    #  @ansicolor ? string.ansi(:red) : string
-    #end
-
-    #
-    #def yellow(string)
-    #  @ansicolor ? string.ansi(:yellow) : string
-    #end
-
-    #
-    #def green(string)
-    #  @ansicolor ? string.ansi(:green) : string
-    #end
-
-    #
-    #def cyan(string)
-    #  @ansicolor ? string.ansi(:cyan) : string
-    #end
-
-    #
     def total
-      successes.size + failures.size + errors.size + pendings.size
+      %w{pending pass fail error omit}.inject(0){ |s,r| s += record[r.to_sym].size; s }
     end
 
     #
     def tally
-      s = "#{total} tests: #{successes.size} pass, #{failures.size} fail, #{errors.size} err, #{pendings.size} pending "
+      sizes = %w{pending pass fail error omit}.map{ |r| record[r.to_sym].size }
+
+      data = [total] + sizes
+
+      s = "%s tests: %s pending, %s pass, %s fail, %s err, %s omit " % data
       #s += "(#{uncovered_units.size} uncovered, #{undefined_units.size} undefined)" if cover?
       s
     end

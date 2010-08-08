@@ -6,56 +6,67 @@ module Lemon::TestReports
   class Outline < Abstract
 
     #
-    def report_start(suite)
-    end
-
-    def report_start_testcase(testcase)
-      puts "#{testcase.target}".ansi(:bold)
+    def start_case(testcase)
+      puts "* #{testcase.target}".ansi(:bold)
     end
 
     #
-    def report_instance(instance)
+    def instance(instance)
       if instance
         if instance.to_s.empty?
-          puts "    general %s" % (instance.meta? ? "singleton" : "instance")
+          puts "  * general %s" % (instance.meta? ? "singleton" : "instance")
         else
-          puts "    #{instance}"
+          puts "  * #{instance}"
         end
       else
-        puts "    #general case instance"
+        puts "  * general case instance"
       end
     end
 
     #
-    def report_success(testunit)
-      puts "        #{testunit.name} #{testunit.aspect}".ansi(:green)
+    def start_unit(unit)
+      instance = unit.instance
+      if @instance != instance
+        @instance = instance
+        instance(instance)
+      end
     end
 
     #
-    def report_failure(testunit, exception)
-      puts "        #{testunit.name} #{testunit.aspect}".ansi(:red)
+    def pass(unit)
+      puts "    * #{unit.name} #{unit.aspect}".ansi(:green)
     end
 
     #
-    def report_error(testunit, exception)
-      puts "        #{testunit.name} #{testunit.aspect}".ansi(:red)
+    def fail(unit, exception)
+      puts "    * #{unit.name} #{unit.aspect} (FAIL)".ansi(:red)
     end
 
     #
-    def report_pending(testunit, exception)
-      puts "        #{testunit.name} #{testunit.aspect} (PENDING)".ansi(:yellow)
+    def error(unit, exception)
+      puts "    * #{unit.name} #{unit.aspect} (ERROR)".ansi(:red)
+    end
+
+    #
+    def omit(unit)
+      puts "    * #{unit.name} #{unit.aspect} (OMIT)".ansi(:cyan)
+    end
+
+    #
+    def pending(unit, exception)
+      puts "    * #{unit.name} #{unit.aspect} (PENDING)".ansi(:yellow)
       #puts
       #puts "        PENDING #{exception.backtrace[0]}"
       #puts
     end
 
     #
-    def report_finish(suite)
+    def finish_suite(suite)
       puts
 
-      unless failures.empty?
+      unless record[:fail].empty?
         puts "FAILURES:\n\n"
-        failures.each do |testunit, exception|
+        record[:fail].each do |testunit, exception|
           puts "    #{testunit}"
           puts "    #{exception}"
           puts "    #{exception.backtrace[0]}"
@@ -63,9 +74,9 @@ module Lemon::TestReports
         end
       end
 
-      unless errors.empty?
+      unless record[:error].empty?
         puts "ERRORS:\n\n"
-        errors.each do |testunit, exception|
+        record[:error].each do |testunit, exception|
           puts "    #{testunit}"
           puts "    #{exception}"
           puts "    #{exception.backtrace[0]}"
@@ -73,9 +84,9 @@ module Lemon::TestReports
         end
       end
 
-      #unless pendings.empty?
+      #unless record[:pending].empty?
       #  puts "PENDING:\n\n"
-      #  pendings.each do |testunit, exception|
+      #  record[:pending].each do |testunit, exception|
       #    puts "    #{testunit}"
       #  end
       #end
