@@ -21,8 +21,8 @@ module Lemon
   end
 
   def self.const_missing(name)
-    name = name.to_s.downcase
-    gemfile[name] || profile[name]
+    key = name.to_s.downcase
+    gemfile[key] || profile[key] || super(name)
   end
 
 end
