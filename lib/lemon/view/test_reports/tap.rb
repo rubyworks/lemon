@@ -6,40 +6,40 @@ module Lemon::TestReports
   class Tap < Abstract
 
     #
-    def report_start(suite)
+    def start_suite(suite)
       @start = Time.now
       @i = 0
       n = suite.testcases.inject(0){ |c, tc| c = c + tc.size; c }
       puts "1..#{n}"
     end
 
-    def report_start_testunit(testunit)
+    def start_unit(unit)
       @i += 1
     end
 
     #
-    def report_success(testunit)
-      puts "ok #{@i} - #{testunit.description}"
+    def pass(unit)
+      puts "ok #{@i} - #{unit.description}"
     end
 
     #
-    def report_failure(testunit, exception)
-      puts "not ok #{@i} - #{testunit.description}"
+    def fail(unit, exception)
+      puts "not ok #{@i} - #{unit.description}"
       puts "  FAIL #{exception.backtrace[0]}"
       puts "  #{exception}"
     end
 
     #
-    def report_error(testunit, exception)
-      puts "not ok #{@i} - #{testunit.description}"
+    def error(unit, exception)
+      puts "not ok #{@i} - #{unit.description}"
       puts "  ERROR #{exception.class}"
       puts "  #{exception}"
       puts "  " + exception.backtrace.join("\n        ")
     end
 
     #
-    def report_pending(testunit, exception)
-      puts "not ok #{@i} - #{testunit.description}"
+    def pending(unit, exception)
+      puts "not ok #{@i} - #{unit.description}"
       puts "  PENDING"
       puts "  #{exception.backtrace[1]}"
     end

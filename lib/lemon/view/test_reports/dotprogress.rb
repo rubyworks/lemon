@@ -5,26 +5,27 @@ module Lemon::TestReports
   # Simple Dot-Progress Reporter
   class Dotprogress < Abstract
 
-    def report_start(suite)
+    def omit(unit)
+      print "x"; $stdout.flush
     end
 
-    def report_success(testunit)
+    def pass(unit)
       print "."; $stdout.flush
     end
 
-    def report_failure(testunit, exception)
+    def fail(unit, exception)
       print "F"
     end
 
-    def report_error(testunit, exception)
+    def error(unit, exception)
       print "E"
     end
 
-    def report_pending(testunit, exception)
+    def pending(unit, exception)
       print "P"
     end
 
-    def report_finish(suite)
+    def finish_suite(suite)
       puts; puts
 
       unless failures.empty?

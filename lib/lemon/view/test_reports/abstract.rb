@@ -3,15 +3,7 @@ module Lemon::TestReports
   # Test Reporter Base Class
   class Abstract
 
-    # Supports ANSI Codes?
-    ANSI_SUPPORT = (
-      begin
-        require 'ansi/code'
-        true
-      rescue LoadError
-        false
-      end
-    )
+    require 'ansi/code'
 
     #
     def self.inherited(base)
@@ -25,51 +17,54 @@ module Lemon::TestReports
 
     #
     def initialize(runner)
-      @runner    = runner
-      @ansicolor = ANSI_SUPPORT
+      @runner = runner
     end
 
     #
     attr :runner
 
     #
-    def report_start(suite)
+    def start_suite(suite)
     end
 
     #
-    def report_start_testcase(instance)
+    def start_case(instance)
     end
 
     #
-    def report_instance(instance)
+    #def instance(instance)
+    #end
+
+    #
+    def start_unit(unit)
+    end
+
+    # Report an omitted unit test.
+    def omit(unit)
     end
 
     #
-    def report_start_testunit(testunit)
+    def pass(unit)
     end
 
     #
-    def report_success(testunit)
+    def fail(unit, exception)
     end
 
     #
-    def report_failure(testunit, exception)
+    def error(unit, exception)
     end
 
     #
-    def report_error(testunit, exception)
+    def finish_unit(testunit)
     end
 
     #
-    def report_finish_testunit(testunit)
+    def finish_case(instance)
     end
 
     #
-    def report_finish_testcase(instance)
-    end
-
-    #
-    def report_finish(suite)
+    def finish_suite(suite)
     end
 
     private
@@ -90,24 +85,24 @@ module Lemon::TestReports
     #def cover? ; runner.cover? ; end
 
     #
-    def red(string)
-      @ansicolor ? string.ansi(:red) : string
-    end
+    #def red(string)
+    #  @ansicolor ? string.ansi(:red) : string
+    #end
 
     #
-    def yellow(string)
-      @ansicolor ? string.ansi(:yellow) : string
-    end
+    #def yellow(string)
+    #  @ansicolor ? string.ansi(:yellow) : string
+    #end
 
     #
-    def green(string)
-      @ansicolor ? string.ansi(:green) : string
-    end
+    #def green(string)
+    #  @ansicolor ? string.ansi(:green) : string
+    #end
 
     #
-    def cyan(string)
-      @ansicolor ? string.ansi(:cyan) : string
-    end
+    #def cyan(string)
+    #  @ansicolor ? string.ansi(:cyan) : string
+    #end
 
     #
     def total

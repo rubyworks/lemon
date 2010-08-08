@@ -124,6 +124,8 @@ module Lemon
       option_private
       option_output
       option_format
+      option_loadpath
+      option_requires
 
       option_parser.parse!(argv)
     end
@@ -140,15 +142,14 @@ module Lemon
       loadpath.each{ |path| $LOAD_PATH.unshift(path) }
       requires.each{ |path| require(path) }
 
-      cover = options[:uncovered]
-
-      suite = Lemon::TestSuite.new(test_files, :cover=>cover) #, :cover_all=>true)
-      gener = Lemon::ScaffoldGenerator.new(suite, options)
+      #cover = options[:uncovered]
+      #suite = Lemon::TestSuite.new(test_files, :cover=>cover) #, :cover_all=>true)
+      generator = Lemon::ScaffoldGenerator.new(test_files, options)
 
       #if uncovered
       #  puts cover.generate_uncovered #(output)
       #else
-        puts gener.generate #(output)
+        puts generator.generate #(output)
       #end
     end
 
@@ -158,9 +159,11 @@ module Lemon
       #option_parser.separator("Generate test scaffolding.")
 
       option_namespaces
-      #option_covered
       option_uncovered
+      option_all
       option_private
+      option_loadpath
+      option_requires
 
       option_parser.parse!(argv)
     end
@@ -211,11 +214,11 @@ module Lemon
       end
     end
 
-    #def option_all
-    #  option_parser.on('-k', '--covered', 'include covered units') do
-    #    options[:all] = true
-    #  end
-    #end
+    def option_all
+      option_parser.on('-a', '--all', 'include all namespaces and units') do
+        options[:all] = true
+      end
+    end
 
     def option_private
       option_parser.on('-p', '--private', 'include private and protected methods') do

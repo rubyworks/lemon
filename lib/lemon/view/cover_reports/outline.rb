@@ -9,7 +9,7 @@ module Lemon::CoverReports
 
       unless uncovered_cases.empty?
         puts "\nUncovered Cases:"
-        unc = uncovered_cases.map do |mod|
+        uncovered_cases.map do |mod|
           puts "* #{yellow(mod.name)}"
         end
       end

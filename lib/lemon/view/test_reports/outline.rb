@@ -28,22 +28,22 @@ module Lemon::TestReports
 
     #
     def report_success(testunit)
-      puts green("        #{testunit}  #{testunit.aspect}")
+      puts "        #{testunit.name} #{testunit.aspect}".ansi(:green)
     end
 
     #
     def report_failure(testunit, exception)
-      puts red("        #{testunit}  #{testunit.aspect}")
+      puts "        #{testunit.name} #{testunit.aspect}".ansi(:red)
     end
 
     #
     def report_error(testunit, exception)
-      puts red("        #{testunit}  #{testunit.aspect}")
+      puts "        #{testunit.name} #{testunit.aspect}".ansi(:red)
     end
 
     #
     def report_pending(testunit, exception)
-      puts yellow("        #{testunit} (PENDING)")
+      puts "        #{testunit.name} #{testunit.aspect} (PENDING)".ansi(:yellow)
       #puts
       #puts "        PENDING #{exception.backtrace[0]}"
       #puts

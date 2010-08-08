@@ -46,7 +46,7 @@ module Lemon
       @units = []
       ObjectSpace.each_object(Module) do |mod|
         next if mod.name.empty?
-        next if namespaces && !namespaces.any?{ |ns| /^#{ns}/ =~ mod.to_s }
+        next if namespaces and !namespaces.any?{ |ns| /^#{ns}(::|$)/ =~ mod.to_s }
         capture_module(mod)
       end
     end

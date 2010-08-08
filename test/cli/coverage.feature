@@ -48,7 +48,7 @@ Feature: Coverage
         def q; "q"; end
       end
       """
-    Given a file named "example/test/case_complete.rb" with:
+    Given a file named "example/test/case_incomplete.rb" with:
       """
       Covers 'example'
       TestCase X do
@@ -58,7 +58,7 @@ Feature: Coverage
       end
       """
     When I cd to "example"
-    And I run "lemon -c -Ilib test/case_complete.rb"
+    And I run "lemon -c -Ilib test/case_incomplete.rb"
     Then the stdout should contain "1 uncovered cases"
     And the stdout should contain "1 uncovered units"
     And the stdout should contain "1 undefined units"

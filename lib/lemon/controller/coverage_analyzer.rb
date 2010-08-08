@@ -8,23 +8,6 @@ module Lemon
   #
   class CoverageAnalyzer
 
-    #
-    attr :suite
-
-    # Paths of lemon tests and/or ruby scripts to be compared and covered.
-    # This can include directories too, in which case all .rb scripts below
-    # then directory will be included.
-    attr :files
-
-    ## Conical snapshot of system (before loading libraries to be covered).
-    #attr :canonical
-
-    # Report format.
-    attr :format
-
-    #
-    attr :namespaces
-
     ## New Coverage object.
     ##
     ##   Coverage.new('lib/', :MyApp, :public => true)
@@ -55,11 +38,26 @@ module Lemon
       @format     = options[:format]
 
       @reporter   = reporter_find(@format)
-
-      @canonical = Snapshot.capture #system #@suite.canonical
-
-      @suite = Lemon::TestSuite.new(test_files, :cover=>true)  #@suite = suite
+      @canonical  = Snapshot.capture #system #@suite.canonical
+      @suite      = Lemon::TestSuite.new(test_files, :cover=>true)  #@suite = suite
     end
+
+    #
+    attr :suite
+
+    # Paths of lemon tests and/or ruby scripts to be compared and covered.
+    # This can include directories too, in which case all .rb scripts below
+    # then directory will be included.
+    attr :files
+
+    ## Conical snapshot of system (before loading libraries to be covered).
+    #attr :canonical
+
+    # Report format.
+    attr :format
+
+    #
+    attr :namespaces
 
     #
     def canonical
@@ -83,35 +81,8 @@ module Lemon
     end
 
     #
-    def each(&block)
-      units.each(&block)
-    end
-
-    # Produce units list from the test suite.
-    def units
-      @units ||= (
-        list = []
-        suite.each do |testcase|
-          testcase.testunits.each do |unit|
-            list << Snapshot::Unit.new(
-              unit.testcase.target,
-              unit.target,
-              :function=>unit.meta?
-            )
-          end
-        end
-        list
-      )
-    end
-
-    #
-    def targets
-      @targets ||= units.map{ |u| u.namespace }.uniq
-    end
-
-    #
-    def target_system
-      @target_system ||= system(*targets)
+    def namespaces
+      @namespaces
     end
 
     #
@@ -120,52 +91,15 @@ module Lemon
     #end
 
 
-    # Produce a coverage map.
-    #def checklist
-    #  list = system.checklist
-    #  suite.each do |testcase|
-    #    testcase.testunits.each do |testunit|
-    #      list[testcase.target.name][testunit.key] = true
-    #    end
-    #  end
-    #  list
-    #end
 
-    # Produce a coverage checklist.
-    #def checklist
-    #  suite.each do |testcase|
-    #    testcase.testunits.each do |testunit|
-    #      list[testcase.target.name][testunit.key] = true
-    #    end
-    #  end
-    #  list
-    #end
-
-    #
-    def covered
-      units
-    end
-
-    #
-    def uncovered
-      #system.units - units
-      @uncovered
-    end
-
-    #
-    def undefined
-      #units - system.units
-      @undefined      
-    end
-
-    # List of modules/classes not covered.
-    def uncovered_cases
-      @uncovered_cases
-    end
-
-    #
+    # Trigger a full set of calculations.
     def calculate
-      @units = (
+      uncovered_cases # that should be all it takes
+    end
+
+    #
+    def covered_units
+      @covered_units ||= (
         list = []
         suite.each do |testcase|
           testcase.testunits.each do |unit|
@@ -178,21 +112,72 @@ module Lemon
         end
         list
       )
+    end
 
-      @uncovered = target_system.units - @units
+    #
+    def covered_namespaces
+      @covered_namespaces ||= covered_units.map{ |u| u.namespace }.uniq
+    end
 
-      @undefined = @units - target_system.units
+    #
+    def target_namespaces
+      @target_namespaces ||= filter(covered_namespaces)
+    end
 
-      @uncovered_cases = (
-        list = filter(system.units - (target_system.units + canonical.units))
-        list.map{ |u| u.namespace }.uniq
+    # Target system snapshot.
+    def target
+      @target ||= Snapshot.capture(target_namespaces)
+    end
+
+    # Current system snapshot.
+    def current
+      @current ||= Snapshot.capture
+    end
+
+    #
+    def uncovered_units
+      @uncovered_units ||= target.units - covered_units
+    end
+
+    #
+    def undefined_units
+      @undefined_units ||= covered_units - target.units   
+    end
+
+    # List of modules/classes not covered.
+    def uncovered_cases
+      @uncovered_cases ||= (
+        list = current.units - (target.units + canonical.units)
+        list = list.map{ |u| u.namespace }.uniq
         list
       )
     end
 
-    #def load_covered_files
-    #  suite.load_covered_files
-    #end
+    #
+    alias_method :covered,   :covered_units
+    alias_method :uncovered, :uncovered_units
+    alias_method :undefined, :undefined_units
+
+    # Reset coverage data for recalcuation.
+    def reset!
+      @covered_units      = nil
+      @covered_namespaces = nil
+      @target_namespaces  = nil
+      @uncovered_units    = nil
+      @undefined_units    = nil
+      @target             = nil
+      @current            = nil
+    end
+
+    # Iterate over covered units.
+    def each(&block)
+      covered_units.each(&block)
+    end
+
+    # Number of covered units.
+    def size
+      covered_units.size
+    end
 
     # Iterate over +paths+ and use #load to bring in all +.rb+ scripts.
     #def load_system
@@ -231,6 +216,8 @@ module Lemon
     #  end
     #end
 
+  private
+
     #
     def system(*namespaces)
       namespaces = nil if namespaces.empty?
@@ -242,8 +229,19 @@ module Lemon
     #  Snapshot.capture
     #end
 
+    # Filter namespaces.
+    def filter(ns)
+      return ns if namespaces.nil? or namespaces.empty?
+      #units = units.reject do |u|
+      #  /^Lemon::/ =~ u.namespace.to_s
+      #end
+      ns.select do |u|
+        namespaces.any?{ |ns| /^#{ns}(::|$)/ =~ u.namespace.to_s }
+      end
+    end
+
     #
-    def filter(units)
+    def filter_units(units)
       return units if namespaces.nil? or namespaces.empty?
       #units = units.reject do |u|
       #  /^Lemon::/ =~ u.namespace.to_s
@@ -256,6 +254,8 @@ module Lemon
       units
     end
 
+  public
+
     #
     def render
       reporter.render
@@ -265,6 +265,8 @@ module Lemon
     def reporter
       @reporter ||= reporter_find(format)
     end
+
+  private
 
     #
     def reporter_find(format)

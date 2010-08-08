@@ -19,27 +19,40 @@ module Lemon
     attr :aspect
 
     # Ordered list of testunits.
-    attr :testunits
+    attr :units
 
-    # List of before procedures that apply case-wide.
-    attr :before
+    # List of testunit that are skipped.
+    #attr :skip
 
-    # List of after procedures that apply case-wide.
-    attr :after
+    # Before all units are run.
+    attr_accessor :prepare
+
+    # After all units are run.
+    attr_accessor :cleanup
+
+    # Module for parsing test case scripts.
+    attr :dsl
 
     # A test case +target+ is a class or module.
     def initialize(suite, target, aspect=nil, &block)
-      @suite          = suite
-      @target         = target
-      @aspect         = aspect
+      @suite  = suite
+      @target = target
+      @aspect = aspect
 
-      @testunits      = []
+      #@steps  = []
+      @units  = []
 
-      @before = {}
-      @after  = {}
+      @prepare = nil
+      @cleanup = nil
 
-      DSL.new(self, &block)
+      #@before = {}
+      #@after  = {}
+
+      @dsl = DSL.new(self, &block)
     end
+
+    # DEPRECATE
+    alias_method :testunits, :units
 
     # Iterate over each test instance.
     def each(&block)
@@ -65,100 +78,133 @@ module Lemon
         module_eval(&casecode)
       end
 
+      #
+      def Prepare(&block)
+        @testcase.prepare = block
+      end
+      alias_method :prepare, :Prepare
+
+      #
+      def Cleanup(&block)
+        @testcase.cleanup = block
+      end
+      alias_method :cleanup, :Cleanup
+
       # Define a unit test for this case.
-      def TestUnit(*targets, &block)
-        targets_hash = Hash===targets.last ? targets.pop : {}
-        targets_hash.each do |target_method, aspect|
-          @testcase.testunits << TestUnit.new(
-            @testcase, target_method,
-            :aspect=>aspect, :metaclass=>@meta, :instance=>@instance, &block
-          )
-        end
-        targets.each do |target_method|
-          @testcase.testunits << TestUnit.new(
-            @testcase, target_method,
-            :metaclass=>@meta, :instance=>@instance, &block
-          )
-        end
+      def TestUnit(*target, &block)
+        target = target.map{ |x| Hash === x ? x.to_a : x }.flatten
+        method, aspect = *target
+        unit = TestUnit.new(
+          @testcase, method,
+          :aspect   => aspect,
+          :function => @function,
+          :instance => @instance,
+          &block
+        )
+        #@testcase.steps << unit
+        @testcase.units << unit
       end
       alias_method :testunit, :TestUnit
+      alias_method :test_unit, :TestUnit
       alias_method :Unit, :TestUnit
       alias_method :unit, :TestUnit
 
       # Define a meta-method unit test for this case.
-      #def MetaUnit(*targets, &block)
-      #  targets_hash = Hash===targets.last ? targets.pop : {}
-      #  targets_hash.each do |target_method, target_concern|
-      #    @testunits << Unit.new(self, target_method, :aspect=>target_concern, :metaclass=>true, &block)
-      #  end
-      #  targets.each do |target_method|
-      #    @testunits << Unit.new(self, target_method, :metaclass=>true, &block)
-      #  end
-      #end
-      #alias_method :metaunit, :MetaUnit
+      def MetaUnit(*target, &block)
+        target = target.map{ |x| Hash === x ? x.to_a : x }.flatten
+        method, aspect = *target
+        unit = TestUnit.new(
+          @testcase, method,
+          :aspect   => aspect,
+          :function => true,
+          :instance => @instance,
+          &block
+        )
+        #@testcase.steps << unit
+        @testcase.units << unit
+      end
+      alias_method :metaunit, :MetaUnit
+      alias_method :meta_unit, :MetaUnit
+      alias_method :meta, :MetaUnit
+      alias_method :Meta, :MetaUnit
+
+      #
+      def Omit(*target, &block)
+        target = target.map{ |x| Hash === x ? x.to_a : x }.flatten
+        method, aspect = *target
+        skip = TestUnit.new(
+          @testcase, method,
+          :aspect   => aspect,
+          :function => @function,
+          :instance => @instance,
+          :omit => true,
+          &block
+        )
+        #@testcase.steps << skip
+        @testcase.units << skip
+      end
+      alias_method :omit, :Omit
+
+      #
+      def Concern(description=nil, &block)
+        if block
+          instance  = TestConcern.new(@testcase, description, &block)
+          @instance = instance
+          #@testcase.steps << instance
+        end
+      end
+      alias_method :concern, :Concern
 
       # Define a new test instance for this case.
       def Instance(description=nil, &block)
-        @meta = false
-        if block
-          instance  = TestInstance.new(@testcase, description, &block)
-          @instance = instance
-          #@testcase.steps << instance
-        else
-          @instance = nil
-        end
+        instance  = TestInstance.new(@testcase, description, &block)
+        @instance = instance
+        @function = false
+        #@testcase.steps << instance
       end
       alias_method :instance, :Instance
 
-      # Define a new test instance for this case.
+      # Define a new test singleton for this case.
       def Singleton(description=nil, &block)
-        @meta     = true
         instance  = TestInstance.new(@testcase, description, :singleton=>true, &block)
         @instance = instance
+        @function = true
         #@testcase.steps << instance
       end
       alias_method :singleton, :Singleton
 
       # Load a helper script applicable to this test case.
-      def helper(file)
+      def Helper(file)
         instance_eval(File.read(file), file)
       end
+      alias_method :helper, :Helper
 
-      # NOTE: Due to a limitation in Ruby this does not
-      # provived access to submodules. A hack has been used
-      # to circumvent. See Suite.const_missing.
-      def include(*mods)
-        extend *mods
-      end
-
-      # DEPRECATE before and after ?
+      # TODO: Make Before and After more generic to handle before and after
+      # units, concerns, instances, singletons, all three types of concern
+      # and cases.
 
       # Define a before procedure for this case.
       def Before(*matches, &block)
-        matches = [nil] if matches.empty?
-        matches.each do |match|
-          @testcase.before[match] = block
-        end
+        @testcase.before[matches] = block
       end
       alias_method :before, :Before
 
       # Define an after procedure for this case.
       def After(*matches, &block)
-        matches = [nil] if matches.empty?
-        matches.each do |match|
-          @testcase.after[match] = block
-        end
+        @testcase.after[matches] = block
       end
       alias_method :after, :After
 
-      def Teardown
-        # TODO
+      def Teardown(&block)
+        @instance.teardown = block
       end
       alias_method :teardown, :Teardown
 
-      # Define a instance procedure to apply case-wide.
-      #def When(match=nil, &block)
-      #  @when_clauses[match] = block #<< Advice.new(match, &block)
+      # NOTE: Due to a limitation in Ruby this does not
+      # provived access to submodules. A hack has been used
+      # to circumvent. See Suite.const_missing.
+      #def include(*mods)
+      #  extend *mods
       #end
 
       #
@@ -170,4 +216,3 @@ module Lemon
   end
 
 end
-

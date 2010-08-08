@@ -24,10 +24,6 @@ module Lemon::CoverReports
     def render
     end
 
-    def uncovered_cases
-      coverage.uncovered_cases
-    end
-
     def covered_units
       coverage.covered
     end
@@ -38,6 +34,10 @@ module Lemon::CoverReports
 
     def undefined_units
       coverage.undefined
+    end
+
+    def uncovered_cases
+      coverage.uncovered_cases
     end
 
     #

@@ -2,88 +2,122 @@ require 'lemon/view/test_reports/abstract'
 
 module Lemon::TestReports
 
-  # Verbose Reporter
+  # Timed Reporter
   class Verbose < Abstract
 
+    LAYOUT = "  %-12s  %11s  %11s    %s %s"
+
     #
-    def report_start(suite)
+    def start_suite(suite)
+      @start = Time.now
       timer_reset
+    end
+
+    #
+    def start_case(tc)
+      @just_started = true
+      puts
+      puts tc.to_s.ansi(:bold)
       puts
     end
 
     #
-    def report_instance(instance)
+    def instance(instance)
+       puts unless @just_started
+       puts "  #{instance}"
+       puts
+       @just_started = false
+    end
+
+    #
+    def start_unit(unit)
+       instance = unit.instance
+       if @instance != instance
+         @instance = instance
+         instance(instance)
+       end
+       timer_reset
+    end
+
+    #
+    def omit(unit)
+      data = ["OMIT".ansi(:cyan), timer, clock, unit.name.ansi(:bold), unit.aspect]
+      puts LAYOUT % data
+      #puts "  %s  %s  %s" % ["   OMIT".ansi(:cyan), unit.to_s, unit.aspect]
+    end
+
+    #
+    def pass(unit)
+      data = ["PASS".ansi(:green), timer, clock, unit.name.ansi(:bold), unit.aspect]
+      puts LAYOUT % data
+    end
+
+    #
+    def fail(unit, exception)
+      data = [timer, clock, "FAIL".ansi(:red), unit.name.ansi(:bold), unit.aspect]
+      puts LAYOUT % data
       #puts
-      #puts "== #{concern.description}\n\n" unless concern.description.empty?
-      #timer_reset
-    end
-
-    #
-    def report_success(testunit)
-      puts "  %s  %s  %s" % [green("   PASS"), testunit.to_s, testunit.description]
-    end
-
-    #
-    def report_failure(testunit, exception)
-      puts "  %s  %s  %s" % [red("   FAIL"), testunit.to_s, testunit.description]
-      puts
-      puts "        FAIL #{exception.backtrace[0]}"
-      puts "        #{exception}"
-      puts
-    end
-
-    #
-    def report_error(testunit, exception)
-      puts "  %s    %s  %s" % [red("  ERROR"), testunit.to_s, testunit.description]
-      puts
-      puts "        ERROR #{exception.class}"
-      puts "        #{exception}"
-      puts "        " + exception.backtrace.join("\n        ")
-      puts
-    end
-
-    #
-    def report_pending(testunit, exception)
-      puts "  %s  %s  %s" % [yellow("PENDING"), testunit.to_s, testunit.description]
-      #puts
-      #puts "        PENDING #{exception.backtrace[1]}"
+      #puts "        FAIL #{exception.backtrace[0]}"
+      #puts "        #{exception}"
       #puts
     end
 
     #
-    def report_finish(suite)
+    def error(unit, exception)
+      data = [timer, clock, "FAIL".ansi(:red, :bold), unit.name.ansi(:bold), unit.aspect]
+      puts LAYOUT % data
       #puts
+      #puts "        ERROR #{exception.class}"
+      #puts "        #{exception}"
+      #puts "        " + exception.backtrace.join("\n        ")
+      #puts
+    end
 
-      #unless failures.empty?
-      #  puts "FAILURES:\n\n"
-      #  failures.each do |testunit, exception|
-      #    puts "    #{testunit}"
-      #    puts "    #{exception}"
-      #    puts "    #{exception.backtrace[0]}"
-      #    puts
-      #  end
-      #end
+    #
+    def pending(unit, exception)
+      data = [timer, clock, "PENDING".ansi(:yellow), unit.name.ansi(:bold), unit.aspect]
+      puts LAYOUT % data
+    end
 
-      #unless errors.empty?
-      #  puts "ERRORS:\n\n"
-      #  errors.each do |testunit, exception|
-      #    puts "    #{testunit}"
-      #    puts "    #{exception}"
-      #    puts "    #{exception.backtrace[0]}"
-      #    puts
-      #  end
-      #end
+    #
+    def finish_suite(suite)
+      puts
+
+      unless failures.empty?
+        puts "FAILURES:\n\n"
+        failures.each do |unit, exception|
+          puts "    #{unit}"
+          puts "    #{exception}"
+          puts "    #{exception.backtrace[0]}"
+          puts
+        end
+      end
+
+      unless errors.empty?
+        puts "ERRORS:\n\n"
+        errors.each do |unit, exception|
+          puts "    #{unit}"
+          puts "    #{exception}"
+          puts "    #{exception.backtrace[0]}"
+          puts
+        end
+      end
 
       #unless pendings.empty?
       #  puts "PENDING:\n\n"
-      #  pendings.each do |testunit, exception|
-      #    puts "    #{testunit}"
+      #  pendings.each do |unit, exception|
+      #    puts "    #{unit}"
       #  end
       #  puts
       #end
 
-      puts
       puts tally
+    end
+
+    #
+    def clock
+      secs = Time.now - @start
+      return "%0.5fs" % [secs.to_s]
     end
 
     #
@@ -101,4 +135,41 @@ module Lemon::TestReports
   end
 
 end
+
+
+
+
+=begin
+      if cover?
+
+        unless uncovered_cases.empty?
+          unc = uncovered_cases.map do |mod|
+            yellow(mod.name)
+          end.join(", ")
+          puts "\nUncovered Cases: " + unc
+        end
+
+        unless uncovered_units.empty?
+          unc = uncovered_units.map do |unit|
+            yellow(unit)
+          end.join(", ")
+          puts "\nUncovered Units: " + unc
+        end
+
+        #unless uncovered.empty?
+        #  unc = uncovered.map do |unit|
+        #    yellow(unit)
+        #  end.join(", ")
+        #  puts "\nUncovered: " + unc
+        #end
+
+        unless undefined_units.empty?
+          unc = undefined_units.map do |unit|
+            yellow(unit)
+          end.join(", ")
+          puts "\nUndefined Units: " + unc
+        end
+
+      end
+=end
 

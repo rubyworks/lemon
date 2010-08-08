@@ -201,14 +201,14 @@ module Lemon
       alias_method :testcase, :Case
 
       # Define a pre-test procedure to apply suite-wide.
-      def Before(match=nil, &block)
-        @test_suite.before[match] = block #<< Advice.new(match, &block)
+      def Before(*matches, &block)
+        @test_suite.before[matches] = block #<< Advice.new(match, &block)
       end
       alias_method :before, :Before
 
       # Define a post-test procedure to apply suite-wide.
-      def After(match=nil, &block)
-        @test_suite.after[match] = block #<< Advice.new(match, &block)
+      def After(*matches, &block)
+        @test_suite.after[matches] = block #<< Advice.new(match, &block)
       end
       alias_method :after, :After
 

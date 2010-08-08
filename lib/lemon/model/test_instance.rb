@@ -15,26 +15,50 @@ module Lemon
     def initialize(testcase, description, options={}, &block)
       @testcase    = testcase
       @description = description.to_s
-      @singleton   = options[:singleton]
+      @function    = options[:function] || options[:singleton]
       @block       = block
     end
+
+    #
+    def teardown=(procedure)
+       @teardown = procedure
+    end
+
+    #
+    def teardown(scope=nil)
+      if scope
+        scope.instance_eval(&@teardown) if @teardown
+      else
+        @teardown
+      end
+    end
+
+    # Create instance.
+    def setup(scope)
+      if function?
+        if @block
+          ins = scope.instance_eval(&@block)
+          raise "target type mismatch" unless testcase.target == ins
+        else
+          ins = @testcase.target
+        end
+      else
+        if @block
+          ins = scope.instance_eval(&@block)
+          raise "target type mismatch" unless testcase.target === ins
+        end
+      end
+      ins
+    end
+
+    def function?
+      @function
+    end
+    alias_method :meta?, :function?
 
     # Returns the description with newlines removed.
     def to_s
       description.gsub(/\n/, ' ')
-    end
-
-    # Create instance.
-    def setup
-      if @singleton
-        @testcase.target
-      else
-        @block.call if @block
-      end
-    end
-
-    def meta?
-      @singleton
     end
   end
 

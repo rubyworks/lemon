@@ -55,45 +55,51 @@ module Lemon
     # Run tests.
     def run
       #prepare
-      scope = Object.new
- 
-      reporter.report_start(suite)
-
+      report.start_suite(suite)
       each do |testcase|
-        reporter.report_start_testcase(testcase)
-        testcase.each do |step|
-          case step
-          when TestInstance
-            reporter.report_instance(step)
-          when TestUnit
-            testunit = step
-            reporter.report_start_testunit(testunit)
-            run_pretest_procedures(testunit, scope) #, suite, testcase)
+        scope = Object.new
+        scope.extend(testcase.dsl)
+        report.start_case(testcase)
+        if testcase.prepare
+          scope.instance_eval(&testcase.prepare)
+        end
+        testcase.each do |unit|
+          #case step
+          #when TestInstance
+          #  reporter.report_instance(step)
+          #when TestUnit
+          #  unit = step
+            next report.omit(unit) if unit.omit?
+            report.start_unit(unit)
+            #run_pretest_procedures(unit, scope) #, suite, testcase)
             begin
-              testunit.call(scope)
-              reporter.report_success(testunit)
-              successes << testunit
+              run_unit(unit, scope)
+              #unit.call(scope)
+              report.pass(unit)
+              successes << unit
             rescue Pending => exception
               exception = clean_backtrace(exception)
-              reporter.report_pending(testunit, exception)
-              pendings << [testunit, exception]
+              report.pending(unit, exception)
+              pendings << [unit, exception]
             rescue Assertion => exception
               exception = clean_backtrace(exception)
-              reporter.report_failure(testunit, exception)
-              failures << [testunit, exception]
+              report.fail(unit, exception)
+              failures << [unit, exception]
             rescue Exception => exception
               exception = clean_backtrace(exception)
-              reporter.report_error(testunit, exception)
-              errors << [testunit, exception]
+              report.error(unit, exception)
+              errors << [unit, exception]
             end
-            reporter.report_finish_testunit(testunit)
-            run_postest_procedures(testunit, scope) #, suite, testcase)
-          end
+            report.finish_unit(unit)
+            #run_postest_procedures(unit, scope) #, suite, testcase)
+          #end
         end
-        reporter.report_finish_testcase(testcase)
+        if testcase.cleanup
+          scope.instance_eval(&testcase.cleanup)
+        end
+        report.finish_case(testcase)
       end
-
-      reporter.report_finish(suite) #(successes, failures, errors, pendings)
+      report.finish_suite(suite) #(successes, failures, errors, pendings)
     end
 
     # Iterate over suite testcases, filtering out unselected testcases
@@ -112,14 +118,14 @@ module Lemon
     end
 
     # All output is handled by a reporter.
-    def reporter
-      @reporter ||= reporter_find(format)
+    def report
+      @report ||= report_find(format)
     end
 
     #
-    def reporter_find(format)
+    def report_find(format)
       format = format ? format.to_s.downcase : 'dotprogress'
-      format = reporter_list.find do |r|
+      format = report_list.find do |r|
         /^#{format}/ =~ r
       end
       raise "unsupported format" unless format
@@ -129,13 +135,49 @@ module Lemon
     end
 
     #
-    def reporter_list
+    def report_list
       Dir[File.dirname(__FILE__) + '/../view/test_reports/*.rb'].map do |rb|
         File.basename(rb).chomp('.rb')
       end
     end
 
   private
+
+    #
+    def run_unit(unit, scope)
+      if unit.function? 
+        base = (class << unit.testcase.target; self; end)
+      else
+        base = unit.testcase.target
+      end
+      raise Pending unless unit.procedure
+      base.class_eval do
+        alias_method :__lemon__, unit.target
+        define_method(unit.target) do |*a,&b|
+          unit.tested = true
+          __lemon__(*a,&b)
+        end
+      end
+      #Lemon.test_stack << self  # hack
+      begin
+        if unit.instance && unit.procedure.arity != 0
+          inst = unit.instance.setup(scope)
+          scope.instance_exec(inst, &unit.procedure) #procedure.call
+        else
+          scope.instance_exec(&unit.procedure) #procedure.call
+        end
+        unit.instance.teardown(scope) if unit.instance
+      ensure
+        #Lemon.test_stack.pop
+        base.class_eval %{
+          alias_method :#{unit.target}, :__lemon__
+        }
+      end
+      if !unit.tested
+        #exception = Untested.new("#{unit.target} not tested")
+        Kernel.eval %[raise Pending, "#{unit.target} not tested"], procedure
+      end
+    end
 
 =begin
     #
@@ -160,19 +202,18 @@ module Lemon
     end
 =end
 
+=begin
     # Run pre-test advice.
     def run_pretest_procedures(unit, scope) #, suite, testcase)
       suite = unit.testcase.suite
-      suite.before.each do |match, block|
-        if match.nil? or unit.match?(match)
-          #block.call(unit)
-          scope.instance_exec(unit, &block)
+      suite.before.each do |matches, block|
+        if matches.all?{ |match| unit.match?(match) }
+          scope.instance_exec(unit, &block) #block.call(unit)
         end
       end
-      unit.testcase.before.each do |match, block|
-        if match.nil? or test_unit.match?(match)
-          #block.call(testunit)
-          scope.instance_exec(unit, &block)
+      unit.testcase.before.each do |matches, block|
+        if matches.all?{ |match| unit.match?(match) }
+          scope.instance_exec(unit, &block) #block.call(unit)
         end
       end
     end
@@ -180,19 +221,18 @@ module Lemon
     # Run post-test advice.
     def run_postest_procedures(unit, scope) #, suite, testcase)
       suite = unit.testcase.suite
-      unit.testcase.after.each do |match, block|
-        if match.nil? or unit.match?(match)
-          #block.call(unit)
-          scope.instance_exec(unit, &block)
+      unit.testcase.after.each do |matches, block|
+        if matches.all?{ |match| unit.match?(match) }
+          scope.instance_exec(unit, &block) #block.call(unit)
         end
       end
-      suite.after.each do |match, block|
-        if match.nil? or testunit.match?(match)
-          #block.call(testunit)
-          scope.instance_exec(unit, &block)
+      suite.after.each do |matches, block|
+        if matches.all?{ |match| unit.match?(match) }
+          scope.instance_exec(unit, &block) #block.call(unit)
         end
       end
     end
+=end
 
     # Remove reference to lemon library from backtrace.
     def clean_backtrace(exception)

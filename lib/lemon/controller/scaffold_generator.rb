@@ -7,17 +7,16 @@ module Lemon
 
     # New Scaffold Generator.
     #
-    def initialize(suite, options={})
-      @suite = suite
+    def initialize(files, options={})
+      @files      = files
 
-      @coverage = CoverageAnalyzer.new(suite, options)
+      @coverage   = CoverageAnalyzer.new(files, options)
+      @suite      = @coverage.suite
 
       @namespaces = options[:namespaces]
       @private    = options[:private]
-      #@covered    = options[:covered]
       @uncovered  = options[:uncovered]
-
-      @files = suite.files
+      @all        = options[:all]
     end
 
     # Returns CoverageAnalyzer instance.
@@ -28,6 +27,11 @@ module Lemon
     #
     def namespaces
       @namespaces
+    end
+
+    #
+    def all?
+      @all
     end
 
     #
@@ -47,18 +51,18 @@ module Lemon
 
     # Generate test template(s).
     def generate
-      if covered?
-        generate_covered
+      if all?
+        generate_all
       elsif uncovered?
         generate_uncovered
       else
-        generate_all
+        generate_target
       end
     end
 
     #
-    def generate_covered
-      render(filter(coverage.units))
+    def generate_target
+      render(filter(coverage.target.units))
     end
 
     #

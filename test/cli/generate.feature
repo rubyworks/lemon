@@ -1,8 +1,8 @@
 Feature: Coverage
   As a developer
   In order to improve test coverge
-  I want to able to write unit tests that target methods
-  And run those tests
+  I want to able to generate test scaffolding
+  And limit the scaffolding to test units not already covered
 
   Scenario: Complete Example Case
     Given a directory named "example"

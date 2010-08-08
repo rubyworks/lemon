@@ -1,4 +1,4 @@
-Covers File.dirname(__FILE__) + '/example.rbx'
+Covers File.dirname(__FILE__) + '/example.rb'
 
 TestCase X do
 
