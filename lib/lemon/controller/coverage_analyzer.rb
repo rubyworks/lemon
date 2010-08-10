@@ -1,7 +1,5 @@
 require 'lemon/model/snapshot'
-require 'lemon/model/test_suite'
-#require 'lemon/main'
-#require 'lemon/view/coversheets/outline'
+require 'lemon/model/main'
 
 module Lemon
 
@@ -30,16 +28,42 @@ module Lemon
     #
     #   CoverageAnalyzer.new(suite, :MyApp, :public => true)
     #
-    def initialize(test_files, options={})
-      @files = test_files
+    def initialize(files, options={})
+      @files = files
 
       @namespaces = [options[:namespaces]].flatten.compact
       @private    = options[:private]
       @format     = options[:format]
 
       @reporter   = reporter_find(@format)
+
+      initialize_prerequisites(options)
+
       @canonical  = Snapshot.capture #system #@suite.canonical
-      @suite      = Lemon::TestSuite.new(test_files, :cover=>true)  #@suite = suite
+
+      @suite = Lemon.suite
+      #@suite      = Lemon::TestSuite.new(test_files, :cover=>true)  #@suite = suite
+
+      files = files.map{ |f| Dir[f] }.flatten
+      files = files.map{ |f| 
+        if File.directory?(f)
+          Dir[File.join(f, '**/*.rb')]
+        else
+          f 
+        end
+      }.flatten.uniq
+      files = files.map{ |f| File.expand_path(f) }
+
+      files.each{ |s| require s }
+    end
+
+    # Load in prerequisites
+    def initialize_prerequisites(options)
+      loadpath = options[:loadpath] || []
+      requires = options[:requires] || []
+
+      loadpath.each{ |path| $LOAD_PATH.unshift(path) }
+      requires.each{ |path| require(path) }
     end
 
     #
@@ -91,7 +115,6 @@ module Lemon
     #end
 
 
-
     # Trigger a full set of calculations.
     def calculate
       uncovered_cases # that should be all it takes
@@ -136,12 +159,12 @@ module Lemon
 
     #
     def uncovered_units
-      @uncovered_units ||= target.units - covered_units
+      @uncovered_units ||= target.units - (covered_units + canonical.units)
     end
 
     #
     def undefined_units
-      @undefined_units ||= covered_units - target.units   
+      @undefined_units ||= covered_units - target.units
     end
 
     # List of modules/classes not covered.
@@ -149,8 +172,13 @@ module Lemon
       @uncovered_cases ||= (
         list = current.units - (target.units + canonical.units)
         list = list.map{ |u| u.namespace }.uniq
-        list
+        list - canonical_cases
       )
+    end
+
+    #
+    def canonical_cases
+      @canonical_cases ||= canonical.units.map{ |u| u.namespace }.uniq
     end
 
     #
