@@ -49,14 +49,15 @@ stats:
   output   : ~
   active   : true
 
-testrb:
-  service  : Testrb
-  tests    : ~
-  exclude  : ~
-  loadpath : ~
-  requires : ~
-  live     : false   
-  active   : false
+cucumber:
+  service : Custom
+  test    : |
+    system 'cucumber -q -f progress test/cli'
+
+lemon:
+  service : Custom
+  test    : |
+    system 'lemon test/unit/*.rb'
 
 vclog:
   service  : VClog
@@ -64,11 +65,5 @@ vclog:
   layout   : rel    # gnu
   typed    : false
   output   : ~
-  active   : false
-
-syntax:
-  service  : Syntax
-  loadpath : ~
-  exclude  : ~
   active   : false
 
