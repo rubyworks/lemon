@@ -15,26 +15,31 @@ module Lemon::TestReports
 
     #
     def start_case(tc)
-      @just_started = true
-      puts
+      if @_last == :unit
+        puts
+        @_last = :case
+      end
       puts tc.to_s.ansi(:bold)
       puts
     end
 
     #
-    def instance(instance)
-       puts unless @just_started
-       puts "  #{instance}"
-       puts
-       @just_started = false
+    def context(context)
+      unless context.to_s.empty?
+        if @_last == :unit
+          puts
+          @_last = :context
+        end
+        puts "  #{context}"
+        puts
+      end
     end
 
     #
     def start_unit(unit)
-       instance = unit.instance
-       if @instance != instance
-         @instance = instance
-         instance(instance)
+       if @context != unit.context
+         @context = unit.context
+         context(@context)
        end
        timer_reset
     end
@@ -54,7 +59,7 @@ module Lemon::TestReports
 
     #
     def fail(unit, exception)
-      data = [timer, clock, "FAIL".ansi(:red), unit.name.ansi(:bold), unit.aspect]
+      data = ["FAIL".ansi(:red), timer, clock, unit.name.ansi(:bold), unit.aspect]
       puts LAYOUT % data
       #puts
       #puts "        FAIL #{exception.backtrace[0]}"
@@ -64,7 +69,7 @@ module Lemon::TestReports
 
     #
     def error(unit, exception)
-      data = [timer, clock, "FAIL".ansi(:red, :bold), unit.name.ansi(:bold), unit.aspect]
+      data = ["ERRS".ansi(:red, :bold), timer, clock, unit.name.ansi(:bold), unit.aspect]
       puts LAYOUT % data
       #puts
       #puts "        ERROR #{exception.class}"
@@ -75,8 +80,13 @@ module Lemon::TestReports
 
     #
     def pending(unit, exception)
-      data = [timer, clock, "PENDING".ansi(:yellow), unit.name.ansi(:bold), unit.aspect]
+      data = ["PEND".ansi(:yellow), timer, clock, unit.name.ansi(:bold), unit.aspect]
       puts LAYOUT % data
+    end
+
+    #
+    def finish_unit(unit)
+       @_last = :unit
     end
 
     #
@@ -87,8 +97,10 @@ module Lemon::TestReports
         puts "FAILURES:\n\n"
         record[:fail].each do |unit, exception|
           puts "    #{unit}"
+          puts "    #{file_and_line(exception)}"
           puts "    #{exception}"
-          puts "    #{exception.backtrace[0]}"
+          puts code_snippet(exception)
+          #puts "    #{exception.backtrace[0]}"
           puts
         end
       end
@@ -97,19 +109,22 @@ module Lemon::TestReports
         puts "ERRORS:\n\n"
         record[:error].each do |unit, exception|
           puts "    #{unit}"
+          puts "    #{file_and_line(exception)}"
           puts "    #{exception}"
-          puts "    #{exception.backtrace[0]}"
+          puts code_snippet(exception)
+          #puts "    #{exception.backtrace[0]}"
           puts
         end
       end
 
-      #unless record[:pending].empty?
-      #  puts "PENDING:\n\n"
-      #  record[:pending].each do |unit, exception|
-      #    puts "    #{unit}"
-      #  end
-      #  puts
-      #end
+      unless record[:pending].empty?
+        puts "PENDING:\n\n"
+        record[:pending].each do |unit, exception|
+          puts "    #{unit}"
+          puts "    #{file_and_line(exception)}"
+          puts
+        end
+      end
 
       puts tally
     end

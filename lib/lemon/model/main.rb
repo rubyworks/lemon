@@ -6,7 +6,7 @@ require 'lemon/model/test_suite'
 # Current suite being defined. This is used
 # to define a Suite object via the toplevel DSL.
 def Lemon.suite
-  @suite
+  @suite ||= Lemon::TestSuite.new([])
 end
 
 #
@@ -15,41 +15,39 @@ def Lemon.suite=(suite)
 end
 
 #
-def Before(match=nil, &block)
-  Lemon.suite.Before(match, &block)
-end
-
-#
-def After(match=nil, &block)
-  Lemon.suite.After(match, &block)
-end
-
-#
-#def When(match=nil, &block)
-#  Lemon.suite.When(match, &block)
+#def Before(match=nil, &block)
+#  Lemon.suite.Before(match, &block)
 #end
 
 #
-def Case(target_class, &block)
-  Lemon.suite.Case(target_class, &block)
+#def After(match=nil, &block)
+#  Lemon.suite.After(match, &block)
+#end
+
+#
+def TestCase(target_class, &block)
+  Lemon.suite.dsl.testcase(target_class, &block)
 end
-alias :TestCase :Case
+alias :Case :TestCase
+alias :testcase :TestCase
+alias :test_case :TestCase
 
 #
 def Covers(script)
-  Lemon.suite.Covers(script)
+  Lemon.suite.dsl.covers(script)
 end
-#alias_method :covers, :Covers
+alias :covers :Covers
 
 #
-def Helper(script)
-  Lemon.suite.Helper(script)
-end
+#def Helper(script)
+#  Lemon.suite.Helper(script)
+#end
 
 #def Subtest(script)
 #  Lemon.suite.Subtest(script)
 #end
 
+=begin
 # FIXME: This is a BIG FAT HACK! For the life of me I cannot find
 # a way to resolve module constants included in the test cases.
 # Because of closure, the constant lookup goes through here, and not
@@ -86,4 +84,5 @@ end
 def Lemon.test_stack
   @@test_stack ||= []
 end
+=end
 

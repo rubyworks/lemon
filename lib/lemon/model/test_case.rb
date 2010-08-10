@@ -1,11 +1,11 @@
 require 'lemon/model/pending'
-require 'lemon/model/test_instance'
+require 'lemon/model/test_context'
 require 'lemon/model/test_unit'
 
 module Lemon
 
   # Test Case encapsulates a collection of 
-  # unit tests organized into groups of instance.
+  # unit tests organized into groups of contexts.
   class TestCase
 
     # The test suite to which this testcase belongs.
@@ -54,7 +54,7 @@ module Lemon
     # DEPRECATE
     alias_method :testunits, :units
 
-    # Iterate over each test instance.
+    # Iterate over each test unit.
     def each(&block)
       testunits.each(&block)
     end
@@ -74,7 +74,7 @@ module Lemon
       #
       def initialize(testcase, &casecode)
         @testcase = testcase
-        @instance = nil #Instance.new(self)
+        @context = nil #Instance.new(self)
         module_eval(&casecode)
       end
 
@@ -98,7 +98,7 @@ module Lemon
           @testcase, method,
           :aspect   => aspect,
           :function => @function,
-          :instance => @instance,
+          :context => @context,
           &block
         )
         #@testcase.steps << unit
@@ -117,7 +117,7 @@ module Lemon
           @testcase, method,
           :aspect   => aspect,
           :function => true,
-          :instance => @instance,
+          :context => @context,
           &block
         )
         #@testcase.steps << unit
@@ -136,7 +136,7 @@ module Lemon
           @testcase, method,
           :aspect   => aspect,
           :function => @function,
-          :instance => @instance,
+          :context => @context,
           :omit => true,
           &block
         )
@@ -146,30 +146,34 @@ module Lemon
       alias_method :omit, :Omit
 
       #
-      def Concern(description=nil, &block)
+      def Context(description=nil, &block)
         if block
-          instance  = TestConcern.new(@testcase, description, &block)
-          @instance = instance
-          #@testcase.steps << instance
+          context  = TestContext.new(@testcase, description, &block)
+          @context = context
+          #@testcase.steps << context
         end
       end
-      alias_method :concern, :Concern
+      alias_method :context, :Context
+
+      # DEPRECATE: Concern in favor of Context ?
+      alias_method :Concern, :Context
+      alias_method :concern, :Context
 
       # Define a new test instance for this case.
       def Instance(description=nil, &block)
-        instance  = TestInstance.new(@testcase, description, &block)
-        @instance = instance
+        context  = TestInstance.new(@testcase, description, &block)
+        @context = context
         @function = false
-        #@testcase.steps << instance
+        #@testcase.steps << context
       end
       alias_method :instance, :Instance
 
       # Define a new test singleton for this case.
       def Singleton(description=nil, &block)
-        instance  = TestInstance.new(@testcase, description, :singleton=>true, &block)
-        @instance = instance
+        context  = TestSingleton.new(@testcase, description, &block)
+        @context = context
         @function = true
-        #@testcase.steps << instance
+        #@testcase.steps << context
       end
       alias_method :singleton, :Singleton
 
@@ -179,8 +183,9 @@ module Lemon
       end
       alias_method :helper, :Helper
 
+=begin
       # TODO: Make Before and After more generic to handle before and after
-      # units, concerns, instances, singletons, all three types of concern
+      # units, conctexts, instances, singletons, all three types of concern
       # and cases.
 
       # Define a before procedure for this case.
@@ -194,9 +199,10 @@ module Lemon
         @testcase.after[matches] = block
       end
       alias_method :after, :After
+=end
 
       def Teardown(&block)
-        @instance.teardown = block
+        @context.teardown = block
       end
       alias_method :teardown, :Teardown
 

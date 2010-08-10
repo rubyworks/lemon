@@ -11,24 +11,24 @@ module Lemon::TestReports
     end
 
     #
-    def instance(instance)
-      if instance
-        if instance.to_s.empty?
-          puts "  * general %s" % (instance.meta? ? "singleton" : "instance")
+    def context(context)
+      if context
+        if context.to_s.empty?
+          puts "  * general context")
         else
-          puts "  * #{instance}"
+          puts "  * #{context}"
         end
       else
-        puts "  * general case instance"
+        puts "  * general context"
       end
     end
 
     #
     def start_unit(unit)
       instance = unit.instance
-      if @instance != instance
-        @instance = instance
-        instance(instance)
+      if @context != context
+        @context = context
+        context(context)
       end
     end
 

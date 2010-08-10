@@ -1,5 +1,6 @@
 require 'lemon/model/test_case'
 require 'lemon/model/snapshot'
+#require 'lemon/model/main'
 
 module Lemon
 
@@ -39,6 +40,8 @@ module Lemon
 
     #
     #attr :options
+
+    attr :dsl
 
     #
     def initialize(files, options={})
@@ -127,7 +130,8 @@ module Lemon
       #Lemon.suite = self
 
       filelist.each do |file|
-        load_file(file)
+        #load_file(file)
+        require file
       end
 
       #if cover?
@@ -167,9 +171,9 @@ module Lemon
     # test support. The usual #require or #load can only be used
     # for external support libraries (such as a test mock framework).
     # This is so because suite code is not evaluated at the toplevel.
-    def helper(file)
-      instance_eval(File.read(file), file)
-    end
+    #def helper(file)
+    #  instance_eval(File.read(file), file)
+    #end
 
     #
     #def load(file)
@@ -230,16 +234,17 @@ module Lemon
           require file
         #end
       end
+      alias_method :covers, :Covers
 
-      #
-      def Helper(file)
-        local = File.join(File.dirname(caller[1]), file.to_str + '.rb')
-        if File.exist?(local)
-          @test_suite.load_file(local) #require local
-        else
-          require file
-        end
-      end
+      ## Like require_relative
+      #def Helper(file)
+      #  local = File.join(File.dirname(caller[1]), file.to_str + '.rb')
+      #  if File.exist?(local)
+      #    @test_suite.load_file(local) #require local
+      #  else
+      #    require file
+      #  end
+      #end
 
     end
 

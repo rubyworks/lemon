@@ -2,7 +2,7 @@ module Lemon
 
   # Test Instances are used to organize unit tests into groups, so as to address
   # specific scenarios for a given class.
-  class TestInstance
+  class TestContext
 
     # The test case to which this concern belongs.
     attr :testcase
@@ -16,6 +16,7 @@ module Lemon
       @testcase    = testcase
       @description = description.to_s
       @function    = options[:function] || options[:singleton]
+      @type        = options[:type] || :context
       @block       = block
     end
 
@@ -35,31 +36,52 @@ module Lemon
 
     # Create instance.
     def setup(scope)
-      if function?
-        if @block
-          ins = scope.instance_eval(&@block)
-          raise "target type mismatch" unless testcase.target == ins
-        else
-          ins = @testcase.target
-        end
-      else
-        if @block
-          ins = scope.instance_eval(&@block)
-          raise "target type mismatch" unless testcase.target === ins
-        end
+      if @block
+        ins = scope.instance_eval(&@block)
       end
       ins
     end
 
-    def function?
-      @function
-    end
+    def function? ; false ; end
     alias_method :meta?, :function?
 
     # Returns the description with newlines removed.
     def to_s
       description.gsub(/\n/, ' ')
     end
+  end
+
+  #
+  class TestInstance < TestContext
+
+    # Create instance.
+    def setup(scope)
+      if @block
+        ins = scope.instance_eval(&@block)
+        raise "target type mismatch" unless testcase.target === ins
+      end
+      ins
+    end
+
+  end
+
+  #
+  class TestSingleton < TestContext
+
+    # Create instance.
+    def setup(scope)
+      if @block
+        ins = scope.instance_eval(&@block)
+        raise "target type mismatch" unless testcase.target == ins
+      else
+        ins = @testcase.target
+      end
+      ins
+    end
+
+    def function? ; true ; end
+    alias_method :meta?, :function?
+
   end
 
 end

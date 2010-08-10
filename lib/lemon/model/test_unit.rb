@@ -6,8 +6,8 @@ module Lemon
     # The test case to which this unit test belongs.
     attr :testcase
 
-    # The instance which this test helps ensure.
-    attr :instance
+    # The context to use for this test.
+    attr :context
 
     # A test unit +target+ is a method.
     attr :target
@@ -25,7 +25,7 @@ module Lemon
 
       @aspect    = options[:aspect]
       @function  = options[:function] || options[:metaclass]
-      @instance  = options[:instance]
+      @context   = options[:context]
       @omit      = options[:omit]
 
       @procedure = procedure

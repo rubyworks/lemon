@@ -1,6 +1,6 @@
 module Lemon
 
-  #require 'lemon/model/main'
+  require 'lemon/model/main'
   require 'lemon/model/test_suite'
 
   #
@@ -9,33 +9,38 @@ module Lemon
     # Test suite to run.
     attr :suite
 
+    #
+    attr :files
+
     # Report format.
     attr :format
 
     # Record pass, fail, error, pending and omitted units.
     attr :record
 
-    # Record of successful tests.
-    #attr :successes
-
-    # Record of failed tests.
-    #attr :failures
-
-    # Record of errors.
-    #attr :errors
-
-    # Record of pending tests.
-    #attr :pendings
-
-    # Record of pending tests.
-    #attr :omits
-
     # New Runner.
-    def initialize(suite, options={})
-      @suite   = suite
+    def initialize(files, options={})
+      @files = files
       @options = options
 
       @record  = {:pass=>[], :fail=>[], :error=>[], :pending=>[], :omit=>[]}
+
+      ## TODO: can we create and assign the suite here?
+      ##@suite  = Lemon::TestSuite.new(scripts)
+
+      @suite = Lemon.suite
+
+      files = files.map{ |f| Dir[f] }.flatten
+      files = files.map{ |f| 
+        if File.directory?(f)
+          Dir[File.join(f, '**/*.rb')]
+        else
+          f 
+        end
+      }.flatten.uniq
+      files = files.map{ |f| File.expand_path(f) }
+
+      files.each{ |s| require s }
     end
 
     #
@@ -158,31 +163,35 @@ module Lemon
         base = unit.testcase.target
       end
       raise Pending unless unit.procedure
-      base.class_eval do
-        alias_method :__lemon__, unit.target
-        define_method(unit.target) do |*a,&b|
-          unit.tested = true
-          __lemon__(*a,&b)
+      begin
+        base.class_eval do
+          alias_method "_lemon_#{unit.target}", unit.target
+          define_method(unit.target) do |*a,&b|
+            unit.tested = true
+            __send__("_lemon_#{unit.target}",*a,&b)
+          end
         end
+      rescue => error
+        Kernel.eval %[raise #{error.class}, "#{unit.target} not tested"], unit.procedure
       end
       #Lemon.test_stack << self  # hack
       begin
-        if unit.instance && unit.procedure.arity != 0
-          inst = unit.instance.setup(scope)
-          scope.instance_exec(inst, &unit.procedure) #procedure.call
+        if unit.context && unit.procedure.arity != 0
+          inst = unit.context.setup(scope)
+          scope.instance_exec(*inst, &unit.procedure) #procedure.call
         else
           scope.instance_exec(&unit.procedure) #procedure.call
         end
-        unit.instance.teardown(scope) if unit.instance
+        unit.context.teardown(scope) if unit.context
       ensure
         #Lemon.test_stack.pop
         base.class_eval %{
-          alias_method :#{unit.target}, :__lemon__
+          alias_method "#{unit.target}", "_lemon_#{unit.target}"
         }
       end
       if !unit.tested
         #exception = Untested.new("#{unit.target} not tested")
-        Kernel.eval %[raise Pending, "#{unit.target} not tested"], procedure
+        Kernel.eval %[raise Pending, "#{unit.target} not tested"], unit.procedure
       end
     end
 
@@ -241,11 +250,20 @@ module Lemon
     end
 =end
 
+    EXCLUDE = Regexp.new(Regexp.escape(File.dirname(File.dirname(__FILE__))))
+
     # Remove reference to lemon library from backtrace.
+    # TODO: Matching `bin/lemon` is not robust.
     def clean_backtrace(exception)
-      trace = exception.backtrace.reject{ |t| t =~ /(lib|bin)\/lemon/ }
-      exception.set_backtrace(trace)
-      exception
+      trace = exception.backtrace
+      trace = trace.reject{ |t| t =~ /bin\/lemon/ }
+      trace = trace.reject{ |t| t =~ EXCLUDE }
+      if trace.empty?
+        exception
+      else
+        exception.set_backtrace(trace)
+        exception
+      end
     end
 
   end
