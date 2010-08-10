@@ -69,9 +69,8 @@ module Lemon
       #suite  = Lemon::Test::Suite.new(files, :cover=>cover)
       #runner = Lemon::Runner.new(suite, :format=>format, :cover=>cover, :namespaces=>namespaces)
 
-      suite  = Lemon::TestSuite.new(scripts)
       runner = Lemon::TestRunner.new(
-        suite, :format=>options[:format], :namespaces=>options[:namespaces]
+        scripts, :format=>options[:format], :namespaces=>options[:namespaces]
       )
 
       runner.run
@@ -97,18 +96,18 @@ module Lemon
     def coverage(test_files)
       require 'lemon/controller/coverage_analyzer'
 
-      loadpath = options[:loadpath] || []
-      requires = options[:requires] || []
+      #loadpath = options[:loadpath] || []
+      #requires = options[:requires] || []
 
-      loadpath.each{ |path| $LOAD_PATH.unshift(path) }
-      requires.each{ |path| require(path) }
+      #loadpath.each{ |path| $LOAD_PATH.unshift(path) }
+      #requires.each{ |path| require(path) }
 
       $stderr.print "Calculating... "
       $stderr.flush
 
       cover = Lemon::CoverageAnalyzer.new(test_files, options)
 
-      cover.calculate
+      cover.calculate  # this just helps calcs get done up front
 
       $stderr.puts
 
