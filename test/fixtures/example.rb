@@ -5,4 +5,9 @@ class X
 end
 class Y
   def q; "q"; end
+  protected
+  def r; "r"; end
+  private
+  def s; "s"; end
 end
+

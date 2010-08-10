@@ -1,7 +1,7 @@
 TestCase Lemon::TestCase::DSL do
 
   Prepare do
-    @files = [File.dirname(__FILE__) + '/fixtures/case_inclusion.rb']
+    @files = ['test/fixtures/case_inclusion.rb']
   end
 
   Instance "Modules included in a test case are accessible by the unit tests." do

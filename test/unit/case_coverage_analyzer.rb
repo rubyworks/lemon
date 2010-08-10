@@ -4,7 +4,7 @@ TestCase Lemon::CoverageAnalyzer do
 
   Instance "Coverage of public units of an incomplete test" do
     @memo_instance ||= (
-      files = [File.dirname(__FILE__) + '/fixtures/case_incomplete.rb']
+      files = ['test/fixtures/case_incomplete.rb']
       Lemon::CoverageAnalyzer.new(files)
     )
   end

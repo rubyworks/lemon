@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+system 'lemon -v test/unit/*.rb'
+system 'cucumber'
