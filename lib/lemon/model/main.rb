@@ -25,18 +25,18 @@ end
 #end
 
 #
-def TestCase(target_class, &block)
+def testcase(target_class, &block)
   Lemon.suite.dsl.testcase(target_class, &block)
 end
-alias :Case :TestCase
-alias :testcase :TestCase
-alias :test_case :TestCase
+alias :TestCase :testcase
+alias :Case :testcase
+alias :tests :testcase # can't use test b/c of kernel method
 
 #
-def Covers(script)
+def covers(script)
   Lemon.suite.dsl.covers(script)
 end
-alias :covers :Covers
+alias :Covers :covers
 
 #
 #def Helper(script)

@@ -46,22 +46,23 @@ module Lemon
       @units = []
       ObjectSpace.each_object(Module) do |mod|
         next if mod.name.empty?
-        next if namespaces and !namespaces.any?{ |ns| /^#{ns}(::|$)/ =~ mod.to_s }
-        capture_module(mod)
+        #next if namespaces and !namespaces.any?{ |ns| /^#{ns}(::|$)/ =~ mod.to_s }
+        next if namespaces and !namespaces.any?{ |ns| ns.to_s == mod.to_s }
+        capture_namespace(mod)
       end
     end
 
     #
-    def capture_module(mod)
-      [:public, :protected, :private].each do |access|
-        methods  = mod.__send__("#{access}_instance_methods", false)
-        methods -= Object.__send__("#{access}_instance_methods", true)
+    def capture_namespace(mod)
+      ['', 'protected_', 'private_'].each do |access|
+        methods  = mod.__send__("#{access}instance_methods", false)
+        #methods -= Object.__send__("#{access}instance_methods", true)
         methods.each do |method|
           @units << Unit.new(mod, method, :access=>access)
         end
 
-        methods  = mod.__send__("#{access}_methods", false)
-        methods -= Object.__send__("#{access}_methods", true)
+        methods  = mod.__send__("#{access}methods", false)
+        #methods -= Object.__send__("#{access}methods", true)
         methods.each do |method|
           @units << Unit.new(mod, method, :access=>access, :function=>true)
         end

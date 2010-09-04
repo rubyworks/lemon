@@ -34,6 +34,9 @@ module Lemon
     end
 
     #
+    attr_accessor :omit
+
+    #
     def name ; @target ; end
 
     # Is this unit test for a class or module level method?

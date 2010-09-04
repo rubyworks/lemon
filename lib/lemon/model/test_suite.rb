@@ -18,10 +18,10 @@ module Lemon
     #attr :when_clauses
 
     # List of pre-test procedures that apply suite-wide.
-    attr :before
+    #attr :before
 
     # List of post-test procedures that apply suite-wide.
-    attr :after
+    #attr :after
 
     # A snapshot of the system before the suite is loaded.
     # Only set if +cover+ option is true.
@@ -187,40 +187,6 @@ module Lemon
         #module_eval(&code)
       end
 
-      # Includes at the suite level are routed to the toplevel.
-      def include(*mods)
-        TOPLEVEL_BINDING.eval('self').instance_eval do
-          include(*mods)
-        end
-      end
-
-      # Define a test case belonging to this suite.
-      def Case(target_class, &block)
-        raise "lemon: case target must be a class or module" unless Module === target_class
-        @test_suite.testcases << TestCase.new(@test_suite, target_class, &block)
-      end
-
-      #
-      alias_method :TestCase, :Case
-      alias_method :testcase, :Case
-
-      # Define a pre-test procedure to apply suite-wide.
-      def Before(*matches, &block)
-        @test_suite.before[matches] = block #<< Advice.new(match, &block)
-      end
-      alias_method :before, :Before
-
-      # Define a post-test procedure to apply suite-wide.
-      def After(*matches, &block)
-        @test_suite.after[matches] = block #<< Advice.new(match, &block)
-      end
-      alias_method :after, :After
-
-      # Define a concern procedure to apply suite-wide.
-      #def When(match=nil, &block)
-      #  @when_clauses[match] = block #<< Advice.new(match, &block)
-      #end
-
       # TODO: need require_find() to avoid first snapshot ?
       def Covers(file)
         #if @test_suite.cover?
@@ -236,6 +202,33 @@ module Lemon
       end
       alias_method :covers, :Covers
 
+      # Define a test case belonging to this suite.
+      def testcase(target_class, &block)
+        raise "lemon: case target must be a class or module" unless Module === target_class
+        @test_suite.testcases << TestCase.new(@test_suite, target_class, &block)
+      end
+
+      #
+      alias_method :TestCase, :testcase
+      alias_method :Case, :testcase
+
+      ## Define a pre-test procedure to apply suite-wide.
+      #def before(*matches, &block)
+      #  @test_suite.before[matches] = block #<< Advice.new(match, &block)
+      #end
+      #alias_method :Bbefore, :before
+
+      ## Define a post-test procedure to apply suite-wide.
+      #def after(*matches, &block)
+      #  @test_suite.after[matches] = block #<< Advice.new(match, &block)
+      #end
+      #alias_method :After, :after
+
+      # Define a concern procedure to apply suite-wide.
+      #def When(match=nil, &block)
+      #  @when_clauses[match] = block #<< Advice.new(match, &block)
+      #end
+
       ## Like require_relative
       #def Helper(file)
       #  local = File.join(File.dirname(caller[1]), file.to_str + '.rb')
@@ -243,6 +236,13 @@ module Lemon
       #    @test_suite.load_file(local) #require local
       #  else
       #    require file
+      #  end
+      #end
+
+      # Includes at the suite level are routed to the toplevel.
+      #def include(*mods)
+      #  TOPLEVEL_BINDING.eval('self').instance_eval do
+      #    include(*mods)
       #  end
       #end
 

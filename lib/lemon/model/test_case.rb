@@ -56,7 +56,7 @@ module Lemon
 
     # Iterate over each test unit.
     def each(&block)
-      testunits.each(&block)
+      units.each(&block)
     end
 
     #
@@ -79,109 +79,124 @@ module Lemon
       end
 
       #
-      def Prepare(&block)
+      def prepare(&block)
         @testcase.prepare = block
       end
-      alias_method :prepare, :Prepare
+      alias_method :Prepare, :prepare
 
       #
-      def Cleanup(&block)
+      def cleanup(&block)
         @testcase.cleanup = block
       end
-      alias_method :cleanup, :Cleanup
+      alias_method :Cleanup, :cleanup
 
       # Define a unit test for this case.
-      def TestUnit(*target, &block)
+      def unit(*target, &block)
         target = target.map{ |x| Hash === x ? x.to_a : x }.flatten
         method, aspect = *target
         unit = TestUnit.new(
           @testcase, method,
+          :function => false,
           :aspect   => aspect,
-          :function => @function,
           :context => @context,
           &block
         )
         #@testcase.steps << unit
         @testcase.units << unit
+        unit
       end
-      alias_method :testunit, :TestUnit
-      alias_method :test_unit, :TestUnit
-      alias_method :Unit, :TestUnit
-      alias_method :unit, :TestUnit
+      alias_method :TestUnit, :unit
+      alias_method :testunit, :unit
+      alias_method :Unit, :unit
 
       # Define a meta-method unit test for this case.
-      def MetaUnit(*target, &block)
+      def meta(*target, &block)
         target = target.map{ |x| Hash === x ? x.to_a : x }.flatten
         method, aspect = *target
         unit = TestUnit.new(
           @testcase, method,
-          :aspect   => aspect,
           :function => true,
+          :aspect   => aspect,
           :context => @context,
           &block
         )
         #@testcase.steps << unit
         @testcase.units << unit
+        unit
       end
-      alias_method :metaunit, :MetaUnit
-      alias_method :meta_unit, :MetaUnit
-      alias_method :meta, :MetaUnit
-      alias_method :Meta, :MetaUnit
+      alias_method :MetaUnit, :meta
+      alias_method :metaunit, :meta
+      alias_method :Meta, :meta
 
+      # Omit a unit from testing.
       #
-      def Omit(*target, &block)
-        target = target.map{ |x| Hash === x ? x.to_a : x }.flatten
-        method, aspect = *target
-        skip = TestUnit.new(
-          @testcase, method,
-          :aspect   => aspect,
-          :function => @function,
-          :context => @context,
-          :omit => true,
-          &block
-        )
-        #@testcase.steps << skip
-        @testcase.units << skip
+      #  omit unit :foo do
+      #    # ...
+      #  end
+      #
+      def Omit(unit)
+        unit.omit = true
       end
       alias_method :omit, :Omit
 
       #
-      def Context(description=nil, &block)
+      #def Omit(*target, &block)
+      #  target = target.map{ |x| Hash === x ? x.to_a : x }.flatten
+      #  method, aspect = *target
+      #  skip = TestUnit.new(
+      #    @testcase, method,
+      #    :aspect   => aspect,
+      #    :function => @function,
+      #    :context => @context,
+      #    :omit => true,
+      #    &block
+      #  )
+      #  #@testcase.steps << skip
+      #end
+      #alias_method :omit, :Omit
+
+      #
+      def context(description=nil, &block)
         if block
           context  = TestContext.new(@testcase, description, &block)
           @context = context
           #@testcase.steps << context
         end
       end
-      alias_method :context, :Context
+      alias_method :Context, :context
 
       # DEPRECATE: Concern in favor of Context ?
-      alias_method :Concern, :Context
-      alias_method :concern, :Context
+      alias_method :Concern, :context
+      alias_method :concern, :context
 
       # Define a new test instance for this case.
-      def Instance(description=nil, &block)
+      def instance(description=nil, &block)
         context  = TestInstance.new(@testcase, description, &block)
         @context = context
         @function = false
         #@testcase.steps << context
       end
-      alias_method :instance, :Instance
+      alias_method :Instance, :instance
 
       # Define a new test singleton for this case.
-      def Singleton(description=nil, &block)
-        context  = TestSingleton.new(@testcase, description, &block)
-        @context = context
-        @function = true
-        #@testcase.steps << context
+      #def Singleton(description=nil, &block)
+      #  context  = TestSingleton.new(@testcase, description, &block)
+      #  @context = context
+      #  @function = true
+      #  #@testcase.steps << context
+      #end
+      #alias_method :singleton, :Singleton
+
+      def teardown(&block)
+        @context.teardown = block
       end
-      alias_method :singleton, :Singleton
+      alias_method :Teardown, :teardown
 
       # Load a helper script applicable to this test case.
-      def Helper(file)
+      def helper(file)
         instance_eval(File.read(file), file)
       end
-      alias_method :helper, :Helper
+      alias_method :Helper, :helper
 
 =begin
       # TODO: Make Before and After more generic to handle before and after
@@ -201,14 +216,6 @@ module Lemon
       alias_method :after, :After
 =end
 
-      def Teardown(&block)
-        @context.teardown = block
-      end
-      alias_method :teardown, :Teardown
-
-      # NOTE: Due to a limitation in Ruby this does not
-      # provived access to submodules. A hack has been used
-      # to circumvent. See Suite.const_missing.
       #def include(*mods)
       #  extend *mods
       #end
