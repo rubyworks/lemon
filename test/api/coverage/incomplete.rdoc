@@ -1,62 +1,99 @@
+
+
 == Incomplete Coverage
 
-=== Incomplete Coverage of Publlic Methods
+=== Incomplete Coverage of Public Interface
 
 Given an example script in 'tmp/lib/example.rb' as follows:
 
-  class C1
-    def f1; "f1"; end
-    def f2; "f2"; end
-    def f3; "f3"; end
-  end
+    class C1
+      def f1; "f1"; end
+      def f2; "f2"; end
+      def f3; "f3"; end
+    end
 
-  class C2
-    def g1; "g1"; end
-    protected
-    def g2; "g2"; end
-    private
-    def g3; "g3"; end
-  end
+    class C2
+      def g1; "g1"; end
+      protected
+      def g2; "g2"; end
+      private
+      def g3; "g3"; end
+    end
+
+    class C3
+      def h1; "h1"; end
+    end
 
 And given a test case in 'tmp/test/example_case.rb' as follows:
 
-  Covers 'example.rb'
+    Covers 'example.rb'
 
-  TestCase C1 do
-    Unit :f1 => "Returns a String" do
+    TestCase C1 do
+      Unit :f1 => "Returns a String" do
+      end
+      Unit :f2 => "Returns a String" do
+      end
     end
-    Unit :f2 => "Returns a String" do
-    end
-  end
 
-  TestCase C2 do
-  end
+    TestCase C2 do
+      Unit :x1 => "Does not exist" do
+      end
+    end
 
 And we get the coverage information via CoverageAnalyer.
 
-  tests = ['tmp/test/example_case.rb']
+    require 'lemon'
 
-  coverage = Lemon::CoverageAnalyzer.new(tests, :loadpath=>'tmp/lib')
+    tests = ['tmp/test/example_case.rb']
 
-Then we should see that there are 2 unconvered units, C1#f3 and C2#g1 because
-no testcase unit was defined for them and they are both public methods.
+    coverage = Lemon::CoverageAnalyzer.new(tests, :loadpath=>'tmp/lib')
 
-  coverage.uncovered_units.size == 2
+Then we should see that there are 2 unconvered units, C1#f3 and C2#g1
+because no testcase unit was defined for them and they are both public methods.
 
-  coverage.uncovered_units.assert.find{ |u| u.namespace == C1 && u.method == :f3 }
-  coverage.uncovered_units.assert.find{ |u| u.namespace == C2 && u.method == :g1 }
+    coverage.uncovered_units.size.assert == 2
 
-There should still be 2 covered units, C1#f1 and C1#f2.
+    units = coverage.uncovered_units.map{ |u| u.to_s }
 
-  coverage.covered_units.size.assert == 2
+    units.assert.include?('C1#f3')
+    units.assert.include?('C2#g1')
 
-  coverage.covered_units.assert.find{ |u| u.namespace == C1 && u.method == :f1 }
-  coverage.covered_units.assert.find{ |u| u.namespace == C1 && u.method == :f2 }
+You might expect that 'C3#h1' would be in the uncovered units list as well,
+since it is a public method and no test unit covers it. However, there is
+no test case for C3 at all, so Lemon takes that to mean that C3 is of
+no interest.
+
+    units.refute.include?('C3#h1')
+
+But C3 will be listed in the uncovered cases list.
+
+    coverage.uncovered_cases == [C3]
+
+Note that uncovered case methods can be included in the uncovered units list
+by setting the +zealous+ option, which we will demonstrate later.
+
+There should still be 3 covered units, C1#f1, C1#f2 and C2#x1.
+
+    coverage.covered_units.size.assert == 3
+
+    units = coverage.covered_units.map{ |u| u.to_s }
+
+    units.assert.include?('C1#f1')
+    units.assert.include?('C1#f2')
+    units.assert.include?('C2#x1')
 
 But we will not find any covered units for class C2.
 
-  [ :g1, :g2, :g3 ].each do |m|
-    coverage.covered_units.refute.find{ |u| u.namespace == C2 && u.method == m }
-  end
+    units.refute.include?('C2#g1')
+    units.refute.include?('C2#g2')
+    units.refute.include?('C2#g3')
 
+Notice also that we defined a unit for C2#x1, a method that does not exist.
+So it should be listed in the undefined units list.
+
+    coverage.undefined_units.size.assert == 1
+
+    units = coverage.undefined_units.map{ |u| u.to_s }
+
+    units.assert.include?('C2#x1')
 

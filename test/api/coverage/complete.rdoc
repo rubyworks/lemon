@@ -1,64 +1,136 @@
-= Code Coverage
-
 == Complete Coverage
+
+=== Complete Coverage of Public Interface
 
 Given an example script in 'tmp/lib/example.rb' as follows:
 
-  class C1
-    def f1; "f1"; end
-    def f2; "f2"; end
-    def f3; "f3"; end
-  end
+    class C1
+      def f1; "f1"; end
+      def f2; "f2"; end
+      def f3; "f3"; end
+    end
 
-  class C2
-    def g1; "g1"; end
-    protected
-    def g2; "g2"; end
-    private
-    def g3; "g3"; end
-  end
+    class C2
+      def g1; "g1"; end
+      protected
+      def g2; "g2"; end
+      private
+      def g3; "g3"; end
+    end
 
 And given a test case in 'tmp/test/example_case.rb' as follows:
 
-  Covers 'example.rb'
+    Covers 'example.rb'
 
-  TestCase C1 do
-    Unit :f1 => "Returns a String" do
+    TestCase C1 do
+      Unit :f1 => "Returns a String" do
+      end
+      Unit :f2 => "Returns a String" do
+      end
+      Unit :f3 => "Returns a String" do
+      end
     end
-    Unit :f2 => "Returns a String" do
-    end
-    Unit :f3 => "Returns a String" do
-    end
-  end
 
-  TestCase C2 do
-    Unit :g1 => "Returns a String" do
+    TestCase C2 do
+      Unit :g1 => "Returns a String" do
+      end
     end
-    Unit :g2 => "Returns a String" do
-    end
-    Unit :g3 => "Returns a String" do
-    end
-  end
 
 And we get the coverage information via CoverageAnalyer.
 
-  tests = ['tmp/test/example_case.rb']
+    require 'lemon'
 
-  coverage = Lemon::CoverageAnalyzer.new(tests, :loadpath=>'tmp/lib')
+    tests = ['tmp/test/example_case.rb']
 
-Then we should see that there are no unconvered units.
+    coverage = Lemon::CoverageAnalyzer.new(tests, :loadpath=>'tmp/lib')
 
-  coverage.uncovered_units.assert == []
+Then we should see that there are no uncovered units.
 
-And there should be 6 covered units, one for each class and method.
+    coverage.uncovered_units.assert == []
 
-  coverage.covered_units.size.assert == 6
+And there should be 4 covered units,
 
-  [ :f1, :f2, :f3 ].each do |m|
-    coverage.covered_units.assert.find{ |u| u.namespace == C1 && u.method == m }
-  end
+    coverage.covered_units.size.assert == 4
 
-  [ :g1, :g2, :g3 ].each do |m|
-    coverage.covered_units.assert.find{ |u| u.namespace == C2 && u.method == m }
-  end
+one for each public class and method.
+
+    units = coverage.covered_units.map{ |u| u.to_s }
+
+    units.assert.include?('C1#f1')
+    units.assert.include?('C1#f2')
+    units.assert.include?('C1#f3')
+
+    units.assert.include?('C2#g1')
+
+There should not be any coverage for private and protected methods.
+
+    units.refute.include?('C2#g2')
+    units.refute.include?('C2#g3')
+
+In addition there should be no uncovered_cases or undefined_units.
+
+    coverage.undefined_units.assert = []
+    coverage.uncovered_cases.assert = []
+
+=== Including Private and Protected Methods
+
+We will use the same example classes as above, but in this case we will
+add coverage for private and protected methods as well, given a test case
+in 'tmp/test/example_case.rb' as follows:
+
+    Covers 'example.rb'
+
+    TestCase C1 do
+      Unit :f1 => "Returns a String" do
+      end
+      Unit :f2 => "Returns a String" do
+      end
+      Unit :f3 => "Returns a String" do
+      end
+    end
+
+    TestCase C2 do
+      Unit :g1 => "Returns a String" do
+      end
+      Unit :g2 => "Returns a String" do
+      end
+      Unit :g3 => "Returns a String" do
+      end
+    end
+
+And we get the coverage information via CoverageAnalyer.
+
+    require 'lemon'
+
+    tests = ['tmp/test/example_case.rb']
+
+    coverage = Lemon::CoverageAnalyzer.new(tests, :loadpath=>'tmp/lib', :private=>true)
+
+Notice the use of the +private+ option. This will add private and protected
+methods to the coverage analysis.
+
+Then we should see that there are no uncovered units.
+
+    coverage.uncovered_units.assert == []
+
+And there should be 6 covered units,
+
+    coverage.covered_units.size.assert == 6
+
+one for each class and method.
+
+    units = coverage.covered_units.map{ |u| u.to_s }
+
+    units.assert.include?('C1#f1')
+    units.assert.include?('C1#f2')
+    units.assert.include?('C1#f3')
+
+    units.assert.include?('C2#g1')
+    units.assert.include?('C2#g2')
+    units.assert.include?('C2#g3')
+
+In addition there should be no uncovered cases or undefined units.
+
+    coverage.undefined_units.assert = []
+    coverage.uncovered_cases.assert = []
 

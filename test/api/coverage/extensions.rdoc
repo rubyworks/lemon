@@ -1,0 +1,61 @@
+== Core Extension Coverage
+
+=== Kernel Extensions
+
+Given an example script in 'tmp/lib/example.rb' as follows:
+
+    module Kernel
+      def f1; "f1"; end
+      def f2; "f2"; end
+      def f3; "f3"; end
+    end
+
+And given a test case in 'tmp/test/example_case.rb' as follows:
+
+    covers 'example.rb'
+
+    tests Kernel do
+      unit :f1 do
+        fl.assert == "f1"
+      end
+      unit :f2 do
+        f2.assert == "f2"
+      end
+    end
+
+And we get the coverage information via CoverageAnalyer.
+
+    require 'lemon'
+
+    tests = ['tmp/test/example_case.rb']
+
+    coverage = Lemon::CoverageAnalyzer.new(tests, :loadpath=>'tmp/lib')
+
+Then we should see that there are two covered units, #f1 and #f2.
+
+    coverage.covered_units.size.assert == 2
+
+    units = coverage.covered_units.map{ |u| u.to_s }
+
+    units.assert.include?('Kernel#f1')
+    units.assert.include?('Kernel#f2')
+
+    units.refute.include?('Kernel#f3')
+
+And we should see one unconvered unit, #f3.
+
+    coverage.uncovered_units.size.assert == 1
+
+    units = coverage.uncovered_units.map{ |u| u.to_s }
+
+    units.assert.include?('Kernel#f3')
+
+There should be zero uncovered cases.
+
+    coverage.uncovered_cases == []
+
+And zero undefined unit.
+
+    coverage.undefined_units == []
+
+
