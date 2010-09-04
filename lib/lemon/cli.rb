@@ -3,6 +3,8 @@ module Lemon
   require 'lemon/meta/data'
   require 'optparse'
 
+  # TODO: What about a config file?
+
   # CLI Interface handle all lemon sub-commands.
   class CLI
 
@@ -121,6 +123,7 @@ module Lemon
 
       option_namespaces
       option_private
+      option_zealous
       option_output
       option_format
       option_loadpath
@@ -222,6 +225,12 @@ module Lemon
     def option_private
       option_parser.on('-p', '--private', 'include private and protected methods') do
         options[:private] = true
+      end
+    end
+
+    def option_zealous
+      option_parser.on('-z', '--zealous', 'include undefined case methods') do
+        options[:zealous] = true
       end
     end
 

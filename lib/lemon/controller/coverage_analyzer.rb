@@ -34,6 +34,7 @@ module Lemon
       @namespaces = [options[:namespaces]].flatten.compact
       @private    = options[:private]
       @format     = options[:format]
+      @zealous    = options[:zealous]
 
       @reporter   = reporter_find(@format)
 
@@ -41,8 +42,9 @@ module Lemon
 
       @canonical  = Snapshot.capture #system #@suite.canonical
 
-      @suite = Lemon.suite
-      #@suite      = Lemon::TestSuite.new(test_files, :cover=>true)  #@suite = suite
+      #@suite = Lemon.suite
+      @suite      = Lemon::TestSuite.new(files, :cover=>true)  #@suite = suite
+      Lemon.suite = @suite
 
       files = files.map{ |f| Dir[f] }.flatten
       files = files.map{ |f| 
@@ -54,7 +56,7 @@ module Lemon
       }.flatten.uniq
       files = files.map{ |f| File.expand_path(f) }
 
-      files.each{ |s| require s }
+      files.each{ |s| load s } #require s }
     end
 
     # Load in prerequisites
@@ -94,7 +96,7 @@ module Lemon
       @suite = suite
     end
 
-    # Over use public methods for coverage.
+    # Only use public methods for coverage.
     def public_only?
       !@private
     end
@@ -102,6 +104,11 @@ module Lemon
     #
     def private?
       @private
+    end
+
+    # Include methods of uncovered cases in uncovered units.
+    def zealous?
+      @zealous
     end
 
     #
@@ -133,7 +140,7 @@ module Lemon
             )
           end
         end
-        list
+        list.uniq
       )
     end
 
@@ -159,7 +166,15 @@ module Lemon
 
     #
     def uncovered_units
-      @uncovered_units ||= target.units - (covered_units + canonical.units)
+      @uncovered_units ||= (
+        units = target.units
+        if public_only?
+          units = units.select{ |u| u.public? }
+        end
+        units -= (covered_units + canonical.units)
+        units += uncovered_system.units if zealous?
+        units
+      )
     end
 
     #
@@ -174,6 +189,11 @@ module Lemon
         list = list.map{ |u| u.namespace }.uniq
         list - canonical_cases
       )
+    end
+
+    #
+    def uncovered_system
+      @uncovered_system ||= Snapshot.capture(uncovered_cases)
     end
 
     #
@@ -296,9 +316,11 @@ module Lemon
 
   private
 
+    DEFAULT_REPORTER = 'compact'
+
     #
     def reporter_find(format)
-      format = format ? format.to_s.downcase : 'outline'
+      format = format ? format.to_s.downcase : DEFAULT_REPORTER
       format = reporter_list.find do |name|
         /^#{format}/ =~ name
       end

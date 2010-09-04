@@ -3,7 +3,7 @@ module Lemon
   require 'lemon/model/main'
   require 'lemon/model/test_suite'
 
-  #
+  # The TestRunner class handles the execution of Lemon tests.
   class TestRunner
 
     # Test suite to run.
@@ -30,6 +30,8 @@ module Lemon
 
       @suite = Lemon.suite
 
+      initialize_rc
+
       files = files.map{ |f| Dir[f] }.flatten
       files = files.map{ |f| 
         if File.directory?(f)
@@ -41,6 +43,13 @@ module Lemon
       files = files.map{ |f| File.expand_path(f) }
 
       files.each{ |s| require s }
+    end
+
+    #
+    def initialize_rc
+      if file = Dir['./{.,}config/lemon/rc.rb'].first
+        require file
+      end
     end
 
     #
@@ -134,7 +143,7 @@ module Lemon
       @report ||= report_find(format)
     end
 
-    #
+    # Find a report type be name fragment.
     def report_find(format)
       format = format ? format.to_s.downcase : 'dotprogress'
       format = report_list.find do |r|
@@ -146,7 +155,7 @@ module Lemon
       reporter.new(self)
     end
 
-    #
+    # Returns a list of report types.
     def report_list
       Dir[File.dirname(__FILE__) + '/../view/test_reports/*.rb'].map do |rb|
         File.basename(rb).chomp('.rb')
@@ -162,7 +171,9 @@ module Lemon
       else
         base = unit.testcase.target
       end
+
       raise Pending unless unit.procedure
+
       begin
         base.class_eval do
           alias_method "_lemon_#{unit.target}", unit.target
@@ -175,10 +186,11 @@ module Lemon
         Kernel.eval %[raise #{error.class}, "#{unit.target} not tested"], unit.procedure
       end
       #Lemon.test_stack << self  # hack
+
       begin
         if unit.context && unit.procedure.arity != 0
-          inst = unit.context.setup(scope)
-          scope.instance_exec(*inst, &unit.procedure) #procedure.call
+          cntx = unit.context.setup(scope)
+          scope.instance_exec(cntx, &unit.procedure) #procedure.call
         else
           scope.instance_exec(&unit.procedure) #procedure.call
         end
@@ -191,7 +203,11 @@ module Lemon
       end
       if !unit.tested
         #exception = Untested.new("#{unit.target} not tested")
-        Kernel.eval %[raise Pending, "#{unit.target} not tested"], unit.procedure
+        if RUBY_VERSION < '1.9'
+          Kernel.eval %[raise Pending, "#{unit.target} not tested"], unit.procedure
+        else
+          Kernel.eval %[raise Pending, "#{unit.target} not tested"], unit.procedure.binding
+        end
       end
     end
 
@@ -269,21 +285,4 @@ module Lemon
   end
 
 end
-
-
-=begin
-    #
-    def prepare
-      if cover?
-        coverage.canonical!
-      end
-
-      suite.load_covered_files
-
-      if cover?
-        @uncovered = calculate_uncovered
-        @undefined = calculate_undefined
-      end
-    end
-=end
 
