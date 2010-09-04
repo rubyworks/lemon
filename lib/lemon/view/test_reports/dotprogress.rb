@@ -6,7 +6,7 @@ module Lemon::TestReports
   class Dotprogress < Abstract
 
     def omit(unit)
-      print "x"; $stdout.flush
+      print "O"; $stdout.flush
     end
 
     def pass(unit)
@@ -28,6 +28,22 @@ module Lemon::TestReports
     def finish_suite(suite)
       puts; puts
 
+      ## if verbose
+      unless record[:omit].empty?
+        puts "OMITTED:\n\n"
+        puts record[:omit].map{ |u| u.to_s }.sort.join('  ')
+        puts
+      end
+      ## end
+
+      unless record[:pending].empty?
+        puts "PENDING:\n\n"
+        record[:pending].each do |testunit, exception|
+          puts "    #{testunit}"
+        end
+        puts
+      end
+
       unless record[:fail].empty?
         puts "FAILURES:\n\n"
         record[:fail].each do |testunit, exception|
@@ -46,14 +62,6 @@ module Lemon::TestReports
           puts "    #{exception.backtrace[0]}"
           puts
         end
-      end
-
-      unless record[:pending].empty?
-        puts "PENDING:\n\n"
-        record[:pending].each do |testunit, exception|
-          puts "    #{testunit}"
-        end
-        puts
       end
 
       puts tally

@@ -41,23 +41,16 @@ module Lemon::CoverReports
     end
 
     #
-    def red(string)
-      @ansicolor ? ANSI::Code.red{ string } : string
-    end
-
-    #
-    def yellow(string)
-      @ansicolor ? ANSI::Code.yellow{ string } : string
-    end
-
-    #
-    def green(string)
-      @ansicolor ? ANSI::Code.green{ string } : string
-    end
-
-    #
     def tally
-      "#{covered_units.size} covered units, #{uncovered_units.size} uncovered units, #{undefined_units.size} undefined units, #{uncovered_cases.size} uncovered cases"
+      c = covered_units.size
+      u = uncovered_units.size
+      t = c + u
+
+      pc = c * 100 / t
+      pu = u * 100 / t
+
+      "#{pc}% #{c}/#{t} covered, #{pu}% #{u}/#{t} uncovered" + 
+      " (#{undefined_units.size} undefined units, #{uncovered_cases.size} uncovered cases)"
     end
 
   end

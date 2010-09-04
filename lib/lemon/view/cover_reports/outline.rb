@@ -7,38 +7,31 @@ module Lemon::CoverReports
     #
     def render
 
-      unless uncovered_cases.empty?
-        puts "\nUncovered Cases:"
-        uncovered_cases.map do |mod|
-          puts "* #{yellow(mod.name)}"
-        end
-      end
-
       unless covered_units.empty?
         puts "\nCovered Units:"
         covered_units.map do |unit|
-          puts "* #{green(unit.to_s)}"
+          puts "* #{unit.to_s.ansi(:green)}"
         end.join(", ")
       end
 
       unless uncovered_units.empty?
         puts "\nUncovered Units:"
         uncovered_units.map do |unit|
-          puts "* #{yellow(unit.to_s)}"
+          puts "* #{unit.to_s.ansi(:yellow)}"
         end
       end
-
-      #unless uncovered.empty?
-      #  unc = uncovered.map do |unit|
-      #    yellow(unit)
-      #  end.join(", ")
-      #  puts "\nUncovered: " + unc
-      #end
 
       unless undefined_units.empty?
         puts "\nUndefined Units:"
         unc = undefined_units.map do |unit|
-          puts "* #{red(unit.to_s)}"
+          puts "* #{unit.to_s.ansi(:red)}"
+        end
+      end
+
+      unless uncovered_cases.empty?
+        puts "\nUncovered Cases:"
+        uncovered_cases.map do |mod|
+          puts "* #{mod.name.ansi(:cyan)}"
         end
       end
 
