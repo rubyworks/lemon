@@ -33,6 +33,7 @@ ridoc:
   include: ~
   exclude: [Syckfile]
   ignore : ~
+  output : ri
   active : true
 
 rdoc:
