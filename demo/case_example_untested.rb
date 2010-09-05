@@ -1,6 +1,6 @@
-Covers File.dirname(__FILE__) + '/fixture/example.rb'
+covers File.dirname(__FILE__) + '/fixture/example.rb'
 
-TestCase Example do
+testcase Example do
 
   unit :f do
     # notice Example#f has not been called

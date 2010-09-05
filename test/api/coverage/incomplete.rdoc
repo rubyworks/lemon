@@ -1,5 +1,3 @@
-
-
 == Incomplete Coverage
 
 === Incomplete Coverage of Public Interface
@@ -26,17 +24,17 @@ Given an example script in 'tmp/lib/example.rb' as follows:
 
 And given a test case in 'tmp/test/example_case.rb' as follows:
 
-    Covers 'example.rb'
+    covers 'example.rb'
 
-    TestCase C1 do
-      Unit :f1 => "Returns a String" do
+    testcase C1 do
+      unit :f1 => "Returns a String" do
       end
-      Unit :f2 => "Returns a String" do
+      unit :f2 => "Returns a String" do
       end
     end
 
-    TestCase C2 do
-      Unit :x1 => "Does not exist" do
+    testcase C2 do
+      unit :x1 => "Does not exist" do
       end
     end
 

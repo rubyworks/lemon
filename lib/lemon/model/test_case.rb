@@ -69,6 +69,16 @@ module Lemon
     end
 
     #
+    def prepare
+      @before[[]]
+    end
+
+    #
+    def cleanup
+      @after[[]]
+    end
+
+    #
     class DSL < Module
       #
       def initialize(testcase, &casecode)

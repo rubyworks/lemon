@@ -1,6 +1,6 @@
-Covers File.dirname(__FILE__) + '/fixture/example.rb'
+covers File.dirname(__FILE__) + '/fixture/example.rb'
 
-TestCase Example do
+testcase Example do
 
   unit :f => "one and one is two"do
     Example.new.f(1,1).assert == 2

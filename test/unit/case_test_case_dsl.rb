@@ -1,16 +1,16 @@
-TestCase Lemon::TestCase::DSL do
+testcase Lemon::TestCase::DSL do
 
-  Prepare do
+  before do
     @files = ['test/fixtures/case_inclusion.rb']
   end
 
-  Instance "Modules included in a test case are accessible by the unit tests." do
+  setup "Modules included in a test case are accessible by the unit tests." do
     ts = Lemon::TestSuite.new(@files)
     tc = ts.testcases.first  # the only one
     tc.dsl
   end
 
-  Unit :include, "allows access to module methods" do |dsl|
+  unit :include, "allows access to module methods" do |dsl|
     mod = Module.new{ def x; "x"; end }
     dsl.include(mod)
     # how to test?
@@ -20,25 +20,25 @@ TestCase Lemon::TestCase::DSL do
   # construction. Please correct me if you know otherwise. To fix
   # would mean turning test cases into classes instead of objects. Maybe
   # we will do this in the future.
-  Omit :include, "allows access to nested modules" do |dsl|
+  omit unit :include, "allows access to nested modules" do |dsl|
     mod = Module.new{ N = 1 }
     dsl.include(mod)
     dsl::N == 1
   end
 
-  Instance "Test cases are augmented by prepare and cleanup procedures." do
+  setup "Test cases are augmented by before and afters procedures." do
     ts = Lemon::TestSuite.new(@files)
     tc = ts.testcases.first  # the only one
     tc.dsl
   end
 
-  Unit :Prepare => "setup a pre-testcase procedure" do |dsl|
-    dsl.Prepare{ }
+  unit :before => "setup a pre-testcase procedure" do |dsl|
+    dsl.before{ }
     # how to test?
   end
 
-  Unit :Cleanup => "setup a post-testcase procedure" do |dsl|
-    dsl.Cleanup{ }
+  unit :after => "setup a post-testcase procedure" do |dsl|
+    dsl.after{ }
     # how to test?
   end
 

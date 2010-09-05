@@ -77,9 +77,9 @@ module Lemon
         scope = Object.new
         scope.extend(testcase.dsl)
         report.start_case(testcase)
-        #if testcase.prepare
-        #  scope.instance_eval(&testcase.prepare)
-        #end
+        if testcase.prepare #before[[]]
+          scope.instance_eval(&testcase.prepare)
+        end
         testcase.each do |unit|
           #case step
           #when TestInstance
@@ -115,9 +115,9 @@ module Lemon
             run_postest_procedures(unit, scope) #, suite, testcase)
           #end
         end
-        #if testcase.cleanup
-        #  scope.instance_eval(&testcase.cleanup)
-        #end
+        if testcase.cleanup #after[[]]
+          scope.instance_eval(&testcase.cleanup)
+        end
         report.finish_case(testcase)
       end
       report.finish_suite(suite) #(successes, failures, errors, pendings)
