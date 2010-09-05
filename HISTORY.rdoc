@@ -1,5 +1,20 @@
 = RELEASE HISTORY
 
+== 0.8.2 / 2010-09-05
+
+This release overhauls how coverage is performed so it does not need to
+take a system snapshot after requiring each covered file. This greatly
+improves Lemon's speed. In addition #setup and #teardown have been introduced
+for performing procedures before and after each unit test.
+
+Changes:
+
+* Overhaul coverage analysis.
+* Add TestCase#setup and #teardown methods.
+* TestCase#concern and #context are just aliases of #setup.
+* Improved output formats.
+
+
 == 0.8.1 / 2010-07-11
 
 This release adds a timer to the verbose output, which help isolate unit tests

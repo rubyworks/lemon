@@ -1,13 +1,11 @@
 ---
 name     : lemon
-version  : 0.9.0
-released : 2010-08-05
-codename : Squeeze
-loadpath : lib
+version  : 0.8.2
+date     : 2010-09-05
 
 requires:
-  - name: tracepoint
-    version: 1.1+
+  - name: ae
+    group: runtime
 
   - name: syckle
     group: development
