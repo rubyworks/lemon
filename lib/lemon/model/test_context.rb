@@ -51,20 +51,21 @@ module Lemon
     end
   end
 
+  ##
+  #class TestInstance < TestContext
   #
-  class TestInstance < TestContext
+  #  # Create instance.
+  #  def setup(scope)
+  #    if @block
+  #      ins = scope.instance_eval(&@block)
+  #      raise "target type mismatch" unless testcase.target === ins
+  #    end
+  #    ins
+  #  end
+  #
+  #end
 
-    # Create instance.
-    def setup(scope)
-      if @block
-        ins = scope.instance_eval(&@block)
-        raise "target type mismatch" unless testcase.target === ins
-      end
-      ins
-    end
-
-  end
-
+=begin
   #
   class TestSingleton < TestContext
 
@@ -83,6 +84,7 @@ module Lemon
     alias_method :meta?, :function?
 
   end
+=end
 
 end
 

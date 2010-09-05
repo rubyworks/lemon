@@ -58,7 +58,6 @@ alias :Covers :covers
 # please let me know. See Unit#call for the other end of this hack.
 #
 def Object.const_missing(name)
-p "here!"
   if unit = Lemon.test_stack.last
     begin
       (class << unit.testcase; self; end).const_get(name)

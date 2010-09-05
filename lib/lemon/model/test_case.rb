@@ -21,14 +21,13 @@ module Lemon
     # Ordered list of testunits.
     attr :units
 
-    # List of testunit that are skipped.
-    #attr :skip
+    # Before any test case units are run.
+    attr :before
+    #attr_accessor :prepare
 
-    # Before all units are run.
-    attr_accessor :prepare
-
-    # After all units are run.
-    attr_accessor :cleanup
+    # After all test case units are run.
+    attr :after
+    #attr_accessor :cleanup
 
     # Module for parsing test case scripts.
     attr :dsl
@@ -42,11 +41,11 @@ module Lemon
       #@steps  = []
       @units  = []
 
-      @prepare = nil
-      @cleanup = nil
+      #@prepare = nil
+      #@cleanup = nil
 
-      #@before = {}
-      #@after  = {}
+      @before = {}
+      @after  = {}
 
       @dsl = DSL.new(self, &block)
     end
@@ -74,21 +73,9 @@ module Lemon
       #
       def initialize(testcase, &casecode)
         @testcase = testcase
-        @context = nil #Instance.new(self)
+        @context  = nil #Instance.new(self)
         module_eval(&casecode)
       end
-
-      #
-      def prepare(&block)
-        @testcase.prepare = block
-      end
-      alias_method :Prepare, :prepare
-
-      #
-      def cleanup(&block)
-        @testcase.cleanup = block
-      end
-      alias_method :Cleanup, :cleanup
 
       # Define a unit test for this case.
       def unit(*target, &block)
@@ -140,43 +127,28 @@ module Lemon
       alias_method :omit, :Omit
 
       #
-      #def Omit(*target, &block)
-      #  target = target.map{ |x| Hash === x ? x.to_a : x }.flatten
-      #  method, aspect = *target
-      #  skip = TestUnit.new(
-      #    @testcase, method,
-      #    :aspect   => aspect,
-      #    :function => @function,
-      #    :context => @context,
-      #    :omit => true,
-      #    &block
-      #  )
-      #  #@testcase.steps << skip
-      #end
-      #alias_method :omit, :Omit
-
-      #
-      def context(description=nil, &block)
+      def setup(description=nil, &block)
         if block
           context  = TestContext.new(@testcase, description, &block)
           @context = context
+          #@function = false
           #@testcase.steps << context
         end
       end
-      alias_method :Context, :context
+      alias_method :Setup, :setup
+      alias_method :Concern, :setup
+      alias_method :concern, :setup
+      alias_method :Context, :setup
+      alias_method :context, :setup
 
-      # DEPRECATE: Concern in favor of Context ?
-      alias_method :Concern, :context
-      alias_method :concern, :context
-
-      # Define a new test instance for this case.
-      def instance(description=nil, &block)
-        context  = TestInstance.new(@testcase, description, &block)
-        @context = context
-        @function = false
-        #@testcase.steps << context
-      end
-      alias_method :Instance, :instance
+      ## Define a new test instance for this case.
+      #def instance(description=nil, &block)
+      #  context  = TestInstance.new(@testcase, description, &block)
+      #  @context = context
+      #  @function = false
+      #  #@testcase.steps << context
+      #end
+      #alias_method :Instance, :instance
 
       # Define a new test singleton for this case.
       #def Singleton(description=nil, &block)
@@ -192,37 +164,45 @@ module Lemon
       end
       alias_method :Teardown, :teardown
 
+      # TODO: Make Before and After more generic to handle before and after
+      # units, contexts/concerns, etc.
+      
+      # Define a before procedure for this case.
+      def before(*matches, &block)
+        @testcase.before[matches] = block
+      end
+      alias_method :Before, :before
+
+      # Define an after procedure for this case.
+      def after(*matches, &block)
+        @testcase.after[matches] = block
+      end
+      alias_method :After, :after
+
+      #
+      #def prepare(&block)
+      #  @testcase.prepare = block
+      #end
+      #alias_method :Prepare, :prepare
+
+      #
+      #def cleanup(&block)
+      #  @testcase.cleanup = block
+      #end
+      #alias_method :Cleanup, :cleanup
+
       # Load a helper script applicable to this test case.
       def helper(file)
         instance_eval(File.read(file), file)
       end
       alias_method :Helper, :helper
 
-=begin
-      # TODO: Make Before and After more generic to handle before and after
-      # units, conctexts, instances, singletons, all three types of concern
-      # and cases.
-
-      # Define a before procedure for this case.
-      def Before(*matches, &block)
-        @testcase.before[matches] = block
-      end
-      alias_method :before, :Before
-
-      # Define an after procedure for this case.
-      def After(*matches, &block)
-        @testcase.after[matches] = block
-      end
-      alias_method :after, :After
-=end
-
       #def include(*mods)
       #  extend *mods
       #end
 
-      #
-      #def pending
-      #  raise Pending
+      #def pending(message=nil)
+      #  raise Pending.new(message)
       #end
     end
 

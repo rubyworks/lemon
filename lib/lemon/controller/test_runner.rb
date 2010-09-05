@@ -77,9 +77,9 @@ module Lemon
         scope = Object.new
         scope.extend(testcase.dsl)
         report.start_case(testcase)
-        if testcase.prepare
-          scope.instance_eval(&testcase.prepare)
-        end
+        #if testcase.prepare
+        #  scope.instance_eval(&testcase.prepare)
+        #end
         testcase.each do |unit|
           #case step
           #when TestInstance
@@ -92,7 +92,7 @@ module Lemon
               next
             end
             report.start_unit(unit)
-            #run_pretest_procedures(unit, scope) #, suite, testcase)
+            run_pretest_procedures(unit, scope) #, suite, testcase)
             begin
               run_unit(unit, scope)
               #unit.call(scope)
@@ -112,12 +112,12 @@ module Lemon
               record[:error] << [unit, exception]
             end
             report.finish_unit(unit)
-            #run_postest_procedures(unit, scope) #, suite, testcase)
+            run_postest_procedures(unit, scope) #, suite, testcase)
           #end
         end
-        if testcase.cleanup
-          scope.instance_eval(&testcase.cleanup)
-        end
+        #if testcase.cleanup
+        #  scope.instance_eval(&testcase.cleanup)
+        #end
         report.finish_case(testcase)
       end
       report.finish_suite(suite) #(successes, failures, errors, pendings)
@@ -234,7 +234,6 @@ module Lemon
     end
 =end
 
-=begin
     # Run pre-test advice.
     def run_pretest_procedures(unit, scope) #, suite, testcase)
       suite = unit.testcase.suite
@@ -264,7 +263,6 @@ module Lemon
         end
       end
     end
-=end
 
     EXCLUDE = Regexp.new(Regexp.escape(File.dirname(File.dirname(__FILE__))))
 

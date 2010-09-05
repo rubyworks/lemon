@@ -14,14 +14,11 @@ module Lemon
     # Test cases in this suite.
     attr :testcases
 
-    # List of concern procedures that apply suite-wide.
-    #attr :when_clauses
-
     # List of pre-test procedures that apply suite-wide.
-    #attr :before
+    attr :before
 
     # List of post-test procedures that apply suite-wide.
-    #attr :after
+    attr :after
 
     # A snapshot of the system before the suite is loaded.
     # Only set if +cover+ option is true.
@@ -48,11 +45,10 @@ module Lemon
       @files   = files.flatten
       @options = options
 
-      #@subtest  = []
       @testcases = []
+
       @before    = {}
       @after     = {}
-      #@when     = {}
 
       #load_helpers
 
@@ -60,11 +56,6 @@ module Lemon
       #  @coverage  = Snapshot.new
       #  @canonical = Snapshot.capture
       #end
-
-      #load_subtest_helpers
-
-      # TODO: maybe use a scope to evaluate all tests?
-      #@scope = Scope.new
 
       @dsl = DSL.new(self) #, files)
 
@@ -107,23 +98,6 @@ module Lemon
     #  end
     #end
 
-    #def load_subtest_helpers
-    #  helpers = []
-    #  @subtest.each do |file|
-    #    dir = File.dirname(file)
-    #    hlp = Dir[File.join(dir, '{test_,}helper.rb')]
-    #    helpers.concat(hlp)
-    #  end
-    #
-    #  #s = Snapshot.capture
-    #  helpers.each do |hlp|
-    #    require hlp
-    #  end
-    #  #z = Snapshot.capture
-    #  #d = z - s
-    #  #@canonical << d
-    #end
-
     #
     def load_files #(*files)
       #$stdout << "Load: " if cover?
@@ -143,16 +117,16 @@ module Lemon
     end
 
     #
-    def load_file(file)
-      #@current_file = file
-      #if cover_all?
-      #  Covers(file)
-      #else
-        file = File.expand_path(file)
-        @dsl.module_eval(File.read(file), file)
-        #require(file) #load(file)
-      #end
-    end
+    #def load_file(file)
+    #  #@current_file = file
+    #  #if cover_all?
+    #  #  Covers(file)
+    #  #else
+    #    file = File.expand_path(file)
+    #    @dsl.module_eval(File.read(file), file)
+    #    #require(file) #load(file)
+    #  #end
+    #end
 
     # Directories glob *.rb files.
     def filelist
@@ -167,19 +141,6 @@ module Lemon
       )
     end
 
-    # Load a helper. This method must be used when loading local
-    # test support. The usual #require or #load can only be used
-    # for external support libraries (such as a test mock framework).
-    # This is so because suite code is not evaluated at the toplevel.
-    #def helper(file)
-    #  instance_eval(File.read(file), file)
-    #end
-
-    #
-    #def load(file)
-    #  instance_eval(File.read(file), file)
-    #end
-
     class DSL < Module
       #
       def initialize(test_suite)
@@ -188,7 +149,7 @@ module Lemon
       end
 
       # TODO: need require_find() to avoid first snapshot ?
-      def Covers(file)
+      def covers(file)
         #if @test_suite.cover?
         #  #return if $".include?(file)
         #  s = Snapshot.capture
@@ -200,7 +161,7 @@ module Lemon
           require file
         #end
       end
-      alias_method :covers, :Covers
+      alias_method :Covers, :covers
 
       # Define a test case belonging to this suite.
       def testcase(target_class, &block)
@@ -210,34 +171,19 @@ module Lemon
 
       #
       alias_method :TestCase, :testcase
-      alias_method :Case, :testcase
+      alias_method :tests, :testcase
 
-      ## Define a pre-test procedure to apply suite-wide.
-      #def before(*matches, &block)
-      #  @test_suite.before[matches] = block #<< Advice.new(match, &block)
-      #end
-      #alias_method :Bbefore, :before
+      # Define a pre-test procedure to apply suite-wide.
+      def before(*matches, &block)
+        @test_suite.before[matches] = block #<< Advice.new(match, &block)
+      end
+      alias_method :Before, :before
 
-      ## Define a post-test procedure to apply suite-wide.
-      #def after(*matches, &block)
-      #  @test_suite.after[matches] = block #<< Advice.new(match, &block)
-      #end
-      #alias_method :After, :after
-
-      # Define a concern procedure to apply suite-wide.
-      #def When(match=nil, &block)
-      #  @when_clauses[match] = block #<< Advice.new(match, &block)
-      #end
-
-      ## Like require_relative
-      #def Helper(file)
-      #  local = File.join(File.dirname(caller[1]), file.to_str + '.rb')
-      #  if File.exist?(local)
-      #    @test_suite.load_file(local) #require local
-      #  else
-      #    require file
-      #  end
-      #end
+      # Define a post-test procedure to apply suite-wide.
+      def after(*matches, &block)
+        @test_suite.after[matches] = block #<< Advice.new(match, &block)
+      end
+      alias_method :After, :after
 
       # Includes at the suite level are routed to the toplevel.
       #def include(*mods)
