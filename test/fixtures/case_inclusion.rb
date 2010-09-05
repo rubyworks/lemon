@@ -1,16 +1,16 @@
-Covers File.dirname(__FILE__) + '/example.rb'
+covers File.dirname(__FILE__) + '/example.rb'
 
 require File.dirname(__FILE__) + '/helper.rb'
 
-TestCase X do
+testcase X do
 
   include HelperMixin
 
-  Unit :a => "Returns a String" do
+  unit :a => "Returns a String" do
     X.new.a
   end
 
-  Unit :b => "Returns a String" do
+  unit :b => "Returns a String" do
     X.new.b
   end
 

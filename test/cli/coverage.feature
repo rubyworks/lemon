@@ -32,7 +32,7 @@ Feature: Coverage
     When I cd to "example"
     And I run "lemon -c -Ilib test/case_complete.rb"
     Then the stdout should contain "0 uncovered cases"
-    And the stdout should contain "0 uncovered units"
+    And the stdout should contain "0/4 uncovered"
     And the stdout should contain "0 undefined units"
 
   Scenario: Incomplete Example Case
@@ -60,6 +60,6 @@ Feature: Coverage
     When I cd to "example"
     And I run "lemon -c -Ilib test/case_incomplete.rb"
     Then the stdout should contain "1 uncovered cases"
-    And the stdout should contain "1 uncovered units"
+    And the stdout should contain "1/4 uncovered"
     And the stdout should contain "1 undefined units"
 

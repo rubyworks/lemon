@@ -4,7 +4,7 @@ testcase Lemon::TestCase::DSL do
     @files = ['test/fixtures/case_inclusion.rb']
   end
 
-  setup "Modules included in a test case are accessible by the unit tests." do
+  setup "Modules included in a test case are accessible by the unit tests" do
     ts = Lemon::TestSuite.new(@files)
     tc = ts.testcases.first  # the only one
     tc.dsl
@@ -26,7 +26,7 @@ testcase Lemon::TestCase::DSL do
     dsl::N == 1
   end
 
-  setup "Test cases are augmented by before and afters procedures." do
+  setup "Test cases are augmented by before and afters procedures" do
     ts = Lemon::TestSuite.new(@files)
     tc = ts.testcases.first  # the only one
     tc.dsl
