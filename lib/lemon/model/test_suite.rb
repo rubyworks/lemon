@@ -4,6 +4,17 @@ require 'lemon/model/snapshot'
 
 module Lemon
 
+  # Current suite being defined. This is used
+  # to define a Suite object via the toplevel DSL.
+  def self.suite
+    $lemon_suite #@suite ||= Lemon::TestSuite.new([])
+  end
+
+  #
+  def self.suite=(suite)
+    $lemon_suite = suite
+  end
+
   # Test Suites encapsulate a set of test cases.
   #
   class TestSuite
@@ -100,13 +111,15 @@ module Lemon
 
     #
     def load_files #(*files)
-      #$stdout << "Load: " if cover?
-      #Lemon.suite = self
+      s = Lemon.suite || self
+      Lemon.suite = self
 
       filelist.each do |file|
         #load_file(file)
-        require file
+        load file #require file
       end
+
+      Lemon.suite = s
 
       #if cover?
       #  $stdout << "\n"
@@ -131,13 +144,17 @@ module Lemon
     # Directories glob *.rb files.
     def filelist
       @filelist ||= (
-        @files.flatten.map do |file|
+        files = @files
+        files = files.map{ |f| Dir[f] }.flatten
+        files = files.map do |file|
           if File.directory?(file)
             Dir[File.join(file, '**', '*.rb')]
           else
             file
           end
-        end.flatten.uniq
+        end.flatten
+        #files = files.map{ |f| File.expand_path(f) }
+        files.uniq
       )
     end
 

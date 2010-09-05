@@ -26,23 +26,21 @@ module Lemon
       @record  = {:pass=>[], :fail=>[], :error=>[], :pending=>[], :omit=>[]}
 
       ## TODO: can we create and assign the suite here?
-      ##@suite  = Lemon::TestSuite.new(scripts)
+      @suite  = Lemon::TestSuite.new(files)  #([])
+      #@suite = Lemon.suite
 
-      @suite = Lemon.suite
+      initialize_rc  # TODO: before or after @suite = 
 
-      initialize_rc
-
-      files = files.map{ |f| Dir[f] }.flatten
-      files = files.map{ |f| 
-        if File.directory?(f)
-          Dir[File.join(f, '**/*.rb')]
-        else
-          f 
-        end
-      }.flatten.uniq
-      files = files.map{ |f| File.expand_path(f) }
-
-      files.each{ |s| require s }
+      #files = files.map{ |f| Dir[f] }.flatten
+      #files = files.map{ |f| 
+      # if File.directory?(f)
+      #    Dir[File.join(f, '**/*.rb')]
+      #  else
+      #   f 
+      #  end
+      #}.flatten.uniq
+      #files = files.map{ |f| File.expand_path(f) }
+      #files.each{ |s| require s }
     end
 
     #

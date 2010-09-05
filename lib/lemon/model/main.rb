@@ -3,17 +3,6 @@
 
 require 'lemon/model/test_suite'
 
-# Current suite being defined. This is used
-# to define a Suite object via the toplevel DSL.
-def Lemon.suite
-  @suite ||= Lemon::TestSuite.new([])
-end
-
-#
-def Lemon.suite=(suite)
-  @suite = suite
-end
-
 #
 #def Before(match=nil, &block)
 #  Lemon.suite.Before(match, &block)
