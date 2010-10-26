@@ -11,7 +11,7 @@ lib/lemon/controller/coverage_analyzer.rb
 lib/lemon/controller/scaffold_generator.rb
 lib/lemon/controller/test_runner.rb
 lib/lemon/meta/data.rb
-lib/lemon/meta/gemfile
+lib/lemon/meta/package
 lib/lemon/meta/profile
 lib/lemon/model/ae.rb
 lib/lemon/model/cover_unit.rb
@@ -37,7 +37,7 @@ lib/lemon/view/test_reports/tap.rb
 lib/lemon/view/test_reports/verbose.rb
 lib/lemon.rb
 meta/data.rb
-meta/gemfile
+meta/package
 meta/profile
 test/api/applique/fs.rb
 test/api/coverage/complete.rdoc
