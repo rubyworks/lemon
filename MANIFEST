@@ -1,4 +1,5 @@
-#!mast -x Syckfile bin demo lib meta test [A-Z]*
+#!mast -x Syckfile -x Profile .ruby bin demo features lib man spec test [A-Z]*
+.ruby
 bin/lemon
 demo/case_example_fail.rb
 demo/case_example_pass.rb
@@ -10,9 +11,6 @@ lib/lemon/cli.rb
 lib/lemon/controller/coverage_analyzer.rb
 lib/lemon/controller/scaffold_generator.rb
 lib/lemon/controller/test_runner.rb
-lib/lemon/meta/data.rb
-lib/lemon/meta/package
-lib/lemon/meta/profile
 lib/lemon/model/ae.rb
 lib/lemon/model/cover_unit.rb
 lib/lemon/model/main.rb
@@ -36,9 +34,7 @@ lib/lemon/view/test_reports/summary.rb
 lib/lemon/view/test_reports/tap.rb
 lib/lemon/view/test_reports/verbose.rb
 lib/lemon.rb
-meta/data.rb
-meta/package
-meta/profile
+lib/lemon.yml
 test/api/applique/fs.rb
 test/api/coverage/complete.rdoc
 test/api/coverage/extensions.rdoc
@@ -60,3 +56,4 @@ test/unit/case_test_case_dsl.rb
 HISTORY.rdoc
 LICENSE
 README.rdoc
+Version

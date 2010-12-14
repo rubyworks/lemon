@@ -15,3 +15,9 @@ resources:
   repository: git://github.com/proutils/lemon.git
 
 copyright: Copyright 2009 Thomas Sawyer
+
+requires:
+  - ae
+  - syckle   (build)
+  - cucumber (test)
+  - aruba    (test)
