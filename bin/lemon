@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
-require 'lemon/cli'
+require 'lemon'
 Lemon::CLI.run(ARGV)
 

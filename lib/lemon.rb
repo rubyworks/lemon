@@ -16,4 +16,5 @@ module Lemon
 
 end
 
+require 'lemon/cli'
 require 'lemon/controller/coverage_analyzer'

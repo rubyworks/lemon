@@ -1,6 +1,5 @@
 module Lemon
 
-  require 'lemon/meta/data'
   require 'optparse'
 
   # TODO: What about a config file?
