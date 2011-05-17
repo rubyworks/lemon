@@ -87,10 +87,12 @@ module Lemon
     #
     def description
       if meta?
-        "#{testcase} #{instance} .#{target} #{aspect}"
+        #"#{testcase} .#{target} #{aspect}"
+        "#{testcase} #{context} .#{target} #{aspect}"
       else
         a  = /^[aeiou]/i =~ testcase.to_s ? 'An' : 'A'
-        "#{a} #{testcase} #{instance} receiving ##{target} #{aspect}"
+        #"#{a} #{testcase} receiving ##{target} #{aspect}"
+        "#{a} #{testcase} #{context} receiving ##{target} #{aspect}"
       end
     end
 
