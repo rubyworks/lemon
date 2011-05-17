@@ -129,6 +129,28 @@ module Lemon::TestReports
     end
 
     #
+    def code_snippet_hash(exception, bredth=3)
+      backtrace = exception.backtrace.reject{ |bt| bt =~ INTERNALS }
+      backtrace.first =~ /(.+?):(\d+(?=:|\z))/ or return ""
+      source_file, source_line = $1, $2.to_i
+
+      source = source(source_file)
+      
+      radius = bredth # number of surrounding lines to show
+      region = [source_line - radius, 1].max ..
+               [source_line + radius, source.length].min
+
+      # ensure proper alignment by zero-padding line numbers
+      format = " %2s %0#{region.last.to_s.length}d %s"
+
+      hash = {}
+      region.each do |n|
+        hash[n] = source[n-1].chomp
+      end
+      hash
+    end
+
+    #
     def source(file)
       @source[file] ||= (
         File.readlines(file)
