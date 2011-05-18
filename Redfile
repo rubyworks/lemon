@@ -28,19 +28,19 @@ dnote:
   output   : ~
   active   : true
 
-ridoc:
-  service: RIDoc
+ri:
+  service: RI
   include: ~
-  exclude: [Syckfile]
+  exclude: ~
   ignore : ~
   output : ri
   active : true
 
 rdoc:
-  template: newfish
-  output: site/doc/api
-  exclude: [Syckfile]
-  active: true  
+  format : newfish
+  output : site/doc
+  exclude: [Redfile,Profile,Version]
+  active : true  
 
 stats:
   service  : Stats
