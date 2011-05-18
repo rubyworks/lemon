@@ -2,7 +2,7 @@
 
 === Kernel Extensions
 
-Given an example script in 'tmp/lib/example.rb' as follows:
+Given an example script in 'lib/extensions_example.rb' as follows:
 
     module Kernel
       def f1; "f1"; end
@@ -10,9 +10,9 @@ Given an example script in 'tmp/lib/example.rb' as follows:
       def f3; "f3"; end
     end
 
-And given a test case in 'tmp/test/example_case.rb' as follows:
+And given a test case in 'test/extensions_example_case.rb' as follows:
 
-    covers 'example.rb'
+    covers 'extensions_example.rb'
 
     tests Kernel do
       unit :f1 do
@@ -27,9 +27,9 @@ And we get the coverage information via CoverageAnalyer.
 
     require 'lemon'
 
-    tests = ['tmp/test/example_case.rb']
+    tests = ['test/extensions_example_case.rb']
 
-    coverage = Lemon::CoverageAnalyzer.new(tests, :loadpath=>'tmp/lib')
+    coverage = Lemon::CoverageAnalyzer.new(tests, :loadpath=>'lib')
 
 Then we should see that there are two covered units, #f1 and #f2.
 

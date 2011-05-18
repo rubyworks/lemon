@@ -2,7 +2,7 @@
 
 === Complete Coverage of Public Interface
 
-Given an example script in 'tmp/lib/example.rb' as follows:
+Given an example script in 'lib/complete_example.rb' as follows:
 
     class C1
       def f1; "f1"; end
@@ -18,9 +18,9 @@ Given an example script in 'tmp/lib/example.rb' as follows:
       def g3; "g3"; end
     end
 
-And given a test case in 'tmp/test/example_case.rb' as follows:
+And given a test case in 'test/complete_example_case.rb' as follows:
 
-    covers 'example.rb'
+    covers 'complete_example.rb'
 
     testcase C1 do
       unit :f1 => "Returns a String" do
@@ -40,9 +40,9 @@ And we get the coverage information via CoverageAnalyer.
 
     require 'lemon'
 
-    tests = ['tmp/test/example_case.rb']
+    tests = ['test/complete_example_case.rb']
 
-    coverage = Lemon::CoverageAnalyzer.new(tests, :loadpath=>'tmp/lib')
+    coverage = Lemon::CoverageAnalyzer.new(tests, :loadpath=>'lib')
 
 Then we should see that there are no uncovered units.
 
@@ -76,9 +76,9 @@ In addition there should be no uncovered_cases or undefined_units.
 
 We will use the same example classes as above, but in this case we will
 add coverage for private and protected methods as well, given a test case
-in 'tmp/test/example_case.rb' as follows:
+in 'test/complete_example_case.rb' as follows:
 
-    covers 'example.rb'
+    covers 'complete_example.rb'
 
     testcase C1 do
       unit :f1 => "Returns a String" do
@@ -102,9 +102,9 @@ And we get the coverage information via CoverageAnalyer.
 
     require 'lemon'
 
-    tests = ['tmp/test/example_case.rb']
+    tests = ['test/complete_example_case.rb']
 
-    coverage = Lemon::CoverageAnalyzer.new(tests, :loadpath=>'tmp/lib', :private=>true)
+    coverage = Lemon::CoverageAnalyzer.new(tests, :loadpath=>'lib', :private=>true)
 
 Notice the use of the +private+ option. This will add private and protected
 methods to the coverage analysis.
