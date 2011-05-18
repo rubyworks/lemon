@@ -95,7 +95,8 @@ module Lemon
           @testcase, method,
           :function => false,
           :aspect   => aspect,
-          :context => @context,
+          :context  => @context,
+          :caller   => caller,
           &block
         )
         #@testcase.steps << unit
@@ -114,7 +115,8 @@ module Lemon
           @testcase, method,
           :function => true,
           :aspect   => aspect,
-          :context => @context,
+          :context  => @context,
+          :caller   => caller,
           &block
         )
         #@testcase.steps << unit
