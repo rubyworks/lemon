@@ -18,6 +18,9 @@ module Lemon
     # Test procedure, in which test assertions should be made.
     attr :procedure
 
+    #
+    attr :caller
+
     # New unit test.
     def initialize(testcase, target, options={}, &procedure)
       @testcase  = testcase
@@ -27,6 +30,7 @@ module Lemon
       @function  = options[:function] || options[:metaclass]
       @context   = options[:context]
       @omit      = options[:omit]
+      @caller    = options[:caller]
 
       @procedure = procedure
 
@@ -88,11 +92,11 @@ module Lemon
     def description
       if meta?
         #"#{testcase} .#{target} #{aspect}"
-        "#{testcase} #{context} .#{target} #{aspect}"
+        "#{testcase}.#{target} #{context} #{aspect}".strip
       else
         a  = /^[aeiou]/i =~ testcase.to_s ? 'An' : 'A'
         #"#{a} #{testcase} receiving ##{target} #{aspect}"
-        "#{a} #{testcase} #{context} receiving ##{target} #{aspect}"
+        "#{testcase}##{target} #{context} #{aspect}".strip
       end
     end
 
