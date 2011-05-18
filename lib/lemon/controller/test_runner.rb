@@ -267,13 +267,13 @@ module Lemon
     # Remove reference to lemon library from backtrace.
     # TODO: Matching `bin/lemon` is not robust.
     def clean_backtrace(exception)
-      trace = exception.backtrace
+      trace = (Exception === exception ? exception.backtrace : exception)
       trace = trace.reject{ |t| t =~ /bin\/lemon/ }
       trace = trace.reject{ |t| t =~ EXCLUDE }
       if trace.empty?
         exception
       else
-        exception.set_backtrace(trace)
+        exception.set_backtrace(trace) if Exception === exception
         exception
       end
     end

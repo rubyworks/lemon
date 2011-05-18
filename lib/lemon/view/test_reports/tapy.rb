@@ -39,18 +39,20 @@ module Lemon::TestReports
     end
 
     #
-    def pass(unit)
+    def pass(unit, backtrace=nil)
       #puts "ok #{@i} - #{unit.description}"
+      backtrace = unit.caller
       h = {
         'type'        => 'test',
         'status'      => 'pass',
-        #'file'        => unit.file,
-        #'line'        => unit.line,
+        'file'        => file(backtrace),
+        'line'        => line(backtrace),
         'description' => unit.description,
         #'returned'    => '',
         #'expected'    => '',
-        #'source'      => '',
-        #'snippet'     => {},
+        'source'      => code_snippet_array(backtrace, 0).first.strip,
+        'snippet'     => code_snippet_hash(backtrace, 3),
+        'message'      => unit.to_s
       }
       puts h.to_yaml
     end
@@ -63,12 +65,12 @@ module Lemon::TestReports
       h = {
         'type'        => 'test',
         'status'      => 'fail',
-        #'file'        => unit.file,
-        #'line'        => unit.line,
+        'file'        => file(exception),
+        'line'        => line(exception),
         'description' => unit.description,
         #'returned'    => '',
         #'expected'    => '',
-        'source'      => code_snippet(exception, 1),
+        'source'      => code_snippet_array(exception, 0).first.strip,
         'snippet'     => code_snippet_hash(exception, 3),
         'message'     => exception.message
         #'trace'       => exception.backtrace
@@ -85,11 +87,11 @@ module Lemon::TestReports
       h = {
         'type'        => 'test',
         'status'      => 'error',
-        #'file'        => unit.file,
-        #'line'        => unit.line,
+        'file'        => file(exception),
+        'line'        => line(exception),
         'description' => unit.description,
-        'source'      => code_snippet(exception, 1),
-        'snippet'     => code_snippet_hash(exception, 3),
+        'source'      => code_snippet(exception, 0).first.strip,
+        'snippet'     => code_snippet(exception, 3),
         'message'     => exception.message,
         'trace'       => exception.backtrace
       }
@@ -104,11 +106,11 @@ module Lemon::TestReports
       h = {
         'type'        => 'test',
         'status'      => 'pending',
-        #'file'        => unit.file,
-        #'line'        => unit.line,
+        'file'        => file(exception),
+        'line'        => line(exception),
         'description' => unit.description,
-        'source'      => code_snippet(exception, 1),
-        'snippet'     => code_snippet_hash(exception, 3),
+        'source'      => code_snippet(exception, 0).first.strip,
+        'snippet'     => code_snippet(exception, 3),
         'message'     => exception.message
         #'trace'       => exception.backtrace
       }

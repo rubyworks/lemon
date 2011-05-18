@@ -130,7 +130,8 @@ module Lemon::TestReports
 
     #
     def code_snippet_hash(exception, bredth=3)
-      backtrace = exception.backtrace.reject{ |bt| bt =~ INTERNALS }
+      backtrace = filtered_backtrace(exception)
+
       backtrace.first =~ /(.+?):(\d+(?=:|\z))/ or return ""
       source_file, source_line = $1, $2.to_i
 
@@ -151,6 +152,26 @@ module Lemon::TestReports
     end
 
     #
+    def code_snippet_array(exception, bredth=3)
+      backtrace = filtered_backtrace(exception)
+      backtrace.first =~ /(.+?):(\d+(?=:|\z))/ or return ""
+      source_file, source_line = $1, $2.to_i
+
+      source = source(source_file)
+      
+      radius = bredth # number of surrounding lines to show
+      region = [source_line - radius, 1].max ..
+               [source_line + radius, source.length].min
+
+      # ensure proper alignment by zero-padding line numbers
+      format = " %2s %0#{region.last.to_s.length}d %s"
+
+      region.map do |n|
+        source[n-1].chomp
+      end
+    end
+
+    #
     def source(file)
       @source[file] ||= (
         File.readlines(file)
@@ -164,6 +185,41 @@ module Lemon::TestReports
       i = line.rindex(':in')
       line = i ? line[0...i] : line
       File.basename(line)
+    end
+
+    #
+    def file_and_line_array(exception)
+      case exception
+      when Exception
+        line = exception.backtrace[0]
+      else
+        line = exception[0] # backtrace
+      end
+      return ["", 0] unless line
+      i = line.rindex(':in')
+      line = i ? line[0...i] : line
+      f, l = File.basename(line).split(':')
+      return [f, l.to_i]
+    end
+   
+
+    def file(exception)
+      file_and_line_array(exception).first
+    end
+
+    def line(exception)
+      file_and_line_array(exception).last
+    end
+
+    #
+    def filtered_backtrace(exception)
+      case exception
+      when Exception
+        backtrace = exception.backtrace
+      else
+        backtrace = exception
+      end
+      backtrace.reject{ |bt| bt =~ INTERNALS }
     end
 
   end
