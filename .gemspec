@@ -1,12 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: lemon
 version: !ruby/object:Gem::Version 
-  hash: 59
   prerelease: 
-  segments: 
-  - 0
-  - 8
-  - 2
   version: 0.8.2
 platform: ruby
 authors: 
@@ -15,7 +10,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2011-05-18 00:00:00 Z
+date: 2011-05-19 00:00:00 Z
 dependencies: 
 - !ruby/object:Gem::Dependency 
   name: ae
@@ -25,9 +20,6 @@ dependencies:
     requirements: 
     - - ">="
       - !ruby/object:Gem::Version 
-        hash: 3
-        segments: 
-        - 0
         version: "0"
   type: :runtime
   version_requirements: *id001
@@ -39,9 +31,6 @@ dependencies:
     requirements: 
     - - ">="
       - !ruby/object:Gem::Version 
-        hash: 3
-        segments: 
-        - 0
         version: "0"
   type: :development
   version_requirements: *id002
@@ -53,9 +42,6 @@ dependencies:
     requirements: 
     - - ">="
       - !ruby/object:Gem::Version 
-        hash: 3
-        segments: 
-        - 0
         version: "0"
   type: :development
   version_requirements: *id003
@@ -67,9 +53,6 @@ dependencies:
     requirements: 
     - - ">="
       - !ruby/object:Gem::Version 
-        hash: 3
-        segments: 
-        - 0
         version: "0"
   type: :development
   version_requirements: *id004
@@ -84,6 +67,7 @@ extra_rdoc_files:
 files: 
 - .ruby
 - bin/lemon
+- demo/case_example_error.rb
 - demo/case_example_fail.rb
 - demo/case_example_pass.rb
 - demo/case_example_pending.rb
@@ -158,18 +142,12 @@ required_ruby_version: !ruby/object:Gem::Requirement
   requirements: 
   - - ">="
     - !ruby/object:Gem::Version 
-      hash: 3
-      segments: 
-      - 0
       version: "0"
 required_rubygems_version: !ruby/object:Gem::Requirement 
   none: false
   requirements: 
   - - ">="
     - !ruby/object:Gem::Version 
-      hash: 3
-      segments: 
-      - 0
       version: "0"
 requirements: []
 

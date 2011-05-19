@@ -1,47 +1,47 @@
 --- 
-spec_version: 1.0.0
-replaces: []
-
+name: lemon
+version: 0.8.2
+title: Lemon
+summary: Pucker-tight Unit Testing
+description: Lemon is a unit testing framework that tightly correlates class to test case and method to test unit.
 loadpath: 
 - lib
-name: lemon
-repositories: {}
+manifest: MANIFEST
+requires: 
+- name: ae
+  version: 0+
+  group: []
 
+- name: syckle
+  version: 0+
+  group: 
+  - build
+- name: cucumber
+  version: 0+
+  group: 
+  - test
+- name: aruba
+  version: 0+
+  group: 
+  - test
 conflicts: []
+
+replaces: []
 
 engine_check: []
 
-title: Lemon
-contact: trans <transfire@gmail.com>
-resources: 
-  repository: git://github.com/proutils/lemon.git
-  home: http://proutils.github.com/lemon
-maintainers: []
-
-requires: 
-- group: []
-
-  name: ae
-  version: 0+
-- group: 
-  - build
-  name: syckle
-  version: 0+
-- group: 
-  - test
-  name: cucumber
-  version: 0+
-- group: 
-  - test
-  name: aruba
-  version: 0+
 suite: proutils
-manifest: MANIFEST
-version: 0.8.2
+contact: trans <transfire@gmail.com>
+copyright: Copyright 2009 Thomas Sawyer
 licenses: 
 - Apache 2.0
-copyright: Copyright 2009 Thomas Sawyer
 authors: 
 - Thomas Sawyer
-description: Lemon is a unit testing framework that tightly correlates class to test case and method to test unit.
-summary: Pucker-tight Unit Testing
+maintainers: []
+
+resources: 
+  home: http://proutils.github.com/lemon
+  repository: git://github.com/proutils/lemon.git
+repositories: {}
+
+spec_version: 1.0.0

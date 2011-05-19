@@ -1,6 +1,7 @@
 #!mast .ruby bin demo features lib man qed test [A-Z][A-Z]*
 .ruby
 bin/lemon
+demo/case_example_error.rb
 demo/case_example_fail.rb
 demo/case_example_pass.rb
 demo/case_example_pending.rb
