@@ -43,9 +43,18 @@ module Lemon
       #files.each{ |s| require s }
     end
 
+    # Samples
+    #
+    # * .lemon/rc
+    # * .lemon/rc.rb
+    # * .config/lemon/rc
+    # * .config/lemon/rc.rb
+    #
+    RC_GLOB = '{.,.config/,config/}lemon/rc{,.rb}'
+
     #
     def initialize_rc
-      if file = Dir['./{.,}config/lemon/rc.rb'].first
+      if file = Dir[RC_GLOB].first
         require file
       end
     end
