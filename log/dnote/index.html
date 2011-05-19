@@ -2,19 +2,20 @@
 <head>
   <title></title>
   <style>
-    body { margin: 0; padding: 0; }
+    body { margin: 0; padding: 0; font-size: 0.8em; }
     .main {
       width: 800px;
       margin: 0 auto;
-      border: 1px solid #ccc;
+      border: 0px solid #ccc;
       padding: 0 20px 20px 20px;
     }
-    h1 { margin: 25px 0; }
-    h2,h3,h4 { margin: 5px 0; padding: 0; color: 880044; }
-    h3 { color: 004488; }
-    h4 { color: 888844; }
+    h1 { margin: 25px 0; font-size: 3em; }
+    h2,h3,h4 { margin: 5px 0; padding: 0; color: #444; }
+    h2 { letter-spacing: 2px; border-top: 4px solid #ddd; padding: 5px 0; }
     ul { margin: 0; padding: 0; text-align: left; }
     li { margin: 0; padding: 0; text-align: left; }
+     a { color: #4488ff; }
+   sup { font-size: 0.8em; }
   </style>
   <link rel="stylesheet" href="notes.css" type="text/css">
 </head>
@@ -22,38 +23,96 @@
 <div class="main">
   <h1></h1>
   <div class="notes">
-    <h2>FIXME</h2>
+    <h2 class="FIXME">FIXME</h2>
     <ol class="set fixme">
-      <li><h3><a href="lib/lemon/dsl.rb">lib/lemon/dsl.rb</a></h3><ol class="file" href="lib/lemon/dsl.rb">
-        <li class="note fixme" ref="47">This is a BIG FAT HACK! For the life of me I cannot find <sup>47</sup></li>
+      <li><h3><a href="lib/lemon/model/main.rb">lib/lemon/model/main.rb</a></h3><ol class="file" href="lib/lemon/model/main.rb">
+        <li class="note fixme" ref="40">
+          This is a BIG FAT HACK! For the life of me I cannot find
+a way to resolve module constants included in the test cases.
+Because of closure, the constant lookup goes through here, and not
+the Case singleton class. So to work around we must note each test
+before it is run, and reroute the missing constants. <sup><a href="lib/lemon/model/main.rb">40</a></sup>
+        </li>
       </ol></li>
     </ol>
-    <h2>TODO</h2>
+    <h2 class="TODO">TODO</h2>
     <ol class="set todo">
-      <li><h3><a href="lib/lemon/test/case.rb">lib/lemon/test/case.rb</a></h3><ol class="file" href="lib/lemon/test/case.rb">
-        <li class="note todo" ref="53">Probably will deprecate the &amp;setup procedure (YAGNI). <sup>53</sup></li>
+      <li><h3><a href="lib/lemon/model/test_case.rb">lib/lemon/model/test_case.rb</a></h3><ol class="file" href="lib/lemon/model/test_case.rb">
+        <li class="note todo" ref="179">
+          Make Before and After more generic to handle before and after
+units, contexts/concerns, etc. <sup><a href="lib/lemon/model/test_case.rb">179</a></sup>
+        </li>
       </ol></li>
-      <li><h3><a href="lib/lemon/reporter.rb">lib/lemon/reporter.rb</a></h3><ol class="file" href="lib/lemon/reporter.rb">
-        <li class="note todo" ref="8">make Reporter#factory more dynamic <sup>8</sup></li>
+      <li><h3><a href="lib/lemon/cli.rb">lib/lemon/cli.rb</a></h3><ol class="file" href="lib/lemon/cli.rb">
+        <li class="note todo" ref="5">
+          What about a config file? <sup><a href="lib/lemon/cli.rb">5</a></sup>
+        </li>
       </ol></li>
-      <li><h3><a href="work/barbie/lib/ballcard/stats.rb">work/barbie/lib/ballcard/stats.rb</a></h3><ol class="file" href="work/barbie/lib/ballcard/stats.rb">
-        <li class="note todo" ref="10">Add support for qed? (how?). <sup>10</sup></li>
-        <li class="note todo" ref="12">Add support for POM? <sup>12</sup></li>
-        <li class="note todo" ref="56">Add C support for ext/. <sup>56</sup></li>
-        <li class="note todo" ref="236">Need to improve the microformat-ness of stats output. <sup>236</sup></li>
+      <li><h3><a href="lib/lemon/controller/test_runner.rb">lib/lemon/controller/test_runner.rb</a></h3><ol class="file" href="lib/lemon/controller/test_runner.rb">
+        <li class="note todo" ref="28">
+          can we create and assign the suite here? <sup><a href="lib/lemon/controller/test_runner.rb">28</a></sup>
+        </li>
+        <li class="note todo" ref="32">
+          before or after @suite = <sup><a href="lib/lemon/controller/test_runner.rb">32</a></sup>
+        </li>
+        <li class="note todo" ref="277">
+          Matching `bin/lemon` is not robust. <sup><a href="lib/lemon/controller/test_runner.rb">277</a></sup>
+        </li>
       </ol></li>
-      <li><h3><a href="lib/lemon/coverage.rb">lib/lemon/coverage.rb</a></h3><ol class="file" href="lib/lemon/coverage.rb">
-        <li class="note todo" ref="198">support output <sup>198</sup></li>
+      <li><h3><a href="lib/lemon/view/test_reports/tapy.rb">lib/lemon/view/test_reports/tapy.rb</a></h3><ol class="file" href="lib/lemon/view/test_reports/tapy.rb">
+        <li class="note todo" ref="17">
+          Lemon needs some improvements in order to supply all the
+information TAP-Y supports. In particular, `file` and `line` information. <sup><a href="lib/lemon/view/test_reports/tapy.rb">17</a></sup>
+        </li>
+        <li class="note todo" ref="132">
+          rename to `hold`? <sup><a href="lib/lemon/view/test_reports/tapy.rb">132</a></sup>
+        </li>
+      </ol></li>
+      <li><h3><a href="lib/lemon/view/test_reports/html.rb">lib/lemon/view/test_reports/html.rb</a></h3><ol class="file" href="lib/lemon/view/test_reports/html.rb">
+        <li class="note todo" ref="7">
+          Make this more like a microformat and add timer info. <sup><a href="lib/lemon/view/test_reports/html.rb">7</a></sup>
+        </li>
       </ol></li>
       <li><h3><a href="work/deprecated/command/generate.rb">work/deprecated/command/generate.rb</a></h3><ol class="file" href="work/deprecated/command/generate.rb">
-        <li class="note todo" ref="28">Support output ? perhaps complex scaffolding <sup>28</sup></li>
+        <li class="note todo" ref="28">
+          Support output ? perhaps complex scaffolding
+attr_accessor :output <sup><a href="work/deprecated/command/generate.rb">28</a></sup>
+        </li>
       </ol></li>
-      <li><h3><a href="lib/lemon/test/suite.rb">lib/lemon/test/suite.rb</a></h3><ol class="file" href="lib/lemon/test/suite.rb">
-        <li class="note todo" ref="190">need require_find() to avoid first snapshot <sup>190</sup></li>
+      <li><h3><a href="lib/lemon/view/test_reports/abstract.rb">lib/lemon/view/test_reports/abstract.rb</a></h3><ol class="file" href="lib/lemon/view/test_reports/abstract.rb">
+        <li class="note todo" ref="198">
+          improve <sup><a href="lib/lemon/view/test_reports/abstract.rb">198</a></sup>
+        </li>
+        <li class="note todo" ref="210">
+          Show more of the file name than just the basename. <sup><a href="lib/lemon/view/test_reports/abstract.rb">210</a></sup>
+        </li>
       </ol></li>
-      <li><h3><a href="lib/lemon/runner.rb">lib/lemon/runner.rb</a></h3><ol class="file" href="lib/lemon/runner.rb">
-        <li class="note todo" ref="257">I would think all this should be gained form the Coverage class. <sup>257</sup></li>
-        <li class="note todo" ref="259">options to include non-public and superclasses less Object and Kernel. <sup>259</sup></li>
+      <li><h3><a href="lib/lemon/model/test_suite.rb">lib/lemon/model/test_suite.rb</a></h3><ol class="file" href="lib/lemon/model/test_suite.rb">
+        <li class="note todo" ref="98">
+          automatic helper loading ?
+def load_helpers(*files)
+helpers = []
+filelist.each do |file|
+dir = File.dirname(file)
+hlp = Dir[File.join(dir, &apos;{test_,}helper.rb&apos;)]
+helpers.concat(hlp)
+end <sup><a href="lib/lemon/model/test_suite.rb">98</a></sup>
+        </li>
+        <li class="note todo" ref="168">
+          need require_find() to avoid first snapshot ? <sup><a href="lib/lemon/model/test_suite.rb">168</a></sup>
+        </li>
+      </ol></li>
+      <li><h3><a href="lib/lemon/view/test_reports/tapj.rb">lib/lemon/view/test_reports/tapj.rb</a></h3><ol class="file" href="lib/lemon/view/test_reports/tapj.rb">
+        <li class="note todo" ref="7">
+          Lemon needs some improvements in order to supply all the
+information TAP-J supports. In particular, `file` and `line` information. <sup><a href="lib/lemon/view/test_reports/tapj.rb">7</a></sup>
+        </li>
+        <li class="note todo" ref="94">
+          why was this using expception.backtrace[1] and now [0]. <sup><a href="lib/lemon/view/test_reports/tapj.rb">94</a></sup>
+        </li>
+        <li class="note todo" ref="122">
+          rename to `hold`? <sup><a href="lib/lemon/view/test_reports/tapj.rb">122</a></sup>
+        </li>
       </ol></li>
     </ol>
   </div>

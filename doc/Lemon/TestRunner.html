@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>Class: Lemon::TestRunner</title>
+
+  
+    <link rel="SHORTCUT ICON" href="../assets/icon/class.png">
+  
+
+  <link type="text/css" rel="stylesheet" href="../assets/rdoc.css" media="screen" />
+  <link type="text/css" rel="stylesheet" href="../assets/highlight/styles/github.css" title="GitHub" />
+
+  <script type="text/javascript" charset="utf-8" src="../assets/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/highlight/highlight.pack.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/quicksearch.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/main.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready( function() {
+      $('#documentation pre').wrapInner('<code></code>');
+      hljs.tabReplace = '    ';
+      hljs.initHighlightingOnLoad('ruby');
+
+	    hookSourceViews();
+	    hookDebuggingToggle();
+	    hookQuickSearch();
+	    highlightLocationTarget();
+
+	    $('ul.link-list a').bind( "click", highlightClickTarget );
+    });
+  </script>
+</head>
+<body class="class">
+<div id="main">
+
+  <div class="head">
+    <h1>
+      
+        <img src="../assets/icon/class.png" align="absmiddle">&nbsp;
+      
+      <a href="../index.html">&quot;Lemon&quot;</a>&nbsp;
+      <a href="/">Lemon::TestRunner</a>
+    </h1>
+  </div>
+
+  <div id="metadata">
+    <div id="project-metadata">
+
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li class="file"><a href="../lib/lemon/controller/test_runner_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/lemon/controller/test_runner.rb">lib/lemon/controller/test_runner.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
+      <!-- TODO: generalize this for all SCMs -->
+
+      
+    </div>
+
+    <div id="class-metadata">
+
+      <!-- Parent Class -->
+      
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        <ul>
+          
+            
+              <!-- why was this class="link" ? -->
+              <li class="class"><a href="../Object.html">Object</a></li>
+            
+          
+        </ul>
+      </div>
+      
+
+      <!-- Namespace Contents -->
+      
+
+      <!-- Method Quickref -->
+      
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+            
+            <li class="singleton">
+              <a href="#method-c-new">::new</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-each">#each</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-initialize_rc">#initialize_rc</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-namespaces">#namespaces</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-report">#report</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-report_find">#report_find</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-report_list">#report_list</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-run">#run</a>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Included Modules -->
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Information</h3>
+        <ul>
+        
+          <li class="file"><a href="../Version.html">Version</a></li>
+        
+          <li class="file"><a href="../Profile.html">Profile</a></li>
+        
+          <li class="file"><a href="../HISTORY_rdoc.html">HISTORY.rdoc</a></li>
+        
+          <li class="file"><a href="../Redfile.html">Redfile</a></li>
+        
+          <li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../NOTICE_rdoc.html">NOTICE.rdoc</a></li>
+        
+          <li class="file"><a href="../APACHE2_txt.html">APACHE2.txt</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../assets/icon/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <!-- classpage.html : classes -->
+        <ul class="link-list">
+        
+          <li class="module"><a href="../Lemon.html">Lemon</a></li>
+        
+          <li class="class"><a href="../Lemon/CLI.html">Lemon::CLI</a></li>
+        
+          <li class="module"><a href="../Lemon/CoverReports.html">Lemon::CoverReports</a></li>
+        
+          <li class="class"><a href="../Lemon/CoverReports/Abstract.html">Lemon::CoverReports::Abstract</a></li>
+        
+          <li class="class"><a href="../Lemon/CoverReports/Compact.html">Lemon::CoverReports::Compact</a></li>
+        
+          <li class="class"><a href="../Lemon/CoverReports/Outline.html">Lemon::CoverReports::Outline</a></li>
+        
+          <li class="class"><a href="../Lemon/CoverReports/Verbose.html">Lemon::CoverReports::Verbose</a></li>
+        
+          <li class="class"><a href="../Lemon/CoverReports/Yaml.html">Lemon::CoverReports::Yaml</a></li>
+        
+          <li class="class"><a href="../Lemon/CoverUnit.html">Lemon::CoverUnit</a></li>
+        
+          <li class="class"><a href="../Lemon/CoverageAnalyzer.html">Lemon::CoverageAnalyzer</a></li>
+        
+          <li class="class"><a href="../Lemon/ScaffoldGenerator.html">Lemon::ScaffoldGenerator</a></li>
+        
+          <li class="class"><a href="../Lemon/Snapshot.html">Lemon::Snapshot</a></li>
+        
+          <li class="class"><a href="../Lemon/Snapshot/Unit.html">Lemon::Snapshot::Unit</a></li>
+        
+          <li class="class"><a href="../Lemon/SourceParser.html">Lemon::SourceParser</a></li>
+        
+          <li class="class"><a href="../Lemon/SourceParser/Scope.html">Lemon::SourceParser::Scope</a></li>
+        
+          <li class="class"><a href="../Lemon/TestCase.html">Lemon::TestCase</a></li>
+        
+          <li class="class"><a href="../Lemon/TestCase/DSL.html">Lemon::TestCase::DSL</a></li>
+        
+          <li class="class"><a href="../Lemon/TestContext.html">Lemon::TestContext</a></li>
+        
+          <li class="module"><a href="../Lemon/TestReports.html">Lemon::TestReports</a></li>
+        
+          <li class="class"><a href="../Lemon/TestReports/Abstract.html">Lemon::TestReports::Abstract</a></li>
+        
+          <li class="class"><a href="../Lemon/TestReports/Dotprogress.html">Lemon::TestReports::Dotprogress</a></li>
+        
+          <li class="class"><a href="../Lemon/TestReports/Html.html">Lemon::TestReports::Html</a></li>
+        
+          <li class="class"><a href="../Lemon/TestReports/Outline.html">Lemon::TestReports::Outline</a></li>
+        
+          <li class="class"><a href="../Lemon/TestReports/Summary.html">Lemon::TestReports::Summary</a></li>
+        
+          <li class="class"><a href="../Lemon/TestReports/Tap.html">Lemon::TestReports::Tap</a></li>
+        
+          <li class="class"><a href="../Lemon/TestReports/Tapj.html">Lemon::TestReports::Tapj</a></li>
+        
+          <li class="class"><a href="../Lemon/TestReports/Tapy.html">Lemon::TestReports::Tapy</a></li>
+        
+          <li class="class"><a href="../Lemon/TestReports/Verbose.html">Lemon::TestReports::Verbose</a></li>
+        
+          <li class="class"><a href="../Lemon/TestRunner.html">Lemon::TestRunner</a></li>
+        
+          <li class="class"><a href="../Lemon/TestSuite.html">Lemon::TestSuite</a></li>
+        
+          <li class="class"><a href="../Lemon/TestSuite/DSL.html">Lemon::TestSuite::DSL</a></li>
+        
+          <li class="class"><a href="../Lemon/TestUnit.html">Lemon::TestUnit</a></li>
+        
+          <li class="class"><a href="../Object.html">Object</a></li>
+        
+          <li class="class"><a href="../Pending.html">Pending</a></li>
+        
+          <li class="class"><a href="../Untested.html">Untested</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+    </div>
+
+    <div id="validator-badges">
+      
+      <div style="float: right; margin-right: 5px;">
+        <a href="http://validator.w3.org/check/referer"><img src="../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
+      </div>
+      Generated with <a href="http://rubyworks.github.com/newfish">Newfish</a> 0.2.0
+      <br/><br/>
+    </div>
+  </div>
+
+  <div id="documentation">
+
+    <div id="description">
+      
+        <h1>TestRunner</h1>
+      
+
+      
+<p>The <a href="TestRunner.html">TestRunner</a> class handles the execution of
+<a href="../Lemon.html">Lemon</a> tests.</p>
+
+    </div>
+
+    <!-- Constants -->
+    
+    <div id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt><a name="RC_GLOB">RC_GLOB</a></dt>
+        
+        <dd class="description"><p>Samples</p>
+<ul><li>
+<p>.lemon/rc</p>
+</li><li>
+<p>.lemon/rc.rb</p>
+</li><li>
+<p>.config/lemon/rc</p>
+</li><li>
+<p>.config/lemon/rc.rb</p>
+</li></ul></dd>
+        
+      
+        <dt><a name="EXCLUDE">EXCLUDE</a></dt>
+        
+        <dd class="description"></dd>
+        
+      
+      </dl>
+    </div>
+    
+
+    <!-- Attributes -->
+    
+    <div id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="suite-attribute-method" class="method-detail">
+        <a name="suite"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">suite</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Test suite to run.</p>
+        
+        </div>
+      </div>
+      
+      <div id="files-attribute-method" class="method-detail">
+        <a name="files"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">files</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="format-attribute-method" class="method-detail">
+        <a name="format"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">format</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Report format.</p>
+        
+        </div>
+      </div>
+      
+      <div id="record-attribute-method" class="method-detail">
+        <a name="record"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">record</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Record pass, fail, error, pending and omitted units.</p>
+        
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- Methods -->
+    
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="new-method" class="method-detail ">
+        <a name="method-c-new"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">new</span><span
+            class="method-args">(files, options={})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>New Runner.</p>
+          
+
+          
+          <div class="method-source-code"
+            id="new-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/controller/test_runner.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">files</span>, <span class="ruby-identifier">options</span>={})
+  <span class="ruby-ivar">@files</span> = <span class="ruby-identifier">files</span>
+  <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">options</span>
+
+  <span class="ruby-ivar">@record</span>  = {<span class="ruby-value">:pass=</span><span class="ruby-operator">&gt;</span>[], <span class="ruby-value">:fail=</span><span class="ruby-operator">&gt;</span>[], <span class="ruby-value">:error=</span><span class="ruby-operator">&gt;</span>[], <span class="ruby-value">:pending=</span><span class="ruby-operator">&gt;</span>[], <span class="ruby-value">:omit=</span><span class="ruby-operator">&gt;</span>[]}
+
+  <span class="ruby-comment">## TODO: can we create and assign the suite here?</span>
+  <span class="ruby-ivar">@suite</span>  = <span class="ruby-constant">Lemon</span><span class="ruby-operator">::</span><span class="ruby-constant">TestSuite</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">files</span>)  <span class="ruby-comment">#([])</span>
+  <span class="ruby-comment">#@suite = Lemon.suite</span>
+
+  <span class="ruby-identifier">initialize_rc</span>  <span class="ruby-comment"># TODO: before or after @suite = </span>
+
+  <span class="ruby-comment">#files = files.map{ |f| Dir[f] }.flatten</span>
+  <span class="ruby-comment">#files = files.map{ |f| </span>
+  <span class="ruby-comment"># if File.directory?(f)</span>
+  <span class="ruby-comment">#    Dir[File.join(f, '**/*.rb')]</span>
+  <span class="ruby-comment">#  else</span>
+  <span class="ruby-comment">#   f </span>
+  <span class="ruby-comment">#  end</span>
+  <span class="ruby-comment">#}.flatten.uniq</span>
+  <span class="ruby-comment">#files = files.map{ |f| File.expand_path(f) }</span>
+  <span class="ruby-comment">#files.each{ |s| require s }</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+    <div id="public-instance-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="each-method" class="method-detail ">
+        <a name="method-i-each"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">each</span><span
+            class="method-args">(&block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>Iterate over suite testcases, filtering out unselected testcases if any
+namespaces are provided.</p>
+          
+
+          
+          <div class="method-source-code"
+            id="each-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/controller/test_runner.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">each</span>(&amp;<span class="ruby-identifier">block</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">namespaces</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">suite</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">testcase</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">testcase</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">suite</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">testcase</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">namespaces</span>.<span class="ruby-identifier">any?</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span> <span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">target</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">start_with?</span>(<span class="ruby-identifier">n</span>) }
+      <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">testcase</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="initialize_rc-method" class="method-detail ">
+        <a name="method-i-initialize_rc"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">initialize_rc</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="initialize_rc-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/controller/test_runner.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize_rc</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">file</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-constant">RC_GLOB</span>].<span class="ruby-identifier">first</span>
+    <span class="ruby-identifier">require</span> <span class="ruby-identifier">file</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="namespaces-method" class="method-detail ">
+        <a name="method-i-namespaces"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">namespaces</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>Namespaces option specifies the selection of test cases to run. Is is an
+array of strings which are matched  against the module/class names using
+#start_wtih?</p>
+          
+
+          
+          <div class="method-source-code"
+            id="namespaces-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/controller/test_runner.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">namespaces</span>
+  <span class="ruby-ivar">@options</span>[<span class="ruby-value">:namespaces</span>] <span class="ruby-operator">||</span> []
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-method" class="method-detail ">
+        <a name="method-i-report"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>All output is handled by a reporter.</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/controller/test_runner.rb, line 149</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">report</span>
+  <span class="ruby-ivar">@report</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">report_find</span>(<span class="ruby-identifier">format</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report_find-method" class="method-detail ">
+        <a name="method-i-report_find"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_find</span><span
+            class="method-args">(format)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>Find a report type be name fragment.</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report_find-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/controller/test_runner.rb, line 154</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">report_find</span>(<span class="ruby-identifier">format</span>)
+  <span class="ruby-identifier">format</span> = <span class="ruby-identifier">format</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">format</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">:</span> <span class="ruby-string">'dotprogress'</span>
+  <span class="ruby-identifier">format</span> = <span class="ruby-identifier">report_list</span>.<span class="ruby-identifier">find</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+    <span class="ruby-node">/^#{format}/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">r</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;unsupported format&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">format</span>
+  <span class="ruby-identifier">require</span> <span class="ruby-node">&quot;lemon/view/test_reports/#{format}&quot;</span>
+  <span class="ruby-identifier">reporter</span> = <span class="ruby-constant">Lemon</span><span class="ruby-operator">::</span><span class="ruby-constant">TestReports</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">format</span>.<span class="ruby-identifier">capitalize</span>)
+  <span class="ruby-identifier">reporter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report_list-method" class="method-detail ">
+        <a name="method-i-report_list"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_list</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>Returns a list of report types.</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report_list-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/controller/test_runner.rb, line 166</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">report_list</span>
+  <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>) <span class="ruby-operator">+</span> <span class="ruby-string">'/../view/test_reports/*.rb'</span>].<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">rb</span><span class="ruby-operator">|</span>
+    <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">rb</span>).<span class="ruby-identifier">chomp</span>(<span class="ruby-string">'.rb'</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="run-method" class="method-detail ">
+        <a name="method-i-run"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">run</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>Run tests.</p>
+          
+
+          
+          <div class="method-source-code"
+            id="run-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/controller/test_runner.rb, line 80</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">run</span>
+  <span class="ruby-comment">#prepare</span>
+  <span class="ruby-identifier">report</span>.<span class="ruby-identifier">start_suite</span>(<span class="ruby-identifier">suite</span>)
+  <span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">testcase</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">scope</span> = <span class="ruby-constant">Object</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">dsl</span>)
+    <span class="ruby-identifier">report</span>.<span class="ruby-identifier">start_case</span>(<span class="ruby-identifier">testcase</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">prepare</span> <span class="ruby-comment">#before[[]]</span>
+      <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">instance_eval</span>(&amp;<span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">prepare</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">unit</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment">#case step</span>
+      <span class="ruby-comment">#when TestInstance</span>
+      <span class="ruby-comment">#  reporter.report_instance(step)</span>
+      <span class="ruby-comment">#when TestUnit</span>
+      <span class="ruby-comment">#  unit = step</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">unit</span>.<span class="ruby-identifier">omit?</span>
+          <span class="ruby-identifier">report</span>.<span class="ruby-identifier">omit</span>(<span class="ruby-identifier">unit</span>)
+          <span class="ruby-identifier">record</span>[<span class="ruby-value">:omit</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">unit</span>
+          <span class="ruby-keyword">next</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">report</span>.<span class="ruby-identifier">start_unit</span>(<span class="ruby-identifier">unit</span>)
+        <span class="ruby-identifier">run_pretest_procedures</span>(<span class="ruby-identifier">unit</span>, <span class="ruby-identifier">scope</span>) <span class="ruby-comment">#, suite, testcase)</span>
+        <span class="ruby-keyword">begin</span>
+          <span class="ruby-identifier">run_unit</span>(<span class="ruby-identifier">unit</span>, <span class="ruby-identifier">scope</span>)
+          <span class="ruby-comment">#unit.call(scope)</span>
+          <span class="ruby-identifier">report</span>.<span class="ruby-identifier">pass</span>(<span class="ruby-identifier">unit</span>)
+          <span class="ruby-identifier">record</span>[<span class="ruby-value">:pass</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">unit</span>
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Pending</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">exception</span>
+          <span class="ruby-identifier">exception</span> = <span class="ruby-identifier">clean_backtrace</span>(<span class="ruby-identifier">exception</span>)
+          <span class="ruby-identifier">report</span>.<span class="ruby-identifier">pending</span>(<span class="ruby-identifier">unit</span>, <span class="ruby-identifier">exception</span>)
+          <span class="ruby-identifier">record</span>[<span class="ruby-value">:pending</span>] <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">unit</span>, <span class="ruby-identifier">exception</span>]
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Assertion</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">exception</span>
+          <span class="ruby-identifier">exception</span> = <span class="ruby-identifier">clean_backtrace</span>(<span class="ruby-identifier">exception</span>)
+          <span class="ruby-identifier">report</span>.<span class="ruby-identifier">fail</span>(<span class="ruby-identifier">unit</span>, <span class="ruby-identifier">exception</span>)
+          <span class="ruby-identifier">record</span>[<span class="ruby-value">:fail</span>] <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">unit</span>, <span class="ruby-identifier">exception</span>]
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">exception</span>
+          <span class="ruby-identifier">exception</span> = <span class="ruby-identifier">clean_backtrace</span>(<span class="ruby-identifier">exception</span>)
+          <span class="ruby-identifier">report</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">unit</span>, <span class="ruby-identifier">exception</span>)
+          <span class="ruby-identifier">record</span>[<span class="ruby-value">:error</span>] <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">unit</span>, <span class="ruby-identifier">exception</span>]
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">report</span>.<span class="ruby-identifier">finish_unit</span>(<span class="ruby-identifier">unit</span>)
+        <span class="ruby-identifier">run_postest_procedures</span>(<span class="ruby-identifier">unit</span>, <span class="ruby-identifier">scope</span>) <span class="ruby-comment">#, suite, testcase)</span>
+      <span class="ruby-comment">#end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">cleanup</span> <span class="ruby-comment">#after[[]]</span>
+      <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">instance_eval</span>(&amp;<span class="ruby-identifier">testcase</span>.<span class="ruby-identifier">cleanup</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">report</span>.<span class="ruby-identifier">finish_case</span>(<span class="ruby-identifier">testcase</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">report</span>.<span class="ruby-identifier">finish_suite</span>(<span class="ruby-identifier">suite</span>) <span class="ruby-comment">#(successes, failures, errors, pendings)</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+
+  </div>
+
+
+  <div id="rdoc-debugging-section-dump" class="debugging-section">
+  
+    <p>Disabled; run with --debug to generate this.</p>
+  
+  </div>
+
+</main>
+</body>
+</html>
+

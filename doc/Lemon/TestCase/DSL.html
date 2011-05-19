@@ -1,0 +1,1130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>Class: Lemon::TestCase::DSL</title>
+
+  
+    <link rel="SHORTCUT ICON" href="../../assets/icon/class.png">
+  
+
+  <link type="text/css" rel="stylesheet" href="../../assets/rdoc.css" media="screen" />
+  <link type="text/css" rel="stylesheet" href="../../assets/highlight/styles/github.css" title="GitHub" />
+
+  <script type="text/javascript" charset="utf-8" src="../../assets/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/highlight/highlight.pack.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/quicksearch.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/main.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready( function() {
+      $('#documentation pre').wrapInner('<code></code>');
+      hljs.tabReplace = '    ';
+      hljs.initHighlightingOnLoad('ruby');
+
+	    hookSourceViews();
+	    hookDebuggingToggle();
+	    hookQuickSearch();
+	    highlightLocationTarget();
+
+	    $('ul.link-list a').bind( "click", highlightClickTarget );
+    });
+  </script>
+</head>
+<body class="class">
+<div id="main">
+
+  <div class="head">
+    <h1>
+      
+        <img src="../../assets/icon/class.png" align="absmiddle">&nbsp;
+      
+      <a href="../../index.html">&quot;Lemon&quot;</a>&nbsp;
+      <a href="/">Lemon::TestCase::DSL</a>
+    </h1>
+  </div>
+
+  <div id="metadata">
+    <div id="project-metadata">
+
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li class="file"><a href="../../lib/lemon/model/test_case_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/lemon/model/test_case.rb">lib/lemon/model/test_case.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
+      <!-- TODO: generalize this for all SCMs -->
+
+      
+    </div>
+
+    <div id="class-metadata">
+
+      <!-- Parent Class -->
+      
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        <ul>
+          
+            
+              <li class="class">Module</li>
+            
+          
+        </ul>
+      </div>
+      
+
+      <!-- Namespace Contents -->
+      
+
+      <!-- Method Quickref -->
+      
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+            
+            <li class="singleton">
+              <a href="#method-c-new">::new</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-After">#After</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-Before">#Before</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-Concern">#Concern</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-Context">#Context</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-Helper">#Helper</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-Meta">#Meta</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-MetaUnit">#MetaUnit</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-Omit">#Omit</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-Setup">#Setup</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-Teardown">#Teardown</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-TestUnit">#TestUnit</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-Unit">#Unit</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-after">#after</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-before">#before</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-concern">#concern</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-context">#context</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-helper">#helper</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-meta">#meta</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-metaunit">#metaunit</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-omit">#omit</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-setup">#setup</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-teardown">#teardown</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-testunit">#testunit</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-unit">#unit</a>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Included Modules -->
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Information</h3>
+        <ul>
+        
+          <li class="file"><a href="../../Version.html">Version</a></li>
+        
+          <li class="file"><a href="../../Profile.html">Profile</a></li>
+        
+          <li class="file"><a href="../../HISTORY_rdoc.html">HISTORY.rdoc</a></li>
+        
+          <li class="file"><a href="../../Redfile.html">Redfile</a></li>
+        
+          <li class="file"><a href="../../README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../../NOTICE_rdoc.html">NOTICE.rdoc</a></li>
+        
+          <li class="file"><a href="../../APACHE2_txt.html">APACHE2.txt</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../../assets/icon/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <!-- classpage.html : classes -->
+        <ul class="link-list">
+        
+          <li class="module"><a href="../../Lemon.html">Lemon</a></li>
+        
+          <li class="class"><a href="../../Lemon/CLI.html">Lemon::CLI</a></li>
+        
+          <li class="module"><a href="../../Lemon/CoverReports.html">Lemon::CoverReports</a></li>
+        
+          <li class="class"><a href="../../Lemon/CoverReports/Abstract.html">Lemon::CoverReports::Abstract</a></li>
+        
+          <li class="class"><a href="../../Lemon/CoverReports/Compact.html">Lemon::CoverReports::Compact</a></li>
+        
+          <li class="class"><a href="../../Lemon/CoverReports/Outline.html">Lemon::CoverReports::Outline</a></li>
+        
+          <li class="class"><a href="../../Lemon/CoverReports/Verbose.html">Lemon::CoverReports::Verbose</a></li>
+        
+          <li class="class"><a href="../../Lemon/CoverReports/Yaml.html">Lemon::CoverReports::Yaml</a></li>
+        
+          <li class="class"><a href="../../Lemon/CoverUnit.html">Lemon::CoverUnit</a></li>
+        
+          <li class="class"><a href="../../Lemon/CoverageAnalyzer.html">Lemon::CoverageAnalyzer</a></li>
+        
+          <li class="class"><a href="../../Lemon/ScaffoldGenerator.html">Lemon::ScaffoldGenerator</a></li>
+        
+          <li class="class"><a href="../../Lemon/Snapshot.html">Lemon::Snapshot</a></li>
+        
+          <li class="class"><a href="../../Lemon/Snapshot/Unit.html">Lemon::Snapshot::Unit</a></li>
+        
+          <li class="class"><a href="../../Lemon/SourceParser.html">Lemon::SourceParser</a></li>
+        
+          <li class="class"><a href="../../Lemon/SourceParser/Scope.html">Lemon::SourceParser::Scope</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestCase.html">Lemon::TestCase</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestCase/DSL.html">Lemon::TestCase::DSL</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestContext.html">Lemon::TestContext</a></li>
+        
+          <li class="module"><a href="../../Lemon/TestReports.html">Lemon::TestReports</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestReports/Abstract.html">Lemon::TestReports::Abstract</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestReports/Dotprogress.html">Lemon::TestReports::Dotprogress</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestReports/Html.html">Lemon::TestReports::Html</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestReports/Outline.html">Lemon::TestReports::Outline</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestReports/Summary.html">Lemon::TestReports::Summary</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestReports/Tap.html">Lemon::TestReports::Tap</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestReports/Tapj.html">Lemon::TestReports::Tapj</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestReports/Tapy.html">Lemon::TestReports::Tapy</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestReports/Verbose.html">Lemon::TestReports::Verbose</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestRunner.html">Lemon::TestRunner</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestSuite.html">Lemon::TestSuite</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestSuite/DSL.html">Lemon::TestSuite::DSL</a></li>
+        
+          <li class="class"><a href="../../Lemon/TestUnit.html">Lemon::TestUnit</a></li>
+        
+          <li class="class"><a href="../../Object.html">Object</a></li>
+        
+          <li class="class"><a href="../../Pending.html">Pending</a></li>
+        
+          <li class="class"><a href="../../Untested.html">Untested</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+    </div>
+
+    <div id="validator-badges">
+      
+      <div style="float: right; margin-right: 5px;">
+        <a href="http://validator.w3.org/check/referer"><img src="../../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
+      </div>
+      Generated with <a href="http://rubyworks.github.com/newfish">Newfish</a> 0.2.0
+      <br/><br/>
+    </div>
+  </div>
+
+  <div id="documentation">
+
+    <div id="description">
+      
+        <h1>DSL</h1>
+      
+
+      
+    </div>
+
+    <!-- Constants -->
+    
+
+    <!-- Attributes -->
+    
+
+    <!-- Methods -->
+    
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="new-method" class="method-detail ">
+        <a name="method-c-new"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">new</span><span
+            class="method-args">(testcase, &casecode)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="new-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/model/test_case.rb, line 84</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">testcase</span>, &amp;<span class="ruby-identifier">casecode</span>)
+  <span class="ruby-ivar">@testcase</span> = <span class="ruby-identifier">testcase</span>
+  <span class="ruby-ivar">@context</span>  = <span class="ruby-keyword">nil</span> <span class="ruby-comment">#Instance.new(self)</span>
+  <span class="ruby-identifier">module_eval</span>(&amp;<span class="ruby-identifier">casecode</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+    <div id="public-instance-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="After-method" class="method-detail method-alias">
+        <a name="method-i-After"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">After</span><span
+            class="method-args">(*matches, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="Before-method" class="method-detail method-alias">
+        <a name="method-i-Before"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Before</span><span
+            class="method-args">(*matches, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="Concern-method" class="method-detail method-alias">
+        <a name="method-i-Concern"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Concern</span><span
+            class="method-args">(description=nil, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="Context-method" class="method-detail method-alias">
+        <a name="method-i-Context"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Context</span><span
+            class="method-args">(description=nil, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="Helper-method" class="method-detail method-alias">
+        <a name="method-i-Helper"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Helper</span><span
+            class="method-args">(file)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="Meta-method" class="method-detail method-alias">
+        <a name="method-i-Meta"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Meta</span><span
+            class="method-args">(*target, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="MetaUnit-method" class="method-detail method-alias">
+        <a name="method-i-MetaUnit"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">MetaUnit</span><span
+            class="method-args">(*target, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="Omit-method" class="method-detail ">
+        <a name="method-i-Omit"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Omit</span><span
+            class="method-args">(unit)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p><a href="DSL.html#method-i-Omit">Omit</a> a unit from testing.</p>
+
+<pre>omit unit :foo do
+  # ...
+end</pre>
+          
+
+          
+          <div class="method-source-code"
+            id="Omit-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/model/test_case.rb, line 136</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Omit</span>(<span class="ruby-identifier">unit</span>)
+  <span class="ruby-identifier">unit</span>.<span class="ruby-identifier">omit</span> = <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="DSL.html#method-i-omit">omit</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="Setup-method" class="method-detail method-alias">
+        <a name="method-i-Setup"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Setup</span><span
+            class="method-args">(description=nil, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="Teardown-method" class="method-detail method-alias">
+        <a name="method-i-Teardown"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Teardown</span><span
+            class="method-args">(&block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="TestUnit-method" class="method-detail method-alias">
+        <a name="method-i-TestUnit"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">TestUnit</span><span
+            class="method-args">(*target, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="Unit-method" class="method-detail method-alias">
+        <a name="method-i-Unit"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Unit</span><span
+            class="method-args">(*target, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="after-method" class="method-detail ">
+        <a name="method-i-after"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">after</span><span
+            class="method-args">(*matches, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>Define an after procedure for this case.</p>
+          
+
+          
+          <div class="method-source-code"
+            id="after-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/model/test_case.rb, line 189</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">after</span>(*<span class="ruby-identifier">matches</span>, &amp;<span class="ruby-identifier">block</span>)
+  <span class="ruby-ivar">@testcase</span>.<span class="ruby-identifier">after</span>[<span class="ruby-identifier">matches</span>] = <span class="ruby-identifier">block</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="DSL.html#method-i-After">After</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="before-method" class="method-detail ">
+        <a name="method-i-before"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">before</span><span
+            class="method-args">(*matches, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>Define a before procedure for this case.</p>
+          
+
+          
+          <div class="method-source-code"
+            id="before-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/model/test_case.rb, line 183</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">before</span>(*<span class="ruby-identifier">matches</span>, &amp;<span class="ruby-identifier">block</span>)
+  <span class="ruby-ivar">@testcase</span>.<span class="ruby-identifier">before</span>[<span class="ruby-identifier">matches</span>] = <span class="ruby-identifier">block</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="DSL.html#method-i-Before">Before</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="concern-method" class="method-detail method-alias">
+        <a name="method-i-concern"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">concern</span><span
+            class="method-args">(description=nil, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="context-method" class="method-detail method-alias">
+        <a name="method-i-context"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">context</span><span
+            class="method-args">(description=nil, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="helper-method" class="method-detail ">
+        <a name="method-i-helper"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">helper</span><span
+            class="method-args">(file)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>Load a helper script applicable to this test case.</p>
+          
+
+          
+          <div class="method-source-code"
+            id="helper-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/model/test_case.rb, line 207</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">helper</span>(<span class="ruby-identifier">file</span>)
+  <span class="ruby-identifier">instance_eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>), <span class="ruby-identifier">file</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="DSL.html#method-i-Helper">Helper</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="meta-method" class="method-detail ">
+        <a name="method-i-meta"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">meta</span><span
+            class="method-args">(*target, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>Define a meta-method unit test for this case.</p>
+          
+
+          
+          <div class="method-source-code"
+            id="meta-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/model/test_case.rb, line 111</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">meta</span>(*<span class="ruby-identifier">target</span>, &amp;<span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">target</span> = <span class="ruby-identifier">target</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-constant">Hash</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">to_a</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">x</span> }.<span class="ruby-identifier">flatten</span>
+  <span class="ruby-identifier">method</span>, <span class="ruby-identifier">aspect</span> = *<span class="ruby-identifier">target</span>
+  <span class="ruby-identifier">unit</span> = <span class="ruby-constant">TestUnit</span>.<span class="ruby-identifier">new</span>(
+    <span class="ruby-ivar">@testcase</span>, <span class="ruby-identifier">method</span>,
+    <span class="ruby-value">:function</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+    <span class="ruby-value">:aspect</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">aspect</span>,
+    <span class="ruby-value">:context</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@context</span>,
+    <span class="ruby-value">:caller</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">caller</span>,
+    &amp;<span class="ruby-identifier">block</span>
+  )
+  <span class="ruby-comment">#@testcase.steps &lt;&lt; unit</span>
+  <span class="ruby-ivar">@testcase</span>.<span class="ruby-identifier">units</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">unit</span>
+  <span class="ruby-identifier">unit</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="DSL.html#method-i-MetaUnit">MetaUnit</a>, <a href="DSL.html#method-i-metaunit">metaunit</a>, <a href="DSL.html#method-i-Meta">Meta</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="metaunit-method" class="method-detail method-alias">
+        <a name="method-i-metaunit"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">metaunit</span><span
+            class="method-args">(*target, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="omit-method" class="method-detail method-alias">
+        <a name="method-i-omit"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">omit</span><span
+            class="method-args">(unit)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="setup-method" class="method-detail ">
+        <a name="method-i-setup"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">setup</span><span
+            class="method-args">(description=nil, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="setup-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/model/test_case.rb, line 142</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setup</span>(<span class="ruby-identifier">description</span>=<span class="ruby-keyword">nil</span>, &amp;<span class="ruby-identifier">block</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block</span>
+    <span class="ruby-identifier">context</span>  = <span class="ruby-constant">TestContext</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@testcase</span>, <span class="ruby-identifier">description</span>, &amp;<span class="ruby-identifier">block</span>)
+    <span class="ruby-ivar">@context</span> = <span class="ruby-identifier">context</span>
+    <span class="ruby-comment">#@function = false</span>
+    <span class="ruby-comment">#@testcase.steps &lt;&lt; context</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="DSL.html#method-i-Setup">Setup</a>, <a href="DSL.html#method-i-Concern">Concern</a>, <a href="DSL.html#method-i-concern">concern</a>, <a href="DSL.html#method-i-Context">Context</a>, <a href="DSL.html#method-i-context">context</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="teardown-method" class="method-detail ">
+        <a name="method-i-teardown"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">teardown</span><span
+            class="method-args">(&block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <pre>Define a new test singleton for this case.</pre>
+
+<p>def Singleton(description=nil, &amp;block)</p>
+
+<pre>context  = TestSingleton.new(@testcase, description, &amp;block)
+@context = context
+@function = true
+#@testcase.steps &lt;&lt; context</pre>
+
+<p>end alias_method :singleton, :Singleton</p>
+          
+
+          
+          <div class="method-source-code"
+            id="teardown-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/model/test_case.rb, line 174</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">teardown</span>(&amp;<span class="ruby-identifier">block</span>)
+  <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">teardown</span> = <span class="ruby-identifier">block</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="DSL.html#method-i-Teardown">Teardown</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="testunit-method" class="method-detail method-alias">
+        <a name="method-i-testunit"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">testunit</span><span
+            class="method-args">(*target, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="unit-method" class="method-detail ">
+        <a name="method-i-unit"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">unit</span><span
+            class="method-args">(*target, &block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>Define a unit test for this case.</p>
+          
+
+          
+          <div class="method-source-code"
+            id="unit-source">
+<pre>
+<span class="ruby-comment"># File lib/lemon/model/test_case.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unit</span>(*<span class="ruby-identifier">target</span>, &amp;<span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">target</span> = <span class="ruby-identifier">target</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-constant">Hash</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">to_a</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">x</span> }.<span class="ruby-identifier">flatten</span>
+  <span class="ruby-identifier">method</span>, <span class="ruby-identifier">aspect</span> = *<span class="ruby-identifier">target</span>
+  <span class="ruby-identifier">unit</span> = <span class="ruby-constant">TestUnit</span>.<span class="ruby-identifier">new</span>(
+    <span class="ruby-ivar">@testcase</span>, <span class="ruby-identifier">method</span>,
+    <span class="ruby-value">:function</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
+    <span class="ruby-value">:aspect</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">aspect</span>,
+    <span class="ruby-value">:context</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@context</span>,
+    <span class="ruby-value">:caller</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">caller</span>,
+    &amp;<span class="ruby-identifier">block</span>
+  )
+  <span class="ruby-comment">#@testcase.steps &lt;&lt; unit</span>
+  <span class="ruby-ivar">@testcase</span>.<span class="ruby-identifier">units</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">unit</span>
+  <span class="ruby-identifier">unit</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="DSL.html#method-i-TestUnit">TestUnit</a>, <a href="DSL.html#method-i-testunit">testunit</a>, <a href="DSL.html#method-i-Unit">Unit</a>
+        </div>
+        
+      </div>
+
+    
+    </div>
+  
+
+  </div>
+
+
+  <div id="rdoc-debugging-section-dump" class="debugging-section">
+  
+    <p>Disabled; run with --debug to generate this.</p>
+  
+  </div>
+
+</main>
+</body>
+</html>
+
