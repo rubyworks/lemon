@@ -128,6 +128,7 @@ module Lemon::TestReports
       pretty
     end
 
+=begin
     #
     def code_snippet_hash(exception, bredth=3)
       backtrace = filtered_backtrace(exception)
@@ -150,9 +151,30 @@ module Lemon::TestReports
       end
       hash
     end
+=end
 
     #
     def code_snippet_array(exception, bredth=3)
+      backtrace = filtered_backtrace(exception)
+      backtrace.first =~ /(.+?):(\d+(?=:|\z))/ or return ""
+      source_file, source_line = $1, $2.to_i
+    
+      source = source(source_file)
+      
+      radius = bredth # number of surrounding lines to show
+      region = [source_line - radius, 1].max ..
+               [source_line + radius, source.length].min
+    
+      # ensure proper alignment by zero-padding line numbers
+      #format = " %2s %0#{region.last.to_s.length}d %s"
+    
+      region.map do |n|
+        source[n-1].chomp
+      end
+    end
+
+    #
+    def code_snippet_omap(exception, bredth=3)
       backtrace = filtered_backtrace(exception)
       backtrace.first =~ /(.+?):(\d+(?=:|\z))/ or return ""
       source_file, source_line = $1, $2.to_i
@@ -164,11 +186,18 @@ module Lemon::TestReports
                [source_line + radius, source.length].min
 
       # ensure proper alignment by zero-padding line numbers
-      format = " %2s %0#{region.last.to_s.length}d %s"
+      #format = " %2s %0#{region.last.to_s.length}d %s"
 
-      region.map do |n|
-        source[n-1].chomp
+      a = []
+      region.each do |n|
+        a << {n=> source[n-1].chomp}
       end
+      a
+    end
+
+    # TODO: improve
+    def code_line(exception)
+      code_snippet_array(exception, 0).first.strip
     end
 
     #
