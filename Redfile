@@ -14,11 +14,10 @@ gemcutter:
 
 grancher:
   service: Grancher
-  active: true
+  active : true
 
-box:
-  service: Box
-  types  : [gem]
+gem:
+  service: Gem
   active : true
 
 dnote:
@@ -50,6 +49,12 @@ stats:
   output   : ~
   active   : true
 
+qedoc:
+  service  : Custom
+  track    : site
+  document : |
+    system "qedoc -t 'Lemony Testing' -o site/qed qed/"
+
 cucumber:
   service : Custom
   test    : |
@@ -59,8 +64,6 @@ lemon:
   service : Custom
   test    : |
     system 'lemon test/unit/*.rb'
-
-# not active
 
 vclog:
   service  : VClog
