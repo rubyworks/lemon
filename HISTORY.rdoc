@@ -1,5 +1,17 @@
 = RELEASE HISTORY
 
+== 0.8.3 / 2011-05-19
+
+Looks like Lemon is pretty damn near 1.0 status. She probably won't get
+any major changes for a good while. This release simply adds TAP-Y/J reporters.
+Just use `-f tapy` or `-f tapj` on the command line.
+
+Changes:
+
+* Add TAP-Y/J reporters.
+* Configuration directory can be `.lemon/`.
+
+
 == 0.8.2 / 2010-09-05
 
 This release overhauls how coverage is performed so it does not need to
