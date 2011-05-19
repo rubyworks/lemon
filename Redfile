@@ -60,6 +60,8 @@ lemon:
   test    : |
     system 'lemon test/unit/*.rb'
 
+# not active
+
 vclog:
   service  : VClog
   format   : html   # xml, txt
