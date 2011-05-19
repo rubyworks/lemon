@@ -18,6 +18,9 @@ copyright: Copyright 2009 Thomas Sawyer
 
 requires:
   - ae
-  - syckle   (build)
+  - redline  (build)
+  - reap     (build)
+  - qed      (test)
   - cucumber (test)
   - aruba    (test)
+

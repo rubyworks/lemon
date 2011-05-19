@@ -1,8 +1,13 @@
 --- !ruby/object:Gem::Specification 
 name: lemon
 version: !ruby/object:Gem::Version 
+  hash: 57
   prerelease: 
-  version: 0.8.2
+  segments: 
+  - 0
+  - 8
+  - 3
+  version: 0.8.3
 platform: ruby
 authors: 
 - Thomas Sawyer
@@ -20,42 +25,82 @@ dependencies:
     requirements: 
     - - ">="
       - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
         version: "0"
   type: :runtime
   version_requirements: *id001
 - !ruby/object:Gem::Dependency 
-  name: syckle
+  name: redline
   prerelease: false
   requirement: &id002 !ruby/object:Gem::Requirement 
     none: false
     requirements: 
     - - ">="
       - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
         version: "0"
   type: :development
   version_requirements: *id002
 - !ruby/object:Gem::Dependency 
-  name: cucumber
+  name: reap
   prerelease: false
   requirement: &id003 !ruby/object:Gem::Requirement 
     none: false
     requirements: 
     - - ">="
       - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
         version: "0"
   type: :development
   version_requirements: *id003
 - !ruby/object:Gem::Dependency 
-  name: aruba
+  name: qed
   prerelease: false
   requirement: &id004 !ruby/object:Gem::Requirement 
     none: false
     requirements: 
     - - ">="
       - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
         version: "0"
   type: :development
   version_requirements: *id004
+- !ruby/object:Gem::Dependency 
+  name: cucumber
+  prerelease: false
+  requirement: &id005 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
+        version: "0"
+  type: :development
+  version_requirements: *id005
+- !ruby/object:Gem::Dependency 
+  name: aruba
+  prerelease: false
+  requirement: &id006 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
+        version: "0"
+  type: :development
+  version_requirements: *id006
 description: Lemon is a unit testing framework that tightly correlates class to test case and method to test unit.
 email: transfire@gmail.com
 executables: 
@@ -142,12 +187,18 @@ required_ruby_version: !ruby/object:Gem::Requirement
   requirements: 
   - - ">="
     - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
       version: "0"
 required_rubygems_version: !ruby/object:Gem::Requirement 
   none: false
   requirements: 
   - - ">="
     - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
       version: "0"
 requirements: []
 
