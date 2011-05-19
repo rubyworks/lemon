@@ -100,6 +100,43 @@ module Lemon
       end
     end
 
+    # START-COMMIT. 201105190006
+
+    # The file method returns the file name of +caller+ which
+    # was created upon initialization of this object. It is
+    # also the first element of #file_and_line.
+    #
+    # Returns file name of caller.
+    def file
+      file_and_line.first
+    end
+
+    # Returns line number of caller.
+    def line
+      file_and_line.last
+    end
+
+    # The file_and_line method returns the file name and line number of
+    # the caller created upon initialization of this object.
+    #
+    # This method is cached.
+    #
+    # Examples
+    #   file_and_line #=> ['foo_test.rb', 123]
+    #
+    # Returns Array of file name and line number of caller.
+    def file_and_line
+      @file_and_line ||= (
+        line = caller[0]
+        i = line.rindex(':in')
+        line = i ? line[0...i] : line
+        f, l = File.basename(line).split(':')
+        [f, l]
+      )
+    end
+
+    # END-COMMIT.
+
     #
     def match?(match)    
       match == target || match === aspect
