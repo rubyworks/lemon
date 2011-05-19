@@ -34,34 +34,39 @@ module Lemon::TestReports
     end
 
     #
+    def start_case(tcase)
+      h = {
+        'type' => 'case',
+        'description' => "#{tcase.to_s} #{tcase.aspect}".strip
+      }
+      puts h.to_yaml
+    end
+
+    #
     def start_unit(unit)
       @i += 1
     end
 
     #
-    def pass(unit, backtrace=nil)
-      #puts "ok #{@i} - #{unit.description}"
-      backtrace = unit.caller
+    def pass(unit) #, backtrace=nil)
       h = {
         'type'        => 'test',
         'status'      => 'pass',
-        'file'        => file(backtrace),
-        'line'        => line(backtrace),
+        'file'        => unit.file,
+        'line'        => unit.line,
         'description' => unit.description,
         #'returned'    => '',
         #'expected'    => '',
-        'source'      => code_snippet_array(backtrace, 0).first.strip,
-        'snippet'     => code_snippet_hash(backtrace, 3),
-        'message'      => unit.to_s
+        'source'      => code_line(unit.caller),
+        'snippet'     => code_snippet_omap(unit.caller, 3),
+        'message'     => unit.to_s,
+        'time'        => Time.now - @start
       }
       puts h.to_yaml
     end
 
     #
     def fail(unit, exception)
-      #puts "not ok #{@i} - #{unit.description}"
-      #puts "  FAIL #{exception.backtrace[0]}"
-      #puts "  #{exception}"
       h = {
         'type'        => 'test',
         'status'      => 'fail',
@@ -70,49 +75,45 @@ module Lemon::TestReports
         'description' => unit.description,
         #'returned'    => '',
         #'expected'    => '',
-        'source'      => code_snippet_array(exception, 0).first.strip,
-        'snippet'     => code_snippet_hash(exception, 3),
-        'message'     => exception.message
-        #'trace'       => exception.backtrace
+        'source'      => code_line(exception),
+        'snippet'     => code_snippet_omap(exception, 3),
+        'message'     => exception.message,
+        'time'        => Time.now - @start
+        #'backtrace'   => exception.backtrace
       }
       puts h.to_yaml
     end
 
     #
     def error(unit, exception)
-      #puts "not ok #{@i} - #{unit.description}"
-      #puts "  ERROR #{exception.class}"
-      #puts "  #{exception}"
-      #puts "  " + exception.backtrace.join("\n        ")
       h = {
         'type'        => 'test',
         'status'      => 'error',
         'file'        => file(exception),
         'line'        => line(exception),
         'description' => unit.description,
-        'source'      => code_snippet(exception, 0).first.strip,
-        'snippet'     => code_snippet(exception, 3),
+        'source'      => code_line(exception),
+        'snippet'     => code_snippet_omap(exception, 3),
         'message'     => exception.message,
-        'trace'       => exception.backtrace
+        'backtrace'   => exception.backtrace,
+        'time'        => Time.now - @start
       }
       puts h.to_yaml
     end
 
     #
     def pending(unit, exception)
-      #puts "not ok #{@i} - #{unit.description}"
-      #puts "  PENDING"
-      #puts "  #{exception.backtrace[1]}"
       h = {
         'type'        => 'test',
         'status'      => 'pending',
         'file'        => file(exception),
         'line'        => line(exception),
         'description' => unit.description,
-        'source'      => code_snippet(exception, 0).first.strip,
-        'snippet'     => code_snippet(exception, 3),
-        'message'     => exception.message
-        #'trace'       => exception.backtrace
+        'source'      => code_line(exception),
+        'snippet'     => code_snippet_omap(exception, 3),
+        'message'     => exception.message,
+        'time'        => Time.now - @start
+        #'backtrace'   => exception.backtrace
       }
       puts h.to_yaml
     end
@@ -126,6 +127,7 @@ module Lemon::TestReports
         'tally' => {
           'pass'    => record[:pass].size,
           'fail'    => record[:fail].size,
+          'error'   => record[:error].size,
           'omit'    => record[:omit].size,
           'pending' => record[:pending].size # TODO: rename to `hold`?
         }

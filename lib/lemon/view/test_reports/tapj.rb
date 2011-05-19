@@ -24,83 +24,86 @@ module Lemon::TestReports
     end
 
     #
+    def start_case(tcase)
+      h = {
+        'type' => 'case',
+        'description' => "#{tcase.to_s} #{tcase.aspect}".strip
+      }
+      puts h.to_json
+    end
+
+    #
     def start_unit(unit)
       @i += 1
     end
 
     #
     def pass(unit)
-      #puts "ok #{@i} - #{unit.description}"
       h = {
         'type'        => 'test',
         'status'      => 'pass',
-        #'file'        => unit.file,
-        #'line'        => unit.line,
+        'file'        => unit.file,
+        'line'        => unit.line,
         'description' => unit.description,
         #'returned'    => '',
         #'expected'    => '',
-        #'source'      => '',
-        #'snippet'     => {},
+        'source'      => code_line(unit.caller),
+        'snippet'     => code_snippet_omap(unit.caller, 3),
+        'message'     => unit.to_s,
+        'time'        => Time.now - @start
       }
       puts h.to_json
     end
 
     #
     def fail(unit, exception)
-      #puts "not ok #{@i} - #{unit.description}"
-      #puts "  FAIL #{exception.backtrace[0]}"
-      #puts "  #{exception}"
       h = {
         'type'        => 'test',
         'status'      => 'fail',
-        #'file'        => unit.file,
-        #'line'        => unit.line,
+        'file'        => file(exception),
+        'line'        => line(exception),
         'description' => unit.description,
         #'returned'    => '',
         #'expected'    => '',
-        'source'      => code_snippet(exception, 1),
-        'snippet'     => code_snippet_hash(exception, 3),
-        'message'     => exception.message
-        #'trace'       => exception.backtrace
+        'source'      => code_line(exception),
+        'snippet'     => code_snippet_omap(exception, 3),
+        'message'     => exception.message,
+        'time'        => Time.now - @start
+        #'backtrace'   => exception.backtrace
       }
       puts h.to_json
     end
 
     #
     def error(unit, exception)
-      #puts "not ok #{@i} - #{unit.description}"
-      #puts "  ERROR #{exception.class}"
-      #puts "  #{exception}"
-      #puts "  " + exception.backtrace.join("\n        ")
       h = {
         'type'        => 'test',
         'status'      => 'error',
-        #'file'        => unit.file,
-        #'line'        => unit.line,
+        'file'        => file(exception),
+        'line'        => line(exception),
         'description' => unit.description,
-        'source'      => code_snippet(exception, 1),
-        'snippet'     => code_snippet_hash(exception, 3),
+        'source'      => code_line(exception),
+        'snippet'     => code_snippet_omap(exception, 3),
         'message'     => exception.message,
-        'trace'       => exception.backtrace
+        'trace'       => exception.backtrace,
+        'time'        => Time.now - @start
       }
       puts h.to_json
     end
 
-    #
+    # TODO: why was this using expception.backtrace[1] and now [0].
     def pending(unit, exception)
-      #puts "not ok #{@i} - #{unit.description}"
-      #puts "  PENDING"
-      #puts "  #{exception.backtrace[1]}"
       h = {
         'type'        => 'test',
         'status'      => 'pending',
-        #'file'        => unit.file,
-        #'line'        => unit.line,
+        'file'        => file(exception),
+        'line'        => line(exception),
         'description' => unit.description,
-        'source'      => code_snippet(exception, 1),
-        'snippet'     => code_snippet_hash(exception, 3),
-        'message'     => exception.message
-        #'trace'       => exception.backtrace
+        'source'      => code_line(exception),
+        'snippet'     => code_snippet_omap(exception, 3),
+        'message'     => exception.message,
+        'time'        => Time.now - @start
+        #'backtrace'   => exception.backtrace
       }
       puts h.to_json
     end
@@ -114,6 +117,7 @@ module Lemon::TestReports
         'tally' => {
           'pass'    => record[:pass].size,
           'fail'    => record[:fail].size,
+          'error'   => record[:error].size,
           'omit'    => record[:omit].size,
           'pending' => record[:pending].size # TODO: rename to `hold`?
         }
