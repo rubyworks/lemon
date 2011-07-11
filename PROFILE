@@ -11,8 +11,11 @@ description:
   class to test case and method to test unit.
 
 resources:
-  homepage: http://proutils.github.com/lemon
-  repository: git://github.com/proutils/lemon.git
+  home: http://rubyworks.github.com/lemon
+  code: http://github.com/rubyworks/lemon
+
+repositories:
+  origin: git://github.com/proutils/lemon.git
 
 copyright: Copyright 2009 Thomas Sawyer
 
