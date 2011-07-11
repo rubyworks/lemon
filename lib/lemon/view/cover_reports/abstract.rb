@@ -2,19 +2,10 @@ module Lemon::CoverReports
 
   class Abstract
 
-    # Supports ANSI Codes?
-    ANSI_SUPPORT = (
-      begin
-        require 'ansi/code'
-        true
-      rescue LoadError
-        false
-      end
-    )
+    require 'ansi/core'
 
     def initialize(coverage)
       @coverage  = coverage
-      @ansicolor = ANSI_SUPPORT
     end
 
     #

@@ -3,7 +3,7 @@ module Lemon::TestReports
   # Test Reporter Base Class
   class Abstract
 
-    require 'ansi/code'
+    require 'ansi/core'
 
     #
     def self.inherited(base)
