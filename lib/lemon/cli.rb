@@ -258,6 +258,9 @@ module Lemon
     def option_parser
       @option_parser ||= (
         OptionParser.new do |opt|
+          opt.on_tail("--[no-]ansi" , 'turn on/off ANIS colors') do |v|
+            $ansi = v
+          end
           opt.on_tail("--debug" , 'turn on debugging mode') do
             $DEBUG = true
           end
