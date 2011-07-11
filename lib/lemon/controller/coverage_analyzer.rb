@@ -61,8 +61,8 @@ module Lemon
 
     # Load in prerequisites
     def initialize_prerequisites(options)
-      loadpath = options[:loadpath] || []
-      requires = options[:requires] || []
+      loadpath = [options[:loadpath] || []].compact.flatten
+      requires = [options[:requires] || []].compact.flatten
 
       loadpath.each{ |path| $LOAD_PATH.unshift(path) }
       requires.each{ |path| require(path) }
