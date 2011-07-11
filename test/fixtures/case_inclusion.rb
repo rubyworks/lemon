@@ -1,6 +1,6 @@
-covers File.dirname(__FILE__) + '/example.rb'
+covers 'example.rb'
 
-require File.dirname(__FILE__) + '/helper.rb'
+require 'helper.rb'
 
 testcase X do
 

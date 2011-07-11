@@ -1,4 +1,4 @@
-covers File.dirname(__FILE__) + '/example.rb'
+covers 'example.rb'
 
 testcase X do
 
