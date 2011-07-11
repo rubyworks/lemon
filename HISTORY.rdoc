@@ -2,10 +2,10 @@
 
 == 0.8.4 / 2011-07-11
 
-Fix reported issues (#6) to get lemon passing it own tests. (Note: the
-test need to be run with test/fixtures in the loadpath). There was 
+Fix reported issue #6 to get lemon passing it own tests. (Note: the
+tests need to be run with `test/fixtures` in the loadpath). There was 
 also a typo in the Outline reporter which was fixed. And better support
-of the newst ANSI gem now lets color be deactivate witht he --no-ansi
+of the newest ANSI gem now lets color be deactivated with the --no-ansi
 command line option.
 
 Changes:

@@ -6,7 +6,7 @@ email:
   mailto  : 
     - ruby-talk@ruby-lang.org
     - proutils@googlegroups.com
-  parts   : [readme]
+  #parts   : [readme]
   active  : true
 
 gem:
