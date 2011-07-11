@@ -14,7 +14,7 @@ module Lemon::TestReports
     def context(context)
       if context
         if context.to_s.empty?
-          puts "  * general context")
+          puts "  * general context"
         else
           puts "  * #{context}"
         end
