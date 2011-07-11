@@ -45,7 +45,7 @@ module Lemon
     def capture(namespaces=nil)
       @units = []
       ObjectSpace.each_object(Module) do |mod|
-        next if mod.name.empty?
+        next if mod.nil? or mod.name.nil? or mod.name.empty?
         #next if namespaces and !namespaces.any?{ |ns| /^#{ns}(::|$)/ =~ mod.to_s }
         next if namespaces and !namespaces.any?{ |ns| ns.to_s == mod.to_s }
         capture_namespace(mod)
