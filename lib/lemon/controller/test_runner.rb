@@ -190,7 +190,9 @@ module Lemon
           end
         end
       rescue => error
-        Kernel.eval %[raise #{error.class}, "#{unit.target} not tested"], unit.procedure
+        Kernel.eval <<-END, unit.procedure.binding
+          raise #{error.class}, "#{unit.target} not tested"
+        END
       end
       #Lemon.test_stack << self  # hack
 
