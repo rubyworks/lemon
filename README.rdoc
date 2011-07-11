@@ -1,14 +1,15 @@
 = Lemon
 
-* home: http://proutils.github.com/lemon
-* work: http://github.com/proutils/lemon
+* Homepage[http://rubyworks.github.com/lemon]
+* Development[http://github.com/rubyworks/lemon]
+* Issues[http://github.com/rubyworks/lemon/issues]
 
 
 == DESCRIPTION
 
 Lemon is a Unit Testing Framework that enforces a test case construction mirroring the class/module and method design of the target system. Arguably this promotes the proper technique for unit testing and helps ensure good test coverage.
 
-The difference between unit testing and functional testing, and all other forms of testing for that matter, lies in where the *concern* lies. The concern of unit testing are the concerns of unit tests -- the individual methods.
+The difference between unit testing and functional testing, and all other forms of testing for that matter, is simply a matter of where the *concern* lies. The concerns of unit testing are the concerns of unit tests -- the individual methods.
 
 
 == HOW TO USE
@@ -32,7 +33,7 @@ The simplest test case would be written as follows:
     end
   end
 
-The +Covers+ method works just like +require+ with the exception that Lemon records the file for refernce --under certain scenarios it can be used to improve overall test covered.
+The +Covers+ method works just like +require+ with the exception that Lemon records the file for reference --under certain scenarios it can be used to improve overall test covered.
 
 As tests grow, we might need to organize them into special concerns. For this Lemon provides a #concern method and a #setup method. Technically the two methods are the same, but #concern is used more for descriptive purposes whereas #setup is used to create an instance of the testcase's target class.
 
@@ -48,13 +49,13 @@ As tests grow, we might need to organize them into special concerns. For this Le
     end
   end
 
-Notice that the parameter passed to the block of +unit+ methdod is the instance of +X+ created in the +setup+ block. This block is run for every subsequent +Unit+ untill a new concern is defined.
+Notice that the parameter passed to the block of +unit+ method is the instance of +X+ created in the +setup+ block. This block is run for every subsequent +Unit+ until a new concern is defined.
 
 In conjunction with the #setup methods, there is a #teardown method which can be used "tidy-up" after each unit run if need be.
 
 Lastly, there are the +before+ and +after+ methods which can be used only once for each testcase. The +before+ method defines a procedure to run before any of the testcase's units are run, and the +after+ method defines a procedure to run after that are all finished.
 
-That is the bulk of the matter forf writing Lemon tests. There are few other features not mentions here. You can learn more about hose by reading the wiki[http://wiki.github.com/proutils/lemon].
+That is the bulk of the matter for writing Lemon tests. There are few other features not mentions here. You can learn more about hose by reading the wiki[http://wiki.github.com/proutils/lemon].
 
 
 === Running Tests
@@ -93,8 +94,10 @@ There is no special directory for Lemon tests. Since they are unit tests, `test/
 
 == COPYRIGHT
 
-(Apache 2.0 License)
+Lemon Unit Testing Framework
 
-Copyright (c) 2009 Thomas Sawyer
+Copyright (c) 2009 Thomas Sawyer 
 
-See LICENSE file for details.
+BSD 2 Clause License
+
+See COPYING.rdoc for details.

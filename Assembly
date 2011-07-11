@@ -9,51 +9,22 @@ email:
   parts   : [readme]
   active  : true
 
-gemcutter:
-  active: true
-
-grancher:
-  service: Grancher
-  active : true
-
 gem:
-  service: Gem
   active : true
+
+github: {}
 
 dnote:
-  service  : DNote
-  loadpath : ~
   labels   : ~
-  output   : ~
-  active   : true
+  output   : log/DNOTE.rdoc
 
-ri:
-  service: RI
-  include: ~
-  exclude: ~
-  ignore : ~
-  output : ri
-  active : true
-
-rdoc:
-  format : newfish
-  output : site/doc
-  exclude: [Redfile,Profile,Version]
-  active : true  
-
-stats:
-  service  : Stats
-  title    : ~
-  loadpath : ~
-  exclude  : ~
-  output   : ~
-  active   : true
+yard:
+  yardopts: true  
+  priority: 2
 
 qedoc:
-  service  : Custom
-  track    : site
-  document : |
-    system "qedoc -t 'Lemony Testing' -o site/qed qed/"
+  title: Lemony Testing
+  output: QED.rdoc
 
 cucumber:
   service : Custom
@@ -63,13 +34,10 @@ cucumber:
 lemon:
   service : Custom
   test    : |
-    system 'lemon test/unit/*.rb'
+    system 'lemon -Itest/fixtures test/*.rb'
 
 vclog:
-  service  : VClog
-  format   : html   # xml, txt
-  layout   : rel    # gnu
-  typed    : false
-  output   : ~
-  active   : false
+  output   : 
+    - log/AHISTORY.rdoc
+    - log/CHANGELOG.rdoc
 

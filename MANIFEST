@@ -1,4 +1,5 @@
-#!mast .ruby bin demo features lib man qed test [A-Z][A-Z]*
+#!mast .yardopts .ruby bin demo features lib man qed spec test [A-Z][A-Z]*
+.yardopts
 .ruby
 bin/lemon
 demo/case_example_error.rb
@@ -57,6 +58,8 @@ test/fixtures/example.rb
 test/fixtures/helper.rb
 test/runner
 HISTORY.rdoc
-APACHE2.txt
+PROFILE
 README.rdoc
-NOTICE.rdoc
+QED.rdoc
+VERSION
+COPYING.rdoc

@@ -1,6 +1,8 @@
-.cache
-ri
+.yardoc
+.yardopts
+doc
 log
 pkg
 tmp
 site/doc
+QED.rdoc
