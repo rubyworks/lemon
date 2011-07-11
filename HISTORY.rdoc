@@ -1,5 +1,21 @@
 = RELEASE HISTORY
 
+== 0.8.4 / 2011-07-11
+
+Fix reported issues (#6) to get lemon passing it own tests. (Note: the
+test need to be run with test/fixtures in the loadpath). There was 
+also a typo in the Outline reporter which was fixed. And better support
+of the newst ANSI gem now lets color be deactivate witht he --no-ansi
+command line option.
+
+Changes:
+
+* Fix typo in outline reporter.
+* Add --no-ansi command line option.
+* Load ansi/core per the latest ANSI gem.
+* Lemon can test itself (albeit test are not complete).
+
+
 == 0.8.3 / 2011-05-19
 
 Looks like Lemon is pretty damn near 1.0 status. She probably won't get
