@@ -18,7 +18,8 @@ copyright: Copyright 2009 Thomas Sawyer
 
 requires:
   - ae
-  - redline  (build)
+  - ansi 1.3+
+  - detroit  (build)
   - reap     (build)
   - qed      (test)
   - cucumber (test)
