@@ -1,5 +1,15 @@
 = RELEASE HISTORY
 
+== 0.8.5 / 2011-07-15
+
+This release fixes exit code status, which should be -1 if there
+are errors or failures.
+
+Changes:
+
+* Fix exit code status.
+
+
 == 0.8.4 / 2011-07-11
 
 Fix reported issue #6 to get lemon passing it own tests. (Note: the
