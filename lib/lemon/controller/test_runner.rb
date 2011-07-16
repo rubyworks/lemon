@@ -77,6 +77,9 @@ module Lemon
     end
 
     # Run tests.
+    #
+    # @return [Boolean] 
+    #   Whether tests ran without error or failure.
     def run
       #prepare
       report.start_suite(suite)
@@ -128,6 +131,7 @@ module Lemon
         report.finish_case(testcase)
       end
       report.finish_suite(suite) #(successes, failures, errors, pendings)
+      return record[:error].size + record[:fail].size > 0 ? false : true
     end
 
     # Iterate over suite testcases, filtering out unselected testcases

@@ -61,7 +61,7 @@ module Lemon
     def test(scripts)
       require 'lemon/controller/test_runner'
 
-      loadpath = options[:loadpath] || []
+      loadpath = options[:loadpath] || ['lib']  # + ['lib'] ?
       requires = options[:requires] || []
 
       loadpath.each{ |path| $LOAD_PATH.unshift(path) }
@@ -74,7 +74,9 @@ module Lemon
         scripts, :format=>options[:format], :namespaces=>options[:namespaces]
       )
 
-      runner.run
+      success = runner.run
+
+      exit -1 unless success
     end
 
     #
