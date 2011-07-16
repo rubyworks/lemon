@@ -40,7 +40,7 @@ the return value of the setup procedure is passed to the unit test.
   end
 ```
 
-But the new form of #test method can use ok/no checks.
+But the new form of `#test` method can use ok/no checks.
 
 ```ruby
   TestCase HelloWorld do
@@ -57,7 +57,7 @@ But the new form of #test method can use ok/no checks.
 
 It's fine if the setup instance is passed to #unit, e.g.
 
-```
+```ruby
   TestCase HelloWorld do
     setup do
       HelloWorld.new
@@ -103,7 +103,7 @@ On second thought, the use of Ok/No style tests will often preclude
 the use of setup return value b/c the arguments are likely to define 
 a new instance of the target class. Would `#setup` also take `arg`?
 
-```
+```ruby
   TestCase HelloWorld do
     unit :hello do
       setup do |arg|
@@ -118,6 +118,7 @@ a new instance of the target class. Would `#setup` also take `arg`?
       no "arg"
     end
   end
+```
 
 This is seeming rather whack-a-mole. Where is the simplification?
 Perhaps that it is the key, that setup would take the arg and 
@@ -138,6 +139,7 @@ pass any needed args on the the test method.
       no "arg"
     end
   end
+```
 
 If there is no setup method, then the args are passed directly
 to the test procedure.
@@ -167,6 +169,7 @@ If we were to take that into consideration we would have...
       end
     end
   end
+```
 
 But the `unit` already setsup a context and I am not sure
 adding an additional layer buys us anything by an an empty
