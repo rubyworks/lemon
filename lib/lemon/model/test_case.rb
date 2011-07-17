@@ -114,6 +114,11 @@ module Lemon
       alias_method :Unit, :unit
 
       # Define a meta-method unit test for this case.
+      #
+      # @deprecated
+      #   New way to test class methods is to create a separate
+      #   testcase using `TestCase Foo.singleton_class do`.
+      #
       def meta(*target, &block)
         target = target.map{ |x| Hash === x ? x.to_a : x }.flatten
         method, aspect = *target
