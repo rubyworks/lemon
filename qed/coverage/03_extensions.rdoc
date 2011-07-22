@@ -16,10 +16,14 @@ And given a test case in 'test/extensions_example_case.rb' as follows:
 
     tests Kernel do
       unit :f1 do
-        fl.assert == "f1"
+        test do
+          fl.assert == "f1"
+        end
       end
       unit :f2 do
-        f2.assert == "f2"
+        test do
+          f2.assert == "f2"
+        end
       end
     end
 

@@ -1,19 +1,19 @@
+=begin
 module Lemon
 
-  # Test Instances are used to organize unit tests into groups, so as to address
-  # specific scenarios for a given class.
+  #
   class TestContext
 
     # The test case to which this concern belongs.
-    attr :testcase
+    attr :test_case
 
     # The description of this concern. Make this
     # as detailed as you wish.
     attr :description
 
     # New case instance.
-    def initialize(testcase, description, options={}, &block)
-      @testcase    = testcase
+    def initialize(test_case, description, options={}, &block)
+      @test_case   = test_case
       @description = description.to_s
       @function    = options[:function] || options[:singleton]
       @type        = options[:type] || :context
@@ -37,9 +37,8 @@ module Lemon
     # Create instance.
     def setup(scope)
       if @block
-        ins = scope.instance_eval(&@block)
+        scope.instance_eval(&@block)
       end
-      ins
     end
 
     def function? ; false ; end
@@ -51,21 +50,24 @@ module Lemon
     end
   end
 
-  ##
-  #class TestInstance < TestContext
-  #
-  #  # Create instance.
-  #  def setup(scope)
-  #    if @block
-  #      ins = scope.instance_eval(&@block)
-  #      raise "target type mismatch" unless testcase.target === ins
-  #    end
-  #    ins
-  #  end
-  #
-  #end
+end
+=end
 
 =begin
+  #
+  class TestInstance < TestContext
+  
+    # Create instance.
+    def setup(scope)
+      if @block
+        ins = scope.instance_eval(&@block)
+        raise "target type mismatch" unless test_case.target === ins
+      end
+      ins
+    end
+  
+  end
+
   #
   class TestSingleton < TestContext
 
@@ -73,9 +75,9 @@ module Lemon
     def setup(scope)
       if @block
         ins = scope.instance_eval(&@block)
-        raise "target type mismatch" unless testcase.target == ins
+        raise "target type mismatch" unless test_case.target == ins
       else
-        ins = @testcase.target
+        ins = @test_case.target
       end
       ins
     end
@@ -85,6 +87,4 @@ module Lemon
 
   end
 =end
-
-end
 

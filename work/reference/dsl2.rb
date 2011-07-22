@@ -125,6 +125,10 @@ def after(which, &block)
   Lemon.suite.after(which, &block)
 end
 
+# @example
+#     unit Example, :foo, "desciption" do
+#       ...
+#     end
 #
 def unit(mod, meth, desc=nil, &blk)
   Lemon.suite.unit(mod, meth, desc, &blk)

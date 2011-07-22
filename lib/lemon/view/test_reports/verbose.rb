@@ -1,28 +1,30 @@
 require 'lemon/view/test_reports/abstract'
+require 'facets/string/tabto'
 
 module Lemon::TestReports
 
   # Timed Reporter
   class Verbose < Abstract
 
-    LAYOUT = "  %-12s  %11s  %11s    %s %s"
+    LAYOUT = "  %-12s  %11s  %11s    %s"
 
     #
     def start_suite(suite)
       @start = Time.now
+      @tab   = 0
+      @start_test_cache = {}
+
       timer_reset
     end
 
     #
     def start_case(tc)
-      if @_last == :unit
-        puts
-        @_last = :case
-      end
-      puts tc.to_s.ansi(:bold)
-      puts
+      tabs tc.to_s.ansi(:bold)
+      #puts
+      @tab += 2
     end
 
+=begin
     #
     def context(context)
       unless context.to_s.empty?
@@ -30,38 +32,41 @@ module Lemon::TestReports
           puts
           @_last = :context
         end
-        puts "  #{context}"
         puts
+        puts "  #{context}"
       end
     end
+=end
 
     #
-    def start_unit(unit)
-       if @context != unit.context
-         @context = unit.context
-         context(@context)
+    def start_test(test)
+       if test.subject
+         @start_test_cache[test.subject] ||= (
+           puts "\n  #{test.subject}"
+           true
+         )
        end
        timer_reset
     end
 
     #
-    def omit(unit)
-      data = ["OMIT".ansi(:cyan), timer, clock, unit.name.ansi(:bold), unit.aspect]
-      puts LAYOUT % data
-      #puts "  %s  %s  %s" % ["   OMIT".ansi(:cyan), unit.to_s, unit.aspect]
-      @_last = :unit
+    def omit(test)
+      data = ["OMIT".ansi(:cyan), timer, clock, test.to_s.ansi(:bold)]
+      tabs LAYOUT % data
+      #puts "  %s  %s  %s" % ["   OMIT".ansi(:cyan), test.to_s, test.aspect]
+      @_last = :test
     end
 
     #
-    def pass(unit)
-      data = ["PASS".ansi(:green), timer, clock, unit.name.ansi(:bold), unit.aspect]
-      puts LAYOUT % data
+    def pass(test)
+      data = ["PASS".ansi(:green), timer, clock, test.to_s.ansi(:bold)]
+      tabs LAYOUT % data
     end
 
     #
-    def fail(unit, exception)
-      data = ["FAIL".ansi(:red), timer, clock, unit.name.ansi(:bold), unit.aspect]
-      puts LAYOUT % data
+    def fail(test, exception)
+      data = ["FAIL".ansi(:red), timer, clock, test.to_s.ansi(:bold)]
+      tabs LAYOUT % data
       #puts
       #puts "        FAIL #{exception.backtrace[0]}"
       #puts "        #{exception}"
@@ -69,9 +74,9 @@ module Lemon::TestReports
     end
 
     #
-    def error(unit, exception)
-      data = ["ERRS".ansi(:red, :bold), timer, clock, unit.name.ansi(:bold), unit.aspect]
-      puts LAYOUT % data
+    def error(test, exception)
+      data = ["ERROR".ansi(:red, :bold), timer, clock, test.to_s.ansi(:bold)]
+      tabs LAYOUT % data
       #puts
       #puts "        ERROR #{exception.class}"
       #puts "        #{exception}"
@@ -80,14 +85,20 @@ module Lemon::TestReports
     end
 
     #
-    def pending(unit, exception)
-      data = ["PEND".ansi(:yellow), timer, clock, unit.name.ansi(:bold), unit.aspect]
-      puts LAYOUT % data
+    def pending(test, exception)
+      data = ["PENDING".ansi(:yellow), timer, clock, test.to_s.ansi(:bold)]
+      tabs LAYOUT % data
     end
 
     #
-    def finish_unit(unit)
-       @_last = :unit
+    def finish_test(test)
+      #@_last = :test
+    end
+
+    #
+    def finish_case(tcase)
+      #@_last = :test
+      @tab =- 2
     end
 
     #
@@ -102,8 +113,8 @@ module Lemon::TestReports
 
       unless record[:pending].empty?
         puts "PENDING:\n\n"
-        record[:pending].each do |unit, exception|
-          puts "    #{unit}"
+        record[:pending].each do |test, exception|
+          puts "    #{test}"
           puts "    #{file_and_line(exception)}"
           puts
         end
@@ -111,10 +122,10 @@ module Lemon::TestReports
 
       unless record[:fail].empty?
         puts "FAILURES:\n\n"
-        record[:fail].each do |unit, exception|
-          puts "    #{unit}"
-          puts "    #{file_and_line(exception)}"
-          puts "    #{exception}"
+        record[:fail].each do |test, exception|
+          puts "    #{test}".ansi(:bold)
+          puts "    #{file_and_line(exception)}".ansi(:red)
+          puts "    #{exception}".ansi(:red)
           puts code_snippet(exception)
           #puts "    #{exception.backtrace[0]}"
           puts
@@ -123,12 +134,14 @@ module Lemon::TestReports
 
       unless record[:error].empty?
         puts "ERRORS:\n\n"
-        record[:error].each do |unit, exception|
-          puts "    #{unit}".ansi(:bold)
-          puts "    #{exception.class} @ #{file_and_line(exception)}"
-          puts "    #{exception}"
+        record[:error].each do |test, exception|
+          trace = clean_backtrace(exception)
+
+          puts "    #{test}".ansi(:bold)
+          puts "    #{exception.class} @ #{file_and_line(exception)}".ansi(:red)
+          puts "    #{exception}".ansi(:red)
           puts code_snippet(exception)
-          #puts "    #{exception.backtrace[0]}"
+          puts trace.join("\n")
           puts
         end
       end
@@ -152,6 +165,15 @@ module Lemon::TestReports
     #
     def timer_reset
       @time = Time.now
+    end
+
+    #
+    def tabs(str=nil)
+      if str
+        puts(str.tabto(@tab))
+      else
+        puts
+      end
     end
 
   end

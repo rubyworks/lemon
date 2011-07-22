@@ -3,38 +3,58 @@
 
 require 'lemon/model/test_suite'
 
-#
-#def Before(match=nil, &block)
-#  Lemon.suite.Before(match, &block)
-#end
+module Test
+  extend self
 
-#
-#def After(match=nil, &block)
-#  Lemon.suite.After(match, &block)
-#end
+  #
+  def covers(script)
+    Lemon.suite.dsl.covers(script)
+  end
 
-#
-def testcase(target_class, &block)
-  Lemon.suite.dsl.testcase(target_class, &block)
+  alias :Covers :covers
+
+  alias :coverage :covers
+  alias :Coverage :covers
+
+  # Define a general test case.
+  def case(target, &block)
+    Lemon.suite.dsl.test_case(target, &block)
+  end
+  #alias :Case :case
+
+  # Define a class test.
+  def class(target_class, &block)
+    Lemon.suite.dsl.test_class(target_class, &block)
+  end
+  #alias :Class :class
+
+  # Define a module test.
+  def module(target_module, &block)
+    Lemon.suite.dsl.test_module(target_module, &block)
+  end
+  #alias :Module :module
+
+  # Define a test feature.
+  def feature(&block)
+    Lemon.suite.dsl.test_feature(target_module, &block)
+  end
+
+  #
+  #def Before(match=nil, &block)
+  #  Lemon.suite.Before(match, &block)
+  #end
+
+  #
+  #def After(match=nil, &block)
+  #  Lemon.suite.After(match, &block)
+  #end
+
+  #
+  #def Helper(script)
+  #  Lemon.suite.Helper(script)
+  #end
+
 end
-alias :TestCase :testcase
-alias :Case :testcase
-alias :tests :testcase # can't use test b/c of kernel method
-
-#
-def covers(script)
-  Lemon.suite.dsl.covers(script)
-end
-alias :Covers :covers
-
-#
-#def Helper(script)
-#  Lemon.suite.Helper(script)
-#end
-
-#def Subtest(script)
-#  Lemon.suite.Subtest(script)
-#end
 
 =begin
 # FIXME: This is a BIG FAT HACK! For the life of me I cannot find

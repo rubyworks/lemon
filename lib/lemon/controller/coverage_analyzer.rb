@@ -1,5 +1,5 @@
 require 'lemon/model/snapshot'
-require 'lemon/model/main'
+require 'lemon/model/test'
 
 module Lemon
 
@@ -131,10 +131,10 @@ module Lemon
     def covered_units
       @covered_units ||= (
         list = []
-        suite.each do |testcase|
-          testcase.testunits.each do |unit|
+        suite.each do |test_case|
+          test_case.test_units.each do |unit|
             list << Snapshot::Unit.new(
-              unit.testcase.target,
+              unit.test_case.target,
               unit.target,
               :function=>unit.function?
             )

@@ -1,25 +1,30 @@
 require 'lemon/model/pending'
 require 'lemon/model/test_context'
-require 'lemon/model/test_unit'
+require 'lemon/model/test_advice'
+require 'lemon/model/test_subject'
+require 'lemon/model/test_base_dsl'
 
 module Lemon
 
   # Test Case encapsulates a collection of 
   # unit tests organized into groups of contexts.
+  #
   class TestCase
 
-    # The test suite to which this testcase belongs.
-    attr :suite
+    # The parent context in which this case resides.
+    attr :context
 
-    # A testcase +target+ is a class or module.
+    # Test target is a description of the case.
     attr :target
 
-    # Description of the aspect of the test class/module
-    # to be testd.
-    attr :aspect
+    # List of tests and sub-contexts.
+    attr :tests
 
-    # Ordered list of testunits.
-    attr :units
+    # The setup and teardown advice.
+    attr :subject
+
+    # The before and after advice.
+    attr :advice
 
     # Before matching test units.
     attr :before
@@ -32,35 +37,43 @@ module Lemon
     # Module for parsing test case scripts.
     attr :dsl
 
+    #
+    attr_accessor :omit
+
     # A test case +target+ is a class or module.
-    def initialize(suite, target, aspect=nil, &block)
-      @suite  = suite
-      @target = target
-      @aspect = aspect
+    #
+    # @param [TestSuite] suite
+    #   The test suite to which the case belongs.
+    #
+    # @param [Class,Module] target
+    #   A description of the test-case's purpose.
+    #
+    def initialize(context, target, options={}, &block)
+      @context = context
+      @target  = target
 
-      #@steps  = []
-      @units  = []
+      @advice  = context.advice.clone
+      @subject = context.subject
 
-      #@prepare = nil
-      #@cleanup = nil
+      @tests   = []
 
-      @before = {}
-      @after  = {}
+      evaluate(&block)
+    end
 
+    # This has to be redefined in each subclass to pick
+    # up there respective DSL classes.
+    def evaluate(&block)
       @dsl = DSL.new(self, &block)
     end
 
-    # DEPRECATE
-    alias_method :testunits, :units
-
     # Iterate over each test unit.
     def each(&block)
-      units.each(&block)
+      tests.each(&block)
     end
 
     #
     def size
-      testunits.size
+      tests.size
     end
 
     #
@@ -69,240 +82,92 @@ module Lemon
     end
 
     #
-    def prepare
-      @before[[]]
+    def description
+      @target.to_s
     end
 
     #
-    def cleanup
-      @after[[]]
+    #def prepare
+    #  @before[[]]
+    #end
+
+    #
+    #def cleanup
+    #  @after[[]]
+    #end
+
+    #
+    def omit?
+      @omit
     end
 
     #
-    class DSL < Module
-      #
-      def initialize(testcase, &casecode)
-        @testcase = testcase
-        @context  = nil #Instance.new(self)
-        module_eval(&casecode)
-      end
+    def before(*matches, &procedure)
+      @advice.before[matches] = procedure
+    end
 
-      # Define a unit test for this case.
-      #
-      # @example
-      #   unit :puts => "print message with new line to stdout" do
-      #     puts "Hello"
-      #   end
-      #
-      def unit(*target, &block)
-        target = target.map{ |x| Hash === x ? x.to_a : x }.flatten
-        method, aspect = *target
-        unit = TestUnit.new(
-          @testcase, method,
-          :function => false,
-          :aspect   => aspect,
-          :context  => @context,
-          :caller   => caller,
-          &block
-        )
-        #@testcase.steps << unit
-        @testcase.units << unit
-        unit
-      end
-      alias_method :TestUnit, :unit
-      alias_method :testunit, :unit
-      alias_method :Unit, :unit
+    #
+    def after(*matches, &procedure)
+      @advice.after[matches] = procedure
+    end
 
-      # Define a meta-method unit test for this case.
-      #
-      # @deprecated
-      #   New way to test class methods is to create a separate
-      #   testcase using `TestCase Foo.singleton_class do`.
-      #
-      def meta(*target, &block)
-        target = target.map{ |x| Hash === x ? x.to_a : x }.flatten
-        method, aspect = *target
-        unit = TestUnit.new(
-          @testcase, method,
-          :function => true,
-          :aspect   => aspect,
-          :context  => @context,
-          :caller   => caller,
-          &block
-        )
-        #@testcase.steps << unit
-        @testcase.units << unit
-        unit
-      end
-      alias_method :MetaUnit, :meta
-      alias_method :metaunit, :meta
-      alias_method :Meta, :meta
+    # Run test in the context of this case.
+    #
+    # @param [TestProc] test
+    #   The test procedure instance to run.
+    #
+    #def eval(test)
+    #  test.advice.setup(scope)
+    #  scope.instance_exec(&test)
+    #  test.advice.teardown(scope)
+    #end
 
-      # Omit a unit from testing.
-      #
-      #  omit unit :foo do
-      #    # ...
-      #  end
-      #
-      def Omit(unit)
-        unit.omit = true
-      end
-      alias_method :omit, :Omit
+    #
+    def run(test, &block)
+      block.call
+    end
 
-      # Setup is used to set things up for each unit test.
-      # The setup procedure is run before each unit.
-      #
-      # @param [String] description
-      #   A brief description of what the setup procedure sets-up.
-      #
-      def setup(description=nil, &procedure)
-        if procedure
-          context  = TestContext.new(@testcase, description, &procedure)
-          @context = context
-          #@function = false
-          #@testcase.steps << context
-        end
-      end
-      alias_method :Setup, :setup
-      alias_method :Concern, :setup
-      alias_method :concern, :setup
-
-      # @deprecate This alias will probably not stick around.
-      alias_method :Context, :setup
-      alias_method :context, :setup
-
-=begin
-      # TODO: Currently there is no difference between Setup, Instance and Singleton
-
-      ## Define a new test instance for this case.
-      def instance(description=nil, &block)
-        if block
-          #context = TestInstance.new(@testcase, description, &block)
-          context = TestContext.new(@testcase, description, &block)
+    # TODO: Change so that the scope is the DSL, and includes the DSL of the context?
+    def scope
+      @scope ||= (
+        if context
+          scope = context.scope || Object.new
+          scope.extend(dsl)
         else
-          context = TestContext.new(@testcase, description) do
-                      @testcase.target.new  # No arguments!!!
-                    end
+          scope = Object.new
+          scope.extend(dsl)
         end
+      )
+    end
+
+    #
+    class DSL < BaseDSL
+
+      #
+      def initialize(context, &code)
         @context = context
-        #@function = false
-        #@testcase.steps << context
+        @subject = context.subject
+
+        module_eval(&code)
       end
-      alias_method :Instance, :instance
 
-      # Define a new test singleton for this case.
-      def Singleton(description=nil, &block)
-        if block
-          #context = TestSingleton.new(@testcase, description, &block)
-          context = TestContext.new(@testcase, description, &block)
-        else
-          context = TestContext.new(@testcase, description){ @testcase.target }
-        end
-        @context = context
-        #@function = true
-        #@testcase.steps << context
+      #
+      def context(description, &block)
+        @context.tests << TestCase.new(@context, description, &block)
       end
-      alias_method :singleton, :Singleton
-=end
 
-      # Teardown procedure is used to clean-up after each unit test. 
-      def teardown(&procedure)
-        @context.teardown = procedure
+      #
+      def test(description, &procedure)
+        test = TestProc.new(
+          @context, 
+          :aspect  => description,
+          :subject => subject,
+          &procedure
+        )
+        @context.tests << test
+        test
       end
-      alias_method :Teardown, :teardown
 
-      # TODO: Make Before and After more generic to handle before and after
-      # units, contexts/concerns, etc?
-
-      # Define a _complex_ before procedure. The #before method allows
-      # before procedures to be defined that are triggered by a match
-      # against the unit's target method name or _aspect_ description.
-      # This allows groups of tests to be defined that share special
-      # setup code.
-      #
-      # @example
-      #
-      #   unit :puts => "standard output (@stdout)" do
-      #     puts "Hello"
-      #   end
-      #
-      #   before /@stdout/ do
-      #     $stdout = StringIO.new
-      #   end
-      #
-      #   after /@stdout/ do
-      #     $stdout = STDOUT
-      #   end
-      #
-      # @param [Array<Symbol,Regexp>] matches
-      #   List of match critera that must _all_ be matched
-      #   to trigger the before procedure.
-      #
-      def before(*matches, &procedure)
-        @testcase.before[matches] = procedure
-      end
-      alias_method :Before, :before
-
-      # Define a _complex_ after procedure. The #before method allows
-      # before procedures to be defined that are triggered by a match
-      # against the unit's target method name or _aspect_ description.
-      # This allows groups of tests to be defined that share special
-      # teardown code.
-      #
-      # @example
-      #
-      #   unit :puts => "standard output (@stdout)" do
-      #     puts "Hello"
-      #   end
-      #
-      #   before /@stdout/ do
-      #     $stdout = StringIO.new
-      #   end
-      #
-      #   after /@stdout/ do
-      #     $stdout = STDOUT
-      #   end
-      #
-      # @param [Array<Symbol,Regexp>] matches
-      #   List of match critera that must _all_ be matched
-      #   to trigger the after procedure.
-      #
-      def after(*matches, &procedure)
-        @testcase.after[matches] = procedure
-      end
-      alias_method :After, :after
-
-      # Define a "before all" procedure.
-      def prepare(&procedure)
-        before(&procedure)
-      end
-      alias_method :Prepare, :prepare
-
-      # Define an "after all" procedure.
-      def cleanup(&procedure)
-        after(&procedure)
-      end
-      alias_method :Cleanup, :cleanup
-
-      # Load a helper script applicable to this test case. Unlike requiring
-      # a helper script, the #helper method will eval the file's contents
-      # directly into the test context (using instance_eval).
-      #
-      # @param [String] file
-      #   File to eval into test context.
-      #
-      def helper(file)
-        instance_eval(File.read(file), file)
-      end
-      alias_method :Helper, :helper
-
-      #def include(*mods)
-      #  extend *mods
-      #end
-
-      #def pending(message=nil)
-      #  raise Pending.new(message)
-      #end
     end
 
   end

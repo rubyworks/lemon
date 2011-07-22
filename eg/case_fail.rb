@@ -1,14 +1,18 @@
-covers File.dirname(__FILE__) + '/fixture/example.rb'
+Test.covers 'example.rb'
 
-testcase Example do
+Test.class Example do
 
-  unit :f => "one and one is two"do
-    Example.new.f(1,1).assert == 2
-  end
+  method :f do
 
-  unit :f do
-    ex = Example.new
-    ex.f(1,2).assert == 4
+    test "one and one is two"do
+      Example.new.f(1,1).assert == 2
+    end
+
+    test do
+      ex = Example.new
+      ex.f(1,2).assert == 4
+    end
+
   end
 
 end

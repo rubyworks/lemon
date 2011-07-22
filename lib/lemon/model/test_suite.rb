@@ -1,6 +1,9 @@
 require 'lemon/model/test_case'
+require 'lemon/model/test_method'
+require 'lemon/model/test_module'
 require 'lemon/model/snapshot'
 #require 'lemon/model/main'
+require 'lemon/core_ext/kernel'
 
 module Lemon
 
@@ -23,7 +26,7 @@ module Lemon
     attr :files
 
     # Test cases in this suite.
-    attr :testcases
+    attr :cases
 
     # List of pre-test procedures that apply suite-wide.
     attr :before
@@ -47,7 +50,9 @@ module Lemon
     #end
 
     #
-    #attr :options
+    attr :options
+
+    attr :stack
 
     attr :dsl
 
@@ -56,12 +61,13 @@ module Lemon
       @files   = files.flatten
       @options = options
 
-      @testcases = []
+      @cases   = []
+      @helpers = []
 
-      @before    = {}
-      @after     = {}
+      @before  = {}
+      @after   = {}
 
-      #load_helpers
+      load_helpers
 
       #if cover? or cover_all?
       #  @coverage  = Snapshot.new
@@ -74,18 +80,6 @@ module Lemon
     end
 
     #
-    #class Scope < Module
-    #  def initialize
-    #    extend self
-    #  end
-    #end
-
-    # Iterate through this suite's test cases.
-    def each(&block)
-      @testcases.each(&block)
-    end
-
-    #
     def cover?
       @options[:cover]
     end
@@ -95,19 +89,68 @@ module Lemon
       @options[:cover_all]
     end
 
-    # TODO: automatic helper loading ?
-    #def load_helpers(*files)
-    #  helpers = []
-    #  filelist.each do |file|
-    #    dir = File.dirname(file)
-    #    hlp = Dir[File.join(dir, '{test_,}helper.rb')]
-    #    helpers.concat(hlp)
-    #  end
     #
-    #  helpers.each do |hlp|
-    #    require hlp
+    #class Scope < Module
+    #  def initialize
+    #    extend self
     #  end
     #end
+
+    def to_a
+      @cases
+    end
+
+    # Iterate through this suite's test cases.
+    def each(&block)
+      @cases.each(&block)
+    end
+
+    #
+    def advice
+      @advice ||= TestAdvice.new
+    end
+
+    #
+    def subject
+      @subject
+    end
+
+=begin
+    #
+    def start_suite
+    end
+
+    #
+    def finish_suite
+    end
+=end
+
+    #
+    def scope
+      s = Object.new
+      s.extend(dsl)
+      s
+    end
+
+    # Automatically load helpers. Helpers are any *.rb script in
+    # a `helpers` directory, relative to a test script.
+    #
+    # TODO: You can change the file pattern used to automatically
+    # load helper scripts in `.lemon`.
+    #
+    def load_helpers
+      helpers = []
+      filelist.each do |file|
+        dir = File.dirname(file)
+        hlp = Dir[File.join(dir, 'helper{s,}/*.rb')]
+        helpers.concat(hlp)
+      end
+      helpers.uniq!
+      helpers.each do |hlp|
+        require File.expand_path(hlp)
+      end
+      @helpers = helpers
+    end
 
     #
     def load_files #(*files)
@@ -155,13 +198,23 @@ module Lemon
         end.flatten
         #files = files.map{ |f| File.expand_path(f) }
         files.uniq
+        files.reject{ |f| /fixture(|s)\/(.*?)\.rb$/ =~ f }
+        files.reject{ |f| /helper(|s)\/(.*?)\.rb$/ =~ f }
+      )
+    end
+
+    # TODO: Note sure about scope creation here
+    def scope
+      @scope ||= (
+        scope = Object.new
+        scope.extend(dsl)
       )
     end
 
     class DSL < Module
       #
-      def initialize(test_suite)
-        @test_suite = test_suite
+      def initialize(suite)
+        @suite = suite
         #module_eval(&code)
       end
 
@@ -181,24 +234,34 @@ module Lemon
       alias_method :Covers, :covers
 
       # Define a test case belonging to this suite.
-      def testcase(target_class, &block)
-        raise "lemon: case target must be a class or module" unless Module === target_class
-        @test_suite.testcases << TestCase.new(@test_suite, target_class, &block)
+      def test_case(target_case, &block)
+        @suite.cases << TestCase.new(@suite, target_case, &block)
       end
 
       #
-      alias_method :TestCase, :testcase
-      alias_method :tests, :testcase
+      alias_method :TestCase, :test_case
+
+      # Define a module test case belonging to this suite.
+      def test_module(target_module, &block)
+        raise "lemon: target must be a module" unless Module === target_module
+        @suite.cases << TestModule.new(@suite, target_module, &block)
+      end
+
+      # Define a class test case belonging to this suite.
+      def test_class(target_class, &block)
+        raise "lemon: case target must be a class" unless Class === target_class
+        @suite.cases << TestModule.new(@suite, target_class, &block)
+      end
 
       # Define a pre-test procedure to apply suite-wide.
       def before(*matches, &block)
-        @test_suite.before[matches] = block #<< Advice.new(match, &block)
+        @suite.before[matches] = block #<< Advice.new(match, &block)
       end
       alias_method :Before, :before
 
       # Define a post-test procedure to apply suite-wide.
       def after(*matches, &block)
-        @test_suite.after[matches] = block #<< Advice.new(match, &block)
+        @suite.after[matches] = block #<< Advice.new(match, &block)
       end
       alias_method :After, :after
 

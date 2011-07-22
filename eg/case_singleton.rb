@@ -1,18 +1,30 @@
-covers File.dirname(__FILE__) + '/fixture/example.rb'
+Test.covers 'example.rb'
 
-testcase Example.singleton_class do
+Test.class Example.singleton_class do
 
-  unit :m do
-    Example.m(1,1).assert == 1
+  method :m do
+
+    setup "Example class" do
+      Example
+    end
+
+    test "using singleton_class" do
+      Example.m(1,1).assert == 1
+    end
+
   end
 
 end
 
 # Same thing but using sexy Latin name.
-testcase Example.quaclass do
+Test.class Example.qua_class do
 
-  unit :m do
-    Example.m(1,1).assert == 1
+  method :m do
+
+    test "using qua_class" do
+      Example.m(1,1).assert == 1
+    end
+
   end
 
 end

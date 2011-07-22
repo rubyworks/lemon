@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'lemon'
+Lemon::CLI.run(:Test, ARGV)
+

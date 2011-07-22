@@ -33,11 +33,11 @@ module Lemon::TestReports
     end
 
     #
-    #def instance(instance)
-    #end
+    def start_test(test)
+    end
 
     #
-    def start_unit(unit)
+    def test(test)
     end
 
     # Report an omitted unit test.
@@ -57,7 +57,7 @@ module Lemon::TestReports
     end
 
     #
-    def finish_unit(testunit)
+    def finish_test(test)
     end
 
     #
@@ -82,15 +82,16 @@ module Lemon::TestReports
 
     #
     def tally
-      sizes = %w{pending fail error omit pass}.map{ |r| record[r.to_sym].size }
+      sizes = %w{pass pending fail error omit}.map{ |r| record[r.to_sym].size }
       data  = [total] + sizes
-      s = "%s tests: %s pending, %s fail, %s err, %s omit, %s pass " % data
+      s = "%s tests: %s passing, %s pending, %s failures, %s errors, %s omitted " % data
       #s += "(#{uncovered_units.size} uncovered, #{undefined_units.size} undefined)" if cover?
       s
     end
 
     #FILE_SEPARATOR = Regexp.escape(File::SEPARATOR)
 
+=begin
     #
     INTERNALS = /(lib|bin)[\\\/]lemon/
 
@@ -105,10 +106,35 @@ module Lemon::TestReports
         end
       end
     end
+=end
+
+    EXCLUDE_PATH = File.expand_path(File.join(__FILE__, '..', '..', '..'))
+    EXCLUDE      = Regexp.new(Regexp.escape(EXCLUDE_PATH))
+
+    # Remove reference to lemon library from backtrace.
+    #
+    # @param [Exception] exception
+    #   The error that was rasied.
+    #
+    #--
+    # TODO: Matching `bin/lemon` is not robust.
+    #++
+    def clean_backtrace(exception)
+      trace = (Exception === exception ? exception.backtrace : exception)
+      trace = trace.reject{ |t| t =~ /bin\/lemon/ }
+      trace = trace.reject{ |t| t =~ EXCLUDE }
+      #if trace.empty?
+      #  exception
+      #else
+      #  exception.set_backtrace(trace) if Exception === exception
+      #  exception
+      #end
+      trace
+    end
 
     # Have to thank Suraj N. Kurapati for the crux of this code.
     def code_snippet(exception, bredth=3)
-      backtrace = exception.backtrace.reject{ |bt| bt =~ INTERNALS }
+      backtrace = clean_backtrace(exception)
       backtrace.first =~ /(.+?):(\d+(?=:|\z))/ or return ""
       source_file, source_line = $1, $2.to_i
 
@@ -209,7 +235,7 @@ module Lemon::TestReports
 
     # TODO: Show more of the file name than just the basename.
     def file_and_line(exception)
-      line = exception.backtrace[0]
+      line = clean_backtrace(exception)[0]
       return "" unless line
       i = line.rindex(':in')
       line = i ? line[0...i] : line

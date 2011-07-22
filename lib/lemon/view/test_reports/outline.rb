@@ -6,8 +6,8 @@ module Lemon::TestReports
   class Outline < Abstract
 
     #
-    def start_case(testcase)
-      puts "* #{testcase.target}".ansi(:bold)
+    def start_case(test_case)
+      puts "* #{test_case.target}".ansi(:bold)
     end
 
     #
@@ -66,8 +66,8 @@ module Lemon::TestReports
 
       unless record[:fail].empty?
         puts "FAILURES:\n\n"
-        record[:fail].each do |testunit, exception|
-          puts "    #{testunit}"
+        record[:fail].each do |test_unit, exception|
+          puts "    #{test_unit}"
           puts "    #{exception}"
           puts "    #{exception.backtrace[0]}"
           puts
@@ -76,8 +76,8 @@ module Lemon::TestReports
 
       unless record[:error].empty?
         puts "ERRORS:\n\n"
-        record[:error].each do |testunit, exception|
-          puts "    #{testunit}"
+        record[:error].each do |test_unit, exception|
+          puts "    #{test_unit}"
           puts "    #{exception}"
           puts "    #{exception.backtrace[0]}"
           puts
@@ -86,15 +86,15 @@ module Lemon::TestReports
 
       #unless record[:pending].empty?
       #  puts "PENDING:\n\n"
-      #  record[:pending].each do |testunit, exception|
-      #    puts "    #{testunit}"
+      #  record[:pending].each do |test_unit, exception|
+      #    puts "    #{test_unit}"
       #  end
       #end
 
       #unless uncovered.empty?
       #  puts "UNCOVERED:\n\n"
-      #  unc = uncovered.map do |testunit|
-      #    yellow("* " +testunit.join('#'))
+      #  unc = uncovered.map do |test_unit|
+      #    yellow("* " +test_unit.join('#'))
       #  end.join("\n")
       #  puts unc
       #  puts
@@ -102,8 +102,8 @@ module Lemon::TestReports
 
       #unless undefined.empty?
       #  puts "UNDEFINED:\n\n"
-      #  unc = undefined.map do |testunit|
-      #    yellow("* " + testunit.join('#'))
+      #  unc = undefined.map do |test_unit|
+      #    yellow("* " + test_unit.join('#'))
       #  end.join("\n")
       #  puts unc
       #  puts

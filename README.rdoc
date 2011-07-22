@@ -11,6 +11,9 @@ Lemon is a Unit Testing Framework that enforces a test case construction mirrori
 
 The difference between unit testing and functional testing, and all other forms of testing for that matter, is simply a matter of where the *concern* lies. The concerns of unit testing are the concerns of unit tests -- the individual methods.
 
+IMPORTANT! As of v0.9+ the API has changed. The `unit :name => "description"`
+notation is no longer supported. Use `unit :name do test "description"` instead.
+
 
 == HOW TO USE
 
@@ -27,9 +30,11 @@ The simplest test case would be written as follows:
   covers 'mylib'
 
   testcase X do
-    unit :a => "method #a does something expected" do
-      x = X.new
-      x.a.assert.is_a? String
+    unit :a do
+      test "method #a does something expected" do
+        x = X.new
+        x.a.assert.is_a? String
+      end
     end
   end
 
@@ -40,12 +45,14 @@ As tests grow, we might need to organize them into special concerns. For this Le
   covers 'mylib'
 
   testcase X do
-    setup "Description of a concern that the following unit tests address." do
-      X.new
-    end
+    unit :a do
+      setup "Description of concern that the following unit tests address." do
+        X.new
+      end
 
-    unit :a => "method #a does something expected" do |x|
-      x.a.assert.is_a? String
+      test "method #a does something expected" do |x|
+        x.a.assert.is_a? String
+      end
     end
   end
 
@@ -72,7 +79,6 @@ Other output types can be specified by the `--format` or `-f` option.
 
   $ lemon -f tap test/cases/name_case.rb
 
-
 === Checking Test Coverage
 
 Lemon can check test coverage by loading your target system and comparing it to your tests. To do this supply the <code>lemon</code> command the <code>--coverage</code> or <code>-c</code> option.
@@ -89,7 +95,7 @@ Generating test case scaffolding from code will undoubtedly strike test-driven d
 
 === Test Directory
 
-There is no special directory for Lemon tests. Since they are unit tests, `test/` or `test/unit/` are good choices. Other options are `cases/` and `test/cases` since each file generally defines a single testcase. However, I recommend using interface-based names, regardless of the framework you actually use. In which case, `test/unit` is still a good choice, but also `test/api` if Lemon will be the only framework you use to test the API directly.
+There is no special directory for Lemon tests. Since they are unit tests, `test/` or `test/unit/` are good choices. Other options are `cases/` and `test/cases` since each file generally defines a single testcase.
 
 
 == COPYRIGHT

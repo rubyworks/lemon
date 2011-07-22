@@ -38,28 +38,33 @@ module Lemon::TestReports
 
       unless record[:pending].empty?
         puts "PENDING:\n\n"
-        record[:pending].each do |testunit, exception|
-          puts "    #{testunit}"
+        record[:pending].each do |test_unit, exception|
+          puts "    #{test_unit}"
+          puts "    #{exception}"
+          puts "    #{file_and_line(exception)}"
+          puts code_snippet(exception)
+          puts
         end
-        puts
       end
 
       unless record[:fail].empty?
         puts "FAILURES:\n\n"
-        record[:fail].each do |testunit, exception|
-          puts "    #{testunit}"
+        record[:fail].each do |test_unit, exception|
+          puts "    #{test_unit}"
           puts "    #{exception}"
-          puts "    #{exception.backtrace[0]}"
+          puts "    #{file_and_line(exception)}"
+          puts code_snippet(exception)
           puts
         end
       end
 
       unless record[:error].empty?
         puts "ERRORS:\n\n"
-        record[:error].each do |testunit, exception|
-          puts "    #{testunit}"
+        record[:error].each do |test_unit, exception|
+          puts "    #{test_unit}"
           puts "    #{exception}"
-          puts "    #{exception.backtrace[0]}"
+          puts "    #{file_and_line(exception)}"
+          puts code_snippet(exception)
           puts
         end
       end

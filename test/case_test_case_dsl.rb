@@ -6,7 +6,7 @@ testcase Lemon::TestCase::DSL do
 
   setup "Modules included in a test case are accessible by the unit tests" do
     ts = Lemon::TestSuite.new(@files)
-    tc = ts.testcases.first  # the only one
+    tc = ts.test_cases.first  # the only one
     tc.dsl
   end
 
@@ -28,7 +28,7 @@ testcase Lemon::TestCase::DSL do
 
   setup "Test cases are augmented by before and afters procedures" do
     ts = Lemon::TestSuite.new(@files)
-    tc = ts.testcases.first  # the only one
+    tc = ts.test_cases.first  # the only one
     tc.dsl
   end
 

@@ -24,7 +24,7 @@ module Lemon::TestReports
 
       @start = Time.now
       @i = 0
-      @n = suite.testcases.inject(0){ |c, tc| c = c + tc.size; c }
+      @n = suite.test_cases.inject(0){ |c, tc| c = c + tc.size; c }
       h = {
         'type'  => "header",
         'count' => @n,

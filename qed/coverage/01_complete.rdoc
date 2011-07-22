@@ -23,16 +23,20 @@ And given a test case in 'test/complete_example_case.rb' as follows:
     covers 'complete_example.rb'
 
     testcase C1 do
-      unit :f1 => "Returns a String" do
+      unit :f1 do 
+        test "Returns a String"
       end
-      unit :f2 => "Returns a String" do
+      unit :f2 do
+        test "Returns a String"
       end
-      unit :f3 => "Returns a String" do
+      unit :f3 do
+        test "Returns a String"
       end
     end
 
     testcase C2 do
-      unit :g1 => "Returns a String" do
+      unit :g1 do
+        test "Returns a String"
       end
     end
 
@@ -81,20 +85,26 @@ in 'test/complete_example_case.rb' as follows:
     covers 'complete_example.rb'
 
     testcase C1 do
-      unit :f1 => "Returns a String" do
+      unit :f1 do
+        test "Returns a String"
       end
-      unit :f2 => "Returns a String" do
+      unit :f2 do
+        test "Returns a String"
       end
-      unit :f3 => "Returns a String" do
+      unit :f3 do
+        test "Returns a String"
       end
     end
 
     testcase C2 do
-      unit :g1 => "Returns a String" do
+      unit :g1 do
+        test "Returns a String"
       end
-      unit :g2 => "Returns a String" do
+      unit :g2 do
+        test "Returns a String"
       end
-      unit :g3 => "Returns a String" do
+      unit :g3 do
+        test "Returns a String"
       end
     end
 

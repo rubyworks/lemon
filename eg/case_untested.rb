@@ -1,9 +1,13 @@
-covers File.dirname(__FILE__) + '/fixture/example.rb'
+Test.covers 'example.rb'
 
-testcase Example do
+Test.class Example do
 
-  unit :f do
-    # notice Example#f has not been called
+  method :f do
+ 
+    test "nothing doing" do
+      # notice Example#f has not been called
+    end
+
   end
 
 end
