@@ -1,5 +1,5 @@
-require 'lemon/model/test_context'
-require 'lemon/model/test_proc'
+#require 'lemon/model/test_context'
+require 'lemon/model/test_unit'
 
 module Lemon
 
@@ -8,45 +8,64 @@ module Lemon
   #
   class TestMethod < TestCase
 
-    #
-    #attr :caller
-
     # New unit test.
-    def initialize(context, target, options={}, &block)
-      @context   = context
-      @target    = target
+    def initialize(context, settings={}, &block)
+      @context     = context
+      @advice      = context.advice.clone
 
-      @advice    = context.advice.clone
+      @target      = settings[:target]
+      @description = settings[:description]
+      @function    = settings[:function]
+      @subject     = settings[:subject]
+      @omit        = settings[:omit]
 
-      @subject   = options[:subject]
+      @tests       = []
 
-      @function  = options[:function]
-      @omit      = options[:omit]
-      #@caller    = options[:caller]
-
-      @tests    = []
-
-      @tested   = false
-      #@prepare = nil
-      #@cleanup = nil
+      @tested      = false
 
       evaluate(&block) if block
     end
 
     #
-    def evaluate(&block)
-      @dsl = DSL.new(self, &block)
+    #def evaluate(&block)
+    #  @dsl = DSL.new(self, &block)
+    #end
+
+    #
+    def type
+      'Method'
     end
 
-    # Used to make the the method tested or not.
+    # Used to make sure the the method has been tested, or not.
     attr_accessor :tested
 
-    # Is this unit for a class or module level method?
+    # Is this method a class method?
     def function?
       @function
     end
-
     alias_method :class_method?, :function?
+
+    #
+    def to_s
+      if function?
+        "#{type}: ::#{target}"
+      else
+        "#{type}: ##{target}"
+      end
+    end
+
+
+    #
+    def description
+      if function?
+        #"#{context} .#{target} #{aspect}"
+        "#{context}.#{target} #{context} #{aspect}".strip
+      else
+        a  = /^[aeiou]/i =~ context.to_s ? 'An' : 'A'
+        #"#{a} #{context} receiving ##{target} #{aspect}"
+        "#{context}##{target} #{context} #{aspect}".strip
+      end
+    end
 
     # If meta-method return target method's name prefixed with double colons.
     # If instance method then return target method's name.
@@ -63,38 +82,6 @@ module Lemon
     #
     def fullname
       function? ? "#{context}.#{target}" : "#{context}##{target}"
-    end
-
-    #
-    def to_s
-      if function?
-        "#{context}.#{target}"
-      else
-        "#{context}##{target}"
-      end
-    end
-
-    #
-    def description
-      if function?
-        #"#{context} .#{target} #{aspect}"
-        "#{context}.#{target} #{context} #{aspect}".strip
-      else
-        a  = /^[aeiou]/i =~ context.to_s ? 'An' : 'A'
-        #"#{a} #{context} receiving ##{target} #{aspect}"
-        "#{context}##{target} #{context} #{aspect}".strip
-      end
-    end
-
-    #
-    def target_class
-      @target_class ||= (
-        if function? 
-          (class << context.target; self; end)
-        else
-          context.target
-        end
-      )
     end
 
 =begin
@@ -186,24 +173,47 @@ module Lemon
     # The scope in which to run the test procedures.
     def scope
       @scope ||= (
-        if context
-          scope = context.scope || Object.new
-          scope.extend(dsl)
-        else
+        #if context
+        #  scope = context.scope || Object.new
+        #  scope.extend(dsl)
+        #else
           scope = Object.new
           scope.extend(dsl)
-        end
+        #end
         scope
       )
     end
 
     #
-    class DSL < BaseDSL
+    def target_class
+      @target_class ||= (
+        if function? 
+          (class << context.target; self; end)
+        else
+          context.target
+        end
+      )
+    end
+
+    #
+    class DSL
+
+      include Lemon::DSL::Advice
+      include Lemon::DSL::Subject
+
+      #
+      def initialize(context, &code)
+        @context = context
+        @subject = context.subject
+
+        module_eval(&code)
+      end
 
       # TODO: Should TestMethod context handle sub-contexts?
-      def context(description, &block)
+      def Context(description, &block)
         @context.tests << TestMethod.new(@context, @context.target, :aspect=>description, &block)
       end
+      alias_method :context, :Context
 
       # Define a unit test for this case.
       #
@@ -212,18 +222,17 @@ module Lemon
       #     puts "Hello"
       #   end
       #
-      def test(aspect=nil, &block)
-        test = TestProc.new( 
+      def Test(description=nil, &block)
+        test = TestUnit.new( 
           @context,
-          :subject  => @subject,
-          :aspect   => aspect,
-          :caller   => caller,
+          :subject     => @subject,
+          :description => description,
           &block
         )
         @context.tests << test
         test
       end
-      alias_method :Test, :test
+      alias_method :test, :Test
 
 =begin
       # Omit a test from testing.
@@ -237,92 +246,6 @@ module Lemon
         test.omit = true
       end
       alias_method :Omit, :omit
-
-      # Setup is used to set things up for each unit test.
-      # The setup procedure is run before each unit.
-      #
-      # @param [String] description
-      #   A brief description of what the setup procedure sets-up.
-      #
-      def setup(description=nil, &procedure)
-        if procedure
-          @subject = TestSubject.new(@context, description, &procedure)
-        end
-      end
-      alias_method :Setup, :setup
-
-      alias_method :Concern, :setup
-      alias_method :concern, :setup
-
-      # Teardown procedure is used to clean-up after each unit test. 
-      #
-      def teardown(&procedure)
-        @subject.teardown = procedure
-      end
-      alias_method :Teardown, :teardown
-
-      # TODO: Make Before and After more generic to handle before and after
-      # units, contexts/concerns, etc?
-
-      # Define a _complex_ before procedure. The #before method allows
-      # before procedures to be defined that are triggered by a match
-      # against the unit's target method name or _aspect_ description.
-      # This allows groups of tests to be defined that share special
-      # setup code.
-      #
-      # @example
-      #
-      #    method :puts do
-      #      test "standard output (@stdout)" do
-      #        puts "Hello"
-      #      end
-      #
-      #      before /@stdout/ do
-      #        $stdout = StringIO.new
-      #      end
-      #
-      #      after /@stdout/ do
-      #        $stdout = STDOUT
-      #      end
-      #    end
-      #
-      # @param [Array<Symbol,Regexp>] matches
-      #   List of match critera that must _all_ be matched
-      #   to trigger the before procedure.
-      #
-      def before(*matches, &procedure)
-        @context.before(matches, &procedure)
-      end
-      alias_method :Before, :before
-
-      # Define a _complex_ after procedure. The #before method allows
-      # before procedures to be defined that are triggered by a match
-      # against the unit's target method name or _aspect_ description.
-      # This allows groups of tests to be defined that share special
-      # teardown code.
-      #
-      # @example
-      #
-      #   unit :puts => "standard output (@stdout)" do
-      #     puts "Hello"
-      #   end
-      #
-      #   before /@stdout/ do
-      #     $stdout = StringIO.new
-      #   end
-      #
-      #   after /@stdout/ do
-      #     $stdout = STDOUT
-      #   end
-      #
-      # @param [Array<Symbol,Regexp>] matches
-      #   List of match critera that must _all_ be matched
-      #   to trigger the after procedure.
-      #
-      def after(*matches, &procedure)
-        @context.after(matches, &procedure)
-      end
-      alias_method :After, :after
 =end
 
     end
@@ -330,4 +253,3 @@ module Lemon
   end
 
 end
-

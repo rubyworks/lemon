@@ -20,29 +20,14 @@ module Lemon::TestReports
     #
     def start_case(tc)
       tabs tc.to_s.ansi(:bold)
-      #puts
       @tab += 2
     end
-
-=begin
-    #
-    def context(context)
-      unless context.to_s.empty?
-        if @_last == :unit
-          puts
-          @_last = :context
-        end
-        puts
-        puts "  #{context}"
-      end
-    end
-=end
 
     #
     def start_test(test)
        if test.subject
          @start_test_cache[test.subject] ||= (
-           puts "\n  #{test.subject}"
+           puts "#{test.subject}".tabto(@tab)
            true
          )
        end
@@ -98,7 +83,7 @@ module Lemon::TestReports
     #
     def finish_case(tcase)
       #@_last = :test
-      @tab =- 2
+      @tab -= 2
     end
 
     #
@@ -114,8 +99,8 @@ module Lemon::TestReports
       unless record[:pending].empty?
         puts "PENDING:\n\n"
         record[:pending].each do |test, exception|
-          puts "    #{test}"
-          puts "    #{file_and_line(exception)}"
+          puts "#{test}".tabto(4)
+          puts "#{file_and_line(exception)}".tabto(4)
           puts
         end
       end
@@ -123,10 +108,10 @@ module Lemon::TestReports
       unless record[:fail].empty?
         puts "FAILURES:\n\n"
         record[:fail].each do |test, exception|
-          puts "    #{test}".ansi(:bold)
-          puts "    #{file_and_line(exception)}".ansi(:red)
-          puts "    #{exception}".ansi(:red)
-          puts code_snippet(exception)
+          puts "#{test}".ansi(:bold).tabto(4)
+          puts "#{file_and_line(exception)}".ansi(:red).tabto(4)
+          puts "#{exception}".ansi(:red).tabto(4)
+          puts code_snippet(exception).tabto(2)
           #puts "    #{exception.backtrace[0]}"
           puts
         end
@@ -135,13 +120,13 @@ module Lemon::TestReports
       unless record[:error].empty?
         puts "ERRORS:\n\n"
         record[:error].each do |test, exception|
-          trace = clean_backtrace(exception)
+          trace = clean_backtrace(exception)[1..-1]
 
-          puts "    #{test}".ansi(:bold)
-          puts "    #{exception.class} @ #{file_and_line(exception)}".ansi(:red)
-          puts "    #{exception}".ansi(:red)
-          puts code_snippet(exception)
-          puts trace.join("\n")
+          puts "#{test}".ansi(:bold).tabto(4)
+          puts "#{exception.class} @ #{file_and_line(exception)}".ansi(:red).tabto(4)
+          puts "#{exception}".ansi(:red).tabto(4)
+          puts code_snippet(exception).tabto(2)
+          puts trace.join("\n").tabto(4) unless trace.empty?
           puts
         end
       end

@@ -6,20 +6,22 @@ module Lemon
     # The test case to which this advice belongs.
     #attr :context
 
-    attr :before
-
-    attr :after
+    #
+    attr :table
 
     # New case instance.
     def initialize
-      @before = {}
-      @after  = {}
+      @table = Hash.new{ |h,k| h[k] = {} }
     end
 
     #
     def initialize_copy(original)
-      @before = original.before.clone
-      @after  = original.after.clone
+      @table = original.table.clone
+    end
+
+    #
+    def [](type)
+      @table[type.to_sym]
     end
 
 =begin

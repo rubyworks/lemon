@@ -10,45 +10,36 @@ module Lemon
     # as detailed as you wish.
     attr :description
 
+    attr :setup
+
+    attr :teardown
+
     # New case instance.
     def initialize(context, description, options={}, &setup)
       @context      = context
       @description  = description.to_s
       #@function    = options[:function] || options[:singleton]
       #@type        = options[:type] || :context
-      @setup        = setup
+      @setup        = [setup].flatten
+      @teardown     = []
     end
 
     #
     def teardown=(procedure)
-       @teardown = procedure
-    end
-
-    #
-    def start_test
-      setup(context.scope)
-    end
-
-    #
-    def finish_test
-      teardown(context.scope)
+       @teardown = [procedure]
     end
 
     # Setup.
-    def setup(scope=nil)
-      if scope
-        scope.instance_eval(&@setup)
-      else
-        @setup
+    def run_setup(scope)
+      setup.each do |proc|
+        scope.instance_eval(&proc)
       end
     end
 
     # Teardown.
-    def teardown(scope=nil)
-      if scope
-        scope.instance_eval(&@teardown) if @teardown
-      else
-        @teardown
+    def run_teardown(scope)
+      teardown.each do |proc|
+        scope.instance_eval(&proc)
       end
     end
 

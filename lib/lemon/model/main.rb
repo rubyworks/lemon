@@ -3,38 +3,49 @@
 
 require 'lemon/model/test_suite'
 
-#
-#def Before(match=nil, &block)
-#  Lemon.suite.Before(match, &block)
-#end
+class << self
 
-#
-#def After(match=nil, &block)
-#  Lemon.suite.After(match, &block)
-#end
+  #
+  def Covers(script)
+    Lemon.suite.dsl.covers(script)
+  end
+  alias :Coverage :Covers
 
-#
-def testcase(target_class, &block)
-  Lemon.suite.dsl.testcase(target_class, &block)
+  # Define a general test case.
+  def Case(target, &block)
+    Lemon.suite.dsl.test_case(target, &block)
+  end
+
+  # Define a class test.
+  def Class(target_class, &block)
+    Lemon.suite.dsl.test_class(target_class, &block)
+  end
+
+  # Define a module test.
+  def Module(target_module, &block)
+    Lemon.suite.dsl.test_module(target_module, &block)
+  end
+
+  # Define a test feature.
+  def Feature(target, &block)
+    Lemon.suite.dsl.test_feature(target, &block)
+  end
+
+  #
+  #def Before(match=nil, &block)
+  #  Lemon.suite.Before(match, &block)
+  #end
+
+  #
+  #def After(match=nil, &block)
+  #  Lemon.suite.After(match, &block)
+  #end
+
+  #
+  #def Helper(script)
+  #  Lemon.suite.Helper(script)
+  #end
 end
-alias :TestCase :testcase
-alias :Case :testcase
-alias :tests :testcase # can't use test b/c of kernel method
-
-#
-def covers(script)
-  Lemon.suite.dsl.covers(script)
-end
-alias :Covers :covers
-
-#
-#def Helper(script)
-#  Lemon.suite.Helper(script)
-#end
-
-#def Subtest(script)
-#  Lemon.suite.Subtest(script)
-#end
 
 =begin
 # FIXME: This is a BIG FAT HACK! For the life of me I cannot find

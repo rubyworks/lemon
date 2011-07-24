@@ -26,7 +26,8 @@ module Lemon::TestReports
     end
 
     def finish_suite(suite)
-      puts; puts
+      puts
+      puts "Finished in #{Time.now - @start_time} seconds."
 
       ## if verbose
       unless record[:omit].empty?

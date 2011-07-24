@@ -1,26 +1,25 @@
 module Lemon
 
   #
-  class TestProc
+  class TestUnit
 
     # New unit test procedure.
     #
     def initialize(context, options={}, &procedure)
-      @context   = context
+      @context     = context
 
-      @subject   = options[:subject]
-      @aspect    = options[:aspect]
-      @omit      = options[:omit]
-      #@caller    = options[:caller]
+      @subject     = options[:subject]
+      @description = options[:description]
+      @omit        = options[:omit]
 
-      @procedure = procedure
+      @procedure   = procedure
 
-      @tested    = false
+      @tested      = false
     end
 
   public
 
-    # The case to which this test belongs.
+    # The parent case to which this test belongs.
     attr :context
 
     # Setup and teardown procedures.
@@ -32,7 +31,7 @@ module Lemon
     end
 
     # Description of test.
-    attr :aspect
+    attr :description
 
     # Test procedure, in which test assertions should be made.
     attr :procedure
@@ -74,7 +73,7 @@ module Lemon
     #end
 
     def to_s
-      "#{target} #{aspect}"
+      description.to_s
     end
 
     alias_method :name, :to_s
@@ -102,17 +101,12 @@ module Lemon
     #
     def to_proc
       lambda do
-        context.run(self) do
-          subject.setup(scope)    if subject
-          scope.instance_exec(*arguments, &procedure)
-          subject.teardown(scope) if subject
-        end
       end
     end
 
     #
     def match?(match)    
-      match == target || match === aspect
+      match == target || match === description
     end
 
     #
@@ -122,7 +116,11 @@ module Lemon
 
     #
     def call
-      to_proc.call
+      context.run(self) do
+        subject.run_setup(scope)    if subject
+        scope.instance_exec(*arguments, &procedure)
+        subject.run_teardown(scope) if subject
+      end
     end
 
     #
@@ -130,6 +128,7 @@ module Lemon
     #  advice.teardown(context.scope) if advice
     #end
 
+=begin
     # The file method returns the file name of +caller+ which
     # was created upon initialization of this object. It is
     # also the first element of #file_and_line.
@@ -162,6 +161,7 @@ module Lemon
         [f, l]
       )
     end
+=end
 
   end
 

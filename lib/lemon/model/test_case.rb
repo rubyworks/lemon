@@ -4,6 +4,9 @@ require 'lemon/model/test_advice'
 require 'lemon/model/test_subject'
 require 'lemon/model/test_base_dsl'
 
+require 'lemon/model/dsl/advice'
+require 'lemon/model/dsl/subjct'
+
 module Lemon
 
   # Test Case encapsulates a collection of 
@@ -14,8 +17,8 @@ module Lemon
     # The parent context in which this case resides.
     attr :context
 
-    # Test target is a description of the case.
-    attr :target
+    # Description of the test case.
+    attr :description
 
     # List of tests and sub-contexts.
     attr :tests
@@ -23,16 +26,9 @@ module Lemon
     # The setup and teardown advice.
     attr :subject
 
-    # The before and after advice.
+    # Advice are labeled procedures, such as before
+    # and after advice.
     attr :advice
-
-    # Before matching test units.
-    attr :before
-    #attr_accessor :prepare
-
-    # After matching test units.
-    attr :after
-    #attr_accessor :cleanup
 
     # Module for parsing test case scripts.
     attr :dsl
@@ -42,18 +38,19 @@ module Lemon
 
     # A test case +target+ is a class or module.
     #
-    # @param [TestSuite] suite
-    #   The test suite to which the case belongs.
+    # @param [TestSuite] context
+    #   The test suite or parent case to which this
+    #   case belongs.
     #
     # @param [Class,Module] target
     #   A description of the test-case's purpose.
     #
-    def initialize(context, target, options={}, &block)
+    def initialize(context, settings={}, &block)
       @context = context
-      @target  = target
-
       @advice  = context.advice.clone
-      @subject = context.subject
+
+      @description = settings[:description]
+      @subject     = settings[:subject]
 
       @tests   = []
 
@@ -63,85 +60,79 @@ module Lemon
     # This has to be redefined in each subclass to pick
     # up there respective DSL classes.
     def evaluate(&block)
-      @dsl = DSL.new(self, &block)
+      @dsl = self.class.const_get(:DSL).new(self, &block)
     end
 
-    # Iterate over each test unit.
+    # Iterate over each test and subcase.
     def each(&block)
       tests.each(&block)
     end
 
-    #
+    # Number of tests plus subcases.
     def size
       tests.size
     end
 
+    # Subclasses of TestCase can override this to describe
+    # the type of test case they define.
+    def type
+      'Case'
+    end
+
     #
     def to_s
-      target.to_s.sub(/^\#\<.*?\>::/, '')
+      @description.to_s
     end
-
-    #
-    def description
-      @target.to_s
-    end
-
-    #
-    #def prepare
-    #  @before[[]]
-    #end
-
-    #
-    #def cleanup
-    #  @after[[]]
-    #end
 
     #
     def omit?
       @omit
     end
 
-    #
-    def before(*matches, &procedure)
-      @advice.before[matches] = procedure
-    end
-
-    #
-    def after(*matches, &procedure)
-      @advice.after[matches] = procedure
-    end
-
     # Run test in the context of this case.
     #
     # @param [TestProc] test
-    #   The test procedure instance to run.
-    #
-    #def eval(test)
-    #  test.advice.setup(scope)
-    #  scope.instance_exec(&test)
-    #  test.advice.teardown(scope)
-    #end
-
+    #   The test unit to run.
     #
     def run(test, &block)
+      advice[:before].each do |matches, block|
+        if matches.all?{ |match| test.match?(match) }
+          scope.instance_exec(test, &block) #block.call(unit)
+        end
+      end
+
       block.call
+
+      advice[:after].each do |matches, block|
+        if matches.all?{ |match| test.match?(match) }
+          scope.instance_exec(test, &block) #block.call(unit)
+        end
+      end
     end
 
-    # TODO: Change so that the scope is the DSL, and includes the DSL of the context?
+    #
+    #--
+    # TODO: Change so that the scope is the DSL
+    #       and ** includes the DSL of the context ** !!!
+    #++
     def scope
       @scope ||= (
-        if context
-          scope = context.scope || Object.new
-          scope.extend(dsl)
-        else
+        #if context
+        #  scope = context.scope || Object.new
+        #  scope.extend(dsl)
+        #else
           scope = Object.new
           scope.extend(dsl)
-        end
+        #end
+        scope
       )
     end
 
     #
-    class DSL < BaseDSL
+    class DSL
+
+      include Lemon::DSL::Advice
+      include Lemon::DSL::Subject
 
       #
       def initialize(context, &code)
@@ -152,21 +143,31 @@ module Lemon
       end
 
       #
-      def context(description, &block)
-        @context.tests << TestCase.new(@context, description, &block)
+      #--
+      # @TODO: Instead of resuing TestCase can we have a TestContext
+      #        that more generically mimics it's parent context?
+      #++
+      def Context(description, &block)
+        @context.tests << TestCase.new(
+          @context,
+          :description => description,
+          &block
+        )
       end
+      alias_method :context, :Context
 
       #
-      def test(description, &procedure)
-        test = TestProc.new(
+      def Test(description=nil, &procedure)
+        test = TestUnit.new(
           @context, 
-          :aspect  => description,
-          :subject => subject,
+          :description => description,
+          :subject     => @subject,
           &procedure
         )
         @context.tests << test
         test
       end
+      alias_method :test, :Test
 
     end
 

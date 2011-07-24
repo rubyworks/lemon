@@ -5,28 +5,52 @@ module Lemon
   #
   class TestModule < TestCase
 
-    def evaluate(&block)
-      @dsl = DSL.new(self, &block)
+    #def evaluate(&block)
+    #  @dsl = DSL.new(self, &block)
+    #end
+
+    def type
+      if target.is_a?(Class)
+        'Class'
+      else
+        'Module'
+      end
+    end    
+
+    #
+    def to_s
+      "#{type}: #{target}"
     end
 
     #
-    class DSL < BaseDSL
+    class DSL
 
-      # Define a method test for the class/module case.
+      include Lemon::DSL::Advice
+      include Lemon::DSL::Subject
+
+      #
+      def initialize(context, &code)
+        @context = context
+        @subject = context.subject
+
+        module_eval(&code)
+      end
+
+      # Define a method subcase for the class/module case.
       #
       # @example
-      #   method :puts do
-      #     test "print message with new line to stdout" do
+      #   Method :puts do
+      #     Test "print message with new line to stdout" do
       #       puts "Hello"
       #     end
       #   end
       #
-      def method(method, &block)
+      def Method(method, &block)
         meth = TestMethod.new(
-          @context, method,
+          @context, 
+          :target   => method,
           :function => false,
           :subject  => @subject,
-          #:caller   => caller,
           &block
         )
         @context.tests << meth
@@ -34,49 +58,50 @@ module Lemon
       end
 
       # Capitalized alias for #method.
-      alias_method :Method, :method
+      alias_method :method, :Method
 
       # Define a class-method unit test for this case.
       #
-      def class_method(method, &block)
+      def ClassMethod(method, &block)
         meth = TestMethod.new(
           @context,
-          method,
+          :target   => method,
           :function => true,
           :subject  => @subject,
-          #:caller   => caller,
           &block
         )
         @context.tests << meth
         meth
       end
+      alias :class_method :ClassMethod
 
-      # Capitalized alis of #class_method.
-      alias_method :ClassMethod, :class_method
+      # Alternate alias for #ClassMethod.
+      alias :Function :ClassMethod
+      alias :function :ClassMethod
 
-      # Alternate alias for #class_method.
-      alias_method :function, :class_method
-      alias_method :Function, :class_method
-
-
-      # STILL ALLOW GENERIC CASES ?
-
-      #
-      def context(description, &block)
-        @context.tests << TestCase.new(@context, description, &block)
+      # TODO: Should we allow subcases here?
+      def Context(description, &block)
+        @context.tests << TestModule.new(
+          @context,
+          :target      => @context.target,
+          :description => description,
+          &block
+        )
       end
+      alias_method :context, :Context
 
-      #
-      def test(description, &procedure)
-        test = TestProc.new(
+      # TODO: Should we allow general test units?
+      def Test(description, &procedure)
+        test = TestUnit.new(
           @context, 
-          :aspect  => description,
-          :subject => subject,
+          :description => description,
+          :subject     => @subject,
           &procedure
         )
         @context.tests << test
         test
       end
+      alias_method :test, :Test
 
     end
 

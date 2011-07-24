@@ -76,77 +76,20 @@ module Lemon
       @options[:namespaces] || []
     end
 
-=begin
-    # Build test stack.
-    def build
-      stack = []
-
-      stack << [:start_suite, suite]
-      build_case(suite, stack) 
-      stack << [:finish_suite, suite]
-
-      return stack
-    end
-
     #
-    private
-    def build_case(tcase, stack)
-      tcase.each do |tc|
-        if tc.respond_to?(:test)
-          stack << [:start_test, tc.advice]
-          stack << [:test, tc]
-          stack << [:finish_test, tc.advice]
-        end
-        if tc.respond_to?(:each)
-          stack << [:start_case, tc]
-          build_case(tc, stack)
-          stack << [:finish_case, tc]
-        end
-      end
-    end
-
-    # This will become a dedicated test harness in KO project.
-    public
-    def run
-      report = report_find(format)
-
-      build.each do |signal, tcase|
-        report.send(signal, tcase)
-
-        case signal
-        when :test
-          begin
-            tcase.test
-
-            report.pass(tcase)
-            record[:pass] << tcase
-          rescue Pending => exception
-            report.pending(tcase, exception)
-            record[:pending] << [tcase, exception]
-          rescue Exception => exception
-            if exception.assertion?
-              report.fail(tcase, exception)
-              record[:fail] << [tcase, exception]
-            else
-              report.error(tcase, exception)
-              record[:error] << [tcase, exception]
-            end
-          end
-        else
-          tcase.send(signal)
-        end
-      end
-    end
-=end
-
     def record
       @record ||= Recorder.new
     end
 
+    #
     def observers
       @observers ||= [report, record]
     end
 
+    # Ruby test suite.
+    #
+    # @return [Boolean] 
+    #   That the tests ran without error or failure.
     #
     def run
       observers.each{ |o| o.start_suite(suite) }
@@ -156,10 +99,12 @@ module Lemon
       record.success?
     end
 
+    # Run a test case.
     #
+    # TODO: Filter out exclude namespaces.
     def run_case(cases, report)
       cases.each do |tc|
-        if tc.respond_to?(:to_proc)
+        if tc.respond_to?(:call)
           run_test(tc)
         end
         if tc.respond_to?(:each)
@@ -170,92 +115,38 @@ module Lemon
       end
     end
 
-    # TODO: Add test advice as temporary observers, or 
-    # keep advice internal to test.call ?
+    # Run a test.
+    #
+    # @param [TestProc] test
+    #   The test to run.
+    #
+    #--
+    # TODO: Techincally test advice could be handled as temporary observers.
+    # Would this be better design?
+    #++
     def run_test(test)
+      if test.omit?
+        observers.each{ |o| o.omit(test) }
+        return
+      end
+
       observers.each{ |o| o.start_test(test) }
       begin
         test.call
         observers.each{ |o| o.pass(test) }
-        #report.pass(test)
-        #record[:pass] << test
       rescue Pending => exception
         observers.each{ |o| o.pending(test, exception) }
-        #report.pending(tc, exception)
-        #record[:pending] << [test, exception]
       rescue Exception => exception
         if exception.assertion?
           observers.each{ |o| o.fail(test, exception) }
-          #report.fail(test, exception)
-          #record[:fail] << [test, exception]
         else
           observers.each{ |o| o.error(test, exception) }
-          #report.error(test, exception)
-          #record[:error] << [test, exception]
         end
       end
       observers.each{ |o| o.finish_test(test) }
     end
 
 =begin
-    # Run tests.
-    #
-    # @return [Boolean] 
-    #   That the tests ran without error or failure.
-    #
-    def run_old
-      #prepare
-      report.start_suite(suite)
-      each do |test_case|
-        scope = Object.new
-        scope.extend(test_case.dsl)
-        report.start_case(test_case)
-        if test_case.prepare #before[[]]
-          scope.instance_eval(&test_case.prepare)
-        end
-        test_case.each do |test_unit|
-          report.start_unit(test_unit)
-          test_unit.each do |test|
-            if test.omit?
-              report.omit(test)
-              record[:omit] << test
-              next
-            end
-            report.start_test(test)
-            run_pretest_procedures(test, scope) #, suite, test_case)
-            begin
-              run_test(test, scope)
-              #test.call(scope)
-              report.pass(test)
-              record[:pass] << test
-            rescue Pending => exception
-              exception = clean_backtrace(exception)
-              report.pending(test, exception)
-              record[:pending] << [test, exception]
-            rescue Assertion => exception
-              exception = clean_backtrace(exception)
-              report.fail(test, exception)
-              record[:fail] << [test, exception]
-            rescue Exception => exception
-              exception = clean_backtrace(exception)
-              report.error(test, exception)
-              record[:error] << [test, exception]
-            end
-            report.finish_test(test)
-            run_postest_procedures(test, scope) #, suite, test_case)
-          end
-          report.finish_unit(test_unit)
-        end
-        if test_case.cleanup #after[[]]
-          scope.instance_eval(&test_case.cleanup)
-        end
-        report.finish_case(test_case)
-      end
-      report.finish_suite(suite) #(successes, failures, errors, pendings)
-      return record[:error].size + record[:fail].size > 0 ? false : true
-    end
-=end
-
     # Iterate over suite's test cases, filtering out unselected cases
     # if any namespaces constraints are provided.
     #
@@ -271,6 +162,7 @@ module Lemon
         end
       end
     end
+=end
 
     # All output is handled by a reporter.
     #
@@ -311,67 +203,6 @@ module Lemon
   private
 
 =begin
-    # Run a test.
-    #
-    # @param [TestProc] test
-    #   The test procedure instance to run.
-    #
-    # @param [Object] scope
-    #   The scope in which to run the pre-test procedures.
-    # 
-    def run_test(test, scope)
-      if test.function? 
-        base = (class << test.test_case.target; self; end)
-      else
-        base = test.test_case.target
-      end
-
-      raise Pending unless test.procedure
-
-      begin
-        base.class_eval do
-          alias_method "_lemon_#{test.target}", test.target
-          define_method(test.target) do |*a,&b|
-            test.tested = true
-            __send__("_lemon_#{test.target}",*a,&b)
-          end
-        end
-      rescue => error
-        Kernel.eval <<-END, test.procedure.binding
-          raise #{error.class}, "#{test.target} not tested"
-        END
-      end
-      #Lemon.test_stack << self  # hack
-
-      begin
-        if test.context && test.procedure.arity != 0
-          cntx = test.context.setup(scope)
-          scope.instance_exec(cntx, &test.procedure) #procedure.call
-        elsif test.context
-          test.context.setup(scope)
-          scope.instance_exec(&test.procedure) #procedure.call
-        else
-          scope.instance_exec(&test.procedure) #procedure.call
-        end
-        test.context.teardown(scope) if test.context
-      ensure
-        #Lemon.test_stack.pop
-        base.class_eval %{
-          alias_method "#{test.target}", "_lemon_#{test.target}"
-        }
-      end
-      if !test.tested
-        #exception = Untested.new("#{test.target} not tested")
-        if RUBY_VERSION < '1.9'
-          Kernel.eval %[raise Pending, "#{test.target} not tested"], test.procedure
-        else
-          Kernel.eval %[raise Pending, "#{test.target} not tested"], test.procedure.binding
-        end
-      end
-    end
-=end
-
-=begin
     #
     def run_concern_procedures(concern, scope) #suite, test_case)
       tc    = concern.test_case
@@ -394,6 +225,7 @@ module Lemon
     end
 =end
 
+=begin
     # Run pre-test advice.
     #
     # @param [TestProc] test
@@ -445,7 +277,7 @@ module Lemon
         end
       end
     end
-
+=end
 
   end
 

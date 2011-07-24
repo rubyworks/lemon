@@ -26,6 +26,7 @@ module Lemon::TestReports
 
     #
     def start_suite(suite)
+      @start_time = Time.now
     end
 
     #
@@ -70,7 +71,9 @@ module Lemon::TestReports
 
     private
 
-    def record ; runner.record ; end
+    def record
+      runner.record
+    end
 
     # Is coverage information requested?
     #def cover? ; runner.cover? ; end
@@ -82,31 +85,12 @@ module Lemon::TestReports
 
     #
     def tally
-      sizes = %w{pass pending fail error omit}.map{ |r| record[r.to_sym].size }
+      sizes = %w{fail error pending omit pass}.map{ |r| record[r.to_sym].size }
       data  = [total] + sizes
-      s = "%s tests: %s passing, %s pending, %s failures, %s errors, %s omitted " % data
+      s = "%s tests: %s fail, %s err, %s todo - %s omit, %s pass " % data
       #s += "(#{uncovered_units.size} uncovered, #{undefined_units.size} undefined)" if cover?
       s
     end
-
-    #FILE_SEPARATOR = Regexp.escape(File::SEPARATOR)
-
-=begin
-    #
-    INTERNALS = /(lib|bin)[\\\/]lemon/
-
-    # Clean the backtrace of any reference to ko/ paths and code.
-    def clean_backtrace(backtrace)
-      trace = backtrace.reject{ |bt| bt =~ INTERNALS }
-      trace.map do |bt| 
-        if i = bt.index(':in')
-          bt[0...i]
-        else
-          bt
-        end
-      end
-    end
-=end
 
     EXCLUDE_PATH = File.expand_path(File.join(__FILE__, '..', '..', '..'))
     EXCLUDE      = Regexp.new(Regexp.escape(EXCLUDE_PATH))
@@ -123,6 +107,10 @@ module Lemon::TestReports
       trace = (Exception === exception ? exception.backtrace : exception)
       trace = trace.reject{ |t| t =~ /bin\/lemon/ }
       trace = trace.reject{ |t| t =~ EXCLUDE }
+      #trace = trace.map do |t|
+      #  i = t.index(':in')
+      #  i ? t[0...i] : t
+      #end
       #if trace.empty?
       #  exception
       #else
@@ -134,89 +122,30 @@ module Lemon::TestReports
 
     # Have to thank Suraj N. Kurapati for the crux of this code.
     def code_snippet(exception, bredth=3)
-      backtrace = clean_backtrace(exception)
-      backtrace.first =~ /(.+?):(\d+(?=:|\z))/ or return ""
-      source_file, source_line = $1, $2.to_i
-
-      source = source(source_file)
-      
-      radius = bredth # number of surrounding lines to show
-      region = [source_line - radius, 1].max ..
-               [source_line + radius, source.length].min
+      file, line, code, range = code_snippet_parts(exception, bredth)
 
       # ensure proper alignment by zero-padding line numbers
-      format = " %2s %0#{region.last.to_s.length}d %s"
+      format = " %2s %0#{range.last.to_s.length}d %s"
 
-      pretty = region.map do |n|
-        format % [('=>' if n == source_line), n, source[n-1].chomp]
+      range.map do |n|
+        format % [('=>' if n == line), n, code[n-1].chomp]
       end #.unshift "[#{region.inspect}] in #{source_file}"
-
-      pretty
     end
-
-=begin
-    #
-    def code_snippet_hash(exception, bredth=3)
-      backtrace = filtered_backtrace(exception)
-
-      backtrace.first =~ /(.+?):(\d+(?=:|\z))/ or return ""
-      source_file, source_line = $1, $2.to_i
-
-      source = source(source_file)
-      
-      radius = bredth # number of surrounding lines to show
-      region = [source_line - radius, 1].max ..
-               [source_line + radius, source.length].min
-
-      # ensure proper alignment by zero-padding line numbers
-      format = " %2s %0#{region.last.to_s.length}d %s"
-
-      hash = {}
-      region.each do |n|
-        hash[n] = source[n-1].chomp
-      end
-      hash
-    end
-=end
 
     #
     def code_snippet_array(exception, bredth=3)
-      backtrace = filtered_backtrace(exception)
-      backtrace.first =~ /(.+?):(\d+(?=:|\z))/ or return ""
-      source_file, source_line = $1, $2.to_i
-    
-      source = source(source_file)
-      
-      radius = bredth # number of surrounding lines to show
-      region = [source_line - radius, 1].max ..
-               [source_line + radius, source.length].min
-    
-      # ensure proper alignment by zero-padding line numbers
-      #format = " %2s %0#{region.last.to_s.length}d %s"
-    
-      region.map do |n|
-        source[n-1].chomp
+      file, line, code, range = code_snippet_parts(exception, bredth)
+      range.map do |n|
+        code[n-1].chomp
       end
     end
 
     #
     def code_snippet_omap(exception, bredth=3)
-      backtrace = filtered_backtrace(exception)
-      backtrace.first =~ /(.+?):(\d+(?=:|\z))/ or return ""
-      source_file, source_line = $1, $2.to_i
-
-      source = source(source_file)
-      
-      radius = bredth # number of surrounding lines to show
-      region = [source_line - radius, 1].max ..
-               [source_line + radius, source.length].min
-
-      # ensure proper alignment by zero-padding line numbers
-      #format = " %2s %0#{region.last.to_s.length}d %s"
-
+      file, line, code, range = code_snippet_parts(exception, bredth)
       a = []
-      region.each do |n|
-        a << {n=> source[n-1].chomp}
+      range.each do |n|
+        a << {n => code[n-1].chomp}
       end
       a
     end
@@ -227,7 +156,22 @@ module Lemon::TestReports
     end
 
     #
-    def source(file)
+    def code_snippet_parts(exception, bredth=3)
+      backtrace = clean_backtrace(exception)
+      backtrace.first =~ /(.+?):(\d+(?=:|\z))/ or return ""
+      source_file, source_line = $1, $2.to_i
+
+      source = source_code(source_file)
+      
+      radius = bredth # number of surrounding lines to show
+      region = [source_line - radius, 1].max ..
+               [source_line + radius, source.length].min
+
+      return source_file, source_line, source, region
+    end
+
+    #
+    def source_code(file)
       @source[file] ||= (
         File.readlines(file)
       )
@@ -264,17 +208,6 @@ module Lemon::TestReports
 
     def line(exception)
       file_and_line_array(exception).last
-    end
-
-    #
-    def filtered_backtrace(exception)
-      case exception
-      when Exception
-        backtrace = exception.backtrace
-      else
-        backtrace = exception
-      end
-      backtrace.reject{ |bt| bt =~ INTERNALS }
     end
 
   end

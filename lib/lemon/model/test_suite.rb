@@ -1,6 +1,7 @@
 require 'lemon/model/test_case'
 require 'lemon/model/test_method'
 require 'lemon/model/test_module'
+require 'lemon/model/test_feature'
 require 'lemon/model/snapshot'
 #require 'lemon/model/main'
 require 'lemon/core_ext/kernel'
@@ -234,8 +235,11 @@ module Lemon
       alias_method :Covers, :covers
 
       # Define a test case belonging to this suite.
-      def test_case(target_case, &block)
-        @suite.cases << TestCase.new(@suite, target_case, &block)
+      def test_case(description, &block)
+        options = {
+         :description => description
+        }
+        @suite.cases << TestCase.new(@suite, options, &block)
       end
 
       #
@@ -244,13 +248,27 @@ module Lemon
       # Define a module test case belonging to this suite.
       def test_module(target_module, &block)
         raise "lemon: target must be a module" unless Module === target_module
-        @suite.cases << TestModule.new(@suite, target_module, &block)
+        options = {
+          :target => target_module
+        }
+        @suite.cases << TestModule.new(@suite, optios, &block)
       end
 
       # Define a class test case belonging to this suite.
       def test_class(target_class, &block)
         raise "lemon: case target must be a class" unless Class === target_class
-        @suite.cases << TestModule.new(@suite, target_class, &block)
+        options = {
+          :target => target_class
+        }
+        @suite.cases << TestModule.new(@suite, options, &block)
+      end
+
+      # Define a test feature.
+      def test_feature(target, &block)
+        options = {
+          :target => target
+        }
+        @suite.cases << TestFeature.new(@suite, options, &block)
       end
 
       # Define a pre-test procedure to apply suite-wide.
