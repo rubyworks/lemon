@@ -1,8 +1,8 @@
 = Lemon
 
-* Homepage[http://rubyworks.github.com/lemon]
-* Development[http://github.com/rubyworks/lemon]
-* Issues[http://github.com/rubyworks/lemon/issues]
+Homepage[http://rubyworks.github.com/lemon] |
+Development[http://github.com/rubyworks/lemon] |
+Issues[http://github.com/rubyworks/lemon/issues]
 
 
 == DESCRIPTION
@@ -27,10 +27,10 @@ Say our library 'mylib.rb' consists of the class X:
 
 The simplest test case would be written as follows:
 
-  covers 'mylib'
+  Test.covers 'mylib'
 
-  testcase X do
-    unit :a do
+  Test.class X do
+    method :a do
       test "method #a does something expected" do
         x = X.new
         x.a.assert.is_a? String
@@ -42,10 +42,10 @@ The +Covers+ method works just like +require+ with the exception that Lemon reco
 
 As tests grow, we might need to organize them into special concerns. For this Lemon provides a #concern method and a #setup method. Technically the two methods are the same, but #concern is used more for descriptive purposes whereas #setup is used to create an instance of the testcase's target class.
 
-  covers 'mylib'
+  Test.covers 'mylib'
 
-  testcase X do
-    unit :a do
+  Test.class X do
+    method :a do
       setup "Description of concern that the following unit tests address." do
         X.new
       end
@@ -67,29 +67,31 @@ That is the bulk of the matter for writing Lemon tests. There are few other feat
 
 === Running Tests
 
-To run tests use the +lemon+ command-line utility.
+Tests' can be run using the `lemonade` command line tool.
 
-  $ lemon test/cases/name_case.rb
+  $ lemonade test test/cases/name_case.rb
 
-Normal output is typical <i>dot-progress</i>. For verbose output, use the <code>--verbose</code> or <code>-v</code> option.
+Lemon utilizes the Ruby Test system to run tests, the `lemonade test` command simply passes off the running of tests to `ruby-test`. So the +ruby-test+ command-line utility can also be used directly as well.
 
-  $ lemon -v test/cases/name_case.rb
+  $ ruby-test -r lemon test/cases/name_case.rb
 
-Other output types can be specified by the `--format` or `-f` option.
+Normal output is typical <i>dot-progress</i>. Other output types can be specified by the `--format` or `-f` option.
 
-  $ lemon -f tap test/cases/name_case.rb
+  $ ruby-test -r lemon -f tap test/cases/name_case.rb
+
+See {Ruby-Test}[http://rubyworks.github.com/test] for more information.
 
 === Checking Test Coverage
 
-Lemon can check test coverage by loading your target system and comparing it to your tests. To do this supply the <code>lemon</code> command the <code>--coverage</code> or <code>-c</code> option.
+Lemon can check test coverage by loading your target system and comparing it to your tests. To do this use the <code>lemon-cov</code> command the utility.
 
-  $ lemon -c -Ilib test/cases/*.rb
+  $ lemonade coverage -Ilib test/cases/*.rb
 
 === Generating Test Skeletons
 
-Because of the one to one correspondence of case-unit to class-method, Lemon can also generate test scaffolding for previously written code. To do this, use the <code>--generate</code> or <code>-g</code> option and provide the lib location, or files, of the scripts for which to generate test scaffolding, and the output location for the test scripts.
+Because of the one to one correspondence of test case and unit test to class/module and method, Lemon can also generate test scaffolding for previously written code. To do this, use the <code>lemon-gen</code> command line utility and provide the lib location or files of the scripts for which to generate test scaffolding, and the output location for the test scripts.
 
-  $ lemon -g -Ilib test/cases/*.rb
+  $ lemonade generate -Ilib test/cases/*.rb
 
 Generating test case scaffolding from code will undoubtedly strike test-driven developers as a case of putting the cart before the horse. However, it is not unreasonable to argue that high-level, behavior-driven, functional testing frameworks, such as Q.E.D. and Cucumber are better suited to test-first methodologies. While test-driven development can obviously be done with Lemon, unit-testing is more appropriate for testing specific, critical portions of code, or for achieving full test coverage for mission critical applications.
 
