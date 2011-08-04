@@ -72,12 +72,14 @@ module Lemon
     #  end
     #end
 
+    #
     def to_s
       description.to_s
     end
 
     alias_method :name, :to_s
 
+    #
     def scope
       context.scope
     end
@@ -101,6 +103,7 @@ module Lemon
     #
     def to_proc
       lambda do
+        call
       end
     end
 

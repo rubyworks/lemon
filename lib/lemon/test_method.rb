@@ -1,7 +1,7 @@
-#require 'lemon/model/test_context'
-require 'lemon/model/test_unit'
-
 module Lemon
+
+  require 'lemon/test_case'
+  require 'lemon/test_unit'
 
   # The TestMethod class is a special TestCase that requires
   # a particular target method be tested.
@@ -33,7 +33,11 @@ module Lemon
 
     #
     def type
-      'Method'
+      if function?
+        'Function'
+      else
+        'Method'
+      end
     end
 
     # Used to make sure the the method has been tested, or not.
@@ -43,44 +47,45 @@ module Lemon
     def function?
       @function
     end
+
+    #
     alias_method :class_method?, :function?
 
     #
     def to_s
       if function?
-        "#{type}: ::#{target}"
+        "::#{target}"
       else
-        "#{type}: ##{target}"
+        "##{target}"
       end
     end
 
-
     #
-    def description
-      if function?
-        #"#{context} .#{target} #{aspect}"
-        "#{context}.#{target} #{context} #{aspect}".strip
-      else
-        a  = /^[aeiou]/i =~ context.to_s ? 'An' : 'A'
-        #"#{a} #{context} receiving ##{target} #{aspect}"
-        "#{context}##{target} #{context} #{aspect}".strip
-      end
-    end
+    #def description
+    #  if function?
+    #    #"#{context} .#{target} #{aspect}"
+    #    "#{context}.#{target} #{context} #{aspect}".strip
+    #  else
+    #    a  = /^[aeiou]/i =~ context.to_s ? 'An' : 'A'
+    #    #"#{a} #{context} receiving ##{target} #{aspect}"
+    #    "#{context}##{target} #{context} #{aspect}".strip
+    #  end
+    #end
 
-    # If meta-method return target method's name prefixed with double colons.
-    # If instance method then return target method's name.
-    def key
-      function? ? "::#{target}" : "#{target}"
-    end
+    ## If meta-method return target method's name prefixed with double colons.
+    ## If instance method then return target method's name.
+    #def key
+    #  function? ? "::#{target}" : "#{target}"
+    #end
 
-    # If meta-method return target method's name prefixed with double colons.
-    # If instance method then return target method's name prefixed with hash character.
-    def name
-      function? ? "::#{target}" : "##{target}"
-    end
+    ## If meta-method return target method's name prefixed with double colons.
+    ## If instance method then return target method's name prefixed with hash character.
+    #def name
+    #  function? ? "::#{target}" : "##{target}"
+    #end
 
-    #
-    def fullname
+    # Returns the fully qulaified name of the target method.
+    def unit
       function? ? "#{context}.#{target}" : "#{context}##{target}"
     end
 
@@ -196,7 +201,7 @@ module Lemon
     end
 
     #
-    class DSL
+    class DSL < Module
 
       include Lemon::DSL::Advice
       include Lemon::DSL::Subject

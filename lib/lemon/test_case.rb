@@ -1,11 +1,9 @@
-require 'lemon/model/pending'
-require 'lemon/model/test_context'
-require 'lemon/model/test_advice'
-require 'lemon/model/test_subject'
-require 'lemon/model/test_base_dsl'
+#require 'lemon/model/pending'
+#require 'lemon/model/test_context'
+#require 'lemon/model/test_base_dsl'
 
-require 'lemon/model/dsl/advice'
-require 'lemon/model/dsl/subjct'
+require 'lemon/test_advice'
+require 'lemon/test_subject'
 
 module Lemon
 
@@ -22,6 +20,9 @@ module Lemon
 
     # List of tests and sub-contexts.
     attr :tests
+
+    #
+    attr :target
 
     # The setup and teardown advice.
     attr :subject
@@ -46,8 +47,10 @@ module Lemon
     #   A description of the test-case's purpose.
     #
     def initialize(context, settings={}, &block)
-      @context = context
-      @advice  = context.advice.clone
+      if context
+        @context = context
+        @advice  = context.advice.clone
+      end
 
       @description = settings[:description]
       @subject     = settings[:subject]

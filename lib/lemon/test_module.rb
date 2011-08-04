@@ -1,16 +1,41 @@
 module Lemon
 
+  require 'lemon/test_case'
+  require 'lemon/test_method'
+
   # The nomenclature of a TestModule limts the focus of testing
   # the methods of a module.
   #
   class TestModule < TestCase
+
+    # New unit test.
+    def initialize(context, settings={}, &block)
+      if context
+        @context   = context
+        @advice    = context.advice.clone
+      else
+        @context   = nil
+        @advice    = TestAdvice.new
+      end
+
+      @target      = settings[:target]
+      @description = settings[:description]
+      @subject     = settings[:subject]
+      @skip        = settings[:skip]
+
+      @tests       = []
+
+      @tested      = false
+
+      evaluate(&block) if block
+    end
 
     #def evaluate(&block)
     #  @dsl = DSL.new(self, &block)
     #end
 
     def type
-      if target.is_a?(Class)
+      if ::Class === target
         'Class'
       else
         'Module'
@@ -19,11 +44,11 @@ module Lemon
 
     #
     def to_s
-      "#{type}: #{target}"
+      target.to_s
     end
 
     #
-    class DSL
+    class DSL < Module
 
       include Lemon::DSL::Advice
       include Lemon::DSL::Subject

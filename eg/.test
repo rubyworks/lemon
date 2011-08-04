@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+Test.run :default do |r|
+  require 'ae'
+  require 'lemon'
+  $:.unshift 'fixtures'
+end
+

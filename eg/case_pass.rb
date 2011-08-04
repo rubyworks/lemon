@@ -1,4 +1,4 @@
-Test.coverage 'example.rb'
+Test.covers 'example.rb'
 
 Test.class Example do
 
