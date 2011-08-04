@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+# NOTE: This command would have been called `lemon` but there turns
+#       out to be a command by that name used by SQLite 2.x, so
+#       we have avoded the name clash by using `lemonade` instead.
+
+require 'lemon/cli'
+Lemon.cli(*ARGV)
