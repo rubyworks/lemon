@@ -9,7 +9,7 @@ module Lemon
 
       # Ouput coverage report.
       def command_run(test_files)
-        require 'lemon/controller/coverage_analyzer'
+        require 'lemon/coverage/analyzer'
 
         #loadpath = options[:loadpath] || []
         #requires = options[:requires] || []

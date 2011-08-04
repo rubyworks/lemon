@@ -1,4 +1,4 @@
-require 'lemon/view/cover_reports/abstract'
+require 'lemon/coverage/formats/abstract'
 
 module Lemon::CoverReports
 

@@ -21,6 +21,8 @@ require 'lemon/test_module'
 module Test
   extend self
 
+  $TEST_SUITE ||= []
+
   #
   def covers(script)
     #TODO: record covers list somewhere

@@ -1,5 +1,5 @@
-require 'lemon/model/snapshot'
-require 'lemon/model/test'
+require 'lemon'
+require 'lemon/coverage/snapshot'
 
 module Lemon
 
@@ -43,8 +43,8 @@ module Lemon
       @canonical  = Snapshot.capture #system #@suite.canonical
 
       #@suite = Lemon.suite
-      @suite      = Lemon::TestSuite.new(files, :cover=>true)  #@suite = suite
-      Lemon.suite = @suite
+      #@suite      = Lemon::TestSuite.new(files, :cover=>true)  #@suite = suite
+      #Lemon.suite = @suite
 
       files = files.map{ |f| Dir[f] }.flatten
       files = files.map{ |f| 
@@ -69,7 +69,9 @@ module Lemon
     end
 
     #
-    attr :suite
+    def suite
+      $TEST_SUITE
+    end
 
     # Paths of lemon tests and/or ruby scripts to be compared and covered.
     # This can include directories too, in which case all .rb scripts below
@@ -131,17 +133,29 @@ module Lemon
     def covered_units
       @covered_units ||= (
         list = []
-        suite.each do |test_case|
-          test_case.test_units.each do |unit|
-            list << Snapshot::Unit.new(
-              unit.test_case.target,
-              unit.target,
-              :function=>unit.function?
-            )
-          end
+        suite.each do |test|
+          covered_unit(test, list)
         end
         list.uniq
       )
+    end
+
+    #
+    def covered_unit(test, list)
+      case test
+      when Lemon::TestModule
+        test.each do |t|
+          covered_unit(t, list)
+        end
+      when Lemon::TestMethod
+        list << Snapshot::Unit.new(
+          test.context.target,
+          test.target,
+          :function=>test.function?
+        )      
+      else
+        # ignore
+      end
     end
 
     #
@@ -325,19 +339,18 @@ module Lemon
         /^#{format}/ =~ name
       end
       raise "unsupported format" unless format
-      require "lemon/view/cover_reports/#{format}"
+      require "lemon/coverage/formats/#{format}"
       reporter = Lemon::CoverReports.const_get(format.capitalize)
       reporter.new(self)
     end
 
     #
     def reporter_list
-      Dir[File.dirname(__FILE__) + '/../view/cover_reports/*.rb'].map do |rb|
+      Dir[File.dirname(__FILE__) + '/formats/*.rb'].map do |rb|
         File.basename(rb).chomp('.rb')
       end
     end
 
-  end#class Coverage
+  end
 
-end#module Lemon
-
+end
