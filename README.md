@@ -1,8 +1,8 @@
 # Lemon
 
-Homepage(http://rubyworks.github.com/lemon) |
-Development(http://github.com/rubyworks/lemon) |
-Issues(http://github.com/rubyworks/lemon/issues)
+[Homepage](http://rubyworks.github.com/lemon) |
+[Development](http://github.com/rubyworks/lemon) |
+[Issues](http://github.com/rubyworks/lemon/issues)
 
 
 ## DESCRIPTION
@@ -62,7 +62,7 @@ In conjunction with the #setup methods, there is a #teardown method which can be
 
 Lastly, there are the `before` and `after` methods which can be used only once for each test case. The `before` method defines a procedure to run before any of the test case's units are run, and the `after` method defines a procedure to run after that are all finished.
 
-That is the bulk of the matter for writing Lemon tests. There are few other features not mentions here. You can learn more about hose by reading the wiki(http://wiki.github.com/proutils/lemon).
+That is the bulk of the matter for writing Lemon tests. There are few other features not mentioned here. You can learn more about those by reading the [Lemon Wiki](http://wiki.github.com/rubyworks/lemon).
 
 
 ### Running Tests
@@ -79,7 +79,7 @@ Normal output is typical _dot-progress_. Other output types can be specified by 
 
     $ ruby-test -r lemon -f tap test/cases/name_case.rb
 
-See {Ruby Test}[http://rubyworks.github.com/test] for more information.
+See [Ruby Test](http://rubyworks.github.com/test) for more information.
 
 ### Checking Test Coverage
 
