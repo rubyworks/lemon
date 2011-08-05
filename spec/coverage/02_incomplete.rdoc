@@ -24,19 +24,19 @@ Given an example script in 'lib/incomplete_example.rb' as follows:
 
 And given a test case in 'test/incomplete_example_case.rb' as follows:
 
-    covers 'incomplete_example.rb'
+    Test.covers 'incomplete_example.rb'
 
-    testcase I1 do
-      unit :f1 do
+    Test.class I1 do
+      method :f1 do
         test "Returns a String"
       end
-      unit :f2 do
+      method :f2 do
         test "Returns a String"
       end
     end
 
-    testcase I2 do
-      unit :x1 do
+    Test.class I2 do
+      method :x1 do
         test "Does not exist"
       end
     end

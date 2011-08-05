@@ -12,15 +12,15 @@ Given an example script in 'lib/extensions_example.rb' as follows:
 
 And given a test case in 'test/extensions_example_case.rb' as follows:
 
-    covers 'extensions_example.rb'
+    Test.covers 'extensions_example.rb'
 
-    tests Kernel do
-      unit :f1 do
+    Test.module Kernel do
+      method :f1 do
         test do
           fl.assert == "f1"
         end
       end
-      unit :f2 do
+      method :f2 do
         test do
           f2.assert == "f2"
         end

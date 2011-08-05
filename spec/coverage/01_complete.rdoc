@@ -20,22 +20,22 @@ Given an example script in 'lib/complete_example.rb' as follows:
 
 And given a test case in 'test/complete_example_case.rb' as follows:
 
-    covers 'complete_example.rb'
+    Covers 'complete_example.rb'
 
-    testcase C1 do
-      unit :f1 do 
+    TestClass C1 do
+      method :f1 do 
         test "Returns a String"
       end
-      unit :f2 do
+      method :f2 do
         test "Returns a String"
       end
-      unit :f3 do
+      method :f3 do
         test "Returns a String"
       end
     end
 
-    testcase C2 do
-      unit :g1 do
+    TestClass C2 do
+      method :g1 do
         test "Returns a String"
       end
     end
@@ -82,28 +82,28 @@ We will use the same example classes as above, but in this case we will
 add coverage for private and protected methods as well, given a test case
 in 'test/complete_example_case.rb' as follows:
 
-    covers 'complete_example.rb'
+    Covers 'complete_example.rb'
 
-    testcase C1 do
-      unit :f1 do
+    TestClass C1 do
+      method :f1 do
         test "Returns a String"
       end
-      unit :f2 do
+      method :f2 do
         test "Returns a String"
       end
-      unit :f3 do
+      method :f3 do
         test "Returns a String"
       end
     end
 
-    testcase C2 do
-      unit :g1 do
+    TestClass C2 do
+      method :g1 do
         test "Returns a String"
       end
-      unit :g2 do
+      method :g2 do
         test "Returns a String"
       end
-      unit :g3 do
+      method :g3 do
         test "Returns a String"
       end
     end
