@@ -27,6 +27,7 @@ Say our library 'mylib.rb' consists of the class X:
 
 The simplest test case would be written as follows:
 
+``` ruby
     Test.covers 'mylib'
 
     Test.class X do
@@ -37,24 +38,27 @@ The simplest test case would be written as follows:
         end
       end
     end
+```
 
 The `Covers` method works just like `require` with the exception that Lemon records the file for reference --under certain scenarios it can be used to improve overall test covered.
 
 As tests grow, we might need to organize them into special concerns. For this Lemon provides a #concern method and a #setup method. Technically the two methods are the same, but #concern is used more for descriptive purposes whereas #setup is used to create an instance of the test case's target class.
 
+``` ruby
     Test.covers 'mylib'
 
     Test.class X do
       method :a do
         setup "Description of concern that the following unit tests address." do
-          X.new
+          @x = X.new
         end
 
-        test "method #a does something expected" do |x|
-          x.a.assert.is_a? String
+        test "method #a does something expected" do
+          @x.a.assert.is_a? String
         end
       end
     end
+```
 
 Notice that the parameter passed to the block of `unit` method is the instance of `X` created in the `setup` block. This block is run for every subsequent `Unit` until a new concern is defined.
 
