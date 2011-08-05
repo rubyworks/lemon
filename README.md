@@ -21,23 +21,25 @@ notation is no longer supported. Use `unit :name do test "description"` instead.
 
 Say our library 'mylib.rb' consists of the class X:
 
-    class X
-      def a; "a"; end
-    end
+``` ruby
+class X
+  def a; "a"; end
+end
+```
 
 The simplest test case would be written as follows:
 
 ``` ruby
-    Test.covers 'mylib'
+Test.covers 'mylib'
 
-    Test.class X do
-      method :a do
-        test "method #a does something expected" do
-          x = X.new
-          x.a.assert.is_a? String
-        end
-      end
+Test.unit X do
+  unit :a do
+    test "method #a does something expected" do
+      x = X.new
+      x.a.assert.is_a? String
     end
+  end
+end
 ```
 
 The `Covers` method works just like `require` with the exception that Lemon records the file for reference --under certain scenarios it can be used to improve overall test covered.
@@ -45,19 +47,19 @@ The `Covers` method works just like `require` with the exception that Lemon reco
 As tests grow, we might need to organize them into special concerns. For this Lemon provides a #concern method and a #setup method. Technically the two methods are the same, but #concern is used more for descriptive purposes whereas #setup is used to create an instance of the test case's target class.
 
 ``` ruby
-    Test.covers 'mylib'
+Test.covers 'mylib'
 
-    Test.class X do
-      method :a do
-        setup "Description of concern that the following unit tests address." do
-          @x = X.new
-        end
+Test.unit X do
+  setup "Description of setup." do
+    @x = X.new
+  end
 
-        test "method #a does something expected" do
-          @x.a.assert.is_a? String
-        end
-      end
+  unit :a do
+    test "method #a does something expected" do
+      @x.a.assert.is_a? String
     end
+  end
+end
 ```
 
 Notice that the parameter passed to the block of `unit` method is the instance of `X` created in the `setup` block. This block is run for every subsequent `Unit` until a new concern is defined.
