@@ -1,9 +1,14 @@
-require 'lemon/controller/coverage_analyzer'
-
 module Lemon
 
+  require 'lemon/coverage/analyzer'
+
+  # Test Scaffold Generator.
   #
-  class ScaffoldGenerator
+  #--
+  # TODO: The options  for selecting all, covered and uncovered still
+  #       need some work.
+  #++
+  class Generator
 
     # New Scaffold Generator.
     #
@@ -15,8 +20,18 @@ module Lemon
 
       @namespaces = options[:namespaces]
       @private    = options[:private]
+
+      @covered    = options[:covered]
       @uncovered  = options[:uncovered]
+
       @all        = options[:all]
+
+      if @namespaces
+        unless @covered or @uncovered
+          @all = true 
+        end
+      end
+
     end
 
     # Returns CoverageAnalyzer instance.
@@ -90,13 +105,23 @@ module Lemon
       code = []
       mods = units.group_by{ |u| u.namespace }
       mods.each do |mod, units|
-        code << "TestCase #{mod} do"
+        if Class === mod
+          code << "TestClass #{mod} do"
+        else
+          code << "TestModule #{mod} do"
+        end
         units.each do |unit|
           next unless private? or unit.public?
           if unit.function?
-            code << "\n  MetaUnit :#{unit.method} => '' do\n\n  end"
+            code << "\n  ClassMethod :#{unit.method} do"
+            code << "\n    Test '' do"
+            code << "\n    end"
+            code << "end"
           else
-            code << "\n  Unit :#{unit.method} => '' do\n\n  end"
+            code << "\n  Method :#{unit.method} do"
+            code << "\n    Test '' do"
+            code << "\n    end"
+            code << "\n  end"
           end
         end
         code << "\nend\n"

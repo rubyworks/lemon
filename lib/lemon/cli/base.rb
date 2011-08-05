@@ -80,6 +80,12 @@ module Lemon
         end
       end
 
+      def option_covered
+        option_parser.on('-c', '--covered', 'include covered units') do
+          options[:covered] = true
+        end
+      end
+
       def option_uncovered
         option_parser.on('-u', '--uncovered', 'include only uncovered units') do
           options[:uncovered] = true

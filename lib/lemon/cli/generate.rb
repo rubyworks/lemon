@@ -34,6 +34,7 @@ module Lemon
         #option_parser.separator("Generate test scaffolding.")
 
         option_namespaces
+        option_covered
         option_uncovered
         option_all
         option_private
