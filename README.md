@@ -7,19 +7,18 @@
 
 ## DESCRIPTION
 
-Lemon is a Unit Testing Framework that enforces a test case construction mirroring the class/module and method design of the target system. Arguably this promotes the proper technique for unit testing and helps ensure good test coverage.
+Lemon is a Unit Testing Framework that enforces a strict test structure mirroring the class/module and method structure of the target code. Arguably this promotes the proper technique for low-level unit testing and helps ensure good test coverage.
 
-The difference between unit testing and functional testing, and all other forms of testing for that matter, is simply a matter of where the *concern* lies. The concerns of unit testing are the concerns of unit tests -- the individual methods.
+The difference between unit testing and functional testing, and all other forms of testing for that matter, is simply a matter of where the testing *concern* lies. The concerns of unit testing are the concerns of unit tests --the individual methods.
 
-IMPORTANT! As of v0.9+ the API has changed. The `unit :name => "description"`
-notation is no longer supported. Use `unit :name do test "description"` instead.
+IMPORTANT! As of v0.9+ the API has changed. The `unit :name => "description"` notation is no longer supported.
 
 
 ## HOW TO USE
 
 ### Writing Tests
 
-Say our library 'mylib.rb' consists of the class X:
+Let's say we have a script 'mylib.rb' consisting of the class X:
 
 ``` ruby
 class X
@@ -32,8 +31,8 @@ The simplest test case would be written as follows:
 ``` ruby
 Test.covers 'mylib'
 
-Test.unit X do
-  unit :a do
+Test.class X do
+  method :a do
     test "method #a does something expected" do
       x = X.new
       x.a.assert.is_a? String
@@ -49,12 +48,12 @@ As tests grow, we might need to organize them into special concerns. For this Le
 ``` ruby
 Test.covers 'mylib'
 
-Test.unit X do
+Test.class X do
   setup "Description of setup." do
     @x = X.new
   end
 
-  unit :a do
+  method :a do
     test "method #a does something expected" do
       @x.a.assert.is_a? String
     end

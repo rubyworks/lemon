@@ -1,21 +1,22 @@
 #!/usr/bin/env ruby
 
-require './lib/lemon/rake'
+require 'test/rake'
 
-Lemon::Rake::TestTask.new do |t|
-  t.format = 'verbose'
+Test::Rake::TestTask.new do |t|
+  t.tests    << 'test/*.rb'
+  t.loadpath << 'test/fixtures'
 end
 
 namespace :test do
 
   desc 'run lemon unit tests (via shell command)'
   task :unit do
-    sh 'lemon -Itest/fixtures test/*.rb'
+    sh 'lemonade test -Itest/fixtures test/*.rb'
   end
 
   desc 'run qed demonstration tests'
   task :qed do
-    sh 'qed'
+    sh 'qed -Ilib qed/'
   end
 
 end
