@@ -28,20 +28,20 @@ end
 A simplistic test case for this class would be written as follows:
 
 ``` ruby
-covers 'mylib'
+Covers 'mylib'
 
-test_class X do
+TestClass X do
 
-  setup "Description of setup." do
+  Setup "Description of setup." do
     @x = X.new
   end
 
-  unit :a do
-    test "method #a does something expected" do
+  Unit :a do
+    Test "method #a does something expected" do
       @x.a.assert.is_a? String
     end
 
-    test "method #a does something else expected" do
+    Test "method #a does something else expected" do
       @x.a.assert == "x"
     end
   end
