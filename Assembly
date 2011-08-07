@@ -22,22 +22,16 @@ yard:
   yardopts: true  
   priority: 2
 
+qed:
+  files: spec
+
 qedoc:
   title: Lemony Testing
+  files: spec
   output: QED.rdoc
 
-cucumber:
-  service : Custom
-  test    : |
-    system 'cucumber -q -f progress test/cli'
-
-lemon:
-  service : Custom
-  test    : |
-    system 'lemon -Itest/fixtures test/*.rb'
-
 vclog:
-  output   : 
+  output: 
     - log/AHISTORY.rdoc
     - log/CHANGELOG.rdoc
 
