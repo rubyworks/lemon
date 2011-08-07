@@ -140,7 +140,7 @@ module Lemon
     def run(test, &block)
       target = self.target
 
-      raise Pending unless test.procedure
+      raise NotImplementedError unless test.procedure
 
       begin
         target_class.class_eval do
@@ -168,9 +168,9 @@ module Lemon
       if !test.tested
         #exception = Untested.new("#{test.target} not tested")
         if RUBY_VERSION < '1.9'
-          Kernel.eval %[raise Pending, "#{target} not tested"], test.to_proc
+          Kernel.eval %[raise NotImplementedError, "#{target} not tested"], test.to_proc
         else
-          Kernel.eval %[raise Pending, "#{target} not tested"], test.to_proc.binding
+          Kernel.eval %[raise NotImplementedError, "#{target} not tested"], test.to_proc.binding
         end
       end
     end
@@ -216,7 +216,7 @@ module Lemon
 
       # TODO: Should TestMethod context handle sub-contexts?
       def Context(description, &block)
-        @context.tests << TestMethod.new(@context, @context.target, :aspect=>description, &block)
+        @context.tests << TestMethod.new(@context, :target=>@context.target, :description=>description, &block)
       end
       alias_method :context, :Context
 
@@ -243,12 +243,12 @@ module Lemon
       # Omit a test from testing.
       #
       # @example
-      #   omit test do
+      #   skip test do
       #     ...
       #   end
       #
-      def omit(test)
-        test.omit = true
+      def skip(test)
+        test.skip = true
       end
       alias_method :Omit, :omit
 =end
