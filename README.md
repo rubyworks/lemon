@@ -1,6 +1,7 @@
 # Lemon
 
 [Homepage](http://rubyworks.github.com/lemon) |
+[User Guide](http://wiki.github.com/rubyworks/lemon) |
 [Development](http://github.com/rubyworks/lemon) |
 [Issues](http://github.com/rubyworks/lemon/issues)
 
@@ -14,9 +15,7 @@ The difference between unit testing and functional testing, and all other forms 
 IMPORTANT! As of v0.9+ the API has changed. The `unit :name => "description"` notation is no longer supported.
 
 
-## HOW TO USE
-
-### Writing Tests
+## EXAMPLE
 
 Let's say we have a script 'mylib.rb' consisting of the class X:
 
@@ -26,36 +25,12 @@ class X
 end
 ```
 
-The simplest test case would be written as follows:
+A simplistic test case for this class would be written as follows:
 
 ``` ruby
 covers 'mylib'
 
-testcase_for_class X do
-
-  unit :a do
-    test "method #a does something expected" do
-      x = X.new
-      x.a.assert.is_a? String
-    end
-
-    test "method #a does something else expected" do
-      x = X.new
-      x.a.assert == "x"
-    end
-  end
-
-end
-```
-
-The `Covers` method works just like `require` with the exception that Lemon records the file for reference --under certain scenarios it can be used to improve overall test covered.
-
-As tests grow, we might need to organize them into special concerns. For this Lemon provides a #concern method and a #setup method. Technically the two methods are the same, but #concern is used more for descriptive purposes whereas #setup is used to create an instance of the test case's target class.
-
-``` ruby
-covers 'mylib'
-
-testcase_for_class X do
+test_class X do
 
   setup "Description of setup." do
     @x = X.new
@@ -74,14 +49,16 @@ testcase_for_class X do
 end
 ```
 
-Notice that the parameter passed to the block of `unit` method is the instance of `X` created in the `setup` block. This block is run for every subsequent `test` until a new setup/concern is defined.
+The `covers` method works just like `require` with the exception that it records the file for reference --under certain scenarios it can be used to improve test coverage analysis.
+
+The setup is run for every subsequent `test` until a new setup (also called the _concern_) is defined.
 
 In conjunction with the #setup methods, there is a #teardown method which can be used "tidy-up" after each unit run if need be.
 
-Lastly, there are the `before` and `after` methods which can be used only once for each test case. The `before` method defines a procedure to run before any of the test case's units are run, and the `after` method defines a procedure to run after that are all finished.
+That is the bulk of the matter for writing Lemon tests. There are few other features not mentioned here. You can learn more about those by reading the [User Guide](http://wiki.github.com/rubyworks/lemon).
 
-That is the bulk of the matter for writing Lemon tests. There are few other features not mentioned here. You can learn more about those by reading the [Lemon Wiki](http://wiki.github.com/rubyworks/lemon).
 
+## USAGE
 
 ### Running Tests
 
