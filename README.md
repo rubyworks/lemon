@@ -17,6 +17,9 @@ IMPORTANT! As of v0.9+ the API has changed. The `unit :name => "description"` no
 
 ## EXAMPLE
 
+Lemon tests are broken down into target class or module and target methods.
+Withn these lie the acutal tests.
+
 Let's say we have a script 'mylib.rb' consisting of the class X:
 
 ``` ruby
@@ -25,7 +28,7 @@ class X
 end
 ```
 
-A simplistic test case for this class would be written as follows:
+An test case for the class would be written:
 
 ``` ruby
 Covers 'mylib'
@@ -37,6 +40,7 @@ TestClass X do
   end
 
   Unit :a do
+
     Test "method #a does something expected" do
       @x.a.assert.is_a? String
     end
@@ -44,6 +48,7 @@ TestClass X do
     Test "method #a does something else expected" do
       @x.a.assert == "x"
     end
+
   end
 
 end
@@ -51,9 +56,9 @@ end
 
 The `covers` method works just like `require` with the exception that it records the file for reference --under certain scenarios it can be used to improve test coverage analysis.
 
-The setup (also called the *concern*) is run for every subsequent `test` until a new setup is defined.
+The setup (also called the *concern*) is run for every subsequent test until a new setup is defined.
 
-In conjunction with the `#setup` method, there is a `#teardown` method which can be used "tidy-up" after each unit run if need be.
+In conjunction with the `#setup` method, there is a `#teardown` method which can be used "tidy-up" after each test if need be.
 
 That is the bulk of the matter for writing Lemon tests. To learn about additonal features not mentioned here, check-out the [User Guide](http://wiki.github.com/rubyworks/lemon).
 

@@ -3,8 +3,8 @@
 require 'test/rake'
 
 Test::Rake::TestTask.new do |t|
-  t.tests    << 'test/*.rb'
-  t.loadpath << 'test/fixtures'
+  t.libs  << 'test/fixtures'
+  t.tests << 'test/*.rb'
 end
 
 namespace :test do

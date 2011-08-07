@@ -9,7 +9,7 @@ test_class Example do
     end
 
     test "pending" do
-      raise Pending
+      raise NotImplementedError
     end
 
   end

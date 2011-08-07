@@ -1,6 +1,4 @@
-# DEVELOPER'S NOTES
-
-## 2011-07-07 | Nomenclature
+# 2011-07-07 | Nailing Down the Nomenclature
 
 I have finally settled on `test_class` and `test_module` as thew new toplevel method for defining Lemon test cases. I decided against reusing `test_case` from Citron b/c I determined it is best that these types of test cases not be mixed together, but rather stay cleanly separated.
 
