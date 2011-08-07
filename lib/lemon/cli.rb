@@ -9,6 +9,7 @@ module Lemon
     cmd = argv.shift
     case cmd
     when 'test'
+      require 'lemon'
       require 'test/cli'
       Test::Runner.cli(*ARGV)
       #Lemon::CLI::Test.new.run(argv)

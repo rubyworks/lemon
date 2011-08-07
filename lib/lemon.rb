@@ -16,42 +16,35 @@ module Lemon
 
 end
 
-require 'lemon/test_module'
+require 'citron'
+require 'lemon/test_class'
 
-module Test
-  extend self
+module Lemon
 
-  $TEST_SUITE ||= []
+  module DSL
 
-  #
-  def covers(script)
-    #TODO: record covers list somewhere
-    require script
+    def covers(script)
+      #TODO: record coverage list
+      require script
+    end
+    alias :Covers :covers
+
+    # Define a module test case.
+    def test_module(target, &block)
+      $TEST_SUITE << Lemon::TestModule.new(target, &block)
+    end
+    alias :TestModule :test_module
+
+    # Define a class test case.
+    def test_class(target, &block)
+      raise unless Class === target
+      $TEST_SUITE << Lemon::TestModule.new(target, &block)
+    end
+    alias :TestClass :test_class
+
   end
-  alias :Covers :covers
 
-  # Define a class test.
-  def class(target_class, &block)
-    $TEST_SUITE << Lemon::TestModule.new(nil, :target=>target_class, &block)
-  end
-  alias :Class :class
-
-  # Define a module test.
-  def module(target_module, &block)
-    $TEST_SUITE << Lemon::TestModule.new(nil, :target=>target_module, &block)
-  end
-  alias :Module :module
 end
 
+extend Lemon::DSL
 
-def self.Covers(*args, &block)
-  Test.covers(*args, &block)
-end
-
-def self.TestClass(*args, &block)
-  Test.class(*args, &block)
-end
-
-def self.TestModule(*args, &block)
-  Test.module(*args, &block)
-end

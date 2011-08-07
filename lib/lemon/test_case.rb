@@ -1,7 +1,3 @@
-#require 'lemon/model/pending'
-#require 'lemon/model/test_context'
-#require 'lemon/model/test_base_dsl'
-
 require 'lemon/test_advice'
 require 'lemon/test_subject'
 

@@ -9,25 +9,32 @@ module Lemon
   class TestModule < TestCase
 
     # New unit test.
-    def initialize(context, settings={}, &block)
-      if context
-        @context   = context
-        @advice    = context.advice.clone
-      else
-        @context   = nil
-        @advice    = TestAdvice.new
-      end
+    def initialize(target, settings={}, &block)
+      @target      = target
 
-      @target      = settings[:target]
+      validate_target
+
+      @context     = settings[:context]
       @description = settings[:description]
       @subject     = settings[:subject]
       @skip        = settings[:skip]
+
+      if @context
+        @advice    = @context.advice.clone
+      else
+        @advice    = TestAdvice.new
+      end
 
       @tests       = []
 
       @tested      = false
 
       evaluate(&block) if block
+    end
+
+    #
+    def validate_target
+      raise "#{@target} is not a module" unless Module === @target
     end
 
     #def evaluate(&block)
@@ -83,7 +90,11 @@ module Lemon
       end
 
       # Capitalized alias for #method.
-      alias_method :method, :Method
+      alias :method :Method
+
+      # Unit nomenclature.
+      alias :Unit :Method
+      alias :unit :Method
 
       # Define a class-method unit test for this case.
       #
@@ -104,29 +115,35 @@ module Lemon
       alias :Function :ClassMethod
       alias :function :ClassMethod
 
+      # Unit nomenclature.
+      alias :ClassUnit :ClassMethod
+      alias :class_unit :ClassMethod
+
       # TODO: Should we allow subcases here?
       def Context(description, &block)
         @context.tests << TestModule.new(
-          @context,
-          :target      => @context.target,
+          @context.target,
+          :context     => @context,
           :description => description,
           &block
         )
       end
-      alias_method :context, :Context
 
-      # TODO: Should we allow general test units?
-      def Test(description, &procedure)
-        test = TestUnit.new(
-          @context, 
-          :description => description,
-          :subject     => @subject,
-          &procedure
-        )
-        @context.tests << test
-        test
-      end
-      alias_method :test, :Test
+      alias :context :Context
+
+#      # TODO: Should we allow general test units?
+#      def Test(description, &procedure)
+#        test = TestUnit.new(
+#          @context, 
+#          :description => description,
+#          :subject     => @subject,
+#          &procedure
+#        )
+#        @context.tests << test
+#        test
+#      end
+#
+#      alias :test :Test
 
     end
 
