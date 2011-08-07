@@ -31,13 +31,15 @@ The simplest test case would be written as follows:
 ``` ruby
 covers 'mylib'
 
-Test.class X do
+TestClass X do
 
-  def a
-    test "method #a does something expected" do
+  Unit :a do
+
+    Test "method #a does something expected" do
       x = X.new
       x.a.assert.is_a? String
     end
+
   end
 
 end
@@ -50,16 +52,18 @@ As tests grow, we might need to organize them into special concerns. For this Le
 ``` ruby
 covers 'mylib'
 
-Test.class X do
+TestClass X do
 
-  setup "Description of setup." do
+  Setup "Description of setup." do
     @x = X.new
   end
 
-  def a
-    test "method #a does something expected" do
+  Unit :a do
+
+    Test "method #a does something expected" do
       @x.a.assert.is_a? String
     end
+
   end
 
 end
