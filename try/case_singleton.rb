@@ -1,6 +1,6 @@
-Test.covers 'example.rb'
+covers 'example.rb'
 
-Test.class Example.singleton_class do
+test_class Example.singleton_class do
 
   method :m do
 

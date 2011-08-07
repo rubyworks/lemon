@@ -51,11 +51,11 @@ end
 
 The `covers` method works just like `require` with the exception that it records the file for reference --under certain scenarios it can be used to improve test coverage analysis.
 
-The setup is run for every subsequent `test` until a new setup (also called the _concern_) is defined.
+The setup (also called the *concern*) is run for every subsequent `test` until a new setup is defined.
 
-In conjunction with the #setup methods, there is a #teardown method which can be used "tidy-up" after each unit run if need be.
+In conjunction with the `#setup` method, there is a `#teardown` method which can be used "tidy-up" after each unit run if need be.
 
-That is the bulk of the matter for writing Lemon tests. There are few other features not mentioned here. You can learn more about those by reading the [User Guide](http://wiki.github.com/rubyworks/lemon).
+That is the bulk of the matter for writing Lemon tests. To learn about additonal features not mentioned here, check-out the [User Guide](http://wiki.github.com/rubyworks/lemon).
 
 
 ## USAGE
@@ -103,6 +103,6 @@ Lemon Unit Testing Framework
 
 Copyright (c) 2009 Thomas Sawyer 
 
-Lemon is distributed according to the terms of the *FreeBSD* License.
+Lemon is distributed according to the terms of the _FreeBSD_ License.
 
 See the COPYING.rdoc file for details.

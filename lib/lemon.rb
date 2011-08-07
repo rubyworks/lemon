@@ -16,7 +16,8 @@ module Lemon
 
 end
 
-require 'citron'
+$TEST_SUITE ||= []
+
 require 'lemon/test_class'
 
 module Lemon

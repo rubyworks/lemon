@@ -1,6 +1,6 @@
-Test.covers 'example.rb'
+covers 'example.rb'
 
-Test.class Example do
+test_class Example do
 
   method :f do
 

@@ -1,6 +1,6 @@
-Test.covers 'example.rb'
+covers 'example.rb'
 
-Test.class Example do
+test_class Example do
 
   method :f do
 
@@ -21,7 +21,7 @@ Test.class Example do
       @ex = Example.new(2)
     end
 
-    test "1,2" do |ex|
+    test "1,2" do
       @ex.f(1,2).assert == 4
     end
 
