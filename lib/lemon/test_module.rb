@@ -14,22 +14,22 @@ module Lemon
       super(settings)
     end
 
-    #
+    # Make sure the target is a module.
     def validate_settings
       raise "#{@target} is not a module" unless Module === @target
     end
 
-    #
+    # The type of test case.
     def type
       'Module'
     end    
 
-    #
+    # Gives the name of the target module.
     def to_s
       target.to_s
     end
 
-    #
+    # Evaluation scope for TestModule.
     class Scope < TestCase::Scope
 
       # Define a method/unit subcase for the class/module testcase.

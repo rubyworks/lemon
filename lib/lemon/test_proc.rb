@@ -1,9 +1,10 @@
 module Lemon
 
+  # Test procedure.
   #
-  class TestUnit
+  class TestProc
 
-    # New unit test procedure.
+    # New test procedure.
     #
     def initialize(settings={}, &procedure)
       @context = settings[:context]
@@ -33,23 +34,10 @@ module Lemon
     #
     #attr :caller
 
-    # 
+    # Target method of context.
     def target
       context.target
     end
-
-    # The before and after advice from the context.
-    #def advice
-    #  context.advice
-    #end
-
-    #
-    #def name ; @target ; end
-
-    # Is this unit test for a class or module level method?
-    #def function?
-    #  context.function?
-    #end
 
     #
     attr_accessor :skip
@@ -59,17 +47,8 @@ module Lemon
       @skip
     end
 
-    #
+    # Has this test been executed?
     attr_accessor :tested
-
-    #
-    #def to_s
-    #  if function?
-    #    "#{test_case}.#{target}"
-    #  else
-    #    "#{test_case}##{target}"
-    #  end
-    #end
 
     #
     def to_s
@@ -87,6 +66,15 @@ module Lemon
     #    a  = /^[aeiou]/i =~ test_case.to_s ? 'An' : 'A'
     #    #"#{a} #{test_case} receiving ##{target} #{aspect}"
     #    "#{test_case}##{target} #{context} #{aspect}".strip
+    #  end
+    #end
+
+    #
+    #def name
+    #  if function?
+    #    "#{test_case}.#{target}"
+    #  else
+    #    "#{test_case}##{target}"
     #  end
     #end
 
@@ -122,20 +110,6 @@ module Lemon
     end
 
 =begin
-    # The file method returns the file name of +caller+ which
-    # was created upon initialization of this object. It is
-    # also the first element of #file_and_line.
-    #
-    # Returns file name of caller.
-    def file
-      file_and_line.first
-    end
-
-    # Returns line number of caller.
-    def line
-      file_and_line.last
-    end
-
     # The file_and_line method returns the file name and line number of
     # the caller created upon initialization of this object.
     #
@@ -145,7 +119,7 @@ module Lemon
     #   file_and_line #=> ['foo_test.rb', 123]
     #
     # Returns Array of file name and line number of caller.
-    def file_and_line
+    def source_location
       @file_and_line ||= (
         line = caller[0]
         i = line.rindex(':in')

@@ -1,24 +1,9 @@
 module Lemon
 
+  # The World module is the base class for all Lemon test scopes.
+  # To add test specific helper methods for your tests, place them here.
+  #
   class World < Module
-
-    #def omit(message)
-    #  err = NotImplementedError.new(message)
-    #  err.set_assertion(true)
-    #  raise err
-    #end
-
   end
 
-end
-
-#
-class Omission < NotImplementedError
-  def assertion?
-    true
-  end
-  def to_proc
-    error = self
-    lambda{ raise error }
-  end
 end

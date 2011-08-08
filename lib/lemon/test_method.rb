@@ -1,7 +1,7 @@
 module Lemon
 
   require 'lemon/test_case'
-  require 'lemon/test_unit'
+  require 'lemon/test_proc'
 
   # The TestMethod class is a special TestCase that requires
   # a particular target method be tested.
@@ -9,19 +9,23 @@ module Lemon
   class TestMethod < TestCase
 
     # New unit test.
+    #
+    # @option settings [Boolean] :function
+    #   Is the target method a class method, or not.
+    #
     def initialize(settings={}, &block)
       @tested   = false
       @function = settings[:function]
       super(settings)
     end
 
-    #
+    # Validate that a context and target method have been supplied.
     def validate_settings
       raise "method test has no module or class context" unless @context
       raise "#{@target} is not a method name" unless Symbol === @target
     end
 
-    #
+    # Type is either `Method` or `Function` (a function is a class method).
     def type
       if function?
         'Function'
@@ -38,37 +42,26 @@ module Lemon
       @function
     end
 
-    #
-    alias_method :class_method?, :function?
+    # A function is also known as a "class method".
+    alias :class_method? :function?
 
     # If class method, returns target method's name prefixed with double colons.
     # If instance method, then returns target method's name prefixed with hash
     # character.
-    def to_s
-      if function?
-        "::#{target}"
-      else
-        "##{target}"
-      end
+    def name
+      function? ? "::#{target}" : "##{target}"
     end
 
-    #
-    #def description
-    #  if function?
-    #    #"#{context} .#{target} #{aspect}"
-    #    "#{context}.#{target} #{context} #{aspect}".strip
-    #  else
-    #    a  = /^[aeiou]/i =~ context.to_s ? 'An' : 'A'
-    #    #"#{a} #{context} receiving ##{target} #{aspect}"
-    #    "#{context}##{target} #{context} #{aspect}".strip
-    #  end
-    #end
+    # TODO: If sub-cases are to be supported than we need to incorporate
+    #       the label into to_s.
 
-    #def name
-    #  function? ? "::#{target}" : "##{target}"
-    #end
+    # Returns the prefixed method name.
+    def to_s
+      function? ? "::#{target}" : "##{target}"
+    end
 
-    # Returns the fully qulaified name of the target method.
+    # Returns the fully qulaified name of the target method. This is
+    # the standard interface used by Ruby Test.
     def unit
       function? ? "#{context}.#{target}" : "#{context}##{target}"
     end
@@ -80,6 +73,9 @@ module Lemon
     #
     # @param [TestProc] test
     #   The test procedure instance to run.
+    #
+    # @yield
+    #   The procedure for running the test.
     #
     def run(test, &block)
       target = self.target
@@ -122,7 +118,8 @@ module Lemon
       end
     end
 
-    #
+    # If the target method is a class method, then the target class is the
+    # meta-class, otherwise just the class itself.
     def target_class
       @target_class ||= (
         if function? 
@@ -133,6 +130,7 @@ module Lemon
       )
     end
 
+    # Scope for evaluating method test definitions.
     #
     class Scope < TestCase::Scope
 
@@ -157,7 +155,7 @@ module Lemon
       end
       alias :Test :test
 
-      #
+      # Create a sub-case ofr the method case.
       def context(label, &block)
         @_testcase.tests << TestMethod.new(
           :context => @_testcase,

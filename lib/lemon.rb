@@ -16,21 +16,35 @@ module Lemon
 
 end
 
+# Ruby Test standard location for test objects.
 $TEST_SUITE ||= []
 
 require 'lemon/test_class'
 
 module Lemon
 
+  # Lemon's toplevel test domain specific language.
   module DSL
 
+    # Require script and record it.
+    #
+    # @param [STRING] script
+    #   The load path of a script.
+    #
     def covers(script)
-      #TODO: record coverage list
+      # TODO: record coverage list
       require script
     end
     alias :Covers :covers
 
     # Define a class/module test case.
+    #
+    # @param [Module,Class] target
+    #   The class or module the tests will target.
+    #
+    # @yield
+    #   Scope in which to define unit/method testcases.
+    #
     def test_case(target, &block)
       case target
       when Class
