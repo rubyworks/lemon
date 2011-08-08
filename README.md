@@ -40,7 +40,6 @@ TestCase X do
   end
 
   Unit :a do
-
     Test "method #a does something expected" do
       @x.a.assert.is_a? String
     end
@@ -48,7 +47,6 @@ TestCase X do
     Test "method #a does something else expected" do
       @x.a.assert == "x"
     end
-
   end
 
 end
@@ -59,6 +57,8 @@ The `covers` method works just like `require` with the exception that it records
 The setup (also called the *concern*) is run for every subsequent test until a new setup is defined.
 
 In conjunction with the `#setup` method, there is a `#teardown` method which can be used "tidy-up" after each test if need be.
+
+You might have also notice by the documentation that the test methods do not have to be capitalized.
 
 That is the bulk of the matter for writing Lemon tests. To learn about additonal features not mentioned here, check-out the [User Guide](http://wiki.github.com/rubyworks/lemon).
 
@@ -108,6 +108,6 @@ Lemon Unit Testing Framework
 
 Copyright (c) 2009 Thomas Sawyer 
 
-Lemon is distributed according to the terms of the _FreeBSD_ License.
+Lemon is distributed according to the terms of the *FreeBSD* License.
 
 See the COPYING.rdoc file for details.
