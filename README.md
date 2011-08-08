@@ -33,7 +33,7 @@ An test case for the class would be written:
 ``` ruby
 Covers 'mylib'
 
-TestClass X do
+TestCase X do
 
   Setup "Description of setup." do
     @x = X.new
