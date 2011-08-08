@@ -3,7 +3,7 @@ module Lemon
   require 'lemon/test_module'
 
   # Subclass of TestModule used for classes.
-  # It's essentailly the same class.
+  # It's basically the same class.
   #
   class TestClass < TestModule
 
@@ -15,7 +15,12 @@ module Lemon
     end
 
     #
-    class DSL < TestModule::DSL
+    def type
+      'Class'
+    end    
+
+    #
+    class Scope < TestModule::Scope
     end
 
   end

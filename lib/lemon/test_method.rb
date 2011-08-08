@@ -9,27 +9,17 @@ module Lemon
   class TestMethod < TestCase
 
     # New unit test.
-    def initialize(context, settings={}, &block)
-      @context     = context
-      @advice      = context.advice.clone
-
-      @target      = settings[:target]
-      @description = settings[:description]
-      @function    = settings[:function]
-      @subject     = settings[:subject]
-      @omit        = settings[:omit]
-
-      @tests       = []
-
-      @tested      = false
-
-      evaluate(&block) if block
+    def initialize(settings={}, &block)
+      @tested   = false
+      @function = settings[:function]
+      super(settings)
     end
 
     #
-    #def evaluate(&block)
-    #  @dsl = DSL.new(self, &block)
-    #end
+    def validate_settings
+      raise "method test has no module or class context" unless @context
+      raise "#{@target} is not a method name" unless Symbol === @target
+    end
 
     #
     def type
@@ -51,7 +41,9 @@ module Lemon
     #
     alias_method :class_method?, :function?
 
-    #
+    # If class method, returns target method's name prefixed with double colons.
+    # If instance method, then returns target method's name prefixed with hash
+    # character.
     def to_s
       if function?
         "::#{target}"
@@ -72,14 +64,6 @@ module Lemon
     #  end
     #end
 
-    ## If meta-method return target method's name prefixed with double colons.
-    ## If instance method then return target method's name.
-    #def key
-    #  function? ? "::#{target}" : "#{target}"
-    #end
-
-    ## If meta-method return target method's name prefixed with double colons.
-    ## If instance method then return target method's name prefixed with hash character.
     #def name
     #  function? ? "::#{target}" : "##{target}"
     #end
@@ -88,46 +72,6 @@ module Lemon
     def unit
       function? ? "#{context}.#{target}" : "#{context}##{target}"
     end
-
-=begin
-    #
-    def start_test
-      this   = self
-      target = self.target
-
-      #raise Pending unless test.to_proc
-
-      begin
-        target_class.class_eval do
-          alias_method "_lemon_#{target}", target
-          define_method(target) do |*a,&b|
-            this.tested = true
-            __send__("_lemon_#{target}",*a,&b)
-          end
-        end
-      rescue => error
-        Kernel.eval <<-END, test.to_proc.binding
-          raise #{error.class}, "#{target} not tested"
-        END
-      end
-    end
-
-    #
-    def finish_test
-      target_class.class_eval %{
-        alias_method "#{target}", "_lemon_#{target}"
-      }
-
-      if !tested
-        #exception = Untested.new("#{test.target} not tested")
-        if RUBY_VERSION < '1.9'
-          Kernel.eval %[raise Pending, "#{target} not tested"], test.to_proc
-        else
-          Kernel.eval %[raise Pending, "#{target} not tested"], test.to_proc.binding
-        end
-      end
-    end
-=end
 
     # Run test in the context of this case. Notice that #run for
     # TestMethod is more complex than a general TestCase. This is
@@ -140,7 +84,7 @@ module Lemon
     def run(test, &block)
       target = self.target
 
-      raise NotImplementedError unless test.procedure
+      raise_pending(test.procedure) unless test.procedure
 
       begin
         target_class.class_eval do
@@ -157,7 +101,8 @@ module Lemon
       end
 
       begin
-        block.call
+        super(test, &block)
+        #block.call
 
       ensure
         target_class.class_eval %{
@@ -165,28 +110,16 @@ module Lemon
         }
       end
 
-      if !test.tested
-        #exception = Untested.new("#{test.target} not tested")
-        if RUBY_VERSION < '1.9'
-          Kernel.eval %[raise NotImplementedError, "#{target} not tested"], test.to_proc
-        else
-          Kernel.eval %[raise NotImplementedError, "#{target} not tested"], test.to_proc.binding
-        end
-      end
+      raise_pending(test.procedure) unless test.tested
     end
 
-    # The scope in which to run the test procedures.
-    def scope
-      @scope ||= (
-        #if context
-        #  scope = context.scope || Object.new
-        #  scope.extend(dsl)
-        #else
-          scope = Object.new
-          scope.extend(dsl)
-        #end
-        scope
-      )
+    #
+    def raise_pending(procedure)
+      if RUBY_VERSION < '1.9'
+        Kernel.eval %[raise NotImplementedError, "#{target} not tested"], procedure
+      else
+        Kernel.eval %[raise NotImplementedError, "#{target} not tested"], procedure.binding
+      end
     end
 
     #
@@ -201,24 +134,7 @@ module Lemon
     end
 
     #
-    class DSL < Module
-
-      include Lemon::DSL::Advice
-      include Lemon::DSL::Subject
-
-      #
-      def initialize(context, &code)
-        @context = context
-        @subject = context.subject
-
-        module_eval(&code)
-      end
-
-      # TODO: Should TestMethod context handle sub-contexts?
-      def Context(description, &block)
-        @context.tests << TestMethod.new(@context, :target=>@context.target, :description=>description, &block)
-      end
-      alias_method :context, :Context
+    class Scope < TestCase::Scope
 
       # Define a unit test for this case.
       #
@@ -227,31 +143,64 @@ module Lemon
       #     puts "Hello"
       #   end
       #
-      def Test(description=nil, &block)
-        test = TestUnit.new( 
-          @context,
-          :subject     => @subject,
-          :description => description,
+      def test(label=nil, &block)
+        block = Omission.new(@_omit).to_proc if @_omit
+        test  = TestUnit.new(
+          :context => @_testcase,
+          :setup   => @_setup,
+          :skip    => @_skip,
+          :label   => label,
           &block
         )
-        @context.tests << test
+        @_testcase.tests << test
         test
       end
-      alias_method :test, :Test
+      alias :Test :test
 
-=begin
-      # Omit a test from testing.
+      #
+      def context(label, &block)
+        @_testcase.tests << TestMethod.new(
+          :context => @_testcase,
+          :target  => @_testcase.target,
+          :setup   => @_setup,
+          :skip    => @_skip,
+          :label   => label,
+          &block
+        )
+      end
+      alias :Context :context
+
+      # Omit tests.
       #
       # @example
-      #   skip test do
-      #     ...
+      #   omit "reason" do
+      #     test do
+      #       ...
+      #     end
       #   end
       #
-      def skip(test)
-        test.skip = true
+      def omit(label=true, &block)
+        @_omit = label
+        block.call
+        @_omit = nil
       end
-      alias_method :Omit, :omit
-=end
+      alias :Omit :omit
+
+      # Skip tests. Unlike omit, skipped tests are not executed at all.
+      #
+      # @example
+      #   skip "reason" do
+      #     test do
+      #       ...
+      #     end
+      #   end
+      #
+      def skip(label=true, &block)
+        @_skip = label
+        block.call
+        @_skip = nil
+      end
+      alias :Skip :skip
 
     end
 

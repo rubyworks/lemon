@@ -1,6 +1,6 @@
 covers 'example.rb'
 
-test_class Example do
+test_case Example do
 
   method :f do 
 

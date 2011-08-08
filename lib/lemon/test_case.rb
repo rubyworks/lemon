@@ -1,65 +1,83 @@
+require 'lemon/core_ext'
 require 'lemon/test_advice'
-require 'lemon/test_subject'
+require 'lemon/test_setup'
+require 'lemon/test_world'
 
 module Lemon
 
-  # Test Case encapsulates a collection of 
-  # unit tests organized into groups of contexts.
+  # Test Case serves as the base class for Lemon's
+  # specialized test case classes.
   #
   class TestCase
 
     # The parent context in which this case resides.
     attr :context
 
-    # Description of the test case.
-    attr :description
+    # Brief description of the test case.
+    attr :label
 
-    # List of tests and sub-contexts.
-    attr :tests
-
-    #
+    # Target component.
     attr :target
 
     # The setup and teardown advice.
-    attr :subject
+    attr :setup
 
     # Advice are labeled procedures, such as before
     # and after advice.
     attr :advice
 
-    # Module for parsing test case scripts.
-    attr :dsl
+    # List of tests and sub-contexts.
+    attr :tests
 
-    #
-    attr_accessor :omit
+    # Skip execution of test case?
+    attr :skip
 
     # A test case +target+ is a class or module.
     #
-    # @param [TestSuite] context
-    #   The test suite or parent case to which this
-    #   case belongs.
+    # @param [Hash] settings
+    #   The settings used to define the test case.
     #
-    # @param [Class,Module] target
-    #   A description of the test-case's purpose.
+    # @option settings [TestCase] :context
+    #   Parent test case.
     #
-    def initialize(context, settings={}, &block)
-      if context
-        @context = context
-        @advice  = context.advice.clone
-      end
+    # @option settings [Module,Class,Symbol] :target
+    #   The testcase's target.
+    #
+    # @option settings [String] :label
+    #   Breif description of testcase.
+    #   (NOTE: this might not be used)
+    #
+    # @option settings [TestSetup] :setup
+    #   Test setup.
+    #
+    # @option settings [Boolean] :skip
+    #   If runner should skip test.
+    #
+    def initialize(settings={}, &block)
+      @context = settings[:context]
+      @target  = settings[:target]
+      @label   = settings[:label]
+      @setup   = settings[:setup]
+      @skip    = settings[:skip]
 
-      @description = settings[:description]
-      @subject     = settings[:subject]
+      @advice  = @context ? @context.advice.dup : TestAdvice.new
 
       @tests   = []
+      @scope   = scope_class.new(self)
+
+      validate_settings
 
       evaluate(&block)
     end
 
-    # This has to be redefined in each subclass to pick
-    # up there respective DSL classes.
+    # Subclasses can override this methof to validate settings. 
+    # It is run just before evaluation of scope block.
+    def validate_settings
+    end
+
+    #
     def evaluate(&block)
-      @dsl = self.class.const_get(:DSL).new(self, &block)
+      @scope.module_eval(&block)
     end
 
     # Iterate over each test and subcase.
@@ -67,7 +85,7 @@ module Lemon
       tests.each(&block)
     end
 
-    # Number of tests plus subcases.
+    # Number of tests and subcases.
     def size
       tests.size
     end
@@ -80,12 +98,17 @@ module Lemon
 
     #
     def to_s
-      @description.to_s
+      @label.to_s
     end
 
     #
-    def omit?
-      @omit
+    def skip?
+      @skip
+    end
+
+    #
+    def skip!(reason=true)
+      @skip = reason
     end
 
     # Run test in the context of this case.
@@ -109,64 +132,135 @@ module Lemon
       end
     end
 
+    # Module for evaluating test case script.
     #
-    #--
-    # TODO: Change so that the scope is the DSL
-    #       and ** includes the DSL of the context ** !!!
-    #++
+    # @return [Scope] evaluation scope
     def scope
-      @scope ||= (
-        #if context
-        #  scope = context.scope || Object.new
-        #  scope.extend(dsl)
-        #else
-          scope = Object.new
-          scope.extend(dsl)
-        #end
-        scope
-      )
+      @scope
+    end
+
+    # Get the scope class dynamically so that each subclass
+    # of TestCase will retrieve it's own.
+    def scope_class
+      self.class.const_get(:Scope)
     end
 
     #
-    class DSL
-
-      include Lemon::DSL::Advice
-      include Lemon::DSL::Subject
+    class Scope < World
 
       #
-      def initialize(context, &code)
-        @context = context
-        @subject = context.subject
+      def initialize(testcase) #, &code)
+        @_testcase = testcase
+        @_setup    = testcase.setup
 
-        module_eval(&code)
+        extend testcase.context.scope if testcase.context
+
+        #module_eval(&code)
       end
 
-      #
       #--
-      # @TODO: Instead of resuing TestCase can we have a TestContext
-      #        that more generically mimics it's parent context?
+      # THINK: Instead of resuing TestCase can we have a TestContext
+      #        or other way to more generically mimics the parent context?
       #++
-      def Context(description, &block)
-        @context.tests << TestCase.new(
-          @context,
-          :description => description,
-          &block
-        )
-      end
-      alias_method :context, :Context
 
+      ##
+      #def context(label, &block)
+      #  @_testcase.tests << TestCase.new(
+      #    :testcase => @testcase,
+      #    :label    => label,
+      #    &block
+      #  )
+      #end
+      #alias :Context :context
+
+      # Setup is used to set things up for each unit test.
+      # The setup procedure is run before each unit.
       #
-      def Test(description=nil, &procedure)
-        test = TestUnit.new(
-          @context, 
-          :description => description,
-          :subject     => @subject,
-          &procedure
-        )
-        @context.tests << test
-        test
+      # @param [String] description
+      #   A brief description of what the setup procedure sets-up.
+      #
+      def setup(description=nil, &procedure)
+        if procedure
+          @_setup = TestSetup.new(@test_case, description, &procedure)
+        end
       end
-      alias_method :test, :Test
+      alias :Setup :setup
+
+      # Original Lemon nomenclature for `#setup`.
+      alias :concern :setup
+      alias :Concern :setup
+
+      # Teardown procedure is used to clean-up after each unit test.
+      #
+      def teardown(&procedure)
+        @_setup.teardown = procedure
+      end
+      alias :Teardown :teardown
+
+      #--
+      # TODO: Allow Before and After to handle setup and teardown?
+      #       But that would only allow one setup per case.
+      #++
+
+      # Define a _complex_ before procedure. The #before method allows
+      # before procedures to be defined that are triggered by a match
+      # against the unit's target method name or _aspect_ description.
+      # This allows groups of tests to be defined that share special
+      # setup code.
+      #
+      # @example
+      #   Method :puts do
+      #     Test "standard output (@stdout)" do
+      #       puts "Hello"
+      #     end
+      #
+      #     Before /@stdout/ do
+      #       $stdout = StringIO.new
+      #     end
+      #
+      #     After /@stdout/ do
+      #       $stdout = STDOUT
+      #     end
+      #   end
+      #
+      # @param [Array<Symbol,Regexp>] matches
+      #   List of match critera that must _all_ be matched
+      #   to trigger the before procedure.
+      #
+      def before(*matches, &procedure)
+        @_testcase.advice[:before][matches] = procedure
+      end
+      alias :Before :before
+
+      # Define a _complex_ after procedure. The #before method allows
+      # before procedures to be defined that are triggered by a match
+      # against the unit's target method name or _aspect_ description.
+      # This allows groups of tests to be defined that share special
+      # teardown code.
+      #
+      # @example
+      #   Method :puts do
+      #     Test "standard output (@stdout)" do
+      #       puts "Hello"
+      #     end
+      #
+      #     Before /@stdout/ do
+      #       $stdout = StringIO.new
+      #     end
+      #
+      #     After /@stdout/ do
+      #       $stdout = STDOUT
+      #     end
+      #   end
+      #
+      # @param [Array<Symbol,Regexp>] matches
+      #   List of match critera that must _all_ be matched
+      #   to trigger the after procedure.
+      #
+      def after(*matches, &procedure)
+        @_testcase.advice[:after][matches] = procedure
+      end
+      alias :After :after
 
     end
 

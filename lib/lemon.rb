@@ -30,22 +30,27 @@ module Lemon
     end
     alias :Covers :covers
 
-    # Define a module test case.
-    def test_module(target, &block)
-      $TEST_SUITE << Lemon::TestModule.new(target, &block)
+    # Define a class/module test case.
+    def test_case(target, &block)
+      case target
+      when Class
+        $TEST_SUITE << Lemon::TestClass.new(:target=>target, &block)
+      when Module
+        $TEST_SUITE << Lemon::TestModule.new(:target=>target, &block)
+      else
+        if defined?(super)
+          super(target, &block)
+        else
+          raise
+        end
+      end
     end
-    alias :TestModule :test_module
 
-    # Define a class test case.
-    def test_class(target, &block)
-      raise unless Class === target
-      $TEST_SUITE << Lemon::TestModule.new(target, &block)
-    end
-    alias :TestClass :test_class
+    alias :TestCase :test_case
+    alias :testcase :test_case
 
   end
 
 end
 
 extend Lemon::DSL
-

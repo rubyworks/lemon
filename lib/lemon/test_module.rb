@@ -9,44 +9,19 @@ module Lemon
   class TestModule < TestCase
 
     # New unit test.
-    def initialize(target, settings={}, &block)
-      @target      = target
-
-      validate_target
-
-      @context     = settings[:context]
-      @description = settings[:description]
-      @subject     = settings[:subject]
-      @skip        = settings[:skip]
-
-      if @context
-        @advice    = @context.advice.clone
-      else
-        @advice    = TestAdvice.new
-      end
-
-      @tests       = []
-
-      @tested      = false
-
-      evaluate(&block) if block
+    def initialize(settings={}, &block)
+      @tested = false
+      super(settings)
     end
 
     #
-    def validate_target
+    def validate_settings
       raise "#{@target} is not a module" unless Module === @target
     end
 
-    #def evaluate(&block)
-    #  @dsl = DSL.new(self, &block)
-    #end
-
+    #
     def type
-      if ::Class === target
-        'Class'
-      else
-        'Module'
-      end
+      'Module'
     end    
 
     #
@@ -55,95 +30,73 @@ module Lemon
     end
 
     #
-    class DSL < Module
+    class Scope < TestCase::Scope
 
-      include Lemon::DSL::Advice
-      include Lemon::DSL::Subject
-
-      #
-      def initialize(context, &code)
-        @context = context
-        @subject = context.subject
-
-        module_eval(&code)
-      end
-
-      # Define a method subcase for the class/module case.
+      # Define a method/unit subcase for the class/module testcase.
       #
       # @example
-      #   Method :puts do
-      #     Test "print message with new line to stdout" do
+      #   unit :puts do
+      #     test "print message with new line to stdout" do
       #       puts "Hello"
       #     end
       #   end
       #
-      def Method(method, &block)
+      def unit(method, &block)
         meth = TestMethod.new(
-          @context, 
-          :target   => method,
+          :context  => @_testcase, 
+          :setup    => @_setup,
+          :target   => method.to_sym,
           :function => false,
-          :subject  => @subject,
           &block
         )
-        @context.tests << meth
+        @_testcase.tests << meth
         meth
       end
+      alias :Unit :unit
 
-      # Capitalized alias for #method.
-      alias :method :Method
-
-      # Unit nomenclature.
-      alias :Unit :Method
-      alias :unit :Method
+      # More specific nomencalture for `#unit`.
+      alias :method :unit
+      alias :Method :unit
 
       # Define a class-method unit test for this case.
       #
-      def ClassMethod(method, &block)
+      def class_unit(method, &block)
         meth = TestMethod.new(
-          @context,
-          :target   => method,
+          :context  => @_testcase,
+          :setup    => @_setup,
+          :target   => method.to_sym,
           :function => true,
-          :subject  => @subject,
+
           &block
         )
-        @context.tests << meth
+        @_testcase.tests << meth
         meth
       end
-      alias :class_method :ClassMethod
+      alias :ClassUnit :class_unit
 
-      # Alternate alias for #ClassMethod.
+      # More specific nomencalture for `#class_unit`.
+      alias :class_method :class_unit
+      alias :ClassMethod  :class_unit
+
+      # Alternate nomenclature for class_unit.
       alias :Function :ClassMethod
       alias :function :ClassMethod
 
-      # Unit nomenclature.
-      alias :ClassUnit :ClassMethod
-      alias :class_unit :ClassMethod
+      #--
+      # TODO: Allow sub-cases?
+      #++
 
-      # TODO: Should we allow subcases here?
-      def Context(description, &block)
-        @context.tests << TestModule.new(
-          @context.target,
-          :context     => @context,
-          :description => description,
+      # Create a subcase of module testcase.
+      def context(label, &block)
+        @_testcase.tests << TestModule.new(
+          :context => @_testcase,
+          :target  => @_testcase.target,
+          :setup   => @_setup,
+          :label   => label,
           &block
         )
       end
-
-      alias :context :Context
-
-#      # TODO: Should we allow general test units?
-#      def Test(description, &procedure)
-#        test = TestUnit.new(
-#          @context, 
-#          :description => description,
-#          :subject     => @subject,
-#          &procedure
-#        )
-#        @context.tests << test
-#        test
-#      end
-#
-#      alias :test :Test
+      alias :Context :context
 
     end
 

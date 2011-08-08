@@ -5,16 +5,15 @@ module Lemon
 
     # New unit test procedure.
     #
-    def initialize(context, options={}, &procedure)
-      @context     = context
+    def initialize(settings={}, &procedure)
+      @context = settings[:context]
+      @setup   = settings[:setup]
+      @label   = settings[:label]
+      @skip    = settings[:skip]
 
-      @subject     = options[:subject]
-      @description = options[:description]
-      @omit        = options[:omit]
+      @procedure = procedure
 
-      @procedure   = procedure
-
-      @tested      = false
+      @tested    = false
     end
 
   public
@@ -23,15 +22,10 @@ module Lemon
     attr :context
 
     # Setup and teardown procedures.
-    attr :subject
-
-    # 
-    def target
-      context.target
-    end
+    attr :setup
 
     # Description of test.
-    attr :description
+    attr :label
 
     # Test procedure, in which test assertions should be made.
     attr :procedure
@@ -39,10 +33,15 @@ module Lemon
     #
     #attr :caller
 
-    # The before and after advice from the context.
-    def advice
-      context.advice
+    # 
+    def target
+      context.target
     end
+
+    # The before and after advice from the context.
+    #def advice
+    #  context.advice
+    #end
 
     #
     #def name ; @target ; end
@@ -53,11 +52,11 @@ module Lemon
     #end
 
     #
-    attr_accessor :omit
+    attr_accessor :skip
 
     #
-    def omit?
-      @omit
+    def skip?
+      @skip
     end
 
     #
@@ -74,15 +73,10 @@ module Lemon
 
     #
     def to_s
-      description.to_s
+      label.to_s
     end
 
     alias_method :name, :to_s
-
-    #
-    def scope
-      context.scope
-    end
 
     #
     #def description
@@ -96,6 +90,7 @@ module Lemon
     #  end
     #end
 
+    # TODO: handle parameterized tests
     def arguments
       []
     end
@@ -113,23 +108,18 @@ module Lemon
     end
 
     #
-    #def start_test
-    #  advice.setup(context.scope) if advice
-    #end
-
-    #
     def call
       context.run(self) do
-        subject.run_setup(scope)    if subject
+        setup.run_setup(scope)    if setup
         scope.instance_exec(*arguments, &procedure)
-        subject.run_teardown(scope) if subject
+        setup.run_teardown(scope) if setup
       end
     end
 
     #
-    #def finish_test
-    #  advice.teardown(context.scope) if advice
-    #end
+    def scope
+      context.scope
+    end
 
 =begin
     # The file method returns the file name of +caller+ which

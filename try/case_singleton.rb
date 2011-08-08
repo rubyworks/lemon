@@ -1,6 +1,6 @@
 covers 'example.rb'
 
-test_class Example.singleton_class do
+test_case Example.singleton_class do
 
   method :m do
 
