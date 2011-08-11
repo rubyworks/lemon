@@ -16,7 +16,7 @@ namespace :test do
 
   desc 'run qed demonstration tests'
   task :qed do
-    sh 'qed -Ilib qed/'
+    sh 'qed -Ilib spec/'
   end
 
 end

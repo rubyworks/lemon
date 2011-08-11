@@ -12,9 +12,9 @@ Given an example script in 'lib/extensions_example.rb' as follows:
 
 And given a test case in 'test/extensions_example_case.rb' as follows:
 
-    Test.covers 'extensions_example.rb'
+    Covers 'extensions_example.rb'
 
-    Test.module Kernel do
+    TestCase Kernel do
       method :f1 do
         test do
           fl.assert == "f1"

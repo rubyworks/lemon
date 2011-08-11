@@ -24,9 +24,9 @@ Given an example script in 'lib/incomplete_example.rb' as follows:
 
 And given a test case in 'test/incomplete_example_case.rb' as follows:
 
-    Test.covers 'incomplete_example.rb'
+    Covers 'incomplete_example.rb'
 
-    Test.class I1 do
+    TestCase I1 do
       method :f1 do
         test "Returns a String"
       end
@@ -35,7 +35,7 @@ And given a test case in 'test/incomplete_example_case.rb' as follows:
       end
     end
 
-    Test.class I2 do
+    TestCase I2 do
       method :x1 do
         test "Does not exist"
       end
@@ -71,7 +71,7 @@ But I3 will be listed in the uncovered cases list.
     coverage.uncovered_cases == [I3]
 
 Note that uncovered case methods can be included in the uncovered units list
-by setting the +zealous+ option, which we will demonstrate later.
+by setting the +zealous+ option, which we will demonstrated later.
 
 There should still be 3 covered units, I1#f1, I1#f2 and I2#x1.
 

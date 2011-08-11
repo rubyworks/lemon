@@ -22,7 +22,7 @@ And given a test case in 'test/complete_example_case.rb' as follows:
 
     Covers 'complete_example.rb'
 
-    TestClass C1 do
+    TestCase C1 do
       method :f1 do 
         test "Returns a String"
       end
@@ -34,7 +34,7 @@ And given a test case in 'test/complete_example_case.rb' as follows:
       end
     end
 
-    TestClass C2 do
+    TestCase C2 do
       method :g1 do
         test "Returns a String"
       end
@@ -84,7 +84,7 @@ in 'test/complete_example_case.rb' as follows:
 
     Covers 'complete_example.rb'
 
-    TestClass C1 do
+    TestCase C1 do
       method :f1 do
         test "Returns a String"
       end
@@ -96,7 +96,7 @@ in 'test/complete_example_case.rb' as follows:
       end
     end
 
-    TestClass C2 do
+    TestCase C2 do
       method :g1 do
         test "Returns a String"
       end
