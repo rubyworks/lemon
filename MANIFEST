@@ -9,6 +9,8 @@ lib/lemon/cli/generate.rb
 lib/lemon/cli/test.rb
 lib/lemon/cli.rb
 lib/lemon/core_ext/kernel.rb
+lib/lemon/core_ext/omission.rb
+lib/lemon/core_ext.rb
 lib/lemon/coverage/analyzer.rb
 lib/lemon/coverage/cover_unit.rb
 lib/lemon/coverage/formats/abstract.rb
@@ -19,14 +21,14 @@ lib/lemon/coverage/formats/yaml.rb
 lib/lemon/coverage/snapshot.rb
 lib/lemon/coverage/source_parser.rb
 lib/lemon/generator.rb
-lib/lemon/runner.rb
 lib/lemon/test_advice.rb
 lib/lemon/test_case.rb
 lib/lemon/test_class.rb
 lib/lemon/test_method.rb
 lib/lemon/test_module.rb
-lib/lemon/test_subject.rb
-lib/lemon/test_unit.rb
+lib/lemon/test_proc.rb
+lib/lemon/test_setup.rb
+lib/lemon/test_world.rb
 lib/lemon.rb
 lib/lemon.yml
 spec/applique/fs.rb

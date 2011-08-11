@@ -1,52 +1,49 @@
---- 
-authors: 
+---
+authors:
 - name: Thomas Sawyer
   email: transfire@gmail.com
-copyrights: 
+copyrights:
 - holder: Thomas Sawyer
-  year: "2009"
+  year: '2009'
   license: BSD-2-Clause
 replacements: []
-
 conflicts: []
-
-requirements: 
+requirements:
 - name: test
 - name: ae
 - name: ansi
   version: 1.3+
 - name: detroit
-  groups: 
+  groups:
   - build
   development: true
 - name: reap
-  groups: 
+  groups:
   - build
   development: true
 - name: qed
-  groups: 
+  groups:
   - test
   development: true
 dependencies: []
-
-repositories: 
+repositories:
 - uri: git://github.com/proutils/lemon.git
   scm: git
   name: origin
-resources: 
+resources:
   home: http://rubyworks.github.com/lemon
   code: http://github.com/rubyworks/lemon
-load_path: 
+load_path:
 - lib
-extra: 
+extra:
   manifest: MANIFEST
 alternatives: []
-
 revision: 0
 title: Lemon
 suite: proutils
 summary: Pucker-tight Unit Testing
-description: Lemon is a unit testing framework that tightly correlates class to test case and method to test unit.
+description: Lemon is a unit testing framework that tightly correlates class to test
+  case and method to test unit.
 version: 0.9.0
 name: lemon
-date: "2011-08-07"
+date: '2011-08-11'
