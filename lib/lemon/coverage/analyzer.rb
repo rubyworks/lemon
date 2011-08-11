@@ -29,8 +29,6 @@ module Lemon
     #   CoverageAnalyzer.new(suite, :MyApp, :public => true)
     #
     def initialize(files, options={})
-      reset_suite
-
       @files = files
 
       @namespaces = [options[:namespaces]].flatten.compact
@@ -40,9 +38,11 @@ module Lemon
 
       @reporter   = reporter_find(@format)
 
+      reset_suite
+
       initialize_prerequisites(options)
 
-      @canonical  = Snapshot.capture #system #@suite.canonical
+      @canonical = Snapshot.capture #system #@suite.canonical
 
       #@suite = Lemon.suite
       #@suite      = Lemon::TestSuite.new(files, :cover=>true)  #@suite = suite
@@ -59,6 +59,8 @@ module Lemon
       files = files.map{ |f| File.expand_path(f) }
 
       files.each{ |s| load s } #require s }
+
+      @suite = $TEST_SUITE.dup
     end
 
     # Load in prerequisites
@@ -77,7 +79,7 @@ module Lemon
 
     #
     def suite
-      $TEST_SUITE
+      @suite
     end
 
     # Paths of lemon tests and/or ruby scripts to be compared and covered.
