@@ -29,6 +29,8 @@ module Lemon
     #   CoverageAnalyzer.new(suite, :MyApp, :public => true)
     #
     def initialize(files, options={})
+      reset_suite
+
       @files = files
 
       @namespaces = [options[:namespaces]].flatten.compact
@@ -66,6 +68,11 @@ module Lemon
 
       loadpath.each{ |path| $LOAD_PATH.unshift(path) }
       requires.each{ |path| require(path) }
+    end
+
+    #
+    def reset_suite
+      $TEST_SUITE = []
     end
 
     #
