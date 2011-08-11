@@ -143,7 +143,7 @@ module Lemon
       #
       def test(label=nil, &block)
         block = Omission.new(@_omit).to_proc if @_omit
-        test  = TestUnit.new(
+        test  = TestProc.new(
           :context => @_testcase,
           :setup   => @_setup,
           :skip    => @_skip,

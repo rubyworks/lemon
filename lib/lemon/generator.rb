@@ -2,15 +2,31 @@ module Lemon
 
   require 'lemon/coverage/analyzer'
 
+  #--
+  # TODO: Generator options for selecting all, covered and uncovered still
+  #       need some clarification.
+  #++
+
   # Test Scaffold Generator.
   #
-  #--
-  # TODO: The options  for selecting all, covered and uncovered still
-  #       need some work.
-  #++
   class Generator
 
     # New Scaffold Generator.
+    #
+    # @option options [Array] :namespaces
+    #   List of class/module names to limit scaffolding.
+    #
+    # @option options [Boolean] :private
+    #   Include private methods in scaffolding.
+    #
+    # @option options [Boolean] :covered
+    #   Include covered targets in scaffolding.
+    #
+    # @option options [Boolean] :uncovered
+    #   Include uncovered targets in scaffolding.
+    #
+    # @option options [Boolean] :all
+    #   Include all possible targets in scaffolding.
     #
     def initialize(files, options={})
       @files      = files
@@ -20,10 +36,8 @@ module Lemon
 
       @namespaces = options[:namespaces]
       @private    = options[:private]
-
       @covered    = options[:covered]
       @uncovered  = options[:uncovered]
-
       @all        = options[:all]
 
       if @namespaces
@@ -39,22 +53,22 @@ module Lemon
       @coverage
     end
 
-    #
+    # List of class and module namespaces to limit scaffolding.
     def namespaces
       @namespaces
     end
 
-    #
+    # Include all targets.
     def all?
       @all
     end
 
-    #
+    # Include targets that are already covered.
     def covered?
       @covered
     end
 
-    # Include only uncovered methods.
+    # Include only uncovered targrts.
     def uncovered?
       @uncovered
     end
@@ -75,22 +89,22 @@ module Lemon
       end
     end
 
-    #
+    # Generate code template for covered.
     def generate_target
       render(filter(coverage.target.units))
     end
 
-    #
+    # Generate code template for uncovered.
     def generate_uncovered
       render(filter(coverage.uncovered))
     end
 
-    # Generate code template.
+    # Generate code template for all.
     def generate_all
       render(Snapshot.capture(namespaces).units)
     end
 
-    #
+    # Filter targets to include only specified namespaces.
     def filter(units)
       return units if namespaces.nil? or namespaces.empty?
       units.select do |u|

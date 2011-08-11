@@ -152,6 +152,7 @@ module Lemon
       def initialize(testcase) #, &code)
         @_testcase = testcase
         @_setup    = testcase.setup
+        @_skip     = nil
 
         extend testcase.context.scope if testcase.context
 

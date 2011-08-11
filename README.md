@@ -108,6 +108,6 @@ Lemon Unit Testing Framework
 
 Copyright (c) 2009 Thomas Sawyer 
 
-Lemon is distributed according to the terms of the *FreeBSD* License.
+Lemon is distributed according to the terms of the **FreeBSD** License.
 
 See the COPYING.rdoc file for details.

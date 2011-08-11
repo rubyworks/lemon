@@ -66,12 +66,13 @@
   TestCase HelloWorld do
     Concern "String output works as expected."
 
-    Unit :to_s => "returns a string" do
-      HelloWorld.new.to_s.assert.is_a?(String)
-    end
-
-    Unit :to_s => "returns the world famous phrase" do
-      HelloWorld.new.to_s.assert == "Hello, World!"
+    Unit :to_s do
+      Test "returns a string" do
+        HelloWorld.new.to_s.assert.is_a?(String)
+      end
+      Test "returns the world famous phrase" do
+        HelloWorld.new.to_s.assert == "Hello, World!"
+      end
     end
   end
   </pre>

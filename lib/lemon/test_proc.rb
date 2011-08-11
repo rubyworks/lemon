@@ -42,7 +42,7 @@ module Lemon
     #
     attr_accessor :skip
 
-    #
+    # Don't run test?
     def skip?
       @skip
     end
@@ -50,12 +50,17 @@ module Lemon
     # Has this test been executed?
     attr_accessor :tested
 
-    #
+    # Test label.
     def to_s
       label.to_s
     end
 
     alias_method :name, :to_s
+
+    # Ruby Test looks for #topic as the description of test setup.
+    def topic
+      setup.to_s
+    end
 
     #
     #def description

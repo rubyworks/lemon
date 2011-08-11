@@ -45,6 +45,7 @@ module Lemon
         meth = TestMethod.new(
           :context  => @_testcase, 
           :setup    => @_setup,
+          :skip     => @_skip,
           :target   => method.to_sym,
           :function => false,
           &block
@@ -64,9 +65,9 @@ module Lemon
         meth = TestMethod.new(
           :context  => @_testcase,
           :setup    => @_setup,
+          :skip     => @_skip,
           :target   => method.to_sym,
           :function => true,
-
           &block
         )
         @_testcase.tests << meth
@@ -92,11 +93,19 @@ module Lemon
           :context => @_testcase,
           :target  => @_testcase.target,
           :setup   => @_setup,
+          :skip    => @_skip,
           :label   => label,
           &block
         )
       end
       alias :Context :context
+
+      #
+      def skip(reason=true, &block)
+        @_skip = reason
+        block.call
+        @_skip = nil
+      end
 
     end
 
