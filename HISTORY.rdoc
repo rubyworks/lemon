@@ -1,5 +1,36 @@
 = RELEASE HISTORY
 
+== 0.9.0 / 2011-08-11
+
+Version 0.9 is a huge release for Lemon. This release finally makes the transition
+to the new unit subcase syntax --a bit more verbose than the old style but a more
+flexible means of notating unit tests allowing each unit to group together mutiple
+tests. For previous users you will need to change old style tests, e.g.
+
+  Unit :to_s => "that string" do
+    ...
+  end
+
+To the new style:
+
+  Unit :to_s do
+    Test "that string" do
+      ...
+    end
+  end
+
+This release also moves Lemon over to the new Ruby Test library for test runs.
+The `lemon` command line interface has changed and now uses subcommands rather than command
+opitions. So use `lemon coverage` instead of the old `lemon -c`. Since Lemon now uses Ruby
+Test to run tests, `lemon test` is equivalent to `ruby-test`, and the Ruby Test config file
+should be used to configure test runs instead of `.lemonrc` which is no longer supported.
+
+Changes:
+
+* Utilize Ruby Test for test execution.
+* Implemented new unit block syntax.
+
+
 == 0.8.5 / 2011-07-15
 
 This release fixes exit code status, which should be -1 if there
