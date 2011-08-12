@@ -1,6 +1,5 @@
 --- 
 title  : Lemon
-suite  : proutils
 summary: Pucker-tight Unit Testing
 authors:
   - Thomas Sawyer <transfire@gmail.com>
@@ -16,9 +15,6 @@ resources:
 repositories:
   origin: git://github.com/proutils/lemon.git
 
-copyright: Copyright 2009 Thomas Sawyer
-license: BSD-2-Clause
-
 requirements:
   - test
   - ae
@@ -26,4 +22,9 @@ requirements:
   - detroit  (build)
   - reap     (build)
   - qed      (test)
+
+organization: RubyWorks
+
+copyright: Copyright 2009 Thomas Sawyer
+license: BSD-2-Clause
 

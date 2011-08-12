@@ -40,10 +40,10 @@ extra:
 alternatives: []
 revision: 0
 title: Lemon
-suite: proutils
 summary: Pucker-tight Unit Testing
 description: Lemon is a unit testing framework that tightly correlates class to test
   case and method to test unit.
+organization: RubyWorks
 version: 0.9.0
 name: lemon
 date: '2011-08-11'
