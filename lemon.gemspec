@@ -118,6 +118,8 @@ module DotRuby
         gemspec.licenses = metadata['copyrights'].map{ |c| c['license'] }.compact
 
         metadata['requirements'].each do |req|
+          next if req['optional']
+
           name    = req['name']
           version = req['version']
           groups  = req['groups'] || []

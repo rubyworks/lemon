@@ -1,7 +1,6 @@
 ---
 source:
 - meta
-- VERSION
 authors:
 - name: Thomas Sawyer
   email: transfire@gmail.com
@@ -14,7 +13,6 @@ requirements:
 - name: ae
 - name: ansi
   version: 1.3+
-- name: ripper
 - name: detroit
   groups:
   - build
@@ -27,6 +25,11 @@ requirements:
   groups:
   - test
   development: true
+- name: ripper
+  optional: true
+  engines:
+  - name: ruby
+    version: 1.8~
 dependencies: []
 alternatives: []
 conflicts: []
@@ -50,5 +53,5 @@ description: ! 'Lemon is a unit testing framework that tightly correlates
 
   class to test case and method to test unit.'
 organization: rubyworks
-version: 0.9.1
+version: ''
 date: '2012-03-09'
