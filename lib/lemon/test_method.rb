@@ -142,7 +142,7 @@ module Lemon
       #   end
       #
       def test(label=nil, &block)
-        block = Omission.new(@_omit).to_proc if @_omit
+        block = @_omit.to_proc if @_omit
         test  = TestProc.new(
           :context => @_testcase,
           :setup   => @_setup,
@@ -155,7 +155,7 @@ module Lemon
       end
       alias :Test :test
 
-      # Create a sub-case ofr the method case.
+      # Create a sub-case of the method case.
       def context(label, &block)
         @_testcase.tests << TestMethod.new(
           :context => @_testcase,
@@ -178,7 +178,7 @@ module Lemon
       #   end
       #
       def omit(label=true, &block)
-        @_omit = label
+        @_omit = Omission.new(label, :backtrace=>caller)
         block.call
         @_omit = nil
       end
