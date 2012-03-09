@@ -1,7 +1,0 @@
-
-trip :test do
-  system "lemon -Ilib test/*.rb"
-  system "qed -Ilib qed/"
-  #system "cucumber"
-end
-

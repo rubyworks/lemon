@@ -1,14 +1,18 @@
-#!mast .yardopts .ruby bin demo lib man qed spec test try [A-Z][A-Z]*
+#!mast .yardopts .ruby bin demo lib man qed spec test try [A-Z]*.*
 .yardopts
 .ruby
-bin/lemonade
+bin/lemons
 lib/lemon/ae.rb
 lib/lemon/cli/base.rb
 lib/lemon/cli/coverage.rb
 lib/lemon/cli/generate.rb
+lib/lemon/cli/lemon.ascii
+lib/lemon/cli/obrother.rb
+lib/lemon/cli/scaffold.rb
 lib/lemon/cli/test.rb
 lib/lemon/cli.rb
 lib/lemon/core_ext/kernel.rb
+lib/lemon/core_ext/module.rb
 lib/lemon/core_ext/omission.rb
 lib/lemon/core_ext.rb
 lib/lemon/coverage/analyzer.rb
@@ -21,6 +25,7 @@ lib/lemon/coverage/formats/yaml.rb
 lib/lemon/coverage/snapshot.rb
 lib/lemon/coverage/source_parser.rb
 lib/lemon/generator.rb
+lib/lemon/ignore_callers.rb
 lib/lemon/test_advice.rb
 lib/lemon/test_case.rb
 lib/lemon/test_class.rb
@@ -48,8 +53,6 @@ try/fixtures/example-use.rb
 try/fixtures/example.rb
 try/helpers/loadpath.rb
 HISTORY.rdoc
-PROFILE
+LICENSE.txt
 QED.rdoc
 README.md
-VERSION
-COPYING.rdoc
