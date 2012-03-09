@@ -18,7 +18,7 @@ module Lemon
           options[:tests] = []
         end
 
-        require 'lemon/generator'
+        require 'lemon/coverage/generator'
 
         loadpath = options[:loadpath] || []
         requires = options[:requires] || []
