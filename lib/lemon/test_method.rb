@@ -8,6 +8,7 @@ module Lemon
   #
   class TestMethod < TestCase
 
+    #
     # New unit test.
     #
     # @option settings [Boolean] :function
@@ -15,57 +16,57 @@ module Lemon
     #
     def initialize(settings={}, &block)
       @tested   = false
-      @function = settings[:function]
       super(settings)
     end
 
+    #
     # Validate that a context and target method have been supplied.
+    #
     def validate_settings
       raise "method test has no module or class context" unless @context
       raise "#{@target} is not a method name" unless Symbol === @target
     end
 
-    # Type is either `Method` or `Function` (a function is a class method).
+    #
+    # Description of the type of test case.
+    #
     def type
-      if function?
-        'Function'
-      else
-        'Method'
-      end
+      'Method'
     end
 
+    #
     # Used to make sure the the method has been tested, or not.
+    #
     attr_accessor :tested
 
-    # Is this method a class method?
-    def function?
-      @function
-    end
-
-    # A function is also known as a "class method".
-    alias :class_method? :function?
-
+    #
     # If class method, returns target method's name prefixed with double colons.
     # If instance method, then returns target method's name prefixed with hash
     # character.
+    #
     def name
-      function? ? "::#{target}" : "##{target}"
+      "##{target}"
     end
 
     # TODO: If sub-cases are to be supported than we need to incorporate
     #       the label into to_s.
 
+    #
     # Returns the prefixed method name.
+    #
     def to_s
-      function? ? "::#{target}" : "##{target}"
+      "##{target}"
     end
 
+    #
     # Returns the fully qulaified name of the target method. This is
     # the standard interface used by Ruby Test.
+    #
     def unit
-      function? ? "#{context}.#{target}" : "#{context}##{target}"
+      "#{context}##{target}"
     end
 
+    #
     # Run test in the context of this case. Notice that #run for
     # TestMethod is more complex than a general TestCase. This is
     # to ensure that the target method is invoked during the course
@@ -110,6 +111,8 @@ module Lemon
     end
 
     #
+    #
+    #
     def raise_pending(procedure)
       if RUBY_VERSION < '1.9'
         Kernel.eval %[raise NotImplementedError, "#{target} not tested"], procedure
@@ -118,22 +121,25 @@ module Lemon
       end
     end
 
-    # If the target method is a class method, then the target class is the
-    # meta-class, otherwise just the class itself.
+    #
+    # The target class.
+    #
     def target_class
-      @target_class ||= (
-        if function? 
-          (class << context.target; self; end)
-        else
-          context.target
-        end
-      )
+      @target_class ||= context.target
+    end
+
+    #
+    #
+    #
+    def class_method?
+      false
     end
 
     # Scope for evaluating method test definitions.
     #
-    class Scope < TestCase::Scope
+    class DSL < TestCase::DSL
 
+      #
       # Define a unit test for this case.
       #
       # @example
@@ -141,13 +147,14 @@ module Lemon
       #     puts "Hello"
       #   end
       #
-      def test(label=nil, &block)
+      def test(label=nil, *tags, &block)
         block = @_omit.to_proc if @_omit
         test  = TestProc.new(
           :context => @_testcase,
           :setup   => @_setup,
           :skip    => @_skip,
           :label   => label,
+          :tags    => tags,
           &block
         )
         @_testcase.tests << test
@@ -155,19 +162,23 @@ module Lemon
       end
       alias :Test :test
 
+      #
       # Create a sub-case of the method case.
-      def context(label, &block)
+      #
+      def context(label, *tags, &block)
         @_testcase.tests << TestMethod.new(
           :context => @_testcase,
           :target  => @_testcase.target,
           :setup   => @_setup,
           :skip    => @_skip,
           :label   => label,
+          :tags    => tags,
           &block
         )
       end
       alias :Context :context
 
+      #
       # Omit tests.
       #
       # @example
@@ -184,6 +195,7 @@ module Lemon
       end
       alias :Omit :omit
 
+      #
       # Skip tests. Unlike omit, skipped tests are not executed at all.
       #
       # @example

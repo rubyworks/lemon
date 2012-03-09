@@ -11,6 +11,7 @@ module Lemon
       @setup   = settings[:setup]
       @label   = settings[:label]
       @skip    = settings[:skip]
+      @tags    = settings[:tags]
 
       @procedure = procedure
 
@@ -34,7 +35,9 @@ module Lemon
     #
     #attr :caller
 
+    #
     # Target method of context.
+    #
     def target
       context.target
     end
@@ -42,22 +45,37 @@ module Lemon
     #
     attr_accessor :skip
 
+    #
     # Don't run test?
+    #
     def skip?
       @skip
+    end
+
+    #
+    #
+    #
+    def tags
+      @tags
     end
 
     # Has this test been executed?
     attr_accessor :tested
 
+    #
     # Test label.
+    #
     def to_s
       label.to_s
     end
 
     alias_method :name, :to_s
 
+    #
     # Ruby Test looks for #topic as the description of test setup.
+    #
+    # @todo This may be deprecated in future RubyTest.
+    #
     def topic
       setup.to_s
     end
@@ -89,6 +107,8 @@ module Lemon
     end
 
     #
+    #
+    #
     def to_proc
       lambda do
         call
@@ -96,10 +116,14 @@ module Lemon
     end
 
     #
+    #
+    #
     def match?(match)    
       match == target || match === description
     end
 
+    #
+    # Run the test.
     #
     def call
       context.run(self) do
@@ -109,6 +133,8 @@ module Lemon
       end
     end
 
+    #
+    #
     #
     def scope
       context.scope

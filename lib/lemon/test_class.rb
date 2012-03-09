@@ -9,18 +9,31 @@ module Lemon
 
     private
 
+    #
     # Make sure the target is a class.
-    def validate_target
-      raise unless Class === @target
+    #
+    def validate_settings
+      raise "#{@target} is not a module" unless Class === @target
     end
 
+    #
     # The type of testcase.
+    #
     def type
       'Class'
     end    
 
     # Evaluation scope for {TestClass}.
-    class Scope < TestModule::Scope
+    #
+    class DSL < TestModule::DSL
+
+      #
+      #
+      #
+      def context_class
+        TestClass
+      end
+
     end
 
   end

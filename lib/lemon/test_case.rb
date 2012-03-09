@@ -2,6 +2,7 @@ require 'lemon/core_ext'
 require 'lemon/test_advice'
 require 'lemon/test_setup'
 require 'lemon/test_world'
+require 'lemon/test_scope'
 
 module Lemon
 
@@ -32,6 +33,7 @@ module Lemon
     # Skip execution of test case?
     attr :skip
 
+    #
     # A test case +target+ is a class or module.
     #
     # @param [Hash] settings
@@ -59,58 +61,88 @@ module Lemon
       @label   = settings[:label]
       @setup   = settings[:setup]
       @skip    = settings[:skip]
+      @tags    = settings[:tags]
 
       @advice  = @context ? @context.advice.dup : TestAdvice.new
 
       @tests   = []
-      @scope   = scope_class.new(self)
+      @domain  = domain_class.new(self)
 
       validate_settings
 
       evaluate(&block)
     end
 
+    #
     # Subclasses can override this methof to validate settings. 
     # It is run just before evaluation of scope block.
+    #
     def validate_settings
     end
 
-    #
-    def evaluate(&block)
-      @scope.module_eval(&block)
+    # 
+    def domain
+      @domain
     end
 
+    #
+    #
+    #
+    def evaluate(&block)
+      @domain.module_eval(&block)
+    end
+
+    #
     # Iterate over each test and subcase.
+    #
     def each(&block)
       tests.each(&block)
     end
 
+    #
     # Number of tests and subcases.
+    #
     def size
       tests.size
     end
 
+    #
     # Subclasses of TestCase can override this to describe
     # the type of test case they define.
+    #
     def type
-      'Case'
+      'Test Case'
     end
 
+    #
+    #
     #
     def to_s
       @label.to_s
     end
 
     #
+    #
+    #
     def skip?
       @skip
     end
 
     #
+    #
+    #
     def skip!(reason=true)
       @skip = reason
     end
 
+    #
+    #
+    #
+    def tags
+      @tags
+    end
+
+    #
     # Run test in the context of this case.
     #
     # @param [TestProc] test
@@ -132,22 +164,28 @@ module Lemon
       end
     end
 
+    #
     # Module for evaluating test case script.
     #
     # @return [Scope] evaluation scope
+    #
     def scope
-      @scope
-    end
-
-    # Get the scope class dynamically so that each subclass
-    # of TestCase will retrieve it's own.
-    def scope_class
-      self.class.const_get(:Scope)
+      @scope ||= TestScope.new(self)
     end
 
     #
-    class Scope < World
+    # Get the domain class dynamically so that each subclass
+    # of TestCase will retrieve it's own.
+    #
+    def domain_class
+      self.class.const_get(:DSL)
+    end
 
+    #
+    class DSL < World
+
+      #
+      #
       #
       def initialize(testcase) #, &code)
         @_testcase = testcase
@@ -159,21 +197,7 @@ module Lemon
         #module_eval(&code)
       end
 
-      #--
-      # THINK: Instead of resuing TestCase can we have a TestContext
-      #        or other way to more generically mimics the parent context?
-      #++
-
-      ##
-      #def context(label, &block)
-      #  @_testcase.tests << TestCase.new(
-      #    :testcase => @testcase,
-      #    :label    => label,
-      #    &block
-      #  )
-      #end
-      #alias :Context :context
-
+      #
       # Setup is used to set things up for each unit test.
       # The setup procedure is run before each unit.
       #
@@ -187,10 +211,13 @@ module Lemon
       end
       alias :Setup :setup
 
+      #
       # Original Lemon nomenclature for `#setup`.
+      #
       alias :concern :setup
       alias :Concern :setup
 
+      #
       # Teardown procedure is used to clean-up after each unit test.
       #
       def teardown(&procedure)
@@ -198,11 +225,10 @@ module Lemon
       end
       alias :Teardown :teardown
 
-      #--
       # TODO: Allow Before and After to handle setup and teardown?
       #       But that would only allow one setup per case.
-      #++
 
+      #
       # Define a _complex_ before procedure. The #before method allows
       # before procedures to be defined that are triggered by a match
       # against the unit's target method name or _aspect_ description.
@@ -233,6 +259,7 @@ module Lemon
       end
       alias :Before :before
 
+      #
       # Define a _complex_ after procedure. The #before method allows
       # before procedures to be defined that are triggered by a match
       # against the unit's target method name or _aspect_ description.
@@ -262,6 +289,47 @@ module Lemon
         @_testcase.advice[:after][matches] = procedure
       end
       alias :After :after
+
+      # TODO: non-block skip
+
+      #
+      # Set skip flag.
+      #
+      def skip(reason=true, &block)
+        @_skip = reason
+        block.call
+        @_skip = nil
+      end
+
+      #--
+      # THINK: Instead of resuing TestCase can we have a TestContext
+      #        or other way to more generically mimics the parent context?
+      #++
+
+      # TODO: Should we allow sub-cases?
+
+      #
+      # Create a subcase of module testcase.
+      #
+      def context(label, *tags, &block)
+        @_testcase.tests << context_class.new(
+          :context => @_testcase,
+          :target  => @_testcase.target,
+          :setup   => @_setup,
+          :skip    => @_skip,
+          :label   => label,
+          :tags    => tags,
+          &block
+        )
+      end
+      alias :Context :context
+
+      #
+      #
+      #
+      def context_class
+        TestCase
+      end
 
     end
 

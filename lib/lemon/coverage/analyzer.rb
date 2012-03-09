@@ -24,6 +24,7 @@ module Lemon
     #  @public    = options[:public]
     #end
 
+    #
     # New Coverage object.
     #
     #   CoverageAnalyzer.new(suite, :MyApp, :public => true)
@@ -63,7 +64,9 @@ module Lemon
       @suite = $TEST_SUITE.dup
     end
 
+    #
     # Load in prerequisites
+    #
     def initialize_prerequisites(options)
       loadpath = [options[:loadpath] || []].compact.flatten
       requires = [options[:requires] || []].compact.flatten
@@ -73,55 +76,79 @@ module Lemon
     end
 
     #
+    #
+    #
     def reset_suite
       $TEST_SUITE = []
     end
 
     #
+    #
+    #
     def suite
       @suite
     end
 
+    #
     # Paths of lemon tests and/or ruby scripts to be compared and covered.
     # This can include directories too, in which case all .rb scripts below
     # then directory will be included.
+    #
     attr :files
 
-    ## Conical snapshot of system (before loading libraries to be covered).
-    #attr :canonical
-
+    #
     # Report format.
+    #
     attr :format
 
     #
+    #
+    #
     attr :namespaces
 
+    #
+    ## Conical snapshot of system (before loading libraries to be covered).
+    #
+    #attr :canonical
+
+    #
+    #
     #
     def canonical
       @canonical #= Snapshot.capture
     end
 
     #
+    #
+    #
     def suite=(suite)
       raise ArgumentError unless TestSuite === suite
       @suite = suite
     end
 
+    #
     # Only use public methods for coverage.
+    #
     def public_only?
       !@private
     end
 
     #
+    #
+    #
     def private?
       @private
     end
 
+    #
     # Include methods of uncovered cases in uncovered units.
+    #
     def zealous?
       @zealous
     end
 
+    #
+    #
     #
     def namespaces
       @namespaces
@@ -139,6 +166,8 @@ module Lemon
     end
 
     #
+    #
+    #
     def covered_units
       @covered_units ||= (
         list = []
@@ -150,6 +179,8 @@ module Lemon
     end
 
     #
+    #
+    #
     def covered_unit(test, list)
       case test
       when Lemon::TestModule
@@ -160,33 +191,43 @@ module Lemon
         list << Snapshot::Unit.new(
           test.context.target,
           test.target,
-          :function=>test.function?
-        )      
+          :function=>test.class_method?
+        )
       else
         # ignore
       end
     end
 
     #
+    #
+    #
     def covered_namespaces
       @covered_namespaces ||= covered_units.map{ |u| u.namespace }.uniq
     end
 
     #
+    #
+    #
     def target_namespaces
       @target_namespaces ||= filter(covered_namespaces)
     end
 
+    #
     # Target system snapshot.
+    #
     def target
       @target ||= Snapshot.capture(target_namespaces)
     end
 
+    #
     # Current system snapshot.
+    #
     def current
       @current ||= Snapshot.capture
     end
 
+    #
+    #
     #
     def uncovered_units
       @uncovered_units ||= (
@@ -201,11 +242,15 @@ module Lemon
     end
 
     #
+    #
+    #
     def undefined_units
       @undefined_units ||= covered_units - target.units
     end
 
+    #
     # List of modules/classes not covered.
+    #
     def uncovered_cases
       @uncovered_cases ||= (
         list = current.units - (target.units + canonical.units)
@@ -215,21 +260,29 @@ module Lemon
     end
 
     #
+    #
+    #
     def uncovered_system
       @uncovered_system ||= Snapshot.capture(uncovered_cases)
     end
 
+    #
+    #
     #
     def canonical_cases
       @canonical_cases ||= canonical.units.map{ |u| u.namespace }.uniq
     end
 
     #
+    #
+    #
     alias_method :covered,   :covered_units
     alias_method :uncovered, :uncovered_units
     alias_method :undefined, :undefined_units
 
+    #
     # Reset coverage data for recalcuation.
+    #
     def reset!
       @covered_units      = nil
       @covered_namespaces = nil
@@ -240,12 +293,16 @@ module Lemon
       @current            = nil
     end
 
+    #
     # Iterate over covered units.
+    #
     def each(&block)
       covered_units.each(&block)
     end
 
+    #
     # Number of covered units.
+    #
     def size
       covered_units.size
     end
@@ -290,6 +347,8 @@ module Lemon
   private
 
     #
+    #
+    #
     def system(*namespaces)
       namespaces = nil if namespaces.empty?
       Snapshot.capture(namespaces)
@@ -300,7 +359,9 @@ module Lemon
     #  Snapshot.capture
     #end
 
+    #
     # Filter namespaces.
+    #
     def filter(ns)
       return ns if namespaces.nil? or namespaces.empty?
       #units = units.reject do |u|
@@ -311,6 +372,8 @@ module Lemon
       end
     end
 
+    #
+    #
     #
     def filter_units(units)
       return units if namespaces.nil? or namespaces.empty?
@@ -328,11 +391,15 @@ module Lemon
   public
 
     #
+    #
+    #
     def render
       reporter.render
     end
 
+    #
     # All output is handled by a reporter.
+    #
     def reporter
       @reporter ||= reporter_find(format)
     end
@@ -341,6 +408,8 @@ module Lemon
 
     DEFAULT_REPORTER = 'compact'
 
+    #
+    #
     #
     def reporter_find(format)
       format = format ? format.to_s.downcase : DEFAULT_REPORTER
@@ -353,6 +422,8 @@ module Lemon
       reporter.new(self)
     end
 
+    #
+    #
     #
     def reporter_list
       Dir[File.dirname(__FILE__) + '/formats/*.rb'].map do |rb|
