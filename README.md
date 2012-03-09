@@ -67,35 +67,49 @@ That is the bulk of the matter for writing Lemon tests. To learn about additonal
 
 ### Running Tests
 
-Tests can be run using the `lemonade` command line tool.
+Tests can be run using the `lemons` command line tool.
 
-    $ lemonade test test/cases/name_case.rb
+    $ lemons test test/cases/name_case.rb
 
-Lemon utilizes the Ruby Test system to run tests, the `lemonade test` command simply passes off the running of tests to `ruby-test`. So the `ruby-test` command-line utility can also be used directly:
+Lemon utilizes the RubyTest universal test harness to run tests, the `lemons test` command simply passes off control to `rubytest` command. So the `rubytest` command-line utility can also be used directly:
 
-    $ ruby-test -r lemon test/cases/name_case.rb
+    $ rubytest -r lemon test/cases/name_case.rb
 
-Normal output is typical _dot-progress_. Other output types can be specified by the `--format` or `-f` option.
+Normal output is typically a _dot progression_. Other output types can be specified by the `--format` or `-f` option.
 
-    $ ruby-test -r lemon -f tap test/cases/name_case.rb
+    $ rubytest -r lemon -f tapy test/cases/name_case.rb
 
-See [Ruby Test](http://rubyworks.github.com/test) for more information.
+See [RubyTest](http://rubyworks.github.com/rubytest) for more information.
 
 ### Checking Test Coverage
 
-Lemon can check test coverage by loading your target system and comparing it to your tests. To do this use the <code>lemonade coverage</code> command the utility.
+Lemon can check per-unit test coverage by loading your target system and comparing it to your tests. To do this use the `lemons coverage` command.
 
-    $ lemonade coverage -Ilib test/cases/*.rb
+    $ lemons coverage -Ilib test/cases/*.rb
 
-The coverage tool provides class/module and method coverage and is meant to as a "guidance system" for developers working toward complete test coverage. It is not an lines-of-code coverage tool and should not be considered a substitute for one.
+The coverage tool provides class/module and method coverage and is meant to as a "guidance system" for developers working toward complete test coverage. It is not a LOC (lines of code) coverage tool and should not be considered a substitute for one.
 
 ### Generating Test Skeletons
 
-Because of the one to one correspondence of test case and unit test to class/module and method, Lemon can also generate test scaffolding for previously written code. To do this, use the <code>lemonade generate</code> command line utility and provide the lib location or files of the scripts for which to generate test scaffolding, and the output location for the test scripts.
+Because of the one to one correspondence of test case and unit test to class/module and method, Lemon can also generate test scaffolding for previously written code. To do this, use the `lemons generate` or `lemons scaffold` command line utilities. 
 
-    $ lemonade generate -Ilib test/cases/*.rb
+The `generate` command outputs test skeletons to the console. You can use this output as a simple reference or redirect the output to a file and then copy and paste portions into separate files as desired. The `scaffold` command will create actual files in your test directory. Other than that, and the options that go with it (e.g. `--output`) the two commands are the same.
 
-Generating test case scaffolding from code will undoubtedly strike test-driven developers as a case of putting the cart before the horse. However, it is not unreasonable to argue that high-level, behavior-driven, functional testing frameworks, such as Q.E.D. and Cucumber are better suited to test-first methodologies. While test-driven development can obviously be done with Lemon, unit-testing is more appropriate for testing specific, critical portions of code, or for achieving full test coverage for mission critical applications.
+To get a set of test skeletons simply provide the files to be covered.
+
+    $ lemons generate lib/**/*.rb
+
+The generator can take into account tests already written, so as not to include units that already have test. To do this provide a list of teest files after a dash (`-`).
+
+    $ lemons generate -Ilib lib/**/*.rb - test/**/*.rb
+
+Test skeletons can be generated on a per-file or per-case bases. By case is the default. Use the `-f`/`--file` option to do otherwise.
+
+    $ lemon scaffold -f lib/foo.rb
+
+The default output location is `test/`. You can change this with the `-o/--output` option.
+
+Generating test case scaffolding from code will undoubtedly strike test-driven developers (TDD) as a case of putting the cart before the horse. However, it is not unreasonable to argue that high-level, behavior-driven, functional testing frameworks, such as Q.E.D. and Cucumber are better suited to test-first methodologies. While test-driven development can obviously be done with Lemon, unit-testing is more appropriate for testing specific, critical portions of code, or for achieving full test coverage for mission critical applications.
 
 ### Test Directory
 
@@ -106,8 +120,8 @@ There is no special directory for Lemon tests. Since they are unit tests, `test/
 
 Lemon Unit Testing Framework
 
-Copyright (c) 2009 Thomas Sawyer 
+Copyright (c) 2009 Thomas Sawyer, Rubyworks
 
-Lemon is distributed according to the terms of the **FreeBSD** License.
+Lemon is distributable in accordance with the **FreeBSD** license.
 
-See the COPYING.rdoc file for details.
+See the LICENSE.txt for details.
