@@ -1,6 +1,7 @@
 ---
 source:
 - meta
+- VERSION
 authors:
 - name: Thomas Sawyer
   email: transfire@gmail.com
@@ -53,5 +54,5 @@ description: ! 'Lemon is a unit testing framework that tightly correlates
 
   class to test case and method to test unit.'
 organization: rubyworks
-version: ''
+version: 0.9.1
 date: '2012-03-09'
