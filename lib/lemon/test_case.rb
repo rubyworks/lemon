@@ -192,7 +192,7 @@ module Lemon
         @_setup    = testcase.setup
         @_skip     = nil
 
-        extend testcase.context.scope if testcase.context
+        include testcase.context.domain if testcase.context
 
         #module_eval(&code)
       end
