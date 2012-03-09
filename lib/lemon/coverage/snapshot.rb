@@ -117,7 +117,7 @@ module Lemon
           @private   = @target.private_methods.find{ |m| m.to_sym == @method }
           @protected = @target.protected_methods.find{ |m| m.to_sym == @method }
         else
-          @private = @target.private_instance_methods.find{ |m| m.to_sym == @method }
+          @private   = @target.private_instance_methods.find{ |m| m.to_sym == @method }
           @protected = @target.protected_instance_methods.find{ |m| m.to_sym == @method }
         end
       end

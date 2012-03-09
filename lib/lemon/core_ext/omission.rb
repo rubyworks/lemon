@@ -8,6 +8,10 @@
 #   end
 #
 class Omission < NotImplementedError
+  def initialize(msg=nil, opts={})
+    super(msg)
+    set_backtrace(opts[:backtrace]) if opts[:backtrace]
+  end
   def assertion?
     true
   end

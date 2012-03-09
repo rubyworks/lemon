@@ -1,6 +1,8 @@
-module Lemon
+# TODO: replace with ripper
+require 'ruby_parser'
+require 'lemon/coverage/snapshot'
 
-  require 'ruby_parser'
+module Lemon
 
   #
   class SourceParser
@@ -8,24 +10,38 @@ module Lemon
     #
     # text - A String of Ruby code.
     #
-    # Returns a Hash with each key a namespace and each value another
-    #   Hash or a TomDoc::Scope.
+    # Returns a Hash with each key a namespace and each value another Hash or Scope.
     def self.parse(text)
       new.parse(text)
     end
 
-    attr_accessor :parser, :scopes, :options
+    # Converts Ruby code into a data structure.
+    #
+    # text - A String of Ruby code.
+    #
+    # Returns an Array of Snapshot::Unit objects.
+    def self.parse_units(text)
+      sp = new
+      sp.parse(text)
+      sp.units
+    end
+
+    attr_accessor :parser
+
+    attr_accessor :scopes
+
+    attr_accessor :options
 
     # Each instance of SourceParser accumulates scopes with each
     # parse, making it easy to parse an entire project in chunks but
     # more difficult to parse disparate files in one go. Create
     # separate instances for separate global scopes.
     #
-    # Returns an instance of TomDoc::SourceParser
+    # Returns an instance of SourceParser.
     def initialize(options = {})
       @options = {}
-      @parser  = RubyParser.new
       @scopes  = {}
+      @parser  = RubyParser.new
     end
 
     # Resets the state of the parser to a pristine one. Maintains options.
@@ -43,14 +59,13 @@ module Lemon
     # text - A String of Ruby code.
     #
     # Examples
-    #   @parser = TomDoc::SourceParser.new
+    #   @parser = SourceParser.new
     #   files.each do |file|
     #     @parser.parse(File.read(file))
     #   end
     #   pp @parser.scopes
     #
-    # Returns a Hash with each key a namespace and each value another
-    #   Hash or a TomDoc::Scope.
+    # Returns a Hash with each key a namespace and each value another Hash or Scope.
     def parse(text)
       process(tokenize(sexp(text)))
       @scopes
@@ -73,13 +88,14 @@ module Lemon
     # scope - An optional Scope object for nested classes or modules.
     #
     # Returns nothing.
-    def process(ast, scope = nil)
+    def process(ast, scope=nil)
       case Array(ast)[0]
       when :module, :class
         name = ast[1]
         new_scope = Scope.new(name, ast[2])
 
         if scope
+          new_scope.parent = scope
           scope.scopes[name] = new_scope
         elsif @scopes[name]
           new_scope = @scopes[name]
@@ -146,24 +162,31 @@ module Lemon
       Array(node)[1..-1].select { |arg| arg.is_a? Symbol }
     end
 
-    # A Scope is a Module or Class.
-    # It may contain other scopes.
+    #
+    def units
+      list = []
+      @scopes.each do |name, scope|
+        list.concat(scope.to_units)
+      end
+      list
+    end
+
+    # A Scope is a Module or Class, and may contain other scopes.
     class Scope
       include Enumerable
 
       attr_accessor :name, :comment, :instance_methods, :class_methods
+
+      attr_accessor :parent
+
       attr_accessor :scopes
 
-      def initialize(name, comment = '', instance_methods = [], class_methods = [])
-        @name = name
-        @comment = comment
+      def initialize(name, comment='', instance_methods=[], class_methods=[])
+        @name             = name
+        @comment          = comment
         @instance_methods = instance_methods
-        @class_methods = class_methods
-        @scopes = {}
-      end
-
-      def tomdoc
-        @tomdoc ||= TomDoc.new(@comment)
+        @class_methods    = class_methods
+        @scopes           = {}
       end
 
       def [](scope)
@@ -183,16 +206,59 @@ module Lemon
       end
 
       def inspect
-        scopes = @scopes.keys.join(', ')
+        scopes   = @scopes.keys.join(', ')
         imethods = @instance_methods.inspect
         cmethods = @class_methods.inspect
 
         "<#{name} scopes:[#{scopes}] :#{cmethods}: ##{imethods}#>"
       end
 
+      #
+      def target
+        if parent
+          parent.target.const_get(name)
+        else
+          Object.const_get(name)
+        end
+      end
+
+      #
+      def to_units
+        units = []
+        @instance_methods.each do |imethod|
+          units << Snapshot::Unit.new(target, imethod, :function=>false)
+        end
+        @class_methods.each do |imethod|
+          units << Snapshot::Unit.new(target, imethod, :function=>true)
+        end
+        @scopes.each do |name, scope|
+          units.concat(scope.to_units)
+        end
+        units
+      end
+
+    end
+
+    # A Method can be instance or class level.
+    class Method
+      attr_accessor :name, :comment, :args
+
+      def initialize(name, comment='', args=[])
+        @name    = name
+        @comment = comment
+        @args    = args || []
+      end
+      alias_method :to_s, :name
+
+      def to_sym
+        name.to_sym
+      end
+
+      def inspect
+        "#{name}(#{args.join(', ')})"
+      end
     end
 
   end
 
 end
-
