@@ -1,6 +1,6 @@
-= RELEASE HISTORY
+# RELEASE HISTORY
 
-== 0.9.0 / 2011-08-11
+## 0.9.0 / 2011-08-11
 
 Version 0.9 is a huge release for Lemon. This release finally makes the transition
 to the new unit subcase syntax --a bit more verbose than the old style but a more
@@ -31,7 +31,7 @@ Changes:
 * Implemented new unit block syntax.
 
 
-== 0.8.5 / 2011-07-15
+## 0.8.5 / 2011-07-15
 
 This release fixes exit code status, which should be -1 if there
 are errors or failures.
@@ -41,7 +41,7 @@ Changes:
 * Fix exit code status.
 
 
-== 0.8.4 / 2011-07-11
+## 0.8.4 / 2011-07-11
 
 Fix reported issue #6 to get lemon passing it own tests. (Note: the
 tests need to be run with `test/fixtures` in the loadpath). There was 
@@ -57,7 +57,7 @@ Changes:
 * Lemon can test itself (albeit test are not complete).
 
 
-== 0.8.3 / 2011-05-19
+## 0.8.3 / 2011-05-19
 
 Looks like Lemon is pretty damn near 1.0 status. She probably won't get
 any major changes for a good while. This release simply adds TAP-Y/J reporters.
@@ -69,7 +69,7 @@ Changes:
 * Configuration directory can be `.lemon/`.
 
 
-== 0.8.2 / 2010-09-05
+## 0.8.2 / 2010-09-05
 
 This release overhauls how coverage is performed so it does not need to
 take a system snapshot after requiring each covered file. This greatly
@@ -84,7 +84,7 @@ Changes:
 * Improved output formats.
 
 
-== 0.8.1 / 2010-07-11
+## 0.8.1 / 2010-07-11
 
 This release adds a timer to the verbose output, which help isolate unit tests
 that are slow. It also fixed bug in Before and After advice that prevented them
@@ -95,7 +95,7 @@ Changes:
 * Add times to verbose reporter.
 
 
-== 0.8.0 / 2010-06-21
+## 0.8.0 / 2010-06-21
 
 This release removes coverage information from testing. Coverage can be time
 consuming, but running test should be as fast as possbile. For this reason 
@@ -108,7 +108,7 @@ Changes:
 * Test generator defaults to public methods only.
 
 
-== 0.7.0 / 2010-05-04
+## 0.7.0 / 2010-05-04
 
 This release fixes issue with coverage reports. To do this we have interoduced
 the +Covers+ method. This allows Lemon to distingush between code that is
@@ -125,7 +125,7 @@ Changes:
 * New Snapshot class improves encapsulation to coverage state.
 
 
-== 0.6.0 / 2010-03-06
+## 0.6.0 / 2010-03-06
 
 This release adds coverage reporting to testing and improves the generator.
 
@@ -136,7 +136,7 @@ Changes:
 * Suite class has Coverage instance.
 
 
-== 0.5.0 / 2009-12-31
+## 0.5.0 / 2009-12-31
 
 This is the initial public release of Lemon. Lemon is still under development
 and should be considered betaware, but it's API is stable and the system usable
