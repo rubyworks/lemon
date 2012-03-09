@@ -82,7 +82,7 @@ module Lemon
 
     #
     #def description
-    #  if function?
+    #  if singleton?
     #    #"#{test_case} .#{target} #{aspect}"
     #    "#{test_case}.#{target} #{context} #{aspect}".strip
     #  else
@@ -94,7 +94,7 @@ module Lemon
 
     #
     #def name
-    #  if function?
+    #  if singleton?
     #    "#{test_case}.#{target}"
     #  else
     #    "#{test_case}##{target}"

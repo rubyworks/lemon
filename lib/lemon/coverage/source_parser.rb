@@ -226,10 +226,10 @@ module Lemon
       def to_units
         units = []
         @instance_methods.each do |imethod|
-          units << Snapshot::Unit.new(target, imethod, :function=>false)
+          units << Snapshot::Unit.new(target, imethod, :singleton=>false)
         end
         @class_methods.each do |imethod|
-          units << Snapshot::Unit.new(target, imethod, :function=>true)
+          units << Snapshot::Unit.new(target, imethod, :singleton=>true)
         end
         @scopes.each do |name, scope|
           units.concat(scope.to_units)

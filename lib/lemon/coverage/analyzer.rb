@@ -191,7 +191,7 @@ module Lemon
         list << Snapshot::Unit.new(
           test.context.target,
           test.target,
-          :function=>test.class_method?
+          :singleton=>test.class_method?
         )
       else
         # ignore

@@ -64,7 +64,7 @@ module Lemon
         methods  = mod.__send__("#{access}methods", false)
         #methods -= Object.__send__("#{access}methods", true)
         methods.each do |method|
-          @units << Unit.new(mod, method, :access=>access, :function=>true)
+          @units << Unit.new(mod, method, :access=>access, :singleton=>true)
         end
       end
       return @units
@@ -105,15 +105,15 @@ module Lemon
       attr :method
 
       # Is the method a "class method", rather than an instance method.
-      attr :function
+      attr :singleton
 
       def initialize(target, method, props={})
-        @target   = target
-        @method   = method.to_sym
-        @function = props[:function] ? true : false
-        @covered  = props[:covered]
+        @target    = target
+        @method    = method.to_sym
+        @singleton = props[:singleton] ? true : false
+        @covered   = props[:covered]
 
-        if @function
+        if @singleton
           @private   = @target.private_methods.find{ |m| m.to_sym == @method }
           @protected = @target.protected_methods.find{ |m| m.to_sym == @method }
         else
@@ -131,8 +131,8 @@ module Lemon
       end
 
       #
-      def function?
-        @function
+      def singleton?
+        @singleton
       end
 
       # Method access is public?
@@ -164,12 +164,12 @@ module Lemon
 
       #
       def hash
-        @target.hash ^ @method.hash ^ @function.hash
+        @target.hash ^ @method.hash ^ @singleton.hash
       end
 
       #
       def to_s
-        if @function
+        if @singleton
           "#{@target}.#{@method}"
         else
           "#{@target}##{@method}"
@@ -181,19 +181,19 @@ module Lemon
         return false unless Unit === other
         return false unless target == other.target
         return false unless method == other.method
-        return false unless function == other.function
+        return false unless singleton == other.singleton
         return true
       end
 
       def inspect
-        "#{target}#{function ? '.' : '#'}#{method}"
+        "#{target}#{singleton ? '.' : '#'}#{method}"
       end
 
       def <=>(other)
         c = (target.name <=> other.target.name)
         return c unless c == 0
-        return -1 if function  && !other.function
-        return  1 if !function && other.function
+        return -1 if singleton  && !other.singleton
+        return  1 if !singleton && other.singleton
         method.to_s <=> other.method.to_s
       end
     end

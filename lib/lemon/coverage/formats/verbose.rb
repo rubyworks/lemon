@@ -41,7 +41,7 @@ module Lemon::CoverReports
 
     #
     def unit_line(unit, color)
-      data = [unit.to_s.ansi(color), unit.access.to_s, unit.function? ? 'function' : 'instance method']
+      data = [unit.to_s.ansi(color), unit.access.to_s, unit.singleton? ? 'class method' : 'instance method']
       "* %s  %s %s" % data
     end
 

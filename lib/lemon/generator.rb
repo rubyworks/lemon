@@ -159,7 +159,7 @@ module Lemon
         code << "#{term_case} #{mod} do"
         units.each do |unit|
           next unless private? or unit.public?
-          if unit.function?
+          if unit.singleton?
             code << "\n  #{term_class_method} :#{unit.method} do"
             code << "\n    test '' do"
             code << "\n    end"

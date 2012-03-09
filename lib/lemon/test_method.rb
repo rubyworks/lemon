@@ -11,9 +11,6 @@ module Lemon
     #
     # New unit test.
     #
-    # @option settings [Boolean] :function
-    #   Is the target method a class method, or not.
-    #
     def initialize(settings={}, &block)
       @tested   = false
       super(settings)

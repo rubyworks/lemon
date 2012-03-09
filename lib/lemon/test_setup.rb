@@ -20,7 +20,7 @@ module Lemon
     def initialize(context, description, options={}, &setup)
       @context      = context
       @description  = description.to_s
-      #@function    = options[:function] || options[:singleton]
+      #@singleton   = options[:singleton]
       #@type        = options[:type] || :context
       @setup        = [setup].flatten
       @teardown     = []

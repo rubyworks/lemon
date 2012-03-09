@@ -54,12 +54,12 @@ module Lemon
       #
       def unit(method, *tags, &block)
         meth = TestMethod.new(
-          :context  => @_testcase, 
-          :setup    => @_setup,
-          :skip     => @_skip,
-          :target   => method.to_sym,
-          :tags     => tags,
-          :function => false,
+          :context   => @_testcase, 
+          :setup     => @_setup,
+          :skip      => @_skip,
+          :target    => method.to_sym,
+          :tags      => tags,
+          :singleton => false,
           &block
         )
         @_testcase.tests << meth
@@ -78,12 +78,12 @@ module Lemon
       #
       def class_unit(method, *tags, &block)
         meth = TestClassMethod.new(
-          :context  => @_testcase,
-          :setup    => @_setup,
-          :skip     => @_skip,
-          :target   => method.to_sym,
-          :tags     => tags,
-          :function => true,
+          :context   => @_testcase,
+          :setup     => @_setup,
+          :skip      => @_skip,
+          :target    => method.to_sym,
+          :tags      => tags,
+          :singleton => true,
           &block
         )
         @_testcase.tests << meth
