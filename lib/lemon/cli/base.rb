@@ -22,9 +22,9 @@ module Lemon
         begin
           command_parse(argv)
           command_run(argv)
-        rescue => err
-          raise err if $DEBUG
-          $stderr.puts('ERROR: ' + err.to_s)
+        #rescue => err
+        #  raise err if $DEBUG
+        #  $stderr.puts('ERROR: ' + err.to_s)
         end
       end
 

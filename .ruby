@@ -14,6 +14,7 @@ requirements:
 - name: ae
 - name: ansi
   version: 1.3+
+- name: ripper
 - name: detroit
   groups:
   - build

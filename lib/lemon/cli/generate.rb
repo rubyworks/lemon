@@ -39,6 +39,7 @@ module Lemon
           puts "# --- #{group} ---"
           puts
           puts test
+          puts
         end
       end
 

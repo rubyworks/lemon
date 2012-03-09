@@ -1,5 +1,4 @@
-# TODO: replace with ripper
-require 'ruby_parser'
+require 'ripper'
 require 'lemon/coverage/snapshot'
 
 module Lemon
@@ -41,7 +40,7 @@ module Lemon
     def initialize(options = {})
       @options = {}
       @scopes  = {}
-      @parser  = RubyParser.new
+      #@parser  = RubyParser.new
     end
 
     # Resets the state of the parser to a pristine one. Maintains options.
@@ -77,7 +76,8 @@ module Lemon
     #
     # Returns a Sexp representing the AST.
     def sexp(text)
-      @parser.parse(text)
+      Ripper.sexp(text)
+      #@parser.parse(text)
     end
 
     # Converts a tokenized Array of classes, modules, and methods into
@@ -135,22 +135,22 @@ module Lemon
     def tokenize(node)
       case Array(node)[0]
       when :module
-        name = node[1]
-        [ :module, name, node.comments, tokenize(node[2]) ]
+        name = node[1][1][1]
+        [ :module, name, '', tokenize(node[2]) ]
       when :class
-        name = node[1]
-        [ :class, name, node.comments, tokenize(node[3]) ]
-      when :defn
-        name = node[1]
+        name = node[1][1][1]
+        [ :class, name, '', tokenize(node[3]) ]
+      when :def
+        name = node[1][1]
         args = args_for_node(node[2])
-        [ :imethod, name, node.comments, args ]
+        [ :imethod, name, '', args ]
       when :defs
-        name = node[2]
-        args = args_for_node(node[3])
-        [ :cmethod, name, node.comments, args ]
+        name = node[3][1]
+        args = args_for_node(node[4])
+        [ :cmethod, name, '', args ]
       when :block
         tokenize(node[1..-1])
-      when :scope
+      when :program, :bodystmt, :scope
         tokenize(node[1])
       when Array
         node.map { |n| tokenize(n) }.compact
@@ -159,7 +159,7 @@ module Lemon
 
     # Given a method sexp, returns an array of the args.
     def args_for_node(node)
-      Array(node)[1..-1].select { |arg| arg.is_a? Symbol }
+      Array(node)[1..-1].select{ |arg| arg.is_a? Symbol }
     end
 
     #

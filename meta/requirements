@@ -2,6 +2,7 @@
 - rubytest
 - ae
 - ansi 1.3+
+- ripper
 - detroit  (build)
 - reap     (build)
 - qed      (test)
