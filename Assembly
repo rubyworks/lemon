@@ -1,26 +1,27 @@
 ---
 email:
-  service : Email
-  file    : ~
-  subject : ~
-  mailto  : 
+  file: ~
+  subject: ~
+  mailto: 
     - ruby-talk@ruby-lang.org
     - rubyworks-mailinglist@googlegroups.com
-  #parts   : [readme]
-  active  : true
+  #parts: [readme]
 
 gem:
-  active : true
+  active: true
 
-github: {}
+github:
+  gh_pages: web
 
 dnote:
-  labels   : ~
-  output   : log/DNOTE.rdoc
+  title: Source Notes
+  labels: ~
+  output: log/notes.html
 
 yard:
   yardopts: true  
   priority: 2
+  active: false
 
 qed:
   files: spec
@@ -32,6 +33,6 @@ qedoc:
 
 vclog:
   output: 
-    - log/AHISTORY.rdoc
-    - log/CHANGELOG.rdoc
+    - log/history.html
+    - log/changes.html
 
