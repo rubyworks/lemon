@@ -1,5 +1,20 @@
 # RELEASE HISTORY
 
+## 0.9.1 / 2012-03-09
+
+Thie release fixes some evaluation scope issues, improves how omit and skip
+methods work, makes test generation usable and general cleans-up internals.
+All in all this release should be a fair bit more robust that previous releases
+and ready for the big One-Oh after one more good golf session.
+
+Changes:
+
+* Fix test scope so it's properly isolated.
+* Improve skip and omit methods w/ non-block forms.
+* Use Ripper instead of RubyParse for scaffolding.
+* Greatly improve usability of code generation tool.
+
+
 ## 0.9.0 / 2011-08-11
 
 Version 0.9 is a huge release for Lemon. This release finally makes the transition
