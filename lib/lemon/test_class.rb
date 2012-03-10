@@ -28,7 +28,7 @@ module Lemon
     class DSL < TestModule::DSL
 
       #
-      #
+      # The class for which this is a DSL context.
       #
       def context_class
         TestClass

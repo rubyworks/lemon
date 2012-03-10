@@ -185,6 +185,13 @@ module Lemon
     class DSL < World
 
       #
+      # The class for which this is a DSL context.
+      #
+      def context_class
+        TestCase
+      end
+
+      #
       #
       #
       def initialize(testcase) #, &code)
@@ -290,28 +297,15 @@ module Lemon
       end
       alias :After :after
 
-      # TODO: non-block skip
-
-      #
-      # Set skip flag.
-      #
-      def skip(reason=true, &block)
-        @_skip = reason
-        block.call
-        @_skip = nil
-      end
-
-      #--
       # THINK: Instead of resuing TestCase can we have a TestContext
       #        or other way to more generically mimics the parent context?
-      #++
-
-      # TODO: Should we allow sub-cases?
 
       #
       # Create a subcase of module testcase.
       #
       def context(label, *tags, &block)
+        return if @_omit
+
         @_testcase.tests << context_class.new(
           :context => @_testcase,
           :target  => @_testcase.target,
@@ -325,11 +319,58 @@ module Lemon
       alias :Context :context
 
       #
+      # Skip tests. Unlike omit, skipped tests are passed to the test harness,
+      # so they still can be included in reports, though they are not executed.
       #
+      # If a block is given then only tests defined with-in the block are skipped.
+      # If no block is given then all subsquent tests in the test case are skipped.
       #
-      def context_class
-        TestCase
+      # @param [String,Boolean] reason
+      #   A description of the reason to skip the test, or simply a boolean value.
+      #
+      # @example
+      #   skip "reason" do
+      #     test do
+      #       ...
+      #     end
+      #   end
+      #
+      def skip(reason=true)
+        if block_given?
+          @_skip = reason
+          yield
+          @_skip = nil
+        else
+          @_skip = reason
+        end
       end
+      alias :Skip :skip
+
+      #
+      # Omitted tests are simply ignored and never instantiated let alone passed
+      # on to the test harness.
+      #
+      # If a block is given then only tests defined with-in the block are skipped.
+      # If no block is given then all subsquent tests in the test case are skipped.
+      #
+      #
+      # @example
+      #   omit do
+      #     test do
+      #       ...
+      #     end
+      #   end
+      #
+      def omit(reason=true)
+        if block_given?
+          @_omit = reason
+          yield
+          @_omit = nil
+        else
+          @_omit = reason
+        end
+      end
+      alias :Omit :omit
 
     end
 

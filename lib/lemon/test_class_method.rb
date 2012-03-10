@@ -44,6 +44,9 @@ module Lemon
     #
     class DSL < TestMethod::DSL
 
+      #
+      # The class for which this is a DSL context.
+      #
       def context_class
         TestClassMethod
       end

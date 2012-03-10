@@ -137,6 +137,13 @@ module Lemon
     class DSL < TestCase::DSL
 
       #
+      # The class for which this is a DSL context.
+      #
+      def context_class
+        TestMethod
+      end
+
+      #
       # Define a unit test for this case.
       #
       # @example
@@ -145,7 +152,8 @@ module Lemon
       #   end
       #
       def test(label=nil, *tags, &block)
-        block = @_omit.to_proc if @_omit
+        return if @_omit
+
         test  = TestProc.new(
           :context => @_testcase,
           :setup   => @_setup,
@@ -154,15 +162,18 @@ module Lemon
           :tags    => tags,
           &block
         )
+
         @_testcase.tests << test
+
         test
       end
-      alias :Test :test
 
       #
       # Create a sub-case of the method case.
       #
       def context(label, *tags, &block)
+        return if @_omit
+
         @_testcase.tests << TestMethod.new(
           :context => @_testcase,
           :target  => @_testcase.target,
@@ -173,41 +184,10 @@ module Lemon
           &block
         )
       end
+
+      # Capitialized term.
+      alias :Test :test
       alias :Context :context
-
-      #
-      # Omit tests.
-      #
-      # @example
-      #   omit "reason" do
-      #     test do
-      #       ...
-      #     end
-      #   end
-      #
-      def omit(label=true, &block)
-        @_omit = Omission.new(label, :backtrace=>caller)
-        block.call
-        @_omit = nil
-      end
-      alias :Omit :omit
-
-      #
-      # Skip tests. Unlike omit, skipped tests are not executed at all.
-      #
-      # @example
-      #   skip "reason" do
-      #     test do
-      #       ...
-      #     end
-      #   end
-      #
-      def skip(label=true, &block)
-        @_skip = label
-        block.call
-        @_skip = nil
-      end
-      alias :Skip :skip
 
     end
 

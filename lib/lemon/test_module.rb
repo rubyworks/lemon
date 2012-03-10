@@ -43,6 +43,13 @@ module Lemon
     class DSL < TestCase::DSL
 
       #
+      # The class for which this is a DSL context.
+      #
+      def context_class
+        TestModule
+      end
+
+      #
       # Define a method-unit subcase for the class/module testcase.
       #
       # @example
@@ -53,6 +60,8 @@ module Lemon
       #   end
       #
       def unit(method, *tags, &block)
+        return if @_omit
+
         meth = TestMethod.new(
           :context   => @_testcase, 
           :setup     => @_setup,
@@ -77,6 +86,8 @@ module Lemon
       # Define a class-method unit test for this case.
       #
       def class_unit(method, *tags, &block)
+        return if @_omit
+
         meth = TestClassMethod.new(
           :context   => @_testcase,
           :setup     => @_setup,
@@ -86,7 +97,9 @@ module Lemon
           :singleton => true,
           &block
         )
+
         @_testcase.tests << meth
+
         meth
       end
       alias :ClassUnit :class_unit
@@ -95,14 +108,7 @@ module Lemon
       # More specific nomencalture for `#class_unit`.
       #
       alias :class_method :class_unit
-      alias :ClassMethod  :class_unit
-
-      #
-      #
-      #
-      def context_class
-        TestModule
-      end
+      alias :ClassMethod :class_unit
 
     end
 
