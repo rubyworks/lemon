@@ -2,7 +2,8 @@
 .yardoc
 doc
 log
-pkg
+pkg/*.gem
+pkg/*.gz
 tmp
 SPEC*.md
 web

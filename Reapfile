@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+ignore *%w{ .yardoc doc log pkg tmp SPEC*.md web }
+
 desc "run all tests"
 task :test => [:unit, :qed]
 
