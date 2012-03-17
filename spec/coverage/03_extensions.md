@@ -1,6 +1,6 @@
-== Core Extension Coverage
+## Core Extension Coverage
 
-=== Kernel Extensions
+### Kernel Extensions
 
 Given an example script in 'lib/extensions_example.rb' as follows:
 

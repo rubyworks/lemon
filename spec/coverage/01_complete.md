@@ -1,6 +1,6 @@
-== Complete Coverage
+## Complete Coverage
 
-=== Complete Coverage of Public Interface
+### Complete Coverage of Public Interface
 
 Given an example script in 'lib/complete_example.rb' as follows:
 
@@ -76,7 +76,7 @@ In addition there should be no uncovered_cases or undefined_units.
     coverage.undefined_units.assert = []
     coverage.uncovered_cases.assert = []
 
-=== Including Private and Protected Methods
+### Including Private and Protected Methods
 
 We will use the same example classes as above, but in this case we will
 add coverage for private and protected methods as well, given a test case

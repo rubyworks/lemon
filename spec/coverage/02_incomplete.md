@@ -1,6 +1,6 @@
-== Incomplete Coverage
+## Incomplete Coverage
 
-=== Incomplete Coverage of Public Interface
+### Incomplete Coverage of Public Interface
 
 Given an example script in 'lib/incomplete_example.rb' as follows:
 

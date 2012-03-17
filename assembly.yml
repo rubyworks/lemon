@@ -29,7 +29,7 @@ qed:
 qedoc:
   title: Lemony Testing
   files: spec
-  output: QED.rdoc
+  output: SPEC.md
 
 vclog:
   output: 

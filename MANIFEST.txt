@@ -39,9 +39,9 @@ lib/lemon.rb
 lib/lemon.yml
 spec/applique/ae.rb
 spec/applique/fs.rb
-spec/coverage/01_complete.rdoc
-spec/coverage/02_incomplete.rdoc
-spec/coverage/03_extensions.rdoc
+spec/coverage/01_complete.md
+spec/coverage/02_incomplete.md
+spec/coverage/03_extensions.md
 spec/coverage/applique/lemon.rb
 try/.test
 try/case_error.rb
@@ -57,5 +57,5 @@ try/fixtures/example.rb
 try/helpers/loadpath.rb
 LICENSE.txt
 HISTORY.md
-QED.rdoc
 README.md
+SPECSHEET.md

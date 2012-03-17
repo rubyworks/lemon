@@ -1,10 +1,8 @@
 .reap/digest
 .yardoc
-.yardopts
 doc
 log
 pkg
 tmp
-site/doc
-QED.rdoc
+SPEC*.md
 web

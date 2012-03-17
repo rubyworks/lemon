@@ -1,0 +1,6 @@
+--output-dir doc
+--private
+--protected
+lib/
+-
+[A-Z][A-Z]*.*
