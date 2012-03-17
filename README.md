@@ -10,15 +10,15 @@
 
 Lemon is a Unit Testing Framework that enforces a strict test structure mirroring the class/module and method structure of the target code. Arguably this promotes the proper technique for low-level unit testing and helps ensure good test coverage.
 
-The difference between unit testing and functional testing, and all other forms of testing for that matter, is simply a matter of where the testing *concern* lies. The concerns of unit testing are the concerns of unit tests --the individual methods.
+The difference between unit testing and functional testing, and all other forms of testing for that matter, is simply a matter of where the testing *concern* lies. The concerns of unit testing are the concerns of unit tests, which, in object-oriented design, drills down to individual methods.
 
-IMPORTANT! As of v0.9+ the API has changed. The `unit :name => "description"` notation is no longer supported.
+**IMPORTANT!** As of v0.9+ the API has changed. The `unit :name => "description"` notation is no longer supported.
 
 
 ## EXAMPLE
 
 Lemon tests are broken down into target class or module and target methods.
-Withn these lie the acutal tests.
+Within these lie the actual tests.
 
 Let's say we have a script 'mylib.rb' consisting of the class X:
 
@@ -31,20 +31,20 @@ end
 An test case for the class would be written:
 
 ``` ruby
-Covers 'mylib'
+covers 'mylib'
 
-TestCase X do
+testcase X do
 
-  Setup "Description of setup." do
+  setup "Description of setup." do
     @x = X.new
   end
 
-  Unit :a do
-    Test "method #a does something expected" do
+  method :a do
+    test "method #a does something expected" do
       @x.a.assert.is_a? String
     end
 
-    Test "method #a does something else expected" do
+    test "method #a does something else expected" do
       @x.a.assert == "x"
     end
   end
@@ -56,11 +56,11 @@ The `covers` method works just like `require` with the exception that it records
 
 The setup (also called the *concern*) is run for every subsequent test until a new setup is defined.
 
-In conjunction with the `#setup` method, there is a `#teardown` method which can be used "tidy-up" after each test if need be.
+In conjunction with the `#setup` method, there is a `#teardown` method which can be used "tidy-up" after each test.
 
-You might have also notice by the documentation that the test methods do not have to be capitalized.
+The `#unit` method is also aliased as `#methed` which is actually a bit more readable. Along with that there is `class_unit` and it's alias `class_method` for testing class-level methods. Also note that the test methods may be capitalized (e.g. `#TestCase'), if you prefer that style.
 
-That is the bulk of the matter for writing Lemon tests. To learn about additonal features not mentioned here, check-out the [User Guide](http://wiki.github.com/rubyworks/lemon).
+That is the bulk of the matter for writing Lemon tests. To learn about additional features not mentioned here, check-out the [User Guide](http://wiki.github.com/rubyworks/lemon).
 
 
 ## USAGE
@@ -87,19 +87,19 @@ Lemon can check per-unit test coverage by loading your target system and compari
 
     $ lemons coverage -Ilib test/cases/*.rb
 
-The coverage tool provides class/module and method coverage and is meant to as a "guidance system" for developers working toward complete test coverage. It is not a LOC (lines of code) coverage tool and should not be considered a substitute for one.
+The coverage tool provides class/module and method coverage and is meant as a "guidance system" for developers working toward complete test coverage. It is not a LOC (lines of code) coverage tool and should not be considered a substitute for one.
 
 ### Generating Test Skeletons
 
-Because of the one to one correspondence of test case and unit test to class/module and method, Lemon can also generate test scaffolding for previously written code. To do this, use the `lemons generate` or `lemons scaffold` command line utilities. 
+Because of the one-to-one correspondence of test case and unit test to class/module and method, Lemon can also generate test scaffolding for previously written code. To do this, use the `lemons generate` or `lemons scaffold` command line utilities. 
 
-The `generate` command outputs test skeletons to the console. You can use this output as a simple reference or redirect the output to a file and then copy and paste portions into separate files as desired. The `scaffold` command will create actual files in your test directory. Other than that, and the options that go with it (e.g. `--output`) the two commands are the same.
+The `generate` command outputs test skeletons to the console. You can use this output as a simple reference or redirect the output to a file and then copy and paste portions into separate files as desired. The `scaffold` command will create actual files in your test directory. Other than that, and the options that go with it (e.g. `--output`), the two commands are the same.
 
 To get a set of test skeletons simply provide the files to be covered.
 
     $ lemons generate lib/**/*.rb
 
-The generator can take into account tests already written, so as not to include units that already have test. To do this provide a list of teest files after a dash (`-`).
+The generator can take into account tests already written, so as not to include units that already have tests. To do this provide a list of test files after a dash (`-`).
 
     $ lemons generate -Ilib lib/**/*.rb - test/**/*.rb
 
@@ -109,7 +109,7 @@ Test skeletons can be generated on a per-file or per-case bases. By case is the 
 
 The default output location is `test/`. You can change this with the `-o/--output` option.
 
-Generating test case scaffolding from code will undoubtedly strike test-driven developers (TDD) as a case of putting the cart before the horse. However, it is not unreasonable to argue that high-level, behavior-driven, functional testing frameworks, such as Q.E.D. and Cucumber are better suited to test-first methodologies. While test-driven development can obviously be done with Lemon, unit-testing is more appropriate for testing specific, critical portions of code, or for achieving full test coverage for mission critical applications.
+Generating test case scaffolding from code will undoubtedly strike test-driven developers as a case of putting the cart before the horse. However, it is not unreasonable to argue that high-level, behavior-driven, functional testing frameworks, such as Q.E.D. and Cucumber, are better suited to test-first methodologies. While test-driven development can obviously be done with Lemon, unit-testing best suited to testing specific, critical portions of code, or for achieving full test coverage for mission critical applications.
 
 ### Test Directory
 
