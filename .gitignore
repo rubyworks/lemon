@@ -7,3 +7,4 @@ pkg/*.gz
 tmp
 SPEC*.md
 web
+work/sandbox
