@@ -36,7 +36,7 @@ module DotRuby
 
     #
     def initialize
-      @metadata = YAML.load_file(DOTRUBY)
+      @metadata = YAML.load_file(Dir.glob(DOTRUBY).first)
       @manifest = Dir.glob(MANIFEST, File::FNM_CASEFOLD).first
 
       if @metadata['revision'].to_i != REVISION
