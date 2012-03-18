@@ -1,2 +1,2 @@
 source "http://rubygems.org"
-gemspec :path=>'pkg'
+gemspec :name=>'pkg/lemon.gemspec'
