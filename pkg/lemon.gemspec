@@ -30,8 +30,8 @@ module DotRuby
 
     #
     def initialize
-      @metadata = YAML.load_file('.ruby')
-      @manifest = Dir.glob('manifest{,.txt}', File::FNM_CASEFOLD).first
+      @metadata = YAML.load_file('../.ruby')
+      @manifest = Dir.glob('../manifest{,.txt}', File::FNM_CASEFOLD).first
 
       if @metadata['revision'].to_i != REVISION
         warn "You have the wrong revision. Trying anyway..."
