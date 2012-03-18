@@ -8,6 +8,7 @@ email:
   #parts: [readme]
 
 gem:
+  gemspec: pkg/lemon.gemspec
   active: true
 
 github:

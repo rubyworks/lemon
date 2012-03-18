@@ -7,6 +7,12 @@ module DotRuby
   #
   class GemSpec
 
+    #
+    DOTRUBY = '{../,}.ruby' unless defined?(DOTRUBY)
+
+    #
+    MANIFEST = '{../,}manifest{,.txt}' unless defined?(MANIFEST)
+
     # For which revision of .ruby is this gemspec intended?
     REVISION = 0 unless defined?(REVISION)
 
@@ -30,8 +36,8 @@ module DotRuby
 
     #
     def initialize
-      @metadata = YAML.load_file('../.ruby')
-      @manifest = Dir.glob('../manifest{,.txt}', File::FNM_CASEFOLD).first
+      @metadata = YAML.load_file(DOTRUBY)
+      @manifest = Dir.glob(MANIFEST, File::FNM_CASEFOLD).first
 
       if @metadata['revision'].to_i != REVISION
         warn "You have the wrong revision. Trying anyway..."
