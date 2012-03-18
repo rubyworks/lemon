@@ -1,11 +1,11 @@
 # RELEASE HISTORY
 
-## 0.9.1 / 2012-03-09
+## 0.9.1 / 2012-03-17
 
 Thie release fixes some evaluation scope issues, improves how omit and skip
-methods work, makes test generation usable and general cleans-up internals.
-All in all this release should be a fair bit more robust that previous releases
-and ready for the big One-Oh after one more good golf session.
+methods work, makes test generation usable and generally cleans-up internals.
+All in all, this release should be a fair bit more robust than previous releases
+and ready for the big 1.0 after one more good coding session.
 
 Changes:
 

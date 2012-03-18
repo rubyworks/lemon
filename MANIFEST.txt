@@ -59,3 +59,4 @@ LICENSE.txt
 HISTORY.md
 README.md
 SPECSHEET.md
+Config.rb
