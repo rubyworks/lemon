@@ -5,6 +5,6 @@ log
 pkg/*.gem
 pkg/*.gz
 tmp
-SPEC*.md
+DEMO*
 web
 work/sandbox
