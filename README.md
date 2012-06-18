@@ -5,6 +5,8 @@
 [Development](http://github.com/rubyworks/lemon) |
 [Issues](http://github.com/rubyworks/lemon/issues)
 
+[![Build Status](https://secure.travis-ci.org/rubyworks/lemon.png)](http://travis-ci.org/rubyworks/lemon)
+
 
 ## DESCRIPTION
 

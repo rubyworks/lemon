@@ -25,12 +25,12 @@ yard:
   active: false
 
 qed:
-  files: spec
+  files: demo
 
 qedoc:
   title: Lemony Testing
-  files: spec
-  output: SPEC.md
+  files: demo
+  output: DEMOS.md
 
 vclog:
   output: 
