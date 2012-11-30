@@ -1,6 +1,6 @@
 ---
 source:
-- meta
+- Indexfile
 - VERSION
 authors:
 - name: Thomas Sawyer
