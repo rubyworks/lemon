@@ -1,6 +1,6 @@
 # Lemon
 
-[Homepage](http://rubyworks.github.com/lemon) |
+[Homepage](https://rubyworks.github.io/lemon/) |
 [User Guide](http://wiki.github.com/rubyworks/lemon) |
 [Development](http://github.com/rubyworks/lemon) |
 [Issues](http://github.com/rubyworks/lemon/issues)
