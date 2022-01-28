@@ -10,7 +10,7 @@ authors:
   - Thomas Sawyer <transfire@gmail.com>
 
 resources:
-  home: http://rubyworks.github.com/lemon
+  home: https://rubyworks.github.io/lemon/
   code: http://github.com/rubyworks/lemon
   bugs: http://github.com/rubyworks/lemon/issues
 
