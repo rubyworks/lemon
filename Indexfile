@@ -15,7 +15,7 @@ resources:
   bugs: http://github.com/rubyworks/lemon/issues
 
 requirements:
-  - rubytest
+  - rubytest-cli
   - ae
   - ansi 1.3+
   - detroit  (build)

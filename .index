@@ -10,7 +10,7 @@ copyrights:
   year: '2009'
   license: BSD-2-Clause
 requirements:
-- name: rubytest
+- name: rubytest-cli
 - name: ae
 - name: ansi
   version: 1.3+

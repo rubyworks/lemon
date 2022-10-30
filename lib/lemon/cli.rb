@@ -24,8 +24,8 @@ module Lemon
     case cmd
     when 't', 'test', 'run'
       require 'lemon'
-      require 'rubytest'
-      Test::Runner.cli(*ARGV)
+      require 'rubytest-cli'
+      Test::CLI.new(ARGV)
       #Lemon::CLI::Test.new.run(argv)
     when 'g', 'gen', 'generate', 'generator'
       Lemon::CLI::Generate.run(argv)
