@@ -1,3 +1,0 @@
-default: features
-profile: --format profile features
-log: --format progress --format html --out=log/cucumber/index.html features

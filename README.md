@@ -1,11 +1,11 @@
 # Lemon
 
-[Homepage](http://rubyworks.github.com/lemon) |
-[User Guide](http://wiki.github.com/rubyworks/lemon) |
-[Development](http://github.com/rubyworks/lemon) |
-[Issues](http://github.com/rubyworks/lemon/issues)
+[Homepage](https://rubyworks.github.io/lemon) |
+[Development](https://github.com/rubyworks/lemon) |
+[Issues](https://github.com/rubyworks/lemon/issues)
 
-[![Build Status](https://secure.travis-ci.org/rubyworks/lemon.png)](http://travis-ci.org/rubyworks/lemon)
+[![Gem Version](https://img.shields.io/gem/v/lemon.svg?style=flat)](https://rubygems.org/gems/lemon)
+[![Build Status](https://github.com/rubyworks/lemon/actions/workflows/test.yml/badge.svg)](https://github.com/rubyworks/lemon/actions/workflows/test.yml)
 
 
 ## DESCRIPTION
@@ -30,7 +30,7 @@ class X
 end
 ```
 
-An test case for the class would be written:
+A test case for the class would be written:
 
 ``` ruby
 covers 'mylib'
@@ -60,9 +60,7 @@ The setup (also called the *concern*) is run for every subsequent test until a n
 
 In conjunction with the `#setup` method, there is a `#teardown` method which can be used "tidy-up" after each test.
 
-The `#unit` method is also aliased as `#methed` which is actually a bit more readable. Along with that there is `class_unit` and it's alias `class_method` for testing class-level methods. Also note that the test methods may be capitalized (e.g. `#TestCase'), if you prefer that style.
-
-That is the bulk of the matter for writing Lemon tests. To learn about additional features not mentioned here, check-out the [User Guide](http://wiki.github.com/rubyworks/lemon).
+The `#unit` method is also aliased as `#methed` which is actually a bit more readable. Along with that there is `class_unit` and its alias `class_method` for testing class-level methods. Also note that the test methods may be capitalized (e.g. `#TestCase`), if you prefer that style.
 
 
 ## USAGE
@@ -81,7 +79,7 @@ Normal output is typically a _dot progression_. Other output types can be specif
 
     $ rubytest -r lemon -f tapy test/cases/name_case.rb
 
-See [RubyTest](http://rubyworks.github.com/rubytest) for more information.
+See [RubyTest](https://github.com/rubyworks/rubytest) for more information.
 
 ### Checking Test Coverage
 
@@ -93,7 +91,7 @@ The coverage tool provides class/module and method coverage and is meant as a "g
 
 ### Generating Test Skeletons
 
-Because of the one-to-one correspondence of test case and unit test to class/module and method, Lemon can also generate test scaffolding for previously written code. To do this, use the `lemons generate` or `lemons scaffold` command line utilities. 
+Because of the one-to-one correspondence of test case and unit test to class/module and method, Lemon can also generate test scaffolding for previously written code. To do this, use the `lemons generate` or `lemons scaffold` command line utilities.
 
 The `generate` command outputs test skeletons to the console. You can use this output as a simple reference or redirect the output to a file and then copy and paste portions into separate files as desired. The `scaffold` command will create actual files in your test directory. Other than that, and the options that go with it (e.g. `--output`), the two commands are the same.
 
@@ -105,18 +103,6 @@ The generator can take into account tests already written, so as not to include 
 
     $ lemons generate -Ilib lib/**/*.rb - test/**/*.rb
 
-Test skeletons can be generated on a per-file or per-case bases. By case is the default. Use the `-f`/`--file` option to do otherwise.
-
-    $ lemon scaffold -f lib/foo.rb
-
-The default output location is `test/`. You can change this with the `-o/--output` option.
-
-Generating test case scaffolding from code will undoubtedly strike test-driven developers as a case of putting the cart before the horse. However, it is not unreasonable to argue that high-level, behavior-driven, functional testing frameworks, such as Q.E.D. and Cucumber, are better suited to test-first methodologies. While test-driven development can obviously be done with Lemon, unit-testing best suited to testing specific, critical portions of code, or for achieving full test coverage for mission critical applications.
-
-### Test Directory
-
-There is no special directory for Lemon tests. Since they are unit tests, `test/` or `test/unit/` are good choices. Other options are `cases/` and `test/cases` since each file generally defines a single test case.
-
 
 ## COPYRIGHTS
 
@@ -124,6 +110,6 @@ Lemon Unit Testing Framework
 
 Copyright (c) 2009 Thomas Sawyer, Rubyworks
 
-Lemon is distributable in accordance with the **FreeBSD** license.
+Lemon is distributable in accordance with the **BSD-2-Clause** license.
 
 See the LICENSE.txt for details.

@@ -1,2 +1,3 @@
-source "http://rubygems.org"
-gemspec :path=>'pkg'
+source "https://rubygems.org"
+
+gemspec

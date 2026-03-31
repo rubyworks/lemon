@@ -1,5 +1,21 @@
 # RELEASE HISTORY
 
+## 0.9.2 / 2026-03-31
+
+Maintenance release. Modernized project tooling and cleaned up documentation.
+
+Changes:
+
+* Replace custom Indexer system with standard gemspec.
+* Replace Travis CI with GitHub Actions.
+* Replace Assembly/Reapfile with Rakefile.
+* Simplify version handling (VERSION constant in module).
+* Fix typos and update URLs to HTTPS.
+* Move site from gh-pages to docs/.
+* Remove obsolete files.
+* Clean up .gitignore.
+
+
 ## 0.9.1 / 2012-03-17
 
 Thie release fixes some evaluation scope issues, improves how omit and skip

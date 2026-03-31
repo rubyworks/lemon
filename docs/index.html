@@ -1,0 +1,91 @@
+<html>
+<head>
+  <title>Lemon</title>
+  <link href="assets/styles/reset.css" rel="stylesheet" type="text/css"/>
+  <link href="assets/styles/class.css" rel="stylesheet" type="text/css"/>
+  <link href="assets/styles/site.css"  rel="stylesheet" type="text/css"/>
+  <link href="assets/images/lemon.jpg" rel="shortcut icon"/>
+</head>
+<body>
+
+<div id="forkme">
+  <a href="https://github.com/rubyworks/lemon"><img src="assets/images/forkme.png" /></a>
+</div>
+
+<div id="header">
+<div class="page">
+  <img src="assets/images/cut-lemon.png" height="200px" align="right" style="padding-top: 15px;"/>
+  <h1><img src="assets/images/title.png"/></h1>
+  <h2>Pucker-Strength Unit Testing</h2>
+</div>
+</div>
+
+<div id="main" class="bordered">
+<div class="page">
+
+  <div id="nav">
+    <a href="https://rubydoc.info/gems/lemon">API</a> <br/>
+    <a href="https://github.com/rubyworks/lemon/issues">Issue</a> <br/>
+    <a href="https://github.com/rubyworks/lemon">Code</a>
+  </div>
+
+  <p>Lemon is a unit testing framework which enforces highly formal
+  case-to-class and unit-to-method test construction.
+  This strict approach is arguably a more proper technique for unit
+  testing because it helps focus concern on individual units of
+  behavior and thus helps promote good test coverage. This is unlike
+  functional and integration testing which rightly focus on more
+  holistic issues.</p>
+
+</div>
+</div>
+
+<div>
+<div class="page">
+  <h3>Example</h3>
+
+  <p>To give you a taste of what a lemon testcase looks like, let's say we have a library
+  that consists of the class <code>HelloWorld</code> with method <code>#to_s</code>:</p>
+
+<pre>
+  class HelloWorld
+    def to_s
+      "Hello, World!"
+    end
+  end
+</pre>
+
+  <p>We would write a Lemon test case along the following lines:</p>
+
+<pre>
+  TestCase HelloWorld do
+    Concern "String output works as expected."
+
+    Unit :to_s do
+      Test "returns a string" do
+        HelloWorld.new.to_s.assert.is_a?(String)
+      end
+
+      Test "returns a 13 character phrase" do
+        HelloWorld.new.to_s.size.assert == 13
+      end
+    end
+  end
+</pre>
+
+  <p>A silly example to be sure, but one we can all easily understand.</p>
+
+</div>
+</div>
+
+<div id="footer" class="bordered">
+<div class="page">
+  <div style="margin-top: 30px;">
+      <b>Lemon</b>, Copyright &copy; 2009 Rubyworks &middot;
+      <b>Contact:</b> transfire @ gmail.com
+  </div>
+</div>
+</div>
+
+</body>
+</html>

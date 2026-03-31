@@ -1,10 +1,7 @@
-.reap/digest
 .yardoc
 doc
 log
-pkg/*.gem
-pkg/*.gz
+pkg
 tmp
-DEMO*
-web
-work/sandbox
+Gemfile.lock
+*.gem
