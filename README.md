@@ -103,6 +103,18 @@ The generator can take into account tests already written, so as not to include 
 
     $ lemons generate -Ilib lib/**/*.rb - test/**/*.rb
 
+Test skeletons can be generated on a per-file or per-case bases. By case is the default. Use the `-f`/`--file` option to do otherwise.
+
+    $ lemon scaffold -f lib/foo.rb
+
+The default output location is `test/`. You can change this with the `-o/--output` option.
+
+Generating test case scaffolding from code will undoubtedly strike test-driven developers as a case of putting the cart before the horse. However, it is not unreasonable to argue that high-level, behavior-driven, functional testing frameworks, such as Q.E.D. and Cucumber, are better suited to test-first methodologies. While test-driven development can obviously be done with Lemon, unit-testing best suited to testing specific, critical portions of code, or for achieving full test coverage for mission critical applications.
+
+### Test Directory
+
+There is no special directory for Lemon tests. Since they are unit tests, `test/` or `test/unit/` are good choices. Other options are `cases/` and `test/cases` since each file generally defines a single test case.
+
 
 ## COPYRIGHTS
 
