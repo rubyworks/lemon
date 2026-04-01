@@ -1,8 +1,4 @@
-if RUBY_VERSION < '1.9'
-  require 'lemon/ignore_callers'
-else
-  require_relative 'ignore_callers'
-end
+require_relative 'ignore_callers'
 
 module Lemon
 
@@ -13,4 +9,3 @@ module Lemon
   end
 
 end
-

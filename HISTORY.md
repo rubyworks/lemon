@@ -1,5 +1,17 @@
 # RELEASE HISTORY
 
+## 0.9.3 / 2026-04-01
+
+Bug fix release. Fixes Ruby 3+ compatibility issues in test method dispatch.
+
+Changes:
+
+* Fix keyword argument handling in method test wrapper (Ruby 3+ kwargs split).
+* Separate NameError from general errors in method aliasing for clearer messages.
+* Include original error message in "not tested" error reports.
+* Remove Ruby 1.8/1.9 compatibility guards.
+
+
 ## 0.9.2 / 2026-03-31
 
 Maintenance release. Modernized project tooling and cleaned up documentation.

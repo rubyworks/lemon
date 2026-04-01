@@ -83,14 +83,18 @@ module Lemon
       begin
         target_class.class_eval do
           alias_method "_lemon_#{target}", target
-          define_method(target) do |*a,&b|
+          define_method(target) do |*a, **kw, &b|
             test.tested = true
-            __send__("_lemon_#{target}",*a,&b)
+            __send__("_lemon_#{target}", *a, **kw, &b)
           end
         end
+      rescue NameError
+        Kernel.eval <<-END, test.to_proc.binding
+          raise NameError, "#{target} is not defined"
+        END
       rescue => error
         Kernel.eval <<-END, test.to_proc.binding
-          raise #{error.class}, "#{target} not tested"
+          raise #{error.class}, "#{target} not tested (#{error.message})"
         END
       end
 
@@ -111,11 +115,7 @@ module Lemon
     #
     #
     def raise_pending(procedure)
-      if RUBY_VERSION < '1.9'
-        Kernel.eval %[raise NotImplementedError, "#{target} not tested"], procedure
-      else
-        Kernel.eval %[raise NotImplementedError, "#{target} not tested"], procedure.binding
-      end
+      Kernel.eval %[raise NotImplementedError, "#{target} not tested"], procedure.binding
     end
 
     #

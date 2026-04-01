@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'lemon'
-  s.version     = '0.9.2'
+  s.version     = '0.9.3'
   s.summary     = 'Pucker-strength Unit Testing'
   s.description = 'Lemon is a unit testing framework that tightly correlates ' \
                   'class to test case and method to test unit.'
