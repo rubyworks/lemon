@@ -1,4 +1,3 @@
-#require 'lemon/cli/runner'
 require 'lemon/cli/generate'
 require 'lemon/cli/scaffold'
 require 'lemon/cli/coverage'
@@ -11,10 +10,6 @@ module Lemon
   module CLI
   end
 
-  #--
-  # TODO: Use Lemon::CLI::Runner and have it delegate to RubyTest ?
-  #++
-
   # Command line interface takes the first argument off `argv` to determine
   # the subcommand: `test`, `cov` or `gen`. If `test`, then Lemon delegates
   # control to Ruby Test.
@@ -24,9 +19,8 @@ module Lemon
     case cmd
     when 't', 'test', 'run'
       require 'lemon'
-      require 'rubytest'
-      Test::Runner.cli(*ARGV)
-      #Lemon::CLI::Test.new.run(argv)
+      require 'rubytest/cli'
+      Test::CLI.run(argv)
     when 'g', 'gen', 'generate', 'generator'
       Lemon::CLI::Generate.run(argv)
     when 's', 'sca', 'scaffold'

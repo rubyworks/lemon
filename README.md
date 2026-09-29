@@ -77,7 +77,7 @@ Lemon utilizes the RubyTest universal test harness to run tests, the `lemons tes
 
 Normal output is typically a _dot progression_. Other output types can be specified by the `--format` or `-f` option.
 
-    $ rubytest -r lemon -f tapy test/cases/name_case.rb
+    $ rubytest -r lemon -f tap test/cases/name_case.rb
 
 See [RubyTest](https://github.com/rubyworks/rubytest) for more information.
 

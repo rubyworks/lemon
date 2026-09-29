@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.executables = ['lemons']
   s.require_paths = ['lib']
 
-  s.add_dependency 'rubytest', '>= 0.8'
+  s.add_dependency 'rubytest', '>= 0.9'
   s.add_dependency 'ae', '>= 1.8'
   s.add_dependency 'ansi', '>= 1.5'
 

@@ -1,5 +1,10 @@
 # RELEASE HISTORY
 
+## Unreleased
+
+* Route `lemons test` through Rubytest's bundled CLI and require Rubytest 0.9+.
+* Use the built-in TAP format in the README example.
+
 ## 0.9.3 / 2026-04-01
 
 Bug fix release. Fixes Ruby 3+ compatibility issues in test method dispatch.
